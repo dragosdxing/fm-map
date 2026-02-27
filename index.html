@@ -1,50 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8"/>
-<title>FM Map Romania & Moldova</title>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<style>
-html,body{margin:0;padding:0;}
-#map{height:100vh;width:100vw;}
-
-#radioPanel{
-    position:absolute;
-    top:10px;
-    left:60px;
-    background:white;
-    padding:8px 10px;
-    border-radius:8px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.3);
-    z-index:1000;
-    font-family:Arial;
-    font-size:14px;
-}
-
-#radioPanel input{ width:70px; }
-
-.countryBtn{ margin-top:4px; }
-</style>
-</head>
-
-<body>
-
-<div id="radioPanel">
-<b>FM Tuner</b><br>
-Frequency:
-<input id="freqInput" type="number" step="0.1" min="87.5" max="108" value="97.9">
-
-<br><br>
-Country:<br>
-<button class="countryBtn" onclick="setCountry('ro')">Romania</button>
-<button class="countryBtn" onclick="setCountry('md')">Moldova</button>
-</div>
-
-<div id="map"></div>
-
 <script>
 
 /* ================= MAP ================= */
@@ -77,147 +30,141 @@ var receiverIcon = L.icon({
 
 /* ================= GLOBALS ================= */
 
-let geoLayer=null;
 let allStations=[];
+let markersLayer=L.layerGroup().addTo(map);
 let currentCountry="ro";
 let receiverMarker=null;
 let distanceLine=null;
 
-/* ================= DISTANCE FORMAT ================= */
+/* ================= UTIL ================= */
+
+function normalizeFreq(f){
+    f=parseFloat(f);
+    if(isNaN(f)) f=87.5;
+    if(f<87.5) f=87.5;
+    if(f>108) f=108;
+    return parseFloat(f.toFixed(1));
+}
 
 function formatDistance(km){
-    if(km < 1){
-        return Math.round(km*1000) + " m";
-    }else{
-        return Math.round(km) + " km";
-    }
+    if(km<1) return Math.round(km*1000)+" m";
+    return Math.round(km)+" km";
 }
 
-/* ================= REVERSE GEOCODING ================= */
+function haversine(a,b){
+    let R=6371;
+    let dLat=(b.lat-a.lat)*Math.PI/180;
+    let dLon=(b.lng-a.lng)*Math.PI/180;
+    let lat1=a.lat*Math.PI/180;
+    let lat2=b.lat*Math.PI/180;
 
-async function getLocationName(lat,lon){
+    let x=Math.sin(dLat/2)**2+
+          Math.sin(dLon/2)**2*Math.cos(lat1)*Math.cos(lat2);
 
-    try{
-        let url=`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
-
-        let r=await fetch(url,{
-            headers:{
-                "Accept":"application/json",
-                "User-Agent":"fm-dx-map"
-            }
-        });
-
-        let data=await r.json();
-        let a=data.address;
-
-        return (
-            a.city ||
-            a.town ||
-            a.village ||
-            a.municipality ||
-            a.county ||
-            "Unknown location"
-        );
-
-    }catch{
-        return "Unknown location";
-    }
+    return 2*R*Math.asin(Math.sqrt(x));
 }
 
-/* ================= LOAD DATA ================= */
+function bearing(a,b){
+    let lat1=a.lat*Math.PI/180;
+    let lat2=b.lat*Math.PI/180;
+    let dLon=(b.lng-a.lng)*Math.PI/180;
 
-function loadStations(country){
+    let y=Math.sin(dLon)*Math.cos(lat2);
+    let x=Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
 
-    let file = country==="ro" ? "fm.json" : "fm_md.json";
-
-    fetch(file)
-    .then(r=>r.json())
-    .then(data=>{
-        allStations=data.features;
-        tune();
-    });
+    return (Math.atan2(y,x)*180/Math.PI+360)%360;
 }
 
-loadStations("ro");
+/* ================= RDS SCROLL ================= */
+
+function rdsScroll(text){
+    let padded="   "+text+"   ";
+    let i=0;
+    return setInterval(()=>{
+        let s=padded.substring(i,i+8);
+        if(s.length<8) s+=padded.substring(0,8-s.length);
+        document.title="📻 "+s;
+        i=(i+1)%padded.length;
+    },200);
+}
+
+let rdsTimer=null;
 
 /* ================= TUNE ================= */
 
 function tune(){
 
-    if(!allStations.length) return;
+    markersLayer.clearLayers();
 
-    let freq=parseFloat(document.getElementById("freqInput").value);
+    let freq=normalizeFreq(document.getElementById("freqInput").value);
+    document.getElementById("freqInput").value=freq;
 
-    if(geoLayer) map.removeLayer(geoLayer);
+    let usedCoords={};
 
-    let filtered=[];
-
-    allStations.forEach(f=>{
-
-        let desc=f.properties.description||"";
-
-        let stations=desc.split(/(?=\d{2,3}[\.,]\d\s*[hv]?)/gi);
-
-        let matched=stations.filter(s=>{
-            let m=s.match(/\d{2,3}[\.,]\d/);
-            if(!m) return false;
-            return Math.abs(parseFloat(m[0].replace(",","."))-freq)<0.05;
-        });
-
-        if(matched.length>0){
-            let newF=JSON.parse(JSON.stringify(f));
-            newF.properties.description=matched.join("<br>");
-            filtered.push(newF);
-        }
+    let foundStations=allStations.filter(f=>{
+        return normalizeFreq(f.properties.freq)===freq;
     });
 
-    geoLayer=L.geoJSON({
-        type:"FeatureCollection",
-        features:filtered
-    },{
-        pointToLayer:function(feature,latlng){
-            return L.marker(latlng,{icon:txIcon});
-        },
+    if(foundStations.length===0){
+        if(rdsTimer) clearInterval(rdsTimer);
+        document.title="FM MAP";
+    }
 
-        onEachFeature:function(feature,layer){
+    foundStations.forEach(f=>{
 
-            let desc=feature.properties.description||"";
-            desc=desc.replace(/(\d{2,3}[\.,]\d)/g,"<br>$1");
+        let lat=f.geometry.coordinates[1];
+        let lon=f.geometry.coordinates[0];
 
-            layer.bindPopup("<b>"+(feature.properties.name||"")+"</b><br>"+desc);
+        let key=lat.toFixed(4)+","+lon.toFixed(4);
 
-            layer.on("contextmenu",function(e){
-
-                if(!receiverMarker) return;
-
-                if(distanceLine) map.removeLayer(distanceLine);
-
-                let p1=receiverMarker.getLatLng();
-                let p2=e.latlng;
-
-                distanceLine=L.polyline([p1,p2],{color:"yellow"}).addTo(map);
-
-                let distKm=map.distance(p1,p2)/1000;
-                let dist=formatDistance(distKm);
-                let azimuth=bearing(p1,p2);
-
-                layer.bindPopup(
-                    "<b>"+(feature.properties.name||"")+"</b><br>"+
-                    desc+
-                    "<hr>"+
-                    "Distance: "+dist+"<br>"+
-                    "Beam: "+azimuth.toFixed(0)+"°"
-                ).openPopup();
-            });
+        if(usedCoords[key]){
+            lat+= (Math.random()-0.5)*0.05;
+            lon+= (Math.random()-0.5)*0.05;
         }
-    }).addTo(map);
-}
 
-/* ================= COUNTRY SWITCH ================= */
+        usedCoords[key]=true;
 
-function setCountry(c){
-    currentCountry=c;
-    loadStations(c);
+        let marker=L.marker([lat,lon],{icon:txIcon}).addTo(markersLayer);
+
+        marker.bindPopup(
+            "<b>"+f.properties.name+"</b><br>"+
+            f.properties.freq+" MHz<br>"+
+            f.properties.site
+        );
+
+        marker.on("click",()=>{
+            if(rdsTimer) clearInterval(rdsTimer);
+            rdsTimer=rdsScroll(f.properties.name);
+        });
+
+        marker.on("contextmenu",()=>{
+
+            if(!receiverMarker){
+                alert("Place receiver first (right click on map)");
+                return;
+            }
+
+            let tx={lat:lat,lng:lon};
+            let rx=receiverMarker.getLatLng();
+
+            let dist=haversine(tx,rx);
+            let az=bearing(tx,rx);
+
+            if(distanceLine){
+                map.removeLayer(distanceLine);
+            }
+
+            distanceLine=L.polyline([tx,rx],{color:"yellow"}).addTo(map);
+
+            marker.bindPopup(
+                "<b>"+f.properties.name+"</b><br>"+
+                f.properties.freq+" MHz<br>"+
+                "Distance: "+formatDistance(dist)+"<br>"+
+                "Azimuth: "+Math.round(az)+"°"
+            ).openPopup();
+        });
+
+    });
 }
 
 /* ================= AUTO TUNE ================= */
@@ -226,6 +173,32 @@ document.getElementById("freqInput").addEventListener("input",tune);
 document.getElementById("freqInput").addEventListener("keyup",e=>{
     if(e.key==="Enter") tune();
 });
+
+function stepFreq(step){
+    let v=parseFloat(document.getElementById("freqInput").value);
+    v=normalizeFreq(v+step);
+    document.getElementById("freqInput").value=v;
+    tune();
+}
+
+/* ================= COUNTRY ================= */
+
+function loadStations(country){
+    let file = country==="ro" ? "fm.json" : "fm_md.json";
+    fetch(file)
+        .then(r=>r.json())
+        .then(data=>{
+            allStations=data.features;
+            tune();
+        });
+}
+
+function setCountry(c){
+    currentCountry=c;
+    loadStations(c);
+}
+
+loadStations("ro");
 
 /* ================= RECEIVER ================= */
 
@@ -248,25 +221,21 @@ map.on("contextmenu",function(e){
         draggable:true
     }).addTo(map);
 
-    receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
+    receiverMarker.bindPopup("<b>Searching...</b>").openPopup();
 
-    getLocationName(e.latlng.lat,e.latlng.lng).then(name=>{
-        receiverMarker.setPopupContent("<b>"+name+"</b><br>(right click to remove)");
-    });
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.latlng.lat}&lon=${e.latlng.lng}`)
+        .then(r=>r.json())
+        .then(d=>{
+            let a=d.address;
+            let name=a.city||a.town||a.village||a.county||"Unknown";
+            receiverMarker.setPopupContent("<b>"+name+"</b><br>(right click to remove)");
+        });
 
     receiverMarker.on("drag",()=>{
         if(distanceLine){
             map.removeLayer(distanceLine);
             distanceLine=null;
         }
-    });
-
-    receiverMarker.on("dragend",()=>{
-        let p=receiverMarker.getLatLng();
-        receiverMarker.setPopupContent("<b>Searching location...</b>");
-        getLocationName(p.lat,p.lng).then(name=>{
-            receiverMarker.setPopupContent("<b>"+name+"</b><br>(right click to remove)");
-        });
     });
 
     receiverMarker.on("contextmenu",()=>{
@@ -278,23 +247,7 @@ map.on("contextmenu",function(e){
             distanceLine=null;
         }
     });
+
 });
 
-/* ================= BEARING ================= */
-
-function bearing(a,b){
-
-    let lat1=a.lat*Math.PI/180;
-    let lat2=b.lat*Math.PI/180;
-    let dLon=(b.lng-a.lng)*Math.PI/180;
-
-    let y=Math.sin(dLon)*Math.cos(lat2);
-    let x=Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
-
-    let brng=Math.atan2(y,x)*180/Math.PI;
-    return (brng+360)%360;
-}
-
 </script>
-</body>
-</html>
