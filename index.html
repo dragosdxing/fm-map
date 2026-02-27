@@ -178,15 +178,30 @@ function tune(){
         pointToLayer: function(feature, latlng){
             return L.marker(latlng,{icon:antennaIcon});
         },
-        onEachFeature: function(feature, layer){
-            layer.bindPopup(
-                "<b>" + (feature.properties.name || "") + "</b><br>" +
-                feature.properties.description
-            );
-        }
+onEachFeature: function(feature, layer){
+
+    let desc = feature.properties.description || "";
+
+    // pune fiecare frecvență pe rând nou
+    desc = desc.replace(
+        /\b(8[7-9][\.,]\d|9\d[\.,]\d|10[0-8][\.,]\d)\b/g,
+        "<br>$1"
+    );
+
+    // elimină primul <br> dacă apare la început
+    if(desc.startsWith("<br>")){
+        desc = desc.substring(4);
+    }
+
+    layer.bindPopup(
+        "<b>" + (feature.properties.name || "") + "</b><br>" +
+        desc
+    );
+}
     }).addTo(map);
 }
 
 </script>
 </body>
 </html>
+
