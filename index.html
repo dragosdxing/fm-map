@@ -32,7 +32,7 @@ html, body { margin:0; padding:0; background: #000; }
     text-align: center;
     font-weight: bold;
     background: #111;
-    color: #00ff00; /* CULOARE SCHIMBATĂ ÎN VERDE */
+    color: #00ff00;
     border: 1px solid #555;
     padding: 4px;
     border-radius: 4px;
@@ -76,7 +76,7 @@ html, body { margin:0; padding:0; background: #000; }
 }
 .countryBtn:hover { background: #444; }
 .countryBtn.active {
-    background: #00ff00; /* CULOARE SCHIMBATĂ ÎN VERDE */
+    background: #00ff00;
     color: #111;
     border-color: #00cc00;
 }
@@ -85,7 +85,7 @@ html, body { margin:0; padding:0; background: #000; }
 .rds-box {
     display: inline-block;
     background: #111;
-    color: #00ff00; /* CULOARE SCHIMBATĂ ÎN VERDE */
+    color: #00ff00;
     font-family: 'Courier New', Courier, monospace;
     padding: 2px 6px;
     border-radius: 3px;
@@ -93,20 +93,21 @@ html, body { margin:0; padding:0; background: #000; }
     letter-spacing: 2px;
     min-width: 95px;
     text-align: center;
-    box-shadow: inset 0 0 5px rgba(0,255,0,0.4); /* UMBRĂ SCHIMBATĂ ÎN VERDE */
-    /* text-transform: uppercase; */ /* ELIMINAT PENTRU A PĂSTRA CARCASA ORIGINALĂ */
+    box-shadow: inset 0 0 5px rgba(0,255,0,0.4);
 }
 
-/* ================= DARK MODE LEAFLET POPUPS ================= */
+/* ================= DARK MODE LEAFLET POPUPS (SEMI-TRANSPARENT) ================= */
 .leaflet-popup-content-wrapper {
-    background: #222;
+    background: rgba(25, 25, 25, 0.85); /* 85% opacitate pentru a vedea harta/receptorul */
+    backdrop-filter: blur(4px); /* Efect modern de sticlă mată */
+    -webkit-backdrop-filter: blur(4px);
     color: #eee;
     border: 1px solid #444;
     box-shadow: 0 3px 14px rgba(0,0,0,0.8);
     border-radius: 6px;
 }
 .leaflet-popup-tip {
-    background: #222;
+    background: rgba(25, 25, 25, 0.85);
     border-top: 1px solid #444;
     border-left: 1px solid #444;
 }
@@ -114,8 +115,6 @@ html, body { margin:0; padding:0; background: #000; }
 .leaflet-container a.leaflet-popup-close-button { color: #aaa; }
 .leaflet-container a.leaflet-popup-close-button:hover { color: #fff; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
-
-/* Asigurăm că link-urile din pop-up sunt tot verzi */
 .leaflet-popup-content a { color: #00ff00; }
 </style>
 </head>
@@ -229,22 +228,12 @@ function tune(){
             let newF = JSON.parse(JSON.stringify(f));
             
             let formatted = matched.map(s => {
-                // 1. Facem frecvența verde
                 let s2 = s.replace(regexFM, "<b style='color:#00ff00;'>$&</b>"); 
                 
-                // 2. Extragem DOAR parantezele RDS care urmează după putere (W sau kW) de la finalul liniei, păstrând texte precum (SOON...)
-                // Regex actualizat pentru a capta Grupul 3 opțional la final.
                 s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)(\s*\([^)]+\))?$/, function(match, powerStr, rdsBlocks, extraText) {
-                    // Dacă nu există text suplimentar (ex: (RETRAS)), Grupul 3 este undefined, îl facem șir gol.
                     extraText = extraText || "";
-                    
-                    // Extragem toate textele din paranteze într-un array
                     let frames = rdsBlocks.match(/\[([^\]]+)\]/g).map(frame => frame.slice(1, -1));
-                    
-                    // Codificăm array-ul
                     let safeFrames = encodeURIComponent(JSON.stringify(frames));
-                    
-                    // Generăm structura RDS cu primul frame vizibil, și adăugăm extraText la final
                     return powerStr + ` <span class="rds-box" data-frames="${safeFrames}" data-idx="0">[${frames[0]}]</span>` + extraText;
                 });
 
@@ -276,37 +265,40 @@ function tune(){
                 let p1 = receiverMarker.getLatLng();
                 let p2 = e.latlng;
 
-                // Linie distanță schimbată în verde
                 distanceLine = L.polyline([p1, p2], {color: "#00ff00", weight: 3, dashArray: "5, 5"}).addTo(map);
 
                 let distKm = map.distance(p1, p2) / 1000;
                 let dist = formatDistance(distKm);
                 let azimuth = bearing(p1, p2);
 
-                // Valori distanță/azimut schimbate în verde în pop-up
+                // Dezactivăm autoPan-ul standard al ferestrei ca să-l putem controla noi mai inteligent
                 layer.bindPopup(
                     `<b style="font-size:15px;">${name}</b><br><hr>${desc}` +
                     `<hr><div style="color:#aaa;"><b>Distance:</b> <span style="color:#00ff00;">${dist}</span><br>` +
-                    `<b>Beam:</b> <span style="color:#00ff00;">${azimuth.toFixed(0)}°</span></div>`
+                    `<b>Beam:</b> <span style="color:#00ff00;">${azimuth.toFixed(0)}°</span></div>`,
+                    { autoPan: false } 
                 ).openPopup();
+
+                // SMART AUTO-FIT: Încadrăm automat ambele puncte, forțând spațiu în partea de sus pentru fereastră
+                map.flyToBounds(distanceLine.getBounds(), {
+                    paddingTopLeft: [50, 180], // Lăsăm 180px liberi sus pentru a nu acoperi pop-up-ul
+                    paddingBottomRight: [50, 50],
+                    maxZoom: 14 // Facem zoom suficient încât să se separe receptorul de emițător dacă sunt prea aproape
+                });
             });
         }
     }).addTo(map);
 }
 
 /* ================= RDS ANIMATION SCRIPT ================= */
-// Ciclăm cadrele (PS) exact cum face un codor RDS real, o dată la 2.5 secunde
 setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
         let framesAttr = box.getAttribute('data-frames');
         if (framesAttr) {
             let frames = JSON.parse(decodeURIComponent(framesAttr));
-            
-            // Alternăm textele doar dacă există mai multe PS-uri
             if (frames.length > 1) {
                 let idx = parseInt(box.getAttribute('data-idx'));
-                idx = (idx + 1) % frames.length; // trecem la următorul, resetăm dacă ajungem la final
-                
+                idx = (idx + 1) % frames.length; 
                 box.setAttribute('data-idx', idx);
                 box.innerText = `[${frames[idx]}]`;
             }
