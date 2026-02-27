@@ -39,22 +39,6 @@ button{
 }
 button:hover{ background:#eaeaea; }
 
-/* marker mic + contur alb */
-.antenna-wrapper{
-    width:22px;
-    height:22px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:2.5px solid white;
-    border-radius:50%;
-    box-shadow:0 0 4px rgba(0,0,0,0.6);
-    background:transparent;
-}
-.antenna-wrapper img{
-    width:14px;
-    height:14px;
-}
 </style>
 </head>
 
@@ -92,12 +76,11 @@ L.tileLayer(
 ).addTo(map);
 
 /* antena mica cu halo */
-var antennaIcon = L.divIcon({
-    html:'<div class="antenna-wrapper"><img src="https://i.ibb.co/TtThCNR/antenna.png"></div>',
-    className:'',
-    iconSize:[22,22],
-    iconAnchor:[11,11],
-    popupAnchor:[0,-10]
+var antennaIcon = L.icon({
+    iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
+    iconSize: [26, 26],
+    iconAnchor: [13, 26],
+    popupAnchor: [0, -24]
 });
 
 let allStationsRO = [];
@@ -195,3 +178,4 @@ function tune(){
 </script>
 </body>
 </html>
+
