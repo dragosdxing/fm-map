@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
 <meta charset="utf-8"/>
 <title>FM Map Romania & Moldova</title>
@@ -8,51 +8,77 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
-html, body { margin:0; padding:0; }
+html, body { margin:0; padding:0; background: #000; }
 #map { height:100vh; width:100vw; }
 
+/* ================= DARK MODE PANOU CONTROL ================= */
 #radioPanel {
     position: absolute;
     top: 10px;
     left: 60px;
-    background: white;
-    padding: 10px 14px;
+    background: #222;
+    color: #eee;
+    padding: 14px 18px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    border: 1px solid #444;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8);
     z-index: 1000;
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
 
 #radioPanel input { 
-    width: 60px; 
+    width: 65px; 
     text-align: center;
     font-weight: bold;
+    background: #111;
+    color: #ff9900;
+    border: 1px solid #555;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 15px;
 }
 
+#radioPanel input::-webkit-outer-spin-button,
+#radioPanel input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#radioPanel input[type=number] { -moz-appearance: textfield; }
+
 .tune-btn {
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
     font-weight: bold;
     cursor: pointer;
-    background: #eee;
-    border: 1px solid #ccc;
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
     border-radius: 4px;
+    font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.tune-btn:hover { background: #ddd; }
+.tune-btn:hover { background: #444; }
 
 .countryBtn { 
     margin-top: 6px; 
     cursor: pointer;
-    padding: 4px 8px;
-    border: 1px solid #aaa;
-    background: #f8f8f8;
+    padding: 6px 12px;
+    border: 1px solid #555;
+    background: #333;
+    color: #ccc;
     border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.2s;
 }
+.countryBtn:hover { background: #444; }
 .countryBtn.active {
-    background: #007bff;
-    color: white;
-    border-color: #0056b3;
+    background: #ff9900;
+    color: #111;
+    border-color: #cc7a00;
 }
 
 /* ================= STILIZARE RDS TIP RADIO ================= */
@@ -65,82 +91,44 @@ html, body { margin:0; padding:0; }
     border-radius: 3px;
     font-weight: bold;
     letter-spacing: 2px;
-    min-width: 85px;
+    min-width: 95px;
     text-align: center;
     box-shadow: inset 0 0 5px rgba(255,153,0,0.4);
     text-transform: uppercase;
 }
 
-    /* ================= DARK MODE ================= */
-
-/* Panoul de control */
-#radioPanel {
-    background: #222;
-    color: #eee;
-    border: 1px solid #444;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-}
-
-#radioPanel input {
-    background: #111;
-    color: #ff9900; /* Asortat cu RDS-ul */
-    border: 1px solid #555;
-}
-
-.tune-btn {
-    background: #333;
-    color: #fff;
-    border: 1px solid #555;
-}
-
-.tune-btn:hover { 
-    background: #444; 
-}
-
-.countryBtn {
-    background: #333;
-    color: #ccc;
-    border: 1px solid #555;
-}
-
-.countryBtn.active {
-    background: #ff9900; /* Portocaliu pentru vizibilitate maximă */
-    color: #111;
-    border-color: #cc7a00;
-}
-
-/* Ferestrele de pe hartă (Leaflet Popups) */
+/* ================= DARK MODE LEAFLET POPUPS ================= */
 .leaflet-popup-content-wrapper {
     background: #222;
     color: #eee;
     border: 1px solid #444;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.6);
+    box-shadow: 0 3px 14px rgba(0,0,0,0.8);
+    border-radius: 6px;
 }
-
 .leaflet-popup-tip {
     background: #222;
     border-top: 1px solid #444;
     border-left: 1px solid #444;
 }
-
-/* Link-urile (dacă apar în pop-up) */
-.leaflet-popup-content a {
-    color: #ff9900;
-}
+.leaflet-popup-content { margin: 14px; line-height: 1.5; }
+.leaflet-container a.leaflet-popup-close-button { color: #aaa; }
+.leaflet-container a.leaflet-popup-close-button:hover { color: #fff; }
+hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 </style>
 </head>
 
 <body>
 
 <div id="radioPanel">
-    <b>FM Tuner</b><br><br>
+    <div style="margin-bottom: 10px; font-size: 16px;"><b>📻 FM Tuner</b></div>
     
-    <button class="tune-btn" onclick="stepFreq(-0.1)">-</button>
-    <input id="freqInput" type="number" step="0.1" min="87.5" max="108" value="97.9">
-    <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 15px;">
+        <button class="tune-btn" onclick="stepFreq(-0.1)">-</button>
+        <input id="freqInput" type="number" step="0.1" min="87.5" max="108" value="97.9">
+        <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
+    </div>
     
-    <br><br>
-    Country:<br>
+    <div style="font-size: 12px; margin-bottom: 4px; color: #aaa;">Country / Database:</div>
     <button id="btn-ro" class="countryBtn active" onclick="setCountry('ro')">Romania</button>
     <button id="btn-md" class="countryBtn" onclick="setCountry('md')">Moldova</button>
 </div>
@@ -152,26 +140,26 @@ html, body { margin:0; padding:0; }
 var map = L.map('map').setView([46.1, 26.5], 7);
 
 L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
-    maxZoom:19
+    maxZoom: 19
 }).addTo(map);
 
 L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{
-    maxZoom:19
+    maxZoom: 19
 }).addTo(map);
 
 /* ================= ICONS ================= */
 var txIcon = L.icon({
-    iconUrl:'https://i.ibb.co/Bh7GDMv/antenna.png',
-    iconSize:[26,26],
-    iconAnchor:[13,26],
-    popupAnchor:[0,-26]
+    iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
+    iconSize: [26, 26],
+    iconAnchor: [13, 26],
+    popupAnchor: [0, -26]
 });
 
 var receiverIcon = L.icon({
-    iconUrl:'https://i.ibb.co/MkmK51LJ/yagi.png',
-    iconSize:[34,34],
-    iconAnchor:[17,34],
-    popupAnchor:[0,-30]
+    iconUrl: 'https://i.ibb.co/MkmK51LJ/yagi.png',
+    iconSize: [34, 34],
+    iconAnchor: [17, 34],
+    popupAnchor: [0, -30]
 });
 
 /* ================= GLOBALS ================= */
@@ -181,17 +169,15 @@ let currentCountry = "ro";
 let receiverMarker = null;
 let distanceLine = null;
 
-/* ================= DISTANCE FORMAT ================= */
 function formatDistance(km){
-    if(km < 1) return Math.round(km*1000) + " m";
+    if(km < 1) return Math.round(km * 1000) + " m";
     return Math.round(km) + " km";
 }
 
-/* ================= REVERSE GEOCODING ================= */
-async function getLocationName(lat,lon){
+async function getLocationName(lat, lon){
     try {
-        let url=`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
-        let r = await fetch(url, { headers: { "Accept":"application/json" } });
+        let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
+        let r = await fetch(url, { headers: { "Accept": "application/json" } });
         let data = await r.json();
         let a = data.address;
         return (a.city || a.town || a.village || a.municipality || a.county || "Unknown location");
@@ -208,12 +194,12 @@ function loadStations(country){
     .then(r => r.json())
     .then(data => {
         allStations = data.features;
-        tune(); // re-tunează automat la schimbarea țării
+        tune();
     })
     .catch(err => console.error("Eroare la încărcarea fișierului JSON:", err));
 }
 
-loadStations("ro"); // Încărcare inițială
+loadStations("ro"); 
 
 /* ================= TUNE & PARSE ================= */
 function tune(){
@@ -223,33 +209,40 @@ function tune(){
     if(geoLayer) map.removeLayer(geoLayer);
 
     let filtered = [];
-    
-    // Expresie regulată strictă pentru banda FM (87.x - 108.x)
-    let regexFM = /\b(?:8[7-9]|9[0-9]|10[0-8])[\.,]\d+\b/;
+    let regexFM = /\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/;
 
     allStations.forEach(f => {
         let desc = f.properties.description || "";
-
-        // Împărțim textul acolo unde întâlnim o frecvență, păstrând frecvența în string
-        let stations = desc.split(/(?=\b(?:8[7-9]|9[0-9]|10[0-8])[\.,]\d+\b)/gi);
+        let stations = desc.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi);
 
         let matched = stations.filter(s => {
             let m = s.match(regexFM);
             if(!m) return false;
             let fVal = parseFloat(m[0].replace(",", "."));
-            // Toleranță de ±0.05 MHz
             return Math.abs(fVal - freq) <= 0.05;
         });
 
         if(matched.length > 0){
             let newF = JSON.parse(JSON.stringify(f));
             
-            // Formatăm datele extrase
             let formatted = matched.map(s => {
-                // Îngroșăm frecvența
-                let s2 = s.replace(regexFM, "<b>$&</b>");
-                // Transformăm textul dintre [ ] în display RDS
-                s2 = s2.replace(/\[(.*?)\]/g, `<span class="rds-box" data-rds="$1">[$1]</span>`);
+                // 1. Facem frecvența portocalie
+                let s2 = s.replace(regexFM, "<b style='color:#ff9900;'>$&</b>"); 
+                
+                // 2. Extragem DOAR parantezele RDS care urmează după putere (W sau kW) de la finalul liniei.
+                // Orice alt [PI] din interiorul liniei este complet ignorat.
+                s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)$/, function(match, powerStr, rdsBlocks) {
+                    
+                    // Extragem toate textele din paranteze într-un array (ex: ["__Gaga__", "87.9_FM_"])
+                    let frames = rdsBlocks.match(/\[([^\]]+)\]/g).map(frame => frame.slice(1, -1));
+                    
+                    // Codificăm array-ul pentru a-l injecta în siguranță în HTML
+                    let safeFrames = encodeURIComponent(JSON.stringify(frames));
+                    
+                    // Generăm structura RDS doar cu primul frame vizibil
+                    return powerStr + ` <span class="rds-box" data-frames="${safeFrames}" data-idx="0">[${frames[0]}]</span>`;
+                });
+
                 return s2;
             });
 
@@ -266,12 +259,10 @@ function tune(){
             return L.marker(latlng, {icon: txIcon});
         },
         onEachFeature: function(feature, layer){
-            // ATENȚIE: Aici era bug-ul în vechiul cod (un .replace() redundant care strica structura). 
-            // Acum descrierea vine gata formatată din funcția de mai sus.
             let desc = feature.properties.description || "";
-            let name = feature.properties.name || "Emițător necunoscut";
+            let name = feature.properties.name || "Unknown Transmitter";
 
-            layer.bindPopup(`<b>${name}</b><br><br>${desc}`);
+            layer.bindPopup(`<b style="font-size:15px;">${name}</b><br><hr>${desc}`);
 
             layer.on("contextmenu", function(e){
                 if(!receiverMarker) return;
@@ -280,16 +271,16 @@ function tune(){
                 let p1 = receiverMarker.getLatLng();
                 let p2 = e.latlng;
 
-                distanceLine = L.polyline([p1, p2], {color: "yellow", weight: 3}).addTo(map);
+                distanceLine = L.polyline([p1, p2], {color: "#ff9900", weight: 3, dashArray: "5, 5"}).addTo(map);
 
                 let distKm = map.distance(p1, p2) / 1000;
                 let dist = formatDistance(distKm);
                 let azimuth = bearing(p1, p2);
 
                 layer.bindPopup(
-                    `<b>${name}</b><br><br>${desc}` +
-                    `<hr><b>Distance:</b> ${dist}<br>` +
-                    `<b>Beam:</b> ${azimuth.toFixed(0)}°`
+                    `<b style="font-size:15px;">${name}</b><br><hr>${desc}` +
+                    `<hr><div style="color:#aaa;"><b>Distance:</b> <span style="color:#eee;">${dist}</span><br>` +
+                    `<b>Beam:</b> <span style="color:#eee;">${azimuth.toFixed(0)}°</span></div>`
                 ).openPopup();
             });
         }
@@ -297,32 +288,31 @@ function tune(){
 }
 
 /* ================= RDS ANIMATION SCRIPT ================= */
+// Ciclăm cadrele (PS) exact cum face un codor RDS real, o dată la 2.5 secunde
 setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
-        let rdsText = box.getAttribute('data-rds');
-        if(rdsText && rdsText.trim().length > 0) {
-            // Dacă textul e mai scurt de 8 caractere, îl completăm cu spații pentru realism
-            if(rdsText.length < 8) rdsText = rdsText.padEnd(8, " ");
+        let framesAttr = box.getAttribute('data-frames');
+        if (framesAttr) {
+            let frames = JSON.parse(decodeURIComponent(framesAttr));
             
-            // Efect de scrolling la stânga (mutăm primul caracter la final)
-            let nextText = rdsText.substring(1) + rdsText.charAt(0);
-            box.setAttribute('data-rds', nextText);
-            
-            // Afișăm în consolă "fereastra" de 8 caractere tipică ecranelor radio
-            box.innerText = `[${nextText.substring(0, 8)}]`; 
+            // Alternăm textele doar dacă există mai multe PS-uri
+            if (frames.length > 1) {
+                let idx = parseInt(box.getAttribute('data-idx'));
+                idx = (idx + 1) % frames.length; // trecem la următorul, resetăm dacă ajungem la final
+                
+                box.setAttribute('data-idx', idx);
+                box.innerText = `[${frames[idx]}]`;
+            }
         }
     });
-}, 400); // Viteza de scroll a RDS-ului (400ms)
+}, 2500);
 
 /* ================= AUTO TUNE CONTROLS ================= */
 function stepFreq(delta) {
     let input = document.getElementById("freqInput");
     let val = parseFloat(input.value) + delta;
-    
-    // Looping benzii FM
     if(val < 87.5) val = 108.0;
     if(val > 108.0) val = 87.5;
-    
     input.value = val.toFixed(1);
     tune();
 }
@@ -335,11 +325,8 @@ document.getElementById("freqInput").addEventListener("keyup", e => {
 /* ================= COUNTRY SWITCH ================= */
 function setCountry(c){
     currentCountry = c;
-    
-    // Update la butoane (design activ/inactiv)
     document.getElementById("btn-ro").classList.toggle("active", c === "ro");
     document.getElementById("btn-md").classList.toggle("active", c === "md");
-    
     loadStations(c);
 }
 
@@ -350,11 +337,7 @@ map.on("contextmenu", function(e){
     if(receiverMarker){ map.removeLayer(receiverMarker); receiverMarker = null; }
     if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
 
-    receiverMarker = L.marker(e.latlng, {
-        icon: receiverIcon,
-        draggable: true
-    }).addTo(map);
-
+    receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
     receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
 
     getLocationName(e.latlng.lat, e.latlng.lng).then(name => {
@@ -391,4 +374,3 @@ function bearing(a, b){
 </script>
 </body>
 </html>
-
