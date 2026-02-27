@@ -79,20 +79,19 @@ L.tileLayer(
 
 var antennaIcon = L.icon({
     iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
-    iconSize: [26,26],
-    iconAnchor: [13,26],
-    popupAnchor: [0,-24]
+    iconSize: [24,24],
+    iconAnchor: [12,24],
+    popupAnchor: [0,-22]
 });
 
-/* receptor (Yagi) */
 var receiverIcon = L.icon({
     iconUrl: 'https://i.ibb.co/Z2w2XK6/yagi.png',
-    iconSize: [32,32],
-    iconAnchor: [16,32],
-    popupAnchor: [0,-30]
+    iconSize: [30,30],
+    iconAnchor: [15,30]
 });
 
 let receiverMarker = null;
+let distanceLine = null;
 
 /* ================= DATA ================= */
 
@@ -137,7 +136,7 @@ document.getElementById("freqInput").addEventListener("keydown",function(e){
     if(e.key==="Enter") tune();
 });
 
-/* ================= RIGHT CLICK RECEIVER ================= */
+/* ================= RECEIVER ================= */
 
 map.on('contextmenu', function(e){
 
@@ -151,26 +150,56 @@ map.on('contextmenu', function(e){
     }).addTo(map)
     .bindPopup("<b>Receiver position</b>")
     .openPopup();
+
+    receiverMarker.on("drag", function(){
+        if(distanceLine){
+            map.removeLayer(distanceLine);
+        }
+    });
 });
 
-/* ================= DISTANCE FUNCTION ================= */
+/* ================= CALCULATIONS ================= */
+
+function toRad(x){ return x*Math.PI/180; }
+function toDeg(x){ return x*180/Math.PI; }
 
 function haversine(lat1, lon1, lat2, lon2){
-
-    function toRad(x){ return x*Math.PI/180; }
-
     let R = 6371;
     let dLat = toRad(lat2-lat1);
     let dLon = toRad(lon2-lon1);
 
     let a =
-        Math.sin(dLat/2)*Math.sin(dLat/2) +
+        Math.sin(dLat/2)**2 +
         Math.cos(toRad(lat1))*Math.cos(toRad(lat2)) *
-        Math.sin(dLon/2)*Math.sin(dLon/2);
+        Math.sin(dLon/2)**2;
 
     let c = 2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-
     return R*c;
+}
+
+function calculateAzimuth(lat1, lon1, lat2, lon2){
+
+    let dLon = toRad(lon2-lon1);
+
+    let y = Math.sin(dLon) * Math.cos(toRad(lat2));
+    let x =
+        Math.cos(toRad(lat1))*Math.sin(toRad(lat2)) -
+        Math.sin(toRad(lat1))*Math.cos(toRad(lat2))*Math.cos(dLon);
+
+    let brng = toDeg(Math.atan2(y,x));
+    return (brng+360)%360;
+}
+
+/* estimare simplă rază ERP */
+function estimateRange(desc){
+
+    let m = desc.match(/(\d+)\s*kW/i);
+    if(!m) return null;
+
+    let erp = parseFloat(m[1]);
+
+    // model aproximativ: 20km pentru 1kW, ~√ERP scaling
+    return (20 * Math.sqrt(erp)).toFixed(1);
 }
 
 /* ================= TUNER ================= */
@@ -228,20 +257,32 @@ function tune(){
                 }
 
                 let r = receiverMarker.getLatLng();
-                let d = haversine(
-                    r.lat, r.lng,
-                    feature.geometry.coordinates[1],
-                    feature.geometry.coordinates[0]
-                );
+                let txLat = feature.geometry.coordinates[1];
+                let txLng = feature.geometry.coordinates[0];
+
+                let d = haversine(r.lat,r.lng,txLat,txLng);
+                let az = calculateAzimuth(r.lat,r.lng,txLat,txLng);
+                let range = estimateRange(feature.properties.description);
+
+                if(distanceLine){
+                    map.removeLayer(distanceLine);
+                }
+
+                distanceLine = L.polyline([
+                    [r.lat,r.lng],
+                    [txLat,txLng]
+                ],{color:'lime',weight:2}).addTo(map);
 
                 layer.bindPopup(
-                    "<b>" + feature.properties.name + "</b><br>" +
-                    "Distance: <b>" + d.toFixed(2) + " km</b>"
+                    "<b>"+feature.properties.name+"</b><br>"+
+                    "Distance: <b>"+d.toFixed(2)+" km</b><br>"+
+                    "Azimuth: <b>"+az.toFixed(1)+"°</b><br>"+
+                    (range ? "Estimated range: <b>"+range+" km</b>" : "")
                 ).openPopup();
             });
 
             layer.bindPopup(
-                "<b>" + (feature.properties.name || "") + "</b><br>" +
+                "<b>"+(feature.properties.name||"")+"</b><br>"+
                 feature.properties.description
             );
         }
