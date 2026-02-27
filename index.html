@@ -29,7 +29,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 }).addTo(map);
 
 // încarcă baza ta de date
-fetch('fm.geojson')
+fetch('fm.json')
 .then(response => response.json())
 .then(data => {
 
@@ -53,3 +53,4 @@ if(feature.properties){
 </body>
 
 </html>
+
