@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>FM Map Romania</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+html,body{margin:0;padding:0;}
+#map{height:100vh;width:100vw;}
+</style>
+</head>
+
+<body>
+
+<div id="map"></div>
+
+<script>
+
+// creează harta
+var map = L.map('map').setView([45.8, 26.5], 7);
+
+// OpenStreetMap tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    maxZoom:19,
+    attribution:'© OpenStreetMap'
+}).addTo(map);
+
+// încarcă baza ta de date
+fetch('fm.geojson')
+.then(response => response.json())
+.then(data => {
+
+    L.geoJSON(data,{
+        onEachFeature: function(feature, layer){
+
+            // popup
+            if(feature.properties){
+                layer.bindPopup(
+                    "<b>" + (feature.properties.Name || "Station") + "</b><br>" +
+                    "Freq: " + (feature.properties.Freq || "?") + " MHz<br>" +
+                    "ERP: " + (feature.properties.ERP || "?") + " W"
+                );
+            }
+        }
+    }).addTo(map);
+
+});
+
+</script>
+
+</body>
+</html>

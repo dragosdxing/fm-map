@@ -1,0 +1,6428 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.063715,
+          46.274278
+        ]
+      },
+      "properties": {
+        "name": "Abrud / Piața Eroilor",
+        "description": "88.3 v Radio Vocea Speranței [E2F8] - 50W [__RVS___][RVS_88.3][88.3_FM_]"
+      },
+      "id": "Q2MTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.053651,
+          46.280292
+        ]
+      },
+      "properties": {
+        "name": "Abrud / Str. Serbina",
+        "description": "94.3 v Hit FM Alba Iulia [A000] - 200W [HIT_FM__][.ro_____]"
+      },
+      "id": "E5MDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.259135,
+          46.020986
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Adjud / Poiana",
+        "description": "91.5 v Radio Vocea Speranței [E2F8] - 2kW [__RVS___][RVS_91.5][91.5_FM]\n94.4 v Virgin Radio [E05F] - 2kW [VIRGIN_][94.4_FM_]",
+        "_umap_options": {
+          "showLabel": null,
+          "color": "Black",
+          "iconClass": "Drop"
+        }
+      },
+      "id": "kxMzg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.083648,
+          46.04965
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Adjud / Viișoara",
+        "description": "107.2 v Magic FM [E210] - 2kW [MAGIC_FM][_107.2__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "E1MjA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.620533,
+          45.976685
+        ]
+      },
+      "properties": {
+        "name": "Agnita",
+        "description": "88.5 v Sweet FM [000E] - 50W [Sweet_FM][__PURE__][DANCE___][88.5_FM_]"
+      },
+      "id": "Y2Mjc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.71665,
+          46.311189
+        ]
+      },
+      "properties": {
+        "description": "88.3 v Eveniment FM - 90W [EVN_AIUD]\n95.2 v Radio Impuls - 100W [IMPULS__][95,2_FM_]\n103.2 v Radio Vocea Speranței [E2F8] - 80W [__RVS___][RVS103.2][103.2_FM]",
+        "name": "Aiud"
+      },
+      "id": "MyNDc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.563802,
+          46.067384
+        ]
+      },
+      "properties": {
+        "name": "Alba Iulia / Bd 1 Dec 1918",
+        "description": "89.6 v Radio Reîntregirea [E021] - 200W [REINTRE-][GIREA___][+ARHIEP+][ORTODOXA][_+ALBA+_][89,6_FM_]\n97.1 v Europa FM [E299] - 800W [EUROPAFM][__97.1__]\n97.7 v Virgin Radio [E05F] - 1kW [_VIRGIN_][_97.7_FM]\n99.1 v Radio Vocea Speranței [E2F8] - 200W [__RVS___][RVS_99.1][99.1_FM_]\n100.5 v **(SOON/IN CURAND)** - 200W\n102.3 v EBS Radio [826E] - 100W [EBSRadio]"
+      },
+      "id": "gzNzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.580705,
+          46.070067
+        ]
+      },
+      "properties": {
+        "name": "Alba Iulia / Casa Studenților",
+        "description": "99.7 v Radio Impuls - 200W [_IMPULS_]"
+      },
+      "id": "c5Njk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.566028,
+          46.070559
+        ]
+      },
+      "properties": {
+        "name": "Alba Iulia / Hotel Cetate",
+        "description": "88.1 v Pro FM [E0FF] - 200W [PRO_FM__][88.1_FM_]\n100.5 v Sweet FM - 200W (**IN PLAN**)\n104.3 v RR.Actualități [EE00] - 200W [RRACTUAL]"
+      },
+      "id": "Q5ODQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.56709,
+          46.034394
+        ]
+      },
+      "properties": {
+        "name": "Alba Iulia / Oarda",
+        "description": "91.2 v Radio Guerrilla [E0D8] - 200W [GUERILLA]\n91.9 v Itsy Bitsy FM [E3C8] - 400W [ITSY____][BITSY___]"
+      },
+      "id": "Q4NDU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.563249,
+          46.0708
+        ]
+      },
+      "properties": {
+        "name": "Alba Iulia / Piața Unirii",
+        "description": "94.0 v Kiss FM [515A] - 400W [_KISS_FM][___94___]"
+      },
+      "id": "QzNTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.578109,
+          46.06965
+        ]
+      },
+      "properties": {
+        "name": "Alba Iulia / Str Decebal",
+        "description": "107.2 v City FM [noPI] - 200W [noRDS]"
+      },
+      "id": "c2NzQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.401638,
+          47.059481
+        ]
+      },
+      "properties": {
+        "name": "Aleșd",
+        "description": "95.8 v Radio Transilvania [EEEE] - 100W [TRANSI__]"
+      },
+      "id": "MxODY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.298257,
+          43.970045
+        ]
+      },
+      "properties": {
+        "description": "91.2 v Kiss FM [515A] - 200W [_KISS_FM][_91.2_FM]",
+        "name": "Alexandria / Grup Tehnic"
+      },
+      "id": "M5MTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.334087,
+          43.966188
+        ]
+      },
+      "properties": {
+        "name": "Alexandria / Radiocom",
+        "description": "88.1 v Radio Vocea Speranței [E2F8] - 200W [__RVS___][Radio___][Vocea___][Sperante][perantei][__RVS___][88.1_MHz]\n89.7 h RRCultural [EE01] - 10kW [CULTURAL]\n91.8 h RRActualități [EE00] - 10kW [RRACTUAL]\n95.0 v Pro FM [E029] - 200W [PRO_FM__][95.0_FM_]\n100.3 v Radio Galaxy [5005] - 200W [GALAXYFM]\n103.3 v Realitatea FM [E132] - 500W [REAL_FM_][103.3MHz]\n106.9 v Itsy Bitsy FM [E3C8] - 400W [_ITSY___][_BITSY__]"
+      },
+      "id": "A2Njg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.351182,
+          43.978511
+        ]
+      },
+      "properties": {
+        "description": "93.4 v Europa FM [E299] - 2kW [EUROPAFM][__93.4__]",
+        "name": "Alexandria / Str București"
+      },
+      "id": "k0ODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.318337,
+          46.173805
+        ]
+      },
+      "properties": {
+        "name": "Arad / Hotel Continental",
+        "description": "89.3 v Europa FM [E299] - 5kW [EUROPAFM][_89,3___]\n94.2 v Radio Trinitas [E24D] - 400W [TRINITAS][94,20MHZ]\n99.8 v Virgin Radio [E05F] - 100W [_VIRGIN_][_99.8_FM]\n102.0 v Alt FM [1234] - 100W [_ALT_FM_]\n102.9 h Radio Timișoara [EE11] - 2kW [RTm102,9]"
+      },
+      "id": "YyNzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.324989,
+          46.18223
+        ]
+      },
+      "properties": {
+        "name": "Arad / Iuliu Maniu",
+        "description": "90.6 v Rock FM [E057] - 100W [ROCK_FM_]\n92.7 v Magic FM [E210] - 200W [MAGIC_FM][_92,7___]\n97.0 v Kiss FM [515A] - 200W [_KISS_FM][__97____]"
+      },
+      "id": "c5Njc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.300253,
+          46.191548
+        ]
+      },
+      "properties": {
+        "name": "Arad / Șega 29",
+        "description": "92.1 v Pro FM [E029] - 250W [PRO_FM__][92,1_FM_]"
+      },
+      "id": "E2OTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.299089,
+          46.18962
+        ]
+      },
+      "properties": {
+        "name": "Arad / Șega 41",
+        "description": "95.5 v Național FM [9250] - 150W [National]\n99.1 v Radio Arad [00F0] - 300W [R_Arad__]"
+      },
+      "id": "AyNDI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.663534,
+          46.265165
+        ]
+      },
+      "properties": {
+        "name": "Arad / Șiria",
+        "description": "103.8 h RRActualități [EE00] - 60kW [RRACTUAL]\n105.3 h Digi FM [E059] - 60kW [Digi_FM_][105,3_FM]\n106.8 h RRCultural [EE01] - 50kW [CULTURAL]"
+      },
+      "id": "YxNzY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.407633,
+          46.163307
+        ]
+      },
+      "properties": {
+        "description": "93.4 v Joy FM [2DB5] - 200W [Joy_FM__]",
+        "name": "Arad / Vladimirescu"
+      },
+      "id": "c3NTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.797773,
+          46.520673
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "96.8 v Radio Trinitas [E24D] - 2kW [TRINITAS][96,80MHz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        },
+        "name": "Bacău / Dealul Pietricica"
+      },
+      "id": "I0NzY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.906054,
+          46.562058
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Bacău / General Proiect",
+        "description": "89.6 v Radio Maria România [E1CC] - 400W [R.MARIA_][89,6_MHz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "E1MzM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.910968,
+          46.565533
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Bacău / Hotel Decebal",
+        "description": "88.8 v Radio Impuls [E06D] - 500W [_IMPULS_][88,8_FM_]\n92.5 v Radio ZU [E2AA] - 500W [RADIO_ZU][92,5_FM_]\n95.1 v Kiss FM [515A] - 700W [KISS_FM_][95.1____]\n96.0 v Magic FM [E210] - 1kW [MAGIC_FM][____96__]\n98.0 v Romantic FM [E2AB] - 1kW [ROMANTIC][98.0_FM_]\n100.6 v Itsy Bitsy FM [E3C8] - 500W [_ITSY___][_BITSY__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop"
+        }
+      },
+      "id": "Y0NzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.911536,
+          46.56814
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Bacău / Hotel Moldova",
+        "description": "95.5 v Radio Vocea Speranței [E2F8] - 400W [RVS_____][95,5_Mhz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "MwODI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.929507,
+          46.605081
+        ]
+      },
+      "properties": {
+        "name": "Bacău / Turn",
+        "description": "90.6 v Vibe FM [E222] - 1kW [TMRWLAND]\n91.8 h Digi FM [E059] - 10kW [Digi_FM_][91,8_FM_]\n94.0 v Jurnal FM [F255] - 1kW [JurnalFM]\n98.8 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n101.8 h RR.Cultural [EE01] - 10kW [CULTURAL]\n104.2 v Europa FM [E299] - 5kW [EUROPAFM][_104.2__]\n105.4 v Virgin Radio [E05F] - 500W [_VIRGIN_][105.4_FM]\n107.0 v Ercis FM [E111] - 500W [ERCIS_FM][107_Mhz_]\n107.8 v Pro FM [E029] - 5kW [PRO_FM__][107.8_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "UxMzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.405757,
+          47.650757
+        ]
+      },
+      "properties": {
+        "name": "Baia Mare / Ardusat",
+        "description": "90.5 v Europa FM [E299] - 5kW [EUROPAFM][__90.5__]\n92.1 v Virgin Radio [E05F] - 200W [_VIRGIN_][92,1_FM_]"
+      },
+      "id": "I2MTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.567465,
+          47.65011
+        ]
+      },
+      "properties": {
+        "description": "88.5 v Kiss FM - 200W [_KISS_FM][__88,5__]",
+        "name": "Baia Mare / Bd Traian"
+      },
+      "id": "YzMzY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.566786,
+          47.649911
+        ]
+      },
+      "properties": {
+        "description": "95.4 v Radio Maria România [E1CC] - 100W [R.MARIA_]\n107.4 v Național FM [9250] - 100W [National]",
+        "name": "Baia Mare / Bd Transilvaniei"
+      },
+      "id": "EyODA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.571641,
+          47.655782
+        ]
+      },
+      "properties": {
+        "description": "91.6 v Itsy Bitsy [E3C8] - 200W [_ITSY___][BITSY___]\n92.8 v Maramureș FM - 200W (**IN PLAN**)\n106.1 v Radio Transilvania [EEEE] - 100W [TRANSI__]",
+        "name": "Baia Mare / Vasile Goldiș"
+      },
+      "id": "MwMTM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.672898,
+          47.731458
+        ]
+      },
+      "properties": {
+        "name": "Baia Mare / Vf. Igniș",
+        "description": "96.9 m Radio Someș [E04D] - 30kW [SOMES__]\n98.5 m Radio ZU [E2AA] - 5kW [RADIO_ZU][98.5_FM_]"
+      },
+      "id": "M1ODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.787466,
+          47.657919
+        ]
+      },
+      "properties": {
+        "name": "Baia Mare / Vf. Mogoșa",
+        "description": "94.3 v Radio Trinitas [E24D] - 10kW [TRINITAS][94,30MHZ]\n100.1 h RRCultural [EE01] - 60kW [CULTURAL]\n102.5 h RRActualități [EE00] - 40kW [RRACTUAL]\n104.2 v City Radio [E106] - 500W [CITY_FM_]\n105.3 h Digi FM [E059] - 60kW [Digi_FM_][105,3FM_]"
+      },
+      "id": "UzMDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.420692,
+          44.878742
+        ]
+      },
+      "properties": {
+        "name": "Băile Herculane / Dealul Stoghirului",
+        "description": "97.3 h RRActualități [EE00] - 100W [RRACTUAL]"
+      },
+      "id": "YzMTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.36174,
+          44.02294
+        ]
+      },
+      "properties": {
+        "name": "Băilești",
+        "description": "98.2 v Radio Trinitas [E24D] - 1kW [TRINITAS][98,20MHZ]"
+      },
+      "id": "gzNjU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.701941,
+          44.062519
+        ]
+      },
+      "properties": {
+        "name": "Băneasa / Dobrogea Sud",
+        "description": "89.1 h RRCultural [EE01] - 30kW [CULTURAL]\n93.9 h Digi FM [E059] - 30kW [Digi_FM_][93,9_FM_]\n105.2 h Europa FM [E299] - 5kW [EUROPAFM][_105.2__]\n106.6 h RRActualități [EE00] - 30kW [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "Y1Nzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.597115,
+          46.074541
+        ]
+      },
+      "properties": {
+        "description": "90.0 v Europa FM [E299] - 50W [EUROPAFM][__90.0__]\n90.5 v Radio Gaga [E344] - 50W [__GAGA__][90.5_FM_][SLAGEREK][_ES_UJ__][_ZENEK__]",
+        "name": "Baraolt"
+      },
+      "id": "k3MzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.718831,
+          46.226722
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Bârlad / Dealu Mare",
+        "description": "88.0 h Kiss FM [515A] - 30kW [KISS_FM_][__88____]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "Q2Nzg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.851039,
+          46.241394
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Bârlad / Popeni",
+        "description": "93.7 v Radio Trinitas [E24D] - 5kW [TRINITAS][93,70MHz]\n95.7 v Digi FM [E059] - 10kW [DIGI_FM_][95,7_FM_]\n97.3 v Radio ZU [E2AA] - 10kW [RADIO_ZU][97.3_FM_] \n102.8 h RRCultural [EE01] - 30kW [no RDS]\n103.9 h RRActualități [EE00] - 30kW [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "gxNzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.681056,
+          46.184417
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Bârlad / Trestiana",
+        "description": "100.0 v Europa FM [E299] - 5kW [EUROPAFM][_100,0__]\n103.3 v Jurnal FM [F255] - 700W [JurnalFM]\n104.9 v Radio Impuls [E0D6] - 300W [IMPULS__][104.9_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "YwOTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.959122,
+          43.786463
+        ]
+      },
+      "properties": {
+        "name": "Bechet",
+        "description": "96.8 v Hit FM - 2kW (**IN PLAN**)\n103.1 h Radio Trinitas [E24D] - 2kW [TRINITAS][103,1_FM]"
+      },
+      "id": "UyMDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.179878,
+          47.178979
+        ]
+      },
+      "properties": {
+        "name": "Beclean",
+        "description": "87.7 v Radio Someș [noPI] - 200W [no RDS]\n91.5 v Radio Transilvania [EEEE] - 50W [TRANSI__]"
+      },
+      "id": "E2ODE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.354431,
+          46.660747
+        ]
+      },
+      "properties": {
+        "name": "Beiuș",
+        "description": "88.0 v Radio Transilvania [EEEE] - 100W [TRANSI__]"
+      },
+      "id": "k1OTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.953344,
+          44.648445
+        ]
+      },
+      "properties": {
+        "description": "92.8 h Radio Reșița [EE03] - 500W [R.Resita]",
+        "name": "Berzeasca"
+      },
+      "id": "g2OTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.057167,
+          46.916028
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "87.7 h RRActualități [EE00] - 100W [RRACTUAL]\n96.1 v Jurnal FM [F255] - 500W [JurnalFM]",
+        "name": "Bicaz / Radiocom"
+      },
+      "id": "I3NDg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.687994,
+          46.441408
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Bihor / Curcubăta Mare",
+        "description": "91.0 h RR.Actualități [EE00] - 60kW [RRACTUAL]\n105.8 h RR.Cultural [EE01] - 60kW [CULTURAL]\n107.9 h Digi FM [E059] - 60kW [Digi_FM_]"
+      },
+      "id": "MzMDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.554358,
+          47.156163
+        ]
+      },
+      "properties": {
+        "name": "Bistrița / Aerodrom",
+        "description": "90.0 v Europa FM [E299] - 5kW [EUROPAFM][__90.0__]\n97.3 v Radio Impuls [E0D6] - 300W [_IMPULS_][97,3_FM_]\n103.2 v Virgin Radio [E05F] - 500W [_VIRGIN][103.2_FM]"
+      },
+      "id": "kxODQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.496765,
+          47.133688
+        ]
+      },
+      "properties": {
+        "name": "Bistrița / Centru",
+        "description": "88.2 v Rock FM [E057] - 200W [ROCK_FM_][__88.2__]\n92.6 v Bistrița FM [E07F] - 200W [BISTRITA][_92,6FM_]\n94.1 v Radio Transilvania [EEEE] - 300W [TRANSI__]\n95.1 v Radio Guerrilla [E0D8] - 400W [GUERILLA][95,1FM__]\n106.0 v Radio Bistrița [A000] - 100W [RADIO___][BISTRITA][106_MHZ_]"
+      },
+      "id": "IxODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.475307,
+          47.222716
+        ]
+      },
+      "properties": {
+        "name": "Bistrița / Dealul Dumitra",
+        "description": "89.3 v Radio Balada [A012] - 2kW [BALADA__]"
+      },
+      "id": "I4Mzg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.735224,
+          47.278472
+        ]
+      },
+      "properties": {
+        "name": "Bistrița / Heniu",
+        "description": "92.0 v Kiss FM [515A] - 10kW [KISS_FM_][__92____]\n93.4 h Radio Trinitas [E24D] - 30kW [TRINITAS][93,4MHz_]\n96.6 v Radio Someș [E34D] - 1kW [SOMES___]\n99.3 v Magic FM [E210] - 10kW [MAGIC_FM]\n101.3 h RRCultural [EE01] - 30kW [CULTURAL]\n102.0 v Radio Renașterea [E400] - 3kW [RADIO___][RENA____][STEREA__]\n103.9 h RRActualități [EE00] - 30kW [RRACTUAL]\n107.8 h Digi FM [E059] - 30kW [Digi_FM_][107,8_FM]"
+      },
+      "id": "k1NDE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.928738,
+          46.1746
+        ]
+      },
+      "properties": {
+        "name": "Blaj",
+        "description": "94.4 v Maria Radio România [E1CC] - 100W [R.MARIA_]\n96.2 v Radio Blaj [FFFF] - 100W [BLAJ_FM_]\n99.4 v Național FM [9250] - 100W [National]\n105.2 v Radio Someș - 100W (**IN PLAN**)"
+      },
+      "id": "Q5MzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.730957,
+          45.375302
+        ]
+      },
+      "properties": {
+        "name": "Bocșa",
+        "description": "93.8 v Radio Vocea Speranței [E2F8] - 200W [__RVS___][RVS_93.8][93.8_FM_]"
+      },
+      "id": "cxNDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.66156,
+          47.652438
+        ]
+      },
+      "properties": {
+        "name": "Borșa",
+        "description": "101.4 v Maramureș FM [noPI] - 50W [no RDS]"
+      },
+      "id": "k3ODI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.557976,
+          46.959167
+        ]
+      },
+      "properties": {
+        "name": "Borsec",
+        "description": "89.0 v City FM - 100W [CITY_FM_][89,0_FM_]\n91.1 v Europa FM [E299] - 100W [EUROPAFM][_91.1___]"
+      },
+      "id": "c0ODU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.655628,
+          47.735964
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Botoșani / Aleea Kogălniceanu",
+        "description": "99.8 v Radio Fix - 100W [**FIX**_][BOTOSANI][99,8_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "IzNjk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.667874,
+          47.740564
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Botoșani / Calea Națională",
+        "description": "88.2 v Europa FM [E299] - 5kW [EUROPAFM][_88.2__]\n104.2 v Virgin Radio [E05F] - 500W [VIRGIN__][104.2_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "IzNDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.661694,
+          47.745099
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Botoșani / Hotel Rapsodia",
+        "description": "106.3 v Viva FM [E558] - 100W [VivaFM__][_106.3__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "Y3MDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.839557,
+          47.933712
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Botoșani / Săveni",
+        "description": "91.1 h Radio Impuls - 5kW [IMPULS__]\n95.0 v Itsy Bitsy FM [E3C8] - 10kW [_ITSY___][_BITSY__]\n95.6 v Radio Trinitas [E24D] - 2kW [TRINITAS][95,60MHz]\n96.7 h Digi FM [E059] - 10kW [DIGI_FM_][96,7_FM_]\n100.8 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n106.0 h RR.Cultural [EE01] - 10kW [CULTURAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "A2OTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.660884,
+          47.741993
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Botoșani / Str Arhimandrit Marchian",
+        "description": "89.7 v Kiss FM [515A] - 700W [_KISS_FM][_89,7_FM]\n98.1 v Magic FM [E210] - 1kW [MAGIC_FM][_98.1___]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "Q3NDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.644167,
+          47.748344
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Botoșani / Str Sucevei",
+        "description": "93.1 v Radio ZU [E2AA] - 200W [RADIO_ZU][93,1_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "Y4Mjg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.792926,
+          46.127925
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Brad",
+        "description": "87.7 v ALT FM - 50W (**IN PLAN**)\n101.2 v Național FM [9250] - 50W [National]"
+      },
+      "id": "g5ODU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.957764,
+          45.280458
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Brăila / Gara",
+        "description": "94.4 v Europa FM [E299] - 200W [EUROPAFM][__94.4__]\n105.5 v Radio Guerrilla - 200W [GUERILLA][105,5FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "c3ODY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.973337,
+          45.271421
+        ]
+      },
+      "properties": {
+        "name": "Brăila / Hotel Traian",
+        "description": "89.2 v Magic FM [E210] - 200W [MAGIC_FM][__89.2__]\n98.8 v Kiss FM [515A] - 200W [KISS_FM_][__98.8__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "gyMDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.973933,
+          45.286901
+        ]
+      },
+      "properties": {
+        "name": "Brăila / Str Plantelor",
+        "description": "104.4 v Radio Brăila Dens FM [noPI] - 200W [no RDS]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "I4MzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.370092,
+          45.514768
+        ]
+      },
+      "properties": {
+        "name": "Bran",
+        "description": "103.7 h RRActualități [EE00] - 1kW [RRACTUAL]"
+      },
+      "id": "Y1NjU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.614388,
+          45.645421
+        ]
+      },
+      "properties": {
+        "name": "Brașov / Dealul Melcilor",
+        "description": "91.2 v Magic FM [E210] - 400W [MAGIC_FM][__91.2__]\n101.5 v Kiss FM [515A] - 400W [KISS_FM_][_101.5__]"
+      },
+      "id": "I0NTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.608771,
+          45.642616
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Brașov / Dealul Melcilor (2)",
+        "description": "94.6 v Radio Ortodoxia [E2F8] - 200W [Ortodox_]"
+      },
+      "id": "IyNTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.599276,
+          45.637398
+        ]
+      },
+      "properties": {
+        "name": "Brașov / Flashnet Tower",
+        "description": "88.4 v City FM [E106] - 100W [CITY_FM_]\n91.9 v Radio Impuls [E0D6] - 200W [_IMPULS_]\n94.6 v Radio Vocea Evangheliei [FFFF] - 500W [RVE_94.6]\n94.6 v Radio Vocea Speranței [E2F8] - 500W [___RVS__][RVS_94.6][94.6_MHz]\n96.4 v Sport Total FM [3D44] - 300W [SPTFM___][BRASOV__][96.4MHz_]\n97.2 v Radio ZU [E2AA] - 2kW [RADIO_ZU][97.2_FM_]\n105.5 v Radio Guerrilla [E0D8] - 200W [GUERILLA]"
+      },
+      "id": "E4NzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.625194,
+          45.654106
+        ]
+      },
+      "properties": {
+        "name": "Brașov / Int. Trade Center",
+        "description": "95.8 v Național FM [9250] - 200W [National]"
+      },
+      "id": "IzOTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.567036,
+          45.568142
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Brașov / Postăvarul",
+        "description": "94.2 v Hit FM Brașov [5158] - 200W [HIT_FM__]\n104.5 v Radio Impuls [E0D6] - 50W [IMPULS__][104.5_FM]\n106.4 v EBS Radio [826E] - 300W [EBSRadio]"
+      },
+      "id": "A1ODI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.597115,
+          45.635407
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "87.8 v Radio Brașov [E401] - 100W [_RADIO__][_BRASOV_][_87,8MHz]\n89.2 v Europa FM [E299] - 1kW [EUROPAFM][__89.2__]\n89.9 v Pro FM [E029] - 200W [PRO_FM__][89.9FM__]\n92.5 v Virgin Radio [E05F] - 500W [VIRGIN__][92.5_FM_]\n93.3 v RRBrașov [EE21] - 200W [BV93,3FM]\n93.8 v Super FM [E050] - 500W [SUPER_FM][93,8MHz_]\n98.2 v Jurnal FM [F255] - 800W [JurnalFM]\n100.7 h Digi FM [E059] - 1kW [Digi_FM_][100,7_FM]\n102.5 h RRActualități [EE00] - 2kW [RRACTUAL]\n105.0 h RRCultural [EE01] - 2kW [CULTURAL]",
+        "name": "Brașov / Tâmpa-Restaurant Panoramic",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "g2NTk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.423645,
+          47.885672
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Brodina",
+        "description": "94.8 h Radio Trinitas [E24D] - 500W [TRINITAS][94.80MHZ]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "A5Njg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.48502,
+          45.427341
+        ]
+      },
+      "properties": {
+        "name": "Bucegi / Vf Coștila",
+        "description": "95.3 h Radio Trinitas [E24D] - 100kW [TRINITAS][95,3MHz_]\n97.6 h RR.Muzical [EE02] - 100kW [MUZICAL_]\n99.6 h Digi FM [E059] - 60kW [Digi_FM_][99,60_FM]\n102.2 h RR.Actualități [EE00] - 100kW [R_ACTUAL]\n104.1 h RR.Cultural [EE01] - 100kW [CULTURAL]\n107.5 h Europa FM [E299] - 50kW [EUROPAFM][107.5___]"
+      },
+      "id": "M0NzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.083372,
+          44.452627
+        ]
+      },
+      "properties": {
+        "name": "București / BRD Tower",
+        "description": "92.1 v Vibe FM [E222] - 2kW [_VIBE_FM][_92.1_FM]\n100.2 v Virgin Radio [E05F] - 3kW [_VIRGIN_][100.2_FM]\n106.7 v Europa FM [E299] - 5kW [EUROPAFM][_106.7__]\n107.3 v Euronews Radio - 2kW (**IN PLAN**)",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "IwMDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.054989,
+          44.43404
+        ]
+      },
+      "properties": {
+        "name": "București / Cămin Leu A",
+        "description": "91.7 v Național FM [9250] - 5kW [National]\n93.5 v RFI România [E22C] - 5kW [__rfi___]"
+      },
+      "id": "czMDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.086392,
+          44.427314
+        ]
+      },
+      "properties": {
+        "name": "București / Casa Poporului",
+        "description": "88.5 v Radio Trinitas [E24D] - 2kW [Trinitas][88.5_MHz]"
+      },
+      "id": "A1Njk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.108344,
+          44.37188
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "București / CET Progresul",
+        "description": "90.8 v Magic FM [E210] - 2kW [MAGIC_FM][__90.8__]\n96.1 v Kiss FM [515A] - 2kW [KISS_FM_][__96.1__]\n100.6 v Rock FM - 2kW [ROCK_FM_][__100.6_]"
+      },
+      "id": "E2NDU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.106842,
+          44.456785
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "București / Euro Tower",
+        "description": "88.0 v Radio Impuls [E0D6] - 2kW [IMPULS__][88.0_FM_]\n94.2 v Radio Vocea Evangheliei/Vocea Speranței [E2F8] - 2kW [RVE_94.2]"
+      },
+      "id": "A0OTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.050698,
+          44.476869
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "București / Herăstrău",
+        "description": "97.9 v Digi FM [E059] - 3kW [DIGI_FM_][97.9_FM_]\n98.3 h București FM - 100kW [BFM_98.3]\n101.3 h RRCultural [EE01] - 100kW [CULTURAL]\n104.8 v RRMuzical [EE02] - 5kW [_RADIO__][ROMANIA_][MUZICAL_]\n105.3 h RRActualități [EE00] - 100kW [R_ACTUAL]"
+      },
+      "id": "I4MTU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.034057,
+          44.43365
+        ]
+      },
+      "properties": {
+        "name": "București / Lujerului",
+        "description": "92.7 v Urban FM [E7A3] - 1kW [Urban_FM]\n96.9 v Gold FM [E0D4] - 4kW [GOLD_FM_][__96.9__]"
+      },
+      "id": "I4NzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.077037,
+          44.444083
+        ]
+      },
+      "properties": {
+        "name": "București / Ministerul Transporturilor",
+        "description": "94.8 v Radio Guerrilla [E0D8] - 2kW [GUERILLA]"
+      },
+      "id": "cyMTk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.0879,
+          44.4518
+        ]
+      },
+      "properties": {
+        "name": "București / Piața Victoriei Bloc D2",
+        "description": "90.2 v Nostalgia Radio [E132] - 6kW [NOSTALGI]"
+      },
+      "id": "AxMzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.050354,
+          44.438725
+        ]
+      },
+      "properties": {
+        "name": "București / Politehnica",
+        "description": "103.4 v Radio Seven [E085] - 500W [__SEVEN_][_103,4__]"
+      },
+      "id": "gxNDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.124077,
+          44.394076
+        ]
+      },
+      "properties": {
+        "name": "București / SNR Berceni",
+        "description": "89.5 v Dance FM - 2kW [DANCE_FM][89.5_FM_]\n99.3 v Itsy Bitsy FM [E3C8] - 2kW [ITSY____][_BITSY__]\n102.8 v Pro FM [E029] - 2kW [PRO_FM__][102,8_FM]\n103.8 v Digi 24 FM [E0DE] - 1kW [DIGI24FM][103,8_FM]\n105.8 v Sport Total FM [3D44] - 2kW [_SPORT__][105,8MHz]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "MxOTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.109585,
+          44.430961
+        ]
+      },
+      "properties": {
+        "name": "București / Unirii View Tower",
+        "description": "89.0 v Radio ZU [E2AA] - 3kW [RADIO_ZU][_89,0_FM]\n101.9 v Romantic FM [E2AB] - 2kW [ROMANTIC]\n106.2 v Antena 3 FM [E2AC] - 1kW [__3_FM__][106,2_FM]"
+      },
+      "id": "YyMDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.52742,
+          45.416045
+        ]
+      },
+      "properties": {
+        "name": "Bușteni",
+        "description": "90.5 v Radio ZU [E2AA] - 100W [RADIO_ZU][90.5_FM_]"
+      },
+      "id": "MyNzg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.933592,
+          47.070778
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Butea",
+        "description": "88.3 v Ercis FM [E111] - 400W [ERCIS_FM][88.3_MHz]"
+      },
+      "id": "U5NTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.809961,
+          45.142071
+        ]
+      },
+      "properties": {
+        "name": "Buzău / Bd 1 Dec 1918",
+        "description": "94.7 v Digi FM [E059] - 200W [Digi_FM_][94,7_FM_]\n106.2 v Pro FM [E029] - 200W [PROFM___]"
+      },
+      "id": "IzNDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.811694,
+          45.144985
+        ]
+      },
+      "properties": {
+        "name": "Buzău / Bd Unirii",
+        "description": "100.3 v Europa FM [E299] - 2kW [EUROPAFM][100.3___]\n102.7 v Vibe FM [E222] - 100W [TMRWLAND]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "U0NDg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.816018,
+          45.156047
+        ]
+      },
+      "properties": {
+        "description": "105.6 v Magic FM [E210] - 200W [MAGIC___][FM_105.6]",
+        "name": "Buzău / Bloc 16J"
+      },
+      "id": "E0Mzk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.542947,
+          45.118717
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Buzău / Dealul Istrița",
+        "description": "87.9 v Buzz FM [5380] - 200W [BUZZ_FM_][87.9_MHz][softROCK]\n89.7 v Radio Vocea Speranței [E2F8] - 500W [__RVS___]\n91.3 h Kiss FM [515A] - 30kW [KISS_FM_] [91.3_FM_]\n92.5 v Radio ZU [E2AA] - 5kW [RADIO_ZU][_92.5_FM]\n96.7 v Radio Impuls [E0D8] - 1kW [_IMPULS_]\n98.7 v Virgin Radio [E05F] - 6kW [VIRGIN__][98.7_FM_]\n103.7 h RRCultural [EE01] - 30kW [CULTURAL]\n107.0 h RRActualități [EE00] - 30kW [RRACTUAL]"
+      },
+      "id": "M0NDI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.844342,
+          45.143316
+        ]
+      },
+      "properties": {
+        "name": "Buzău / Eurosting",
+        "description": "93.8 v Focus FM [E828] - 200W [FOCUS_FM][REGIONAL][BUZAU___][VRANCEA_][BRAILA__][93,8_MHz]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "U1OTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.822374,
+          45.15854
+        ]
+      },
+      "properties": {
+        "name": "Buzău / Str Pietroasele",
+        "description": "98.0 v Radio Campus [E04D] - 100W [*CAMPUS*][98,0_FM_]"
+      },
+      "id": "c2OTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.183212,
+          44.222814
+        ]
+      },
+      "properties": {
+        "name": "Calafat / Plenița",
+        "description": "90.2 h RRActualități [EE00] - 10kW [RRACTUAL]\n101.1 h RRCultural [EE01] - 10kW [CULTURAL]"
+      },
+      "id": "gyMjE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.33333,
+          44.189597
+        ]
+      },
+      "properties": {
+        "name": "Călărași",
+        "description": "94.3 v Radio ZU [E2AA] - 200W [RADIO_ZU][94.3_FM_]\n95.5 v Radio Vocea Speranței [E2F8] - 200W [__RVS___][RVS_95.5][95.5_FM_]\n100.0 v Fresh FM [E032] - 200W [FRESH_FM][100.0MHZ]\n101.8 v Magic FM [E2AA] - 500W [MAGIC_FM][_101.8__]"
+      },
+      "id": "Q3OTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.35234,
+          44.188966
+        ]
+      },
+      "properties": {
+        "name": "Călărași / Combinat Modelu",
+        "description": "89.5 v RRActualități [EE00] - 2kW [RRACTUAL]\n101.1 v Radio Voces Campi [E000] - 300W [RADIO___][VOCES___][CAMPI___]"
+      },
+      "id": "MxODU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.333158,
+          44.20022
+        ]
+      },
+      "properties": {
+        "description": "99.5 v Europa FM [E2AA] - 5kW [EUROPAFM][__99,5__]",
+        "name": "Călărași / Gara"
+      },
+      "id": "A4Nzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.335776,
+          44.196659
+        ]
+      },
+      "properties": {
+        "description": "105.5 v Radio Stil FM [E029] - 300W [STIL_FM_][105,5_FM][PRO_FM__]",
+        "name": "Călărași / Nicolae Bălcescu"
+      },
+      "id": "IxNzY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.470721,
+          47.766078
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Călinești",
+        "description": "88.9 v Radio Trinitas [E24D] - 200W [TRINITAS][88,90MHz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "E1NzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.059226,
+          46.375734
+        ]
+      },
+      "properties": {
+        "name": "Câmpeni",
+        "description": "96.2 v Radio Impuls [E0D6] - 200W [_IMPULS_][96.2_FM_]"
+      },
+      "id": "M5NzM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.889021,
+          46.550877
+        ]
+      },
+      "properties": {
+        "name": "Câmpia Turzii",
+        "description": "97.8 v Kiss FM [515A] - 200W [_KISS_FM][97.8_FM_]\n98.2 v Național FM [9250] - 100W [National]"
+      },
+      "id": "YxMDI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.743209,
+          45.118958
+        ]
+      },
+      "properties": {
+        "name": "Câmpina / Autogara",
+        "description": "88.6 v Radio Impuls [E06D] - 1kW [IMPULS__][88.6_FM_]\n103.2 v Radio Guerrilla - 100W (**IN PLAN**)"
+      },
+      "id": "YzNjg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.557394,
+          47.530123
+        ]
+      },
+      "properties": {
+        "name": "Câmpulung Moldovenesc / Hotel Zimbru",
+        "description": "88.8 v Jurnal FM [F255] - 100W [JurnalFM]\n100.7 v Radio Vocea Speranței [E2F8] - 200W [__RVS___][RVS100.7][100.7_FM]\n102.7 v Europa FM [E299] - 100W [EUROPAFM][_102.7___]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "E0MTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.573468,
+          47.453924
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Câmpulung Moldovenesc / Rarău",
+        "description": "90.8 h Radio Iași [EE03] - 20kW [IS_90.8_]\n92.8 v Radio Trinitas [E24D] - 500W [TRINITAS][92,80MHZ]\n96.0 h RR.Actualități [EE00] - 30kW [RRACTUAL]\n98.7 h RR.Cultural [EE01] - 30kW [CULTURAL]\n104.8 h Digi FM [E059] - 30kW [Digi_FM_][104,8_FM]\n107.2 v Activ FM [E20B] - 10kW [__Feel__][__Good__][Station!][107,2_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "c1ODQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.074513,
+          45.234311
+        ]
+      },
+      "properties": {
+        "name": "Câmpulung Muscel / Dealul Mățău",
+        "description": "87.7 v Radio Galaxy [E068] - 200W [GALAXYFM]\n89.8 v Europa FM [E299] - 200W [EUROPAFM][_89.8___]\n91.9 v Clar FM [noPI] - 100W [no RDS]\n96.6 h Radio Orion [noPI] - 200W [no RDS]"
+      },
+      "id": "czOTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.04584,
+          45.272183
+        ]
+      },
+      "properties": {
+        "name": "Câmpulung Muscel / Hotel Muscelu",
+        "description": "88.4 v Pro FM - 200W (**IN PLAN**)\n94.1 v Muscel FM [1F3F] - 50W [MUSCELFM][94.1MHz_]\n95.9 v Kiss FM [515A] - 200W [_KISS_FM][__95.9__]\n100.6 v Radio Vocea Speranței [E2F8] - 100W [__RVS___]"
+      },
+      "id": "Y5MzQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.52779,
+          44.124372
+        ]
+      },
+      "properties": {
+        "name": "Canlia",
+        "description": "98.5 h Kiss FM [515A] - 30kW [KISS_FM_][__98.5__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "Y5NzM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.34589,
+          44.114895
+        ]
+      },
+      "properties": {
+        "name": "Caracal",
+        "description": "93.8 v Kiss FM [515A] - 1kW [KISS_FM_][_93,8___]"
+      },
+      "id": "U3NzQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.18096,
+          45.409954
+        ]
+      },
+      "properties": {
+        "name": "Caransebeș / Dealul de Vest",
+        "description": "93.8 v Kiss FM [515A] - 200W [KISS_FM_][_93,8___]\n98.6 v Radio Galaxy [E068] - 300W [GALAXYFM]\n99.1 v Virgin Radio - 100W (**IN PLAN**)\n99.9 v Radio Trinitas [E24D] - 300W [TRINITAS][99.9_MHz]"
+      },
+      "id": "Q2Nzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.461548,
+          47.687579
+        ]
+      },
+      "properties": {
+        "name": "Carei",
+        "description": "93.8 v City Radio [E106] - 80W [CITY_FM_]\n95.2 v Radio Transilvania [EEEE] - 100W [TRANSI__]"
+      },
+      "id": "c4NjI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.949911,
+          46.9778
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Ceahlău / Toaca",
+        "description": "93.3 v Radio Trinitas [E24D] - 3kW [TRINITAS][93,30MHz]"
+      },
+      "id": "UxNTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.034691,
+          44.343451
+        ]
+      },
+      "properties": {
+        "name": "Cernavodă",
+        "description": "95.6 v Radio Terra [4242] - 300W [_TERRA__]\n97.1 v Radio Trinitas [E24D] - 100W [TRINITAS][97,10MHz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "A2MDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.579128,
+          46.762148
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / Campus Hașdeu",
+        "description": "103.0 v Dance FM [E019] - 200W [DANCE_FM][103.0_FM]"
+      },
+      "id": "g3OTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.591279,
+          46.768805
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / Centru",
+        "description": "90.4 v EBS Radio [826E] - 200W [EBSRadio]"
+      },
+      "id": "YwNzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.581713,
+          46.77427
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / Hotel Belvedere",
+        "description": "88.3 v Radio Vocea Speranței/Evangheliei [EFFD] - 1kW [RVS_Cluj]\n100.4 v Radio Maria Erdely [E1CD] - 100W [MARIA_R.]"
+      },
+      "id": "AzNjk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.580887,
+          46.754754
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / Hotel Biscuit",
+        "description": "102.2 v Napoca FM [E0D5] - 200W [_NAPOCA_]"
+      },
+      "id": "YzMzg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.585714,
+          46.772636
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / Parcul Central",
+        "description": "95.1 v Paprika Radio [5158] - 200W [PAPRIKA_][RADIO___][95.1_FM_][TEL:0751][143-343_]"
+      },
+      "id": "UxNTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.608706,
+          46.715138
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / SNR Feleacu",
+        "description": "88.8 h RR.Actualități [EE00] - 30kW [RRACTUAL]\n89.4 v Magic FM [E210] - 400W [MAGIC_FM]\n91.0 v Radio Renașterea [E388] - 500W [RENASTE_]\n91.7 h RFI România [E22C] - 30kW [__RFI___][_ROMANIA][rfi.ro__][_h:mm:ss]\n92.8 v Radio Dor FM - 50W (**IN PLAN**)\n93.2 v Virgin Radio [E05F] - 1kW [_VIRGIN_][_93.2_FM]\n93.8 v Radio Someș [E34D] - 1kW [SOMES___]\n95.6 h Radio Cluj [EE03] - 30kW [R_CLUJFM]\n98.8 v Koloszvari Radio [EE04] - 6kW [KVRRADIO]\n99.8 v Pro FM [E029] - 2kW [_PRO_FM_][99,8_FM_]\n101.0 h RR.Cultural [EE01] - 30kW [CULTURAL]\n101.5 v Radio Impuls [E0D6] - 1kW [_IMPULS_]\n104.5 h Digi FM [E059] - 30kW [Digi_FM_][104,5_FM]\n106.6 v Europa FM [E299] - 5kW [EUROPAFM][_106.6__]\n107.3 v Itsy Bitsy FM [E3C8] - 200W [ITSY____][BITSY___]"
+      },
+      "id": "Q4NDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.551385,
+          46.767496
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / Str Fântânele",
+        "description": "94.5 v Radio Transilvania [EEEE] - 400W [_TRANSI_]"
+      },
+      "id": "I0OTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.598998,
+          46.775309
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / Str Paris",
+        "description": "87.8 v Radio ZU [E2AA] - 800W [RADIO_ZU][87.8_FM_]"
+      },
+      "id": "A1ODU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.586254,
+          46.755778
+        ]
+      },
+      "properties": {
+        "name": "Cluj Napoca / Zorilor",
+        "description": "89.8 v Kiss FM [515A] - 400W [KISS_FM_][_89.8___]\n92.2 v Rock FM [E057] - 400W [ROCK_FM_][_92.2___]"
+      },
+      "id": "M3OTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.335516,
+          46.370981
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Comănești / Lapoș",
+        "description": "89.0 v Antena Satelor [EE09] - 10kW [_ANTENA_][SATELOR_][89.0_FM_]\n90.3 v Radio ZU [E2AA] - 10kW [RADIO_ZU][_90.3_FM]\n93.5 v Radio Trinitas [E24D] - 10kW [TRINITAS][93,50MHz]\n98.5 h Digi FM [noPI] - 10kW [noRDS]\n101.4 h RR.Cultural [EE01] - 30kW [CULTURAL]\n104.7 h RR.Actualități [EE00] - 30kW [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "U5MTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.442389,
+          46.424278
+        ]
+      },
+      "properties": {
+        "name": "Comănești / Str. Tudor Vladimirescu",
+        "description": "95.1 v Național FM [9250] - 100W [National]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "U2NDg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.437944,
+          46.424639
+        ]
+      },
+      "properties": {
+        "name": "Comănești / Str.Viei",
+        "description": "91.6 v Virgin Radio [E05F] - 200W [VIRGIN__][_91.6_FM]\n106.3 v Europa FM [E299] - 5kW [EUROPAFM][_106.3__]"
+      },
+      "id": "A4NDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.645595,
+          44.185305
+        ]
+      },
+      "properties": {
+        "name": "Constanța / Bloc Capitol",
+        "description": "94.7 v Doina FM [E003] - 2kW [DOINA_FM][94.7FM__]\n96.9 v Radio Impuls [E06D] - 1kW [_IMPULS_][96,9_FM_]\n101.1 v Sky FM [E320] - 1kW [SKY_FM__][101.1___]\n104.4 v Radio Vocea Speranței [E2F8] - 2kW [__RVS___][RVS104.4][104.4_FM]\n104.4 v Radio Vocea Evanghliei [noPI] - 2kW [no RDS]\n104.4 v Radio T [FF0F] - 2kW [RADIO_T_][_RADIO_T][104,4_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "UxMDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.653508,
+          44.179677
+        ]
+      },
+      "properties": {
+        "name": "Constanța / Bloc Rotund",
+        "description": "91.6 v Play Radio [E190] - 750W [__PLAY__][RADIO___][91.6_FM_]\n92.9 v Radio CFM [E091] - 500W [CFM_92.9]\n99.7 v Radio Dobrogea [E099] - 1kW [+DOAMNE+][+AJUTA+_][DOBROGEA]\n107.5 v Radio ZU [E2AA] - 2kW [RADIO_ZU][107.5_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "g5NDI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.611832,
+          44.163489
+        ]
+      },
+      "properties": {
+        "name": "Constanța / CET",
+        "description": "88.5 v Virgin Radio [E05F] - 2kW [__VIRGIN][_88.5_FM][_VIRGIN_][88.5_FM_]\n106.1 v Europa FM [E299] - 5kW [EUROPAFM][_106.1__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "g1ODY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.632021,
+          44.168882
+        ]
+      },
+      "properties": {
+        "name": "Constanța / Gara",
+        "description": "92.4 v Radio Trinitas [E24D] - 500W [TRINITAS][92,40MHZ]\n100.1 v Radio Constanța [EE06] - 5kW [RADIO___][CONSTANT][___A____][100.1___]\n102.7 v RRActualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][_102,7__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "czNzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.621568,
+          44.242958
+        ]
+      },
+      "properties": {
+        "name": "Constanța / Hotel Mamaia Nord",
+        "description": "94.2 v Național FM [9250] - 3kW [National]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "M0MTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.644356,
+          44.185466
+        ]
+      },
+      "properties": {
+        "name": "Constanța / Inst Proiectări",
+        "description": "89.4 v Magic FM [E210] - 500W [MAGIC_FM][__89.4__]\n91.1 v Kiss FM [515A] - 1kW [KISS_FM_][__91.1__]\n103.9 v Rock FM [E057] - 500W [ROCK_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "A4Njg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.649967,
+          44.183373
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Constanța / Procuratura",
+        "description": "103.5 h Radio Vocea Speranței [E2F8] - 2kW [__RVS___][RVS103,5][103.5_FM]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "iconClass": "Drop",
+          "color": "Black",
+          "showLabel": null
+        }
+      },
+      "id": "AyNjA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.623077,
+          44.03693
+        ]
+      },
+      "properties": {
+        "name": "Constanța / SNR Techirghiol",
+        "description": "90.8 h Radio Constanța [EE06] - 2kW [RADIO___][__C-TA__][90.8_FM_]\n95.8 v Sweet FM [E30E] - 500W [SWEET_FM][95,8_FM_][NOW...__][WE_PLAY_][SWEET_FM]\n96.2 h Digi FM [E059] - 30kW [Digi_FM_][96,2_FM_]\n97.8 v Itsy Bitsy FM [E3C8] - 6kW [ITSY____][BITSY___]\n105.5 h RRActualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][_105,5__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "E0MDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.624293,
+          44.207765
+        ]
+      },
+      "properties": {
+        "name": "Constanța / Tomis Nord",
+        "description": "90.1 v Pro FM [E029] - 300W [PRO_FM__][90,1_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "showLabel": null
+        }
+      },
+      "id": "UxMDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          24.9,
+          44.683333
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "94.8 v Radio Someș - 50W (**IN PLAN**)",
+        "name": "Costești"
+      },
+      "id": "c2Njg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.632484,
+          43.948095
+        ]
+      },
+      "properties": {
+        "name": "Costinești",
+        "description": "87.8 v Pro FM [E029] - 100W [PRO_FM__][87,8_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "EzNTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.17012,
+          45.848024
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Covasna",
+        "description": "107.2 v Radio Gaga [E344] - 200W [_RADIO__][__GAGA__][107.2_FM][SLAGEREK][_ES_UJ__][_ZENEK__]"
+      },
+      "id": "U4MzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.213551,
+          45.846413
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Covasna / Hotel Clermont",
+        "description": "92.3 v Maria Radio Erdely [E1CD] - 200W [MARIA_R.]\n96.8 v City Radio [E064] - 100W [CITY_FM_][96.8_FM_]\n"
+      },
+      "id": "gyMzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.814846,
+          44.316742
+        ]
+      },
+      "properties": {
+        "name": "Craiova / Bloc Turn",
+        "description": "98.0 v Kiss FM [515A] - 300W [KISS_FM_][__98____]"
+      },
+      "id": "AzMTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.886895,
+          44.311044
+        ]
+      },
+      "properties": {
+        "name": "Craiova / Calea București",
+        "description": "95.5 v Radio Galaxy [E068] - 600W [GALAXYFM]"
+      },
+      "id": "E4NzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.825764,
+          44.360919
+        ]
+      },
+      "properties": {
+        "name": "Craiova / Șimnicu de Jos",
+        "description": "88.7 h RRActualități [EE00] - 30kW [RRACTUAL]\n92.0 v Radio Impuls [E0D6] - 6kW [IMPULS__][92,0_FM_]\n94.0 v RFI România [E000] - 100W [RFI_94FM]\n94.8 v Itsy Bitsy FM [E3C8] - 100W [ITSY____][BITSY___]\n100.1 v Radio Trinitas [E24D] - 400W [TRINITAS][100,1MHz]\n102.9 v Radio Oltenia Craiova [EE03] - 15kW [OLTENIA_]\n103.6 v Radio Horion [9008] - 100W [Horion__][nPublici][SONG ID]\n104.5 v Europa FM [E299] - 3kW [EUROPAFM][_104,5__]\n105.5 h Digi FM [E059] - 30kW [Digi_FM_][105,5_FM]\n107.6 v Național FM [9250] - 100W [National]"
+      },
+      "id": "MxMDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.79702,
+          44.330112
+        ]
+      },
+      "properties": {
+        "name": "Craiova / Str Doljului",
+        "description": "97.4 v Radio Sud [7777] - 200W [RadioSUD][97,4_FM_]"
+      },
+      "id": "U1NzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.80159,
+          44.317387
+        ]
+      },
+      "properties": {
+        "name": "Craivoa / Str Arieș",
+        "description": "87.6 v Radio Vocea Speranței [E2F8] - 200W [Radio_Vocea_Sperantei_RVS_87.6](SCROLLING PS)\n92.7 v Radio Guerrilla [E0D8] - 200W [GUERILLA]\n95.9 v Radio ZU [E2AA] - 100W [RADIO_ZU][95.9_FM_]"
+      },
+      "id": "g3NzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.036962,
+          46.288208
+        ]
+      },
+      "properties": {
+        "name": "Cristuru Secuiesc",
+        "description": "88.6 v Radio Vox [E051] - 50W [VOX_KE-_][RESZTUR_][88,6_FM_][SONG_ID]"
+      },
+      "id": "E2MTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.362684,
+          45.835963
+        ]
+      },
+      "properties": {
+        "name": "Cugir",
+        "description": "87.9 v Radio Guerrilla [E0D8] - 200W [GUERILLA]"
+      },
+      "id": "I0OTM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.67534,
+          45.147931
+        ]
+      },
+      "properties": {
+        "name": "Curtea de Argeș",
+        "description": "90.9 v Radio Guerrilla - 80W [GUERILLA]\n94.6 v Radio Expres - 80W [_RADIO__][_ARGES__][EXPRES__][94,6_FM_]"
+      },
+      "id": "YxNDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.090614,
+          43.798111
+        ]
+      },
+      "properties": {
+        "name": "Dăbuleni",
+        "description": "91.2 h RRCultural [EE01] - 2kW [CULTURAL]\n99.1 h RRActualități [EE00] - 2kW [RRACTUAL]"
+      },
+      "id": "c5OTk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.57155,
+          48.196718
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Dărăbani / Dealul Teioasa",
+        "description": "97.6 v Radio Guerrilla [E0D8] - 200W [GUERILLA]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "U3ODg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.867513,
+          47.142986
+        ]
+      },
+      "properties": {
+        "name": "Dej",
+        "description": "94.8 v EBS Radio - 100W [EBSRadio]\n96.2 v Radio Fir - 100W [_Radio__][FIR_Dej_][96,2_FM_]\n97.9 v Radio Vocea Speranței - 100W [__RVS___][RADIO___][VOCEA___][SPERANTE][PERANTEI]\n106.1 v Stil FM - 200W [_STIL_FM][__DEJ___][106.1_FM]"
+      },
+      "id": "I1NDg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.909917,
+          45.872795
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Deva / Aleea Crizantemelor",
+        "description": "94.4 v Magic FM - 400W [MAGIC_FM][__94.4__]"
+      },
+      "id": "IyNTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.907621,
+          45.875134
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "107.0 v Național FM [9250] - 200W [National]",
+        "name": "Deva / Casa de Pensii"
+      },
+      "id": "czOTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.903664,
+          45.87862
+        ]
+      },
+      "properties": {
+        "description": "101.6 v Pro FM [E029] - 400W [PRO_FM__][101,6_FM]",
+        "name": "Deva / IPH"
+      },
+      "id": "U4NzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.861845,
+          45.872563
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Deva / Măgura Boiului",
+        "description": "95.9 h Digi FM [E059] - 8kW [Digi_FM_][95,9_FM_]\n103.4 h RRActualități [EE00] - 30kW [RRACTUAL]\n105.0 h RRCultural [EE01] - 30kW [CULTURAL]"
+      },
+      "id": "c4Mjk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.864466,
+          45.88549
+        ]
+      },
+      "properties": {
+        "name": "Deva / Pilon Dealul Nucet",
+        "description": "91.6 v Kiss FM [515A] - 400W [KISS_FM_]"
+      },
+      "id": "M0MTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.865421,
+          45.885393
+        ]
+      },
+      "properties": {
+        "name": "Deva / Turn Telekom Dealul Nucet",
+        "description": "89.3 v Radio ZU [E2AA] - 200W [RADIO_ZU][89,3_FM_]\n93.5 v M1 FM - 200W (**IN PLAN**)\n95.5 v Radio Galaxy [E068] - 50W [GALAXYFM]\n96.3 v Radio Vocea Speranței [E2F8] - 200W [RVS_96.3][__RVS___][96.3_FM_]\n96.9 v Alt FM - 50W [ALT_FM__]\n98.8 v Sport Total FM - 200W (**IN PLAN**)\n102.6 v Virgin Radio [E05F] - 200W [_VIRGIN_][102.6FM_][__VIRGIN][_102.6FM]\n107.7 v Europa FM [E299] - 5kW [EUROPAFM][__107.7_]"
+      },
+      "id": "k4MjI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.905477,
+          45.877135
+        ]
+      },
+      "properties": {
+        "name": "Deva / Ulpia Shopping Center",
+        "description": "92.6 v Big FM [EF58] - 200W [BIG_FM__][92,6_Mhz]"
+      },
+      "id": "QwNDU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.383694,
+          47.949983
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Dorohoi",
+        "description": "93.9 v Radio Someș - 50W (**IN PLAN**)"
+      },
+      "id": "k2MjM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.526223,
+          44.164541
+        ]
+      },
+      "properties": {
+        "name": "Drăgănești Olt",
+        "description": "106.6 v Europa FM [E299] - 2kW [EUROPAFM][_106.6__] "
+      },
+      "id": "U3MjQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.26162,
+          44.660571
+        ]
+      },
+      "properties": {
+        "name": "Drăgășani / Hotel Rusidava",
+        "description": "88.0 v Antena Satelor [EE09] - 100W [_ANTENA_][SATELOR_][88.0_MHz]\n88.9 v Radio Vocea Speranței [noPI] - 50W [no RDS]\n98.6 v Național FM [9250] - 50W [National]"
+      },
+      "id": "U5NjQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.799703,
+          44.620458
+        ]
+      },
+      "properties": {
+        "name": "Drobeta Turnu Severin / Balota",
+        "description": "91.4 h RRActualități [EE00] - 30kW [RRACTUAL]\n97.9 v Radio Trinitas - 50W (**IN PLAN**)\n98.5 v Radio Trinitas [E24D]- 2kW [TRINITAS][98,5_MHz]\n100.0 v Europa FM [E299] - 5kW [EUROPAFM][_100.0__]\n100.5 v Radio Galaxy [E068] - 300W [GALAXYFM]\n105.8 h RRCultural [EE01] - 30kW [CULTURAL]\n107.9 v Digi FM [E059] - 10kW [Digi_FM_][107,9_FM]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "kzNDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.655463,
+          44.630257
+        ]
+      },
+      "properties": {
+        "name": "Drobeta Turnu Severin / Centru",
+        "description": "90.4 v Radio Lumina [E058] - 200W [LUMINA__][90,4_FM_]"
+      },
+      "id": "MyMTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.592625,
+          44.672637
+        ]
+      },
+      "properties": {
+        "description": "101.1 v Kiss FM [515A] - 400W [KISS_FM_][_101.1__]",
+        "name": "Drobeta Turnu Severin / Dealul Varanic"
+      },
+      "id": "QwNzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.921649,
+          46.997716
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Durău",
+        "description": "91.8 v Radio Trinitas [noPI] - 50W [no RDS]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "EyMTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.968925,
+          45.84623
+        ]
+      },
+      "properties": {
+        "name": "Făgăraș",
+        "description": "88.2 v Super FM [E088] - 200W [SUPER_FM][FAGARAS_][88.2_MHz]\n90.2 v Star FM [A000] - 200W [STAR_FM_]\n90.9 v Radio Clasic FM [E089] - 200W [CLASICFM][FAGARAS][90,9_MHz]\n107.2 v Jurnal FM [F255] - 200W [JurnalFM]"
+      },
+      "id": "M4ODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.3892,
+          45.879073
+        ]
+      },
+      "properties": {
+        "name": "Făget / Coșevița",
+        "description": "89.8 h RRActualități [EE00] - 5kW [RRACTUAL]\n95.2 v Radio Trinitas [E24D] - 2kW [TRINITAS][95,2_MHz]\n100.9 h Europa FM - 5kW (**IN PLAN**)\n103.6 h Radio Timișoara [EE11] - 5kW [RTm103.6]"
+      },
+      "id": "k4NzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.298105,
+          47.459927
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Fălticeni",
+        "description": "97.8 v Viva FM [E558] - 100W [_VIVA_FM][97,8_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "cwNjY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.829696,
+          44.368365
+        ]
+      },
+      "properties": {
+        "name": "Fetești",
+        "description": "91.7 v Orion FM [F00F] - 300W [_ORION__][_91,70FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "gxMzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.184489,
+          45.693624
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Focșani / Bd Unirii",
+        "description": "88.7 v Kiss FM [515A] - 1kW [KISS_FM_][_88.7___]\n99.3 v Magic FM [E210] - 200W [MAGIC_FM][99.3____]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "I4NTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.186946,
+          45.702201
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "100.5 v Pro FM [E029] - 500W [PRO_FM__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        },
+        "name": "Focșani / Piața Moldovei"
+      },
+      "id": "A5MDU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.192353,
+          45.68833
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Focșani / Sud",
+        "description": "89.4 v Radio ZU [E2AA] - 500W [RADIO_ZU][89.4_FM]\n106.6 v Radio Dada [C122] - 200W [__dada__][106,6_FM] (**SOON Ercis FM**)",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "E3MjY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.320037,
+          44.720239
+        ]
+      },
+      "properties": {
+        "name": "Găești",
+        "description": "100.5 v Radio ZU [E2AA] - 50W [RADIO_ZU][100.5_FM]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "MyOTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.024028,
+          45.464567
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Galați / Siloz Nord",
+        "description": "92.8 v Kiss FM [515A] - 1kW [_KISS_FM][_92.8_FM]\n99.1 v Magic FM [E210] - 2kW [MAGIC_FM][_99.1_FM]\n104.8 v Rock FM - 1kW [ROCK_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "g4NjU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.039765,
+          45.424506
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "100.1 v Pro FM [E027] - 200W [PRO_FM__][100.1_FM]\n103.4 v Europa FM [E299] - 5kW [EUROPAFM][_103.4__]",
+        "name": "Galați / Str Reg 11 Siret",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "c3NDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.024165,
+          45.41315
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Galați / TV Tower",
+        "description": "87.7 v Radio Galați [E482] - 100W [_RADIO__][GALATI__][87,7_FM_]\n92.4 v Lider FM - 200W [_PRO____][__92,4__][LIDER_FM][__92,4__]\n94.8 v Radio ZU [E2AA] - 200W [RADIO_ZU][94,8_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "E0NDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.177089,
+          45.328203
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Galați / Văcăreni",
+        "description": "92.0 v Digi FM [E059] - 10kW [Digi_FM_][92_FM___]\n96.5 v Radio Trinitas [E24D] - 10kW [TRINITAS][96,5_MHz]\n101.6 m RRCultural [EE01] - 60kW [CULTURAL]\n106.4 m RRActualități [EE00] - 60kW [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "Y3MTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.595658,
+          46.723119
+        ]
+      },
+      "properties": {
+        "name": "Gheorgheni / Hotel Mureș",
+        "description": "91.2 v Radio Gaga [E344] - 50W [__Gaga__][91.2_FM_][Slagerek][_es_uj__][zenek___]\n90.6 v Fun FM [1289] - 100W [_FUN_FM_][90,6MHz_]"
+      },
+      "id": "MyNjg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.598145,
+          46.721035
+        ]
+      },
+      "properties": {
+        "name": "Gheorgheni / Str Băii",
+        "description": "88.5 h RRActualități [EE00] - 2kW [RRACTUAL]\n92.3 v Marosvasarhelyi Radio [E010] - 50W [no RDS]"
+      },
+      "id": "Y3ODY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.966366,
+          43.898329
+        ]
+      },
+      "properties": {
+        "name": "Giurgiu",
+        "description": "89.4 v Europa FM [E299] - 2kW [EUROPAFM][__89.4__]\n95.3 h Radio Trinitas [E24D] - 200W [TRINITAS][92,5_MHz]\n96.5 v Kiss FM [515A] - 200W [KISS_FM_][96.5____]\n102.6 h RRCultural [EE01] - 2kW [CULTURAL]\n104.6 h RRActualitati [EE00] - 2kW [RRACTUAL]\n107.1 v National FM [9250] - 100W [National]"
+      },
+      "id": "Y2MTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.980179,
+          43.9006
+        ]
+      },
+      "properties": {
+        "name": "Giurgiu / Hotel Steaua Dunării",
+        "description": "91.3 v Itsy Bitsy FM [E3C8] - 200W [_ITSY___][_BITSY__]"
+      },
+      "id": "A0MDc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.231944,
+          45.194444
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Greci",
+        "description": "99.8 v (**IN CURAND / SOON**) - 100W"
+      },
+      "id": "ExMjk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.890889,
+          47.555128
+        ]
+      },
+      "properties": {
+        "name": "Gura Humorului / Best Western Hotel",
+        "description": "93.5 v Activ FM [E20B] - 100W [Activ_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "Y3NDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.87298,
+          47.563196
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "92.0 v Radio Trinitas [E24D] - 100W [TRINITAS][92,00MHz]",
+        "name": "Gura Humorului / Water Tower"
+      },
+      "id": "YwNjE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.620544,
+          46.3958
+        ]
+      },
+      "properties": {
+        "name": "Harghita Băi",
+        "description": "89.7 h Radio Maria Erdely [E1CD] - 30kW [MARIA_R.]\n91.4 h Digi FM [E059] - 60kW [Digi_FM_][91,4_FM_]\n93.0 v Radio Trinitas [E24D] - 6kW [TRINITAS][93,00MHz]\n98.9 h Radio Târgu Mureș [EE07] - 60kW [TG_MURES]\n100.2 v Europa FM [E299] - 5kW [EUROPAFM][100.2___]\n103.4 h RRActualități [EE00] - 60kW [RRACTUAL]\n104.7 v Kiss FM [515A] - 10kW [KISS_FM_][_104.7__]\n106.8 h Marosvasarhelyi Radio [EE10] - 64kW [MSVRADIO]"
+      },
+      "id": "A5NTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.862892,
+          47.456474
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Hârlău / Deleni",
+        "description": "87.6 v Kiss FM [515A] - 1kW [KISS_FM_][87.6____]\n92.2 v Radio Trinitas [noPI] - 2kW [no RDS]\n94.0 v Radio Vocea Speranței [E2F8] - 1kW [__RVS___][94,0_MHZ][RVS_94FM]\n105.3 v Radio ZU [E2AA] - 1kW [RADIO_ZU][105.3_FM]\n107.4 v Viva FM [E558] - 2kW [VIVA_FM_][_107.4__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "UzMTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.947373,
+          44.69545
+        ]
+      },
+      "properties": {
+        "name": "Hârșova",
+        "description": "98.1 v Radio Trinitas [E24D] - 1kW [TRINITAS][98,1FM__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "IzODI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.922988,
+          45.635458
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Hațeg / Dealul Silvaș",
+        "description": "100.2 v Radio Trinitas [E24D] - 300W [TRINITAS][100,2_FM]"
+      },
+      "id": "g2Mjk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.974241,
+          45.617126
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Hațeg / Dealul Viilor",
+        "description": "93.9 v Mondo FM [noPI] - 50W [no RDS]"
+      },
+      "id": "c5OTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.973485,
+          45.61758
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Hațeg / SNR Hațeg",
+        "description": "88.4 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS_88.4][88.4_FM_]\n89.8 v Radio Q - 200W (**IN PLAN**)"
+      },
+      "id": "Y0NTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.989205,
+          45.146448
+        ]
+      },
+      "properties": {
+        "name": "Horezu",
+        "description": "95.1 v Hit FM - 50W (**IN PLAN**)"
+      },
+      "id": "A2Njc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.021336,
+          46.866166
+        ]
+      },
+      "properties": {
+        "name": "Huedin",
+        "description": "89.2 v Radio Dor FM - 200W (**IN PLAN**)\n97.3 v Koloszvar Radio [noPI] - 100W [no RDS]\n99.1 v Radio Renașterea [E400] - 1kW [_RADIO__][__RENA__][_STEREA_]"
+      },
+      "id": "A5MjY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.88545,
+          45.745418
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Hunedoara / Radiocom",
+        "description": "88.9 v Big FM [EF58] - 100W [_BIG_FM_][__88,9__]\n92.1 v Kiss FM - 300W (**IN PLAN**)\n95.1 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS_95.1][95.1_FM_]"
+      },
+      "id": "A5NDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          22.920798,
+          45.755487
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Hunedoara / Str. Trandafirilor",
+        "description": "93.1 v Pro FM [E029] - 300W [PRO_FM__][93,1_FM_]\n98.0 v Radio Vocea Evangheliei [00E2] - 100W [RVE-98FM]"
+      },
+      "id": "Q0MDI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.018892,
+          46.663645
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Huși / Dealul Dobrina",
+        "description": "94.5 v Radio Iași [EE03] - 2kW [RADIO__][__IASI__][94.5_FM_]\n97.6 v Smile FM - 50W (**IN PLAN**)\n101.7 h RRActualități [EE00] - 2kW [RRACTUAL]\n103.7 h RRCultural [EE01] - 2kW [CULTURAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "MyODA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.67183,
+          47.099833
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Iași / Dealul Păun",
+        "description": "88.4 v Activ FM [E20B] - 1kW [Activ_FM]\n91.1 v Magic FM [E210] - 1kW [MAGIC_FM][__91.1__]\n91.9 v Kiss FM [515A] - 1kW [KISS_FM_][__91.9__]\n92.7 v Radio Trinitas [E080] - 2kW [Trinitas][92,70MHz]\n94.9 v Radio Hit [E094] - 500W [ASCULTA_][HIT_____][94,9_FM_][IA'SI___]\n97.9 v RFI România - 200W [RFI_____]\n100.4 v Itsy Bitsy FM [E3C8] - 400W [ITSY____][BITSY___]\n101.6 v Virgin Radio [E05F] - 500W [_VIRGIN_][101.6_FM]\n106.5 v Europa FM [E299] - 5kW [EUROPAFM][_106.5__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "g2MjQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.588263,
+          47.159154
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Iași / Hotel Moldova",
+        "description": "87.8 v Pro FM [E029] - 400W [PRO_FM__][87,8_FM_]\n94.3 v Radio Guerrilla [E0D8] - 300W [GUERILLA]\n97.4 v Ercis FM - 500W (**IN PLAN**)\n98.6 v Romantic FM [E2AB] - 300W [ROMANTIC][98.6_FM_]\n104.0 v Radio ZU [E2AA] - 300W [RADIO_ZU][104_FM__]\n105.0 v Viva FM [E558] - 200W [VIVA_FM_][__105___]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "Y2MDE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.577631,
+          47.175351
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Iași / SRR Iași",
+        "description": "95.4 v RRMuzical [EE02] - 200W [ROMANIA_][MUZICAL_][95,4_FM_]"
+      },
+      "id": "g4MTM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.646918,
+          47.086009
+        ]
+      },
+      "properties": {
+        "name": "Iași / Turn Pietrărie",
+        "description": "96.3 h Radio Iași [EE03] - 100kW [IS_96.3_]\n99.2 h Digi FM [E059] - 60kW [Digi_FM_][99,2_FM_]\n101.1 h RR.Actualități [EE00] - 100kW [RRACTUAL]\n103.1 h RR.Cultural [EE01] - 100kW [CULTURAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "A0MTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.842194,
+          46.427357
+        ]
+      },
+      "properties": {
+        "name": "Ineu",
+        "description": "102.4 v Radio Vocea Speranței - 50W [__RVS___][102.4MHz][__RVS___][_Radio__][_Vocea__][Sperante][perantei]"
+      },
+      "id": "IxMjM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.683289,
+          46.628209
+        ]
+      },
+      "properties": {
+        "name": "Izvoru Mureșului",
+        "description": "103.9 v Radio Gaga [E344] - 50W  [__Gaga__][103.9_FM][Slagerek][_es_uj__][zenek___]"
+      },
+      "id": "kyODI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.84947,
+          44.44517
+        ]
+      },
+      "properties": {
+        "name": "Lehliu Gară / Dragoș Vodă",
+        "description": "106.2 h RRActualități [EE00] - 500W [RRACTUAL]"
+      },
+      "id": "kwNzk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.095249,
+          46.483792
+        ]
+      },
+      "properties": {
+        "name": "Luduș",
+        "description": "94.2 v Jurnal FM [F255] - 100W [JurnalFM]\n100.4 v Radio Transilvania [EEEE] - 200W [TRANSI__]"
+      },
+      "id": "cwNjI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.909485,
+          45.688914
+        ]
+      },
+      "properties": {
+        "name": "Lugoj / Centru",
+        "description": "90.2 v Joy FM [2DB5] - 200W [Joy_FM__]\n91.9 v Kiss FM [515A] - 200W [KISS_FM_][__91.9__]"
+      },
+      "id": "Q1MDI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.904163,
+          45.681464
+        ]
+      },
+      "properties": {
+        "name": "Lugoj / Nicolae Bălcescu",
+        "description": "95.5 v Național FM [9250] - 200W [National]"
+      },
+      "id": "M2MTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          23.265072,
+          45.307799
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Lupeni / Cabana Straja",
+        "description": "94.6 v Radio Galaxy [E068] - 250W [GALAXYFM]"
+      },
+      "id": "U2NTk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.949677,
+          45.857141
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Măgura Odobești",
+        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz]\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___] (**NO AUDIO**)\n101.0 h RRCultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RRActualități [EE00] - 45kW [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null,
+          "iconUrl": "https://i.ibb.co/C374c5g7/warning.png"
+        }
+      },
+      "id": "QyMzQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          29.071986,
+          45.087127
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Mahmudia",
+        "description": "88.9 v Radio ZU [E2AA] - 2kW [RADIO_ZU][88.9_FM_]\n90.9 v Europa FM - 1kW (**IN PLAN**)\n96.8 v Kiss FM [515A] - 3kW [KISS_FM_][__96,8__]\n100.5 h RRActualități [EE00] - 10kW [RRACTUAL]\n102.0 h RRCultural [EE01] - 10kW [CULTURAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "A3Mzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.579602,
+          43.817691
+        ]
+      },
+      "properties": {
+        "name": "Mangalia / Callatis",
+        "description": "89.0 v Kiss FM [515A] - 200W [KISS_FM_][_89_FM__]\n97.4 v Magic FM [E210] - 200W [MAGIC_FM][__97.4__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "g2NDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.579473,
+          43.82287
+        ]
+      },
+      "properties": {
+        "name": "Mangalia / Radiocom",
+        "description": "92.7 h RRCultural [EE01] - 2kW [CULTURAL]\n98.9 v Radio Trinitas [E24D] - 500W [TRINITAS][98,90MHz]\n100.1 v Radio Constanța [EE06] - 5kW [_RADIO__][CONSTANT][TA______][_100,1_M]\n100.6 v Radio ZU [E2AA] - 200W [RADIO_ZU][100.6_FM]\n102.7 v RRActualități [EE00] - 5kW [RRACTUAL]\n104.1 v Europa FM [E299] - 2kW [EUROPAFM][_104.1__]\n107.1 v Pro FM [E029] - 2kW [PRO_FM__][107,1_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null,
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "MzODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.342072,
+          47.344406
+        ]
+      },
+      "properties": {
+        "name": "Marghita",
+        "description": "95.8 v Național FM - 50W [National]\n105.5 v Plusz FM - 50W [PLUSZ_FM](**Preluat de R.Transilvania**)"
+      },
+      "id": "AxODM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.275375,
+          44.241756
+        ]
+      },
+      "properties": {
+        "name": "Medgidia",
+        "description": "89.9 h Pro FM [E029] - 2kW [PRO_FM__][89,9_FM_]\n93.5 v Nostalgia Radio - 500W (**IN PLAN**)\n95.1 v Radio ZU [E2AA] - 2kW [RADIO_ZU][95.1_FM_]\n97.5 v Radio Terra [4242] - 2kW [_TERRA__]\n101.4 h RRActualități [EE00] - 2kW [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "Q2NjM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.34845,
+          46.161761
+        ]
+      },
+      "properties": {
+        "name": "Mediaș",
+        "description": "88.1 v Radio Medias 725 [E071] - 500W [RADIO___][MEDIAS__][88,1_FM_]\n90.2 v Jurnal FM [F255] - 400W [JurnalFM]\n95.9 v Radio Vocea Speranței - 100W (**IN PLAN**)\n97.2 v Radio Transilvania [EEEE] - 100W [TRANSI__]"
+      },
+      "id": "U4NDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.810087,
+          46.35472
+        ]
+      },
+      "properties": {
+        "name": "Miercurea Ciuc / Bd Frăției",
+        "description": "89.3 v Magic FM [E210] - 100W [MAGIC_FM][__89.3__]\n90.9 v Rock FM [E057] - 100W [ROCK_FM_][__90.9__]"
+      },
+      "id": "cyNTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.851329,
+          46.452482
+        ]
+      },
+      "properties": {
+        "description": "101.7 v Szepviz FM [5387] - 100W [SZEPVIZ_][FM_101.7]",
+        "name": "Miercurea Ciuc / Frumoasa"
+      },
+      "id": "I5MDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.809205,
+          46.361736
+        ]
+      },
+      "properties": {
+        "name": "Miercurea Ciuc / Venczel Jozsef",
+        "description": "87.6 v Fun FM [1289] - 200W [Fun_FM__][87.6_FM_][Fun_FM_-][Fulig___][zene!___]\n88.7 v Retro Radio [E027] - 100W [_RETRO__][88,7FM__]"
+      },
+      "id": "A2NDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.798021,
+          46.36301
+        ]
+      },
+      "properties": {
+        "name": "Miercurea Ciuc / Zona Industrială",
+        "description": "88.1 v Erdely FM [FF0F] - 100W [ERDELYFM][_88,1___]\n93.9 v Radio Gaga [E344] - 100W [__GAGA__][93.9_FM_][SLAGEREK][_ES_UJ__][_ZENEK__] \n106.1 v Europa FM [E299] - 200W [EUROPAFM][_106.1__]"
+      },
+      "id": "kwNzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          29.247413,
+          45.227906
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Mila 23",
+        "description": "87.8 v Radio Guerrilla [E0D8] - 50W [GUERILLA]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "E5MzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.479057,
+          46.475529
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Moinești / Dealul Osoiu",
+        "description": "99.8 v Radio Trinitas [E24D] - 200W [TRINITAS][99,8_MHz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null,
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "Y3Mzk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.6563,
+          44.73586
+        ]
+      },
+      "properties": {
+        "name": "Moldova Nouă",
+        "description": "93.8 h RRCultural [EE01] - 2kW [CULTURAL]\n104.3 v Radio Trinitas [E24D] - 2kW [TRINITAS][104,3_FM]\n105.1 h RRActualități [EE00] - 2kW [RRACTUAL]\n106.6 h Radio 9FM [E200] - 2kW [9_FM___1][06.6___9][_FM___10][6.6_9FM_][_106.6__][__9_FM__][_106.6__][________]\n107.8 h Europa FM - 50W (**IN PLAN**)"
+      },
+      "id": "Q5ODI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.712418,
+          44.785101
+        ]
+      },
+      "properties": {
+        "name": "Moldovița",
+        "description": "91.9 h Radio Reșița [EE03] - 50W [R.Resita]"
+      },
+      "id": "QyOTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.640717,
+          44.983256
+        ]
+      },
+      "properties": {
+        "name": "Moreni",
+        "description": "94.4 v Radio ZU [E2AA] - 100W [RADIO_ZU][_94.4_FM]"
+      },
+      "id": "AxMzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.439186,
+          45.216821
+        ]
+      },
+      "properties": {
+        "name": "Moroeni",
+        "description": "87.8 v Radio ZU [E2AA] - 500W [RADIO_ZU][_87.8_FM]"
+      },
+      "id": "k2MjE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.967949,
+          44.80374
+        ]
+      },
+      "properties": {
+        "name": "Motru",
+        "description": "93.9 v Antena Satelor [EE09] - 50W [ASATELOR]"
+      },
+      "id": "U4MTU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.616061,
+          44.322929
+        ]
+      },
+      "properties": {
+        "name": "Năvodari",
+        "description": "98.2 v Itsy Bitsy FM [E3C8] -  200W [_ITSY___][_BITSY__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "g3MTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.47425,
+          46.847889
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Negrești",
+        "description": "105.5 v Radio ZU [E2AA] - 2kW [Radio_ZU][105.5_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "EwMzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.675869,
+          46.741879
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Negrești / Zăpodeni",
+        "description": "93.2 v Smile FM [E932] - 800W [SMILE_FM][93,2_MHZ] (**Soon Radio Vesel**)",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "g5NDg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.432316,
+          47.872097
+        ]
+      },
+      "properties": {
+        "name": "Negrești Oaș",
+        "description": "96.0 v Virgin Radio [E05F] - 1kW [VIRGIN__][96.0_FM_]\n98.0 h Radio Vocea Speranței [E2F8] - 2kW [__RVS___][RVS_98FM][98.00_FM]"
+      },
+      "id": "AwOTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.52293,
+          47.795785
+        ]
+      },
+      "properties": {
+        "name": "Negrești Oaș / Pietroasa",
+        "description": "89.4 h RRActualități [EE00] - 2kW [RRACTUAL]\n93.3 v Radio Cluj [EE03] - 1kW [R_CLUJFM]\n104.8 v Europa FM [E299] - 2kW [EUROPAFM][_104.8__]\n107.4 h Digi FM [E059] - 2kW [Digi_FM_][107.4___]"
+      },
+      "id": "c0ODg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.298244,
+          45.420124
+        ]
+      },
+      "properties": {
+        "name": "Nehoiu",
+        "description": "88.2 v Hit FM - 50W (**IN PLAN**)"
+      },
+      "id": "IyMjg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.701726,
+          45.250895
+        ]
+      },
+      "properties": {
+        "name": "Novaci / Cerbu",
+        "description": "87.8 v Radio Infinit [E018] - 2kW [INFINIT][87,8_MHz_][_NR. 1__][IN_GORJ_]\n89.5 h RRCultural [EE01] - 100kW [CULTURAL]\n90.1 v Radio Galaxy [E068] - 500W [GALAXYFM]\n92.9 h RRActualități [EE00] - 100kW [RRACTUAL]\n93.4 v Radio Trinitas [E24D] - 500W [TRINITAS][93,4_MHz]\n96.2 v Radio Accent [E477] - 400W [_ACCENT_][__96,2FM][REGIONAL][OLTENIA_]\n100.7 m Digi FM [E059] - 20kW [DIGI_FM_][100,7_FM]\n105.0 h Radio Oltenia Craiova [EE03] - 100kW [OLTENIA_]\n107.1 v Europa FM [E299] - 10kW [EUROPAFM][_107.1__]"
+      },
+      "id": "Q0OTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.854408,
+          46.380761
+        ]
+      },
+      "properties": {
+        "name": "Ocna Mureș",
+        "description": "97.4 v Radio Delta - 50W [DELTA_FM][OC_MURES]"
+      },
+      "id": "MwOTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.069183,
+          45.76826
+        ]
+      },
+      "properties": {
+        "name": "Odobești / IAS",
+        "description": "105.8 v Europa FM [E299] - 8kW [EUROPAFM][_105.8__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop"
+        }
+      },
+      "id": "g4NzQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.298595,
+          46.307421
+        ]
+      },
+      "properties": {
+        "name": "Odorheiu Secuiesc",
+        "description": "87.9 v Radio Gaga [E344] - 100W [__Gaga__][87.9_FM_][Slagerek][_Es_uj__][_Zenek__]\n90.9 v City Radio - 100W (**IN PLAN**)\n100.8 v Star Radio [noPI] - 100W [no RDS]"
+      },
+      "id": "A5OTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.641783,
+          44.091778
+        ]
+      },
+      "properties": {
+        "name": "Oltenița",
+        "description": "88.2 v Radio Stil FM [noPI] - 2kW [no RDS]\n94.0 v Radio Galaxy [E068] - 100W [GALAXYFM]\n99.4 v Fresh FM [E032] - 250W [FRESH_FM][99,4_MHZ]"
+      },
+      "id": "Y2ODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.372727,
+          44.180025
+        ]
+      },
+      "properties": {
+        "name": "Oltenița / Hotarele",
+        "description": "91.1 h RRActualități [EE00] - 2kW [RRACTUAL]\n97.3 v Radio Vocea Speranței [E2F8] - 2kW [__RVS___][RVS_97.3][_97.3___]"
+      },
+      "id": "c2OTU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.753678,
+          46.263528
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Onești / Dealul Perchiu",
+        "description": "87.8 v Jurnal FM [F255] - 1kW [JurnalFM]\n88.4 v Radio Trinitas [E24D] - 300W [TRINITAS][88,40MHz]\n89.9 v Europa FM [E299] - 500W [EUROPAFM][89.9____]\n91.1 v Vibe FM [E222] - 500W [TMRWLAND][_91.1_FM]\n92.2 v Release FM [EE28] - 1kW [RELEASE_][92.2_FM_]\n92.7 v Ercis FM [E111] - 100W [ERCIS_FM][92.7_Mhz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "M2Njk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.761488,
+          46.24405
+        ]
+      },
+      "properties": {
+        "name": "Onești / Hotel Trotuș",
+        "description": "97.5 v Național FM [9250] - 100W [National]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "A5Njc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.864306,
+          47.100467
+        ]
+      },
+      "properties": {
+        "name": "Oradea / Calea Borșului",
+        "description": "89.6 v Plusz FM [EEEF] - 400W [PLUSZ_FM]\n92.1 v Radio Vocea Evangheliei [0055] - 200W [RVE_____]\n93.9 v Radio ZU [E2AA] - 300W [RADIO_ZU][93.9_FM_]\n97.2 v Radio Transilvania [EEEE] - 300W [_TRANSI_]"
+      },
+      "id": "A5MDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.943028,
+          47.056026
+        ]
+      },
+      "properties": {
+        "name": "Oradea / Hotel Continental",
+        "description": "92.6 v Favorit FM [9251] - 300W [Favorit_]\n98.2 v Magic FM [E210] - 400W [MAGIC_FM][_98,2___]\n99.1 v Kiss FM [515A] - 400W [KISS_FM_][__99,1__]"
+      },
+      "id": "k5NjM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.972313,
+          47.059114
+        ]
+      },
+      "properties": {
+        "name": "Oradea / SNR Emil Isac",
+        "description": "87.8 v Radio Trinitas [E24D] - 1kW [TRINITAS][87,80MHZ]\n93.2 v Europa FM [E299] - 5kW [EUROPAFM][_93.2___]\n96.1 h RRCultural [EE01] - 60kW [CULTURAL]\n102.2 v Radio Maria Erdely [E1CD] - 200W [MARIA R.]\n104.1 h RRActualități [EE00] - 60kW [RRACTUAL]\n107.0 v Național FM [9250] - 200W [National]\n107.6 h Digi FM [E059] - 60kW [Digi_FM_][107,6_FM]"
+      },
+      "id": "YzNjk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          23.192596,
+          45.837527
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Orăștie / Catedrala",
+        "description": "90.3 v Radio Color [noPI] - 50W [no RDS]\n92.9 v Melody FM - 100W (**IN PLAN**)"
+      },
+      "id": "EyODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.395318,
+          44.721624
+        ]
+      },
+      "properties": {
+        "name": "Orșova",
+        "description": "104.1 h RRActualități [EE00] - 50W [RRACTUAL]\n107.3 v Radio Galaxy [E068] - 100W [GALAXYFM]"
+      },
+      "id": "EyNzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.720686,
+          47.250172
+        ]
+      },
+      "properties": {
+        "description": "90.1 v Radio M Plus [10FF] - 200W [Mplus_FM][Pascani_]\n102.2 v Radio Trinitas [E24D] - 70W [TRINITAS][102,2MHz]\n103.9 v Viva FM [E558] - 100W [VIVA_FM_][103,9_FM]",
+        "name": "Pașcani / Hotel Central"
+      },
+      "id": "UwOTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.718578,
+          47.248216
+        ]
+      },
+      "properties": {
+        "name": "Pașcani / Moldovei",
+        "description": "89.1 v News FM [E380] - 100W [NEWS_FM_][Pascani_][89,1_MHz][Local___][Station_]\n91.4 v Virgin Radio [E05F] - 200W [VIRGIN__][91.4_FM_]\n102.7 v Kiss FM - 100W (**IN PLAN**)",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "M1NzM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          23.439789,
+          45.390225
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Petroșani / Hotel Rusu",
+        "description": "90.1 v Mondo FM [A000] - 50W [MONDO_FM]\n92.5 v Kapital FM [E075] - 100W [_KAPITAL][_92,5_FM]"
+      },
+      "id": "I3MDE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.538895,
+          45.340974
+        ]
+      },
+      "properties": {
+        "name": "Petroșani / Parângul Mare",
+        "description": "88.1 h RRActualități [EE00] - 60kW [RRActual][88.1_MHz]\n90.6 h RRCultural [EE01] - 60kW [Cultural][90.6_MHz]\n93.7 v Radio Trinitas [E24D] - 300W [TRINITAS][93,7_MHz]\n98.5 h Digi FM [E059] - 10kW [DIGI_FM_][98,5_FM_]\n101.5 v Radio Timișoara [EE11] - 1kW [RTm101.5]\n104.1 h Kiss FM [515A] - 10kW [KISS_FM_][_104.1__]\n105.9 h Radio ZU [E2AA] - 5kW [RADIO_ZU][105.9_FM]"
+      },
+      "id": "UzODM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          23.374467,
+          45.416127
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Petroșani / Str.General Dragalina",
+        "description": "89.2 v Virgin Radio [E05F] - 400W [VIRGIN__][89.2_FM_]\n92.1 v Europa FM [E299] - 5kW [EUROPAFM][_92,1___]\n96.0 v Radio Vocea Speranței [E2F8] - 200W [__RVS___]"
+      },
+      "id": "YyNDI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.366592,
+          46.944092
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Piatra Neamț / Cozla",
+        "description": "89.8 v Ercis FM [E111] - 100W [ERCIS_FM][89,8_MHz]\n92.0 v Jurnal FM [F255] - 3kW [JurnalFM]\n94.7 v Viva FM [E558] - 5kW [VIVA_FM_][94.7_FM_]"
+      },
+      "id": "M2Nzk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.379987,
+          46.928711
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Piatra Neamț / Pietricica",
+        "description": "88.1 v Kiss FM [515A] - 1kW [_KISS_FM][__88.1__]\n88.6 v Radio M Plus - 200W (**IN PLAN**)\n89.3 v Radio ZU [E2AA] - 2kW [RADIO_ZU][89.3_FM_]\n91.2 v Radio Trinitas [E24D] - 400W [TRINITAS][91,20MHz]\n100.3 h RR.Cultural [EE01] - 5kW [CULTURAL]\n100.7 v Național FM [9250] - 200W [National]\n102.3 v Radio Impuls [9670] - 100W [__BOOM__][102,3_FM]\n103.6 h RR.Actualități [EE00] - 5kW [RRACTUAL]\n105.1 v Europa FM [E299] - 5kW [EUROPAFM][_105.1__]\n105.9 v Virgin Radio [E50F] - 100W [VIRGIN__][105.9_FM]\n107.2 v Radio Unu [9595] - 100W [Radio1FM]"
+      },
+      "id": "MxMjQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.831778,
+          44.879322
+        ]
+      },
+      "properties": {
+        "name": "Pitești / Doamna Stanca",
+        "description": "90.7 v RRActualități [EE00] - 300W [ROMANIA_][_ACTUAL_][90.7_FM_]"
+      },
+      "id": "MxNjY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.865167,
+          44.855358
+        ]
+      },
+      "properties": {
+        "name": "Pitești / Hotel Muntenia",
+        "description": "90.0 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS_90FM][90_MHz__]\n105.7 v Muntenia FM [E000] - 300W [MFMDANCE]"
+      },
+      "id": "UyMzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.881509,
+          44.843065
+        ]
+      },
+      "properties": {
+        "name": "Pitești / Proiectări",
+        "description": "88.3 v Radio ZU [E2AA] - 300W [RADIO_ZU][_88.3_FM]\n91.2 v Magic FM [E210] - 300W [MAGIC_FM][__91.2__]"
+      },
+      "id": "M2NzM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.871748,
+          44.842601
+        ]
+      },
+      "properties": {
+        "name": "Pitești / Războieni",
+        "description": "91.7 v Pro FM [E029] - 300W [PRO_FM__][91.7_FM_]"
+      },
+      "id": "M0MjE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.897298,
+          44.853409
+        ]
+      },
+      "properties": {
+        "name": "Pitești / Ștefănești",
+        "description": "107.2 v Național FM [9250] - 300W [National]"
+      },
+      "id": "A1MDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.846869,
+          44.846937
+        ]
+      },
+      "properties": {
+        "name": "Pitești / Trivale",
+        "description": "95.0 v Europa FM [E299] - 300W [EUROPAFM][__95.0__]"
+      },
+      "id": "k3NDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.976976,
+          44.963048
+        ]
+      },
+      "properties": {
+        "name": "Ploiești / Bd Republicii",
+        "description": "101.7 v Radio Sos [noPI] - 200W [no RDS]"
+      },
+      "id": "U2NzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.023602,
+          44.936574
+        ]
+      },
+      "properties": {
+        "name": "Ploiești / Consproiect",
+        "description": "88.3 v Radio Impuls [E06D] - 500W [IMPULS__][88.3_FM_]\n96.5 v Pro FM [E029] - 1kW [PRO_FM__] [96,5_FM_]"
+      },
+      "id": "A2MjI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.02791,
+          44.941446
+        ]
+      },
+      "properties": {
+        "name": "Ploiești / Prahova Plaza",
+        "description": "99.2 v Radio Prahova [E04B] - 4kW [PRAHOVA_]\n105.7 v Radio ZU [E2AA] - 500W [RADIO_ZU][105.7_FM]"
+      },
+      "id": "E2Njc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.982767,
+          44.939429
+        ]
+      },
+      "properties": {
+        "name": "Ploiești / Siloz Vest",
+        "description": "92.8 v Kiss FM [515A] - 500W [KISS_FM_] [__92.8__]\n93.3 v Itsy Bitsy [E3C8] - 500W [ITSY____][BITSY___]\n93.9 v Magic FM [E210] - 1kW [MAGIC_FM] [__93.9__]\n95.9 v Focus FM [E828] - 750W [FOCUS_FM][PLOIESTI]"
+      },
+      "id": "EzODA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.990112,
+          44.950353
+        ]
+      },
+      "properties": {
+        "name": "Ploiești / Str Poligonului",
+        "description": "100.8 v Național FM [9250] - 800W [National]"
+      },
+      "id": "QxODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.557675,
+          45.595957
+        ]
+      },
+      "properties": {
+        "name": "Poiana Brașov",
+        "description": "101.9 v Favorit FM [9251] - 50W [Favorit_]"
+      },
+      "id": "MzMjI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.58582,
+          45.507333
+        ]
+      },
+      "properties": {
+        "name": "Predeal / Bd Libertății",
+        "description": "90.0 v Radio ZU [E2AA] - 10W [RADIO_ZU][_90.0_FM]"
+      },
+      "id": "YyNDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.581547,
+          45.489147
+        ]
+      },
+      "properties": {
+        "name": "Predeal / Clăbucet",
+        "description": "92.1 v Kiss FM [515A] - 200W [_KISSFM_][__92.1__]\n103.0 v Pro FM [E029] - 30W [PROFM___][103_FM__]"
+      },
+      "id": "g3NTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.595055,
+          45.530884
+        ]
+      },
+      "properties": {
+        "name": "Predeal / Timișu de Sus",
+        "description": "101.1 v Sport Total FM - 50W [_SPORT__][PREDEAL_][_101.1__]"
+      },
+      "id": "UxNDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.61029,
+          47.872658
+        ]
+      },
+      "properties": {
+        "name": "Putna",
+        "description": "101.0 v Radio ZU [E2AA] - 500W [Radio_ZU][_101_FM_]\n105.2 v Impact FM Suceava [E000] - 100W [no RDS]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "kyNjc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.925835,
+          47.831265
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Rădăuți / Hipodrom Vodafone",
+        "description": "90.1 v Viva FM [E558] - 200W [VIVA_FM_][90,1_FM_]\n97.8 h Radio Trinitas [E24D] - 100W [TRINITAS][97,80MHz]\n99.2 v Jurnal FM [F255] - 100W [JurnalFM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "QwNzk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.046672,
+          45.399584
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Râmnicu Sărat / Confex",
+        "description": "104.7 v Focus FM [E828] - 100W [Focus_FM][REGIONAL][VRANCEA_][BUZAU___][BRAILA__][104,7___]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "cwNjU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          24.339531,
+          45.317986
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Râmnicu Vâlcea / Cozia",
+        "description": "88.6 v Itsy Bitsy FM [E2C8] - 100W [ITSY____][BITSY___]\n91.5 v Virgin Radio [E05F] - 5kW [VIRGIN__][91.5_FM_]\n93.6 v Radio Trinitas [E24D] - 10kW [TRINITAS][93,6MHz_]\n94.3 v Digi FM [E059] - 10kW [DIGI_FM_][94,3_FM_]\n96.4 v Radio Galaxy [E068] - 7kW [GALAXYFM]\n97.0 v Sweet FM [000E] - 500W [Sweet_FM][_Pitesti][__PURE__][DANCE___][97.0_FM_][Sweet_FM][_Valcea_]\n99.2 h Kiss FM [515A] - 30kW [KISS_FM_][__99.2__]\n102.5 h RRCultural [EE01] - 30kW [CULTURAL]\n103.4 h RRActualități [EE00] - 30kW [RRACTUAL]"
+      },
+      "id": "tZWQz"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.356883,
+          45.106544
+        ]
+      },
+      "properties": {
+        "name": "Râmnicu Vâlcea / Dealul Capela",
+        "description": "89.0 v Radio Metronom - 500W [Metronom]\n90.4 v Europa FM {E299] - 2kW [EUROPAFM][_90,4___]\n95.7 v Radio ZU [E2AA] - 400W [RADIO_ZU][95.7_FM_]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "QzNzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.365085,
+          45.104342
+        ]
+      },
+      "properties": {
+        "name": "Râmnicu Vâlcea / Mircea cel Bătrân",
+        "description": "101.6 v Magic FM [E210] - 300W [MAGIC_FM][101,6_FM]"
+      },
+      "id": "c0OTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.351014,
+          45.101365
+        ]
+      },
+      "properties": {
+        "name": "Râmnicu Vâlcea / Morilor",
+        "description": "98.1 v Pro FM [E027] - 200W [_PRO_FM_][_98.1_FM]\n99.8 v Radio Oltenia-Craiova [EE03] - 200W [OLTENIA_]"
+      },
+      "id": "A0MDU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.701822,
+          46.776301
+        ]
+      },
+      "properties": {
+        "name": "Reghin",
+        "description": "87.8 v Radio Son - 200W [RADIOSON][87.8_FM_]\n94.7 v Radio Gaga - 200W [__Gaga__][Reghin__][94,70MHz][*Radio*_]\n96.3 v City Radio - 50W (*PLANNED*)"
+      },
+      "id": "g3NTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.884937,
+          45.291094
+        ]
+      },
+      "properties": {
+        "name": "Resița / Centru",
+        "description": "92.7 v Radio Trinitas [E24D] - 400W [TRINITAS][92.70MHz]\n97.9 v Național FM [9250] - 200W [National]\n101.2 v Banat FM [CE42] - 200W [Banat_FM]"
+      },
+      "id": "AwMDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.874981,
+          45.288556
+        ]
+      },
+      "properties": {
+        "name": "Resița / Dealul Ciorii",
+        "description": "87.9 v Itsy Bitsy FM [E3C8] - 200W [_ITSY___][_BITSY__]\n89.0 v Pro FM [E029] - 200W [PRO_FM__][89.0_FM_]\n89.9 v Radio Guerrilla [1248] - 100W [GUERILLA][_89,9FM_]\n94.8 v Virgin Radio [E05F] - 200W [_VIRGIN_][94.8_FM_]\n97.1 v Kiss FM [515A] - 200W [KISS_FM_][_97.1___]\n100.3 v Radio Galaxy [E068] - 200W [GALAXYFM]\n107.5 v Europa FM [E299] - 5kW [EUROPAFM][_107.5__]"
+      },
+      "id": "k1MTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.076211,
+          45.189687
+        ]
+      },
+      "properties": {
+        "name": "Resița / Semenic",
+        "description": "88.5 h Digi FM [E059] - 100kW [Digi_FM_][88,5_FM_]\n102.5 h RRActualități [EE00] - 100kW [RRACTUAL]\n105.6 h Radio Reșița [EE03] - 100kW [R_Resita]"
+      },
+      "id": "UyMDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.928767,
+          46.92774
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Roman / Bd Roman Mușat",
+        "description": "92.9 v Kiss FM [515A] - 500W [_KISS_FM][_92.9_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "IwMTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.929411,
+          46.920373
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Roman / Hotel Roman",
+        "description": "91.0 v Radio Guerilla [E0D8] - 400W [GUERILLA][_91,0FM_]\n93.7 v Pro FM [E029] - 400W [PRO_FM_][93,7_FM_]\n94.2 v Roman FM [E054] - 400W [ROMAN_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "UzODE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.957123,
+          47.018682
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Roman / Rotunda",
+        "description": "87.9 v Radio Maria România [60A8] - 100W [R.MARIA_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "I2NzM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.919819,
+          46.947908
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Roman / Semrom",
+        "description": "105.7 v RR.Actualități [EE00] - 200W [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "M2Njc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.994012,
+          44.10617
+        ]
+      },
+      "properties": {
+        "name": "Roșiorii de Vede",
+        "description": "94.4 v Fresh FM [E032] - 500W [FRESH_FM][94,4_MHz]\n95.9 v Radio Trinitas [E24D] - 1kW [TRINITAS][95,9_FM_]\n107.1 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS107.1][107.1_FM]"
+      },
+      "id": "k3NzQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.212593,
+          46.035795
+        ]
+      },
+      "properties": {
+        "name": "Rupea",
+        "description": "90.3 v Radio Someș - 100W (**IN PLAN**)"
+      },
+      "id": "IxMzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.667839,
+          45.601763
+        ]
+      },
+      "properties": {
+        "name": "Săcele / Dealul Bunloc",
+        "description": "89.5 v Rock FM [E057] - 400W [ROCK_FM_][89.5_FM_]"
+      },
+      "id": "Hxygr"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.674263,
+          47.370276
+        ]
+      },
+      "properties": {
+        "name": "Sângeorz Băi",
+        "description": "87.9 v Sângeorz FM [noPI] - 50W [no RDS]"
+      },
+      "id": "kxMTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.868409,
+          47.789225
+        ]
+      },
+      "properties": {
+        "name": "Satu Mare / Bd Transilvania",
+        "description": "94.0 v Radio Unu [2F01] - 200W [RadioUnu]\n94.9 h Magic FM [E210] - 2kW [MAGIC_FM][__94.9__]\n107.9 h Kiss FM [515A] - 2kW [_KISS_FM][_107.9__]"
+      },
+      "id": "IwODY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.863922,
+          47.785299
+        ]
+      },
+      "properties": {
+        "name": "Satu Mare / Hotel Aurora",
+        "description": "88.7 v Itsy Bitsy FM [E3C8] - 2kW [_ITSY___][_BITSY__]"
+      },
+      "id": "I0MDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.873394,
+          47.78895
+        ]
+      },
+      "properties": {
+        "name": "Satu Mare / Prefectura",
+        "description": "87.9 h Radio Cluj [EE03] - 2kW [R_CLUJFM]\n96.5 h Pro FM [E029] - 2kW [PRO_FM__][96.5_FM_]\n101.4 h RRActualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][101.4_FM]\n104.0 h Digi FM [E059] - 2kW [Digi_FM_][104,0_FM]"
+      },
+      "id": "IzNTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.877022,
+          47.794302
+        ]
+      },
+      "properties": {
+        "name": "Satu Mare / Str Horea",
+        "description": "90.9 v Europa FM [E299] - 2kW [EUROPAFM][__90.9__]\n92.3 v Radio Maria Erdely [E1CD] -  200W [Maria_R.]\n99.0 v Radio Transilvania [EEEE] - 200W [_TRANSI_]\n106.4 v City Radio [E064] - 2kW [CITY_FM_]"
+      },
+      "id": "QzMTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.544144,
+          44.600709
+        ]
+      },
+      "properties": {
+        "name": "Scornicești",
+        "description": "101.6 v Radio Vocea Speranței [noPI] - 50W [no RDS]"
+      },
+      "id": "U4MTk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.573184,
+          45.958174
+        ]
+      },
+      "properties": {
+        "name": "Sebeș / Mihai Viteazu",
+        "description": "90.1 v Star FM [9010] - 300W [STARFM__]"
+      },
+      "id": "Y5MDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.56355,
+          45.970258
+        ]
+      },
+      "properties": {
+        "description": "88.6 v Hit FM Alba [1919] - 100W [H_I_T_FM]",
+        "name": "Sebeș / Nord"
+      },
+      "id": "EwNjI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.128611,
+          46.374323
+        ]
+      },
+      "properties": {
+        "name": "Sebiș / Centru",
+        "description": "92.1 v Radio Trinitas - 50W [TRINITAS][92,1_MHz]"
+      },
+      "id": "g5NDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.132092,
+          46.373579
+        ]
+      },
+      "properties": {
+        "name": "Sebiș / Parcul Libertății",
+        "description": "89.7 v Radio Flacăra Rusaliilor [noPI] - 30W [no RDS]\n93.6 v Alt FM [1234] - 50W [ALT_FM__]"
+      },
+      "id": "E1OTM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.786999,
+          45.867948
+        ]
+      },
+      "properties": {
+        "name": "Sfântu Gheorghe / Casa de Cultură",
+        "description": "91.6 v Kiss FM [515A] - 200W [_KISS_FM][_91.6___]\n103.0 v Magic FM [E210] - 200W [MAGIC_FM][_103____]"
+      },
+      "id": "M3MDE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.59219,
+          44.896498
+        ]
+      },
+      "properties": {
+        "name": "Sfântu Gheorghe / Delta Dunării",
+        "description": "89.9 v Radio Civic (**soon RLT FM**) [noPI] - 50W [no RDS]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "M0NTU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.788737,
+          45.865244
+        ]
+      },
+      "properties": {
+        "name": "Sfântu Gheorghe / Hotel Șugaș",
+        "description": "88.7 v Radio Gaga [8870] - 200W [RADIO___][GAGA____][88.7_FM_][SLAGEREK][_ES_UJ__][_ZENEK__]\n90.2 v Radio Nemere [noPI] - 300W [no RDS]\n105.9 v Radio Shlager [noPI] - 200W [no RDS]"
+      },
+      "id": "E1MzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.806885,
+          45.877581
+        ]
+      },
+      "properties": {
+        "name": "Sfântu Gheorghe / Lunca Oltului",
+        "description": "91.0 v We Radio [5E58] - 200W [WE_RADIO]"
+      },
+      "id": "Y1MjQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.778518,
+          45.863368
+        ]
+      },
+      "properties": {
+        "name": "Sfântu Gheorghe / Str Presei",
+        "description": "98.5 v Sepsi Radio - 200W [SEPSI_FM][BENNE___][VAGY!___]"
+      },
+      "id": "I0Mzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.142992,
+          45.778011
+        ]
+      },
+      "properties": {
+        "name": "Sibiu / Al Vlahuță",
+        "description": "103.2 v Radio Eveniment FM [000E] - 500W [EVENIMEN][VENIMENT][103.2_FM][_Sibiu__][103.2_FM][___LA___][_MAXIM!_]"
+      },
+      "id": "A5NzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.154515,
+          45.793188
+        ]
+      },
+      "properties": {
+        "name": "Sibiu / Bd Corneliu Coposu",
+        "description": "98.3 v Radio City FM [E088] - 200W [CITY_FM_][SIBIU___][98,3MHz_]"
+      },
+      "id": "A1Mjg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.19477,
+          45.809388
+        ]
+      },
+      "properties": {
+        "name": "Sibiu / Dealul Gușteriței",
+        "description": "87.8 v Național FM [9250] - 100W [National]\n88.4 v Radio Impuls [E06D] - 200W [IMPULS__][88.4_FM_]\n89.0 v RFI România [EEEE] - 200W [RFI_____]\n89.4 v Radio Vocea Evangheliei [EFFF] - 400W [RVE_SB__]\n91.1 v Radio Sibiu [E077] - 100W [SIBIU_FM][91,1MHZ_]\n93.3 v Radio Trinitas [E24D] - 400W [TRINITAS][93,30MHZ]\n97.5 v Itsy Bitsy FM [E3C8] - 300W [ITSY____][BITSY___]\n105.4 v Virgin Radio [E05F] - 400W [_VIRGIN_][105.4_FM]"
+      },
+      "id": "I3NzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          24.133333,
+          45.783333
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Sibiu / Dimitrie Cantemir",
+        "description": "90.4 v Sweet FM [000B] - 200W [Sweet_FM][90.4_FM_][_Sibiu__][__PURE__][_DANCE__]\n96.1 v Radio Galaxy - 100W (**IN PLAN**)"
+      },
+      "id": "U0MTU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.152293,
+          45.779929
+        ]
+      },
+      "properties": {
+        "name": "Sibiu / Frații Buzești",
+        "description": "89.9 v Rock FM [E057] - 300W [ROCK_FM_][__89.9__]\n91.8 v Kiss FM [515A] - 400W [KISS_FM_][__91.8__]"
+      },
+      "id": "E3MTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.946548,
+          45.641873
+        ]
+      },
+      "properties": {
+        "name": "Sibiu / Păltiniș",
+        "description": "92.4 v Digi FM [E059] - 10kW [DIGI_FM_][92.4_FM_]\n93.8 v Magic FM [E210] - 5kW [MAGIC_FM][__93.8__]\n94.9 v Pro FM [E029] - 10kW [PRO_FM__][94.9_FM_]\n95.4 v Radio Antena Sibiului [EE03] - 2kW [RADIO___][ANTENA__][SIBIULUI]\n96.6 v Radio ZU [E2AA] - 6kW [RADIO_ZU][96.6_FM_]\n101.8 h RRActualități [EE00] - 60kW [RRACTUAL]\n103.7 h RRCultural [EE01] - 60kW [CULTURAL]\n106.2 v Europa FM [E299] - 10kW [EUROPAFM][_106.2__]"
+      },
+      "id": "M0Nzk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.909941,
+          47.911884
+        ]
+      },
+      "properties": {
+        "name": "Sighetu Marmației / Dealul Solovan",
+        "description": "87.9 v Radio Trinitas [E24D] - 2kW [TRINITAS][87,90MHz]\n89.3 v Sighet FM [E014] - 2kW [SighetFM]\n93.8 v Antena Satelor [EE09] - 1kW [ANTENA__][SATELOR_][93.80MHz]\n97.4 h City Radio [E106] - 2kW [CITY_FM_]\n101.7 h Radio Cluj [EE03] - 2kW [R_CLUJFM]\n106.2 h RRActualități [EE00] - 2kW [RRACTUAL]"
+      },
+      "id": "Y3MzY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.941103,
+          47.912604
+        ]
+      },
+      "properties": {
+        "description": "92.9 v Autentic FM [E042] - 100W [AUTENTIC]",
+        "name": "Sighetu Marmației / Str Făgetului"
+      },
+      "id": "I3NDE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.790692,
+          46.218861
+        ]
+      },
+      "properties": {
+        "name": "Sighișoara",
+        "description": "89.5 v Radio Son [E497] - 200W [RADIOSON][89,5_FM_][_HH:MM__]\n94.0 v Digi FM [E059] - 200W [Digi_FM_][94,0_FM_]\n94.5 v EBS Radio - 100W [EBSRadio] (**IN PLAN**)\n104.3 v Radio Gaga [noPI] - 200W [no RDS]\n105.4 v Rock FM [E057] - 200W [ROCK_FM_][_105.4__]\n105.9 v Radio ZU [E2AA] - 200W [RADIO_ZU][105.9_FM]"
+      },
+      "id": "I3OTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.793313,
+          46.229158
+        ]
+      },
+      "properties": {
+        "description": "107.3 v Kiss FM [515A] - 200W [_KISS_FM][107.3_FM]",
+        "name": "Sighișoara / Vila Franka"
+      },
+      "id": "U3NzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.518944,
+          45.353834
+        ]
+      },
+      "properties": {
+        "name": "Sinaia / Cota 1400",
+        "description": "103.6 v Radio Impuls - 700W [_RADIOK_]"
+      },
+      "id": "c0MDg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.49459,
+          45.369032
+        ]
+      },
+      "properties": {
+        "name": "Sinaia / Cota 2000",
+        "description": "104.7 v Kiss FM [515A] - 1kW [KISS_FM_][_104.7__]"
+      },
+      "id": "I4NTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.547363,
+          45.34569
+        ]
+      },
+      "properties": {
+        "name": "Sinaia / Hotel Păltiniș",
+        "description": "93.3 v Pro FM [E029] - 500W [PRO_FM__][93.3_FM_]"
+      },
+      "id": "M0Mzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.364586,
+          44.431014
+        ]
+      },
+      "properties": {
+        "name": "Slatina / Aleea Independenței",
+        "description": "94.1 v Pro FM [E029] - 200W [PRO_FM__][94,1_MHZ]"
+      },
+      "id": "Y3NzM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.367375,
+          44.432248
+        ]
+      },
+      "properties": {
+        "name": "Slatina / El Preda",
+        "description": "96.7 v Radio Vocea Sperantei [E2F8] - 300W [RVS_____][RADIO___][VOCEA___][SPERANTE][PERANTEI]"
+      },
+      "id": "U2NTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.382299,
+          44.434569
+        ]
+      },
+      "properties": {
+        "name": "Slatina / Eugen Ionescu",
+        "description": "107.4 v National FM [9250] - 200W [National]"
+      },
+      "id": "M1OTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.364833,
+          44.431899
+        ]
+      },
+      "properties": {
+        "name": "Slatina / Hotel Parc",
+        "description": "89.1 v Itsy Bitsy FM [E3C8] - 100W [_ITSY___][_BITSY__]\n90.3 v Radio Galaxy [E068] - 200W [GALAXYFM](**OFF**)",
+        "_umap_options": {
+          "iconUrl": "https://cdn.picpng.com/attention/small/attention-warning-yellow-100865.png"
+        }
+      },
+      "id": "UxNDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.362193,
+          44.430635
+        ]
+      },
+      "properties": {
+        "name": "Slatina / Parc Esplanada",
+        "description": "94.6 v Kiss FM [515A] - 1kW [KISS_FM_][_94,6_FM]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "k4OTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.449987,
+          44.514196
+        ]
+      },
+      "properties": {
+        "name": "Slatina / Priseaca",
+        "description": "105.9 v RRActualitati [EE00] - 200W [RRACTUAL]"
+      },
+      "id": "Q3NTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.370304,
+          44.434887
+        ]
+      },
+      "properties": {
+        "name": "Slatina / Str Cornișei",
+        "description": "92.4 v Radio ZU [E2AA] - 300W [RADIO_ZU][92,4_FM_]\n98.8 v Europa FM [E299] - 2kW [EUROPAFM][__98,8__]"
+      },
+      "id": "E5NzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.350609,
+          44.562152
+        ]
+      },
+      "properties": {
+        "name": "Slobozia / Autogara",
+        "description": "90.9 v Radio ZU [E2AA] - 400W [Radio_ZU][_90.9_FM]\n100.9 v Europa FM [E299] - 2kW [EUROPAFM][_100.9__]"
+      },
+      "id": "k1NTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.382168,
+          44.559706
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Slobozia / Ciulnița",
+        "description": "89.8 v Magic FM [E210] - 2kW [MAGIC_FM][__89.8__]\n93.3 v Kiss FM [515A] - 2kW [KISS_FM_][__93.3__]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "E1ODc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.383873,
+          44.537036
+        ]
+      },
+      "properties": {
+        "name": "Slobozia / Combinat",
+        "description": "88.9 v Național FM [9250] - 500W [National]\n105.6 v Fresh FM [E032] - 500W [FRESH_FM][105.6MHz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "ExOTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.35048,
+          44.565539
+        ]
+      },
+      "properties": {
+        "name": "Slobozia / Domnița Bălașa",
+        "description": "87.7 v Radio Campus [E010] - 200W [CAMPUS__][RADIO___][Slobozia][87.7_FM_]"
+      },
+      "id": "YzMjY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.365077,
+          44.562259
+        ]
+      },
+      "properties": {
+        "name": "Slobozia / Matei Basarab 23",
+        "description": "92.9 v Focus FM [noPI] - 200W [no RDS]"
+      },
+      "id": "I2MDY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.358515,
+          44.565129
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "96.3 h RRActualități [EE00] - 2kW [R_ACTUAL]\n102.6 Radio Trinitas [E24D] - 500W [TRINITAS][102,6MHz]\n104.5 h RRCultural [EE01] - 2kW [CULTURAL]",
+        "name": "Slobozia / SNR"
+      },
+      "id": "UKYyM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.17733,
+          44.711854
+        ]
+      },
+      "properties": {
+        "name": "Snagov",
+        "description": "103.1 v Realitatea FM [E132] - 300W [no RDS]"
+      },
+      "id": "gzNjc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.073762,
+          46.597621
+        ]
+      },
+      "properties": {
+        "name": "Sovata",
+        "description": "89.2 v Jurnal FM [F255] - 50W [JurnalFM]\n102.0 v Radio Gaga [E344] - 50W [__GAGA__][102.0_FM][SLAGEREK][_ES_UJ__][_ZENEK__]"
+      },
+      "id": "I3MzA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.654763,
+          45.996842
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Soveja",
+        "description": "88.2 v Radio Vocea Evangheliei [no PI]- 50W [no RDS]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "2Ddqx"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.595128,
+          46.691169
+        ]
+      },
+      "properties": {
+        "description": "95.4 v Favorit FM [9251] - 200W [Favorit_]\n99.9 v Național FM [9249] - 200W [National]",
+        "name": "Stâna de Vale / Cabana EMF Extrem"
+      },
+      "id": "g4ODM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.621622,
+          46.691194
+        ]
+      },
+      "properties": {
+        "name": "Stâna de Vale / Hotel Iadolina",
+        "description": "96.4 v Radio Trinitas [E24D] - 2kW [TRINITAS][96,40MHZ]"
+      },
+      "id": "A0NDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.455524,
+          46.535067
+        ]
+      },
+      "properties": {
+        "name": "Ștei",
+        "description": "102.0 v Europa FM [E299] - 2kW [EUROPAFM][_102.0__]"
+      },
+      "id": "Y4MzM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.248795,
+          47.650457
+        ]
+      },
+      "properties": {
+        "description": "99.0 v Magic FM [E210] - 400W [MAGIC_FM][___99___]\n102.2 v Kiss FM [515A] - 400W [KISS_FM_][__102.2_]\n107.7 v Rock FM [E057] - 400W [ROCK_FM_][_107.7__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        },
+        "name": "Suceava / Arcadia"
+      },
+      "id": "594NU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.23754,
+          47.642167
+        ]
+      },
+      "properties": {
+        "name": "Suceava / Bd George Enescu",
+        "description": "90.4 v Național FM [9250] - 200W [NATIONAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "9IA3W"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.248167,
+          47.647736
+        ]
+      },
+      "properties": {
+        "name": "Suceava / Grigore Ureche 4",
+        "description": "93.7 v Viva FM [E558] - 400W [VIVA_FM_][93,7_FM_]\n100.4 v Impact FM Suceava - 300W [IMPACTFM][100,4_FM][SUCEAVA_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "kzOTk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.248913,
+          47.649308
+        ]
+      },
+      "properties": {
+        "name": "Suceava / Grigore Ureche 21",
+        "description": "104.0 v Radio Top [FFFF] - 600W [RadioTOP][SUCEAVA_] ",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "AwMDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.151184,
+          47.662519
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Suceava / Mihoveni",
+        "description": "88.6 v Pro FM [E029] - 2kW [PRO_FM__][88,6_FM_]\n97.1 h Virgin Radio [E05F] - 10kW [_VIRGIN_][_97.1_FM]\n99.6 h RR.Actualități [EE00] - 30kW [RRACTUAL]\n101.6 h RR.Cultural [EE01] - 30kW [CULTURAL]\n103.4 h Digi FM [E059] - 30kW [Digi_FM_][103,4_FM]\n105.5 v Europa FM [E299] - 10kW [EUROPAFM][_105.5__]\n106.9 v Trinitas [E24D] - 200W [TRINITAS][106,9MHz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "AyNzk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.226511,
+          47.632313
+        ]
+      },
+      "properties": {
+        "name": "Suceava / Str Ion Irimescu",
+        "description": "91.5 v Itsy Bitsy FM [E3C8] - 400W [_ITSY___][_BITSY__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "IxMTU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.248859,
+          47.643273
+        ]
+      },
+      "properties": {
+        "name": "Suceava / Str Mărășesti",
+        "description": "92.4 v Activ FM [E20B] - 100W [Activ_FM]\n94.2 v Radio Vocea Evangheliei [E213]- 500W [RVE_94.2]\n95.3 v Radio ZU [E2AA] - 400W [RADIO_ZU][95.3_FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "c1NjE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.243355,
+          47.649178
+        ]
+      },
+      "properties": {
+        "name": "Suceava / Str Narciselor",
+        "description": "102.7 v Radio Vocea Speranței [E2F8] - 400W [RVS_____][VOCEA___][SPERANTE][PERANTEI][102,7_FM][SUCEAVA_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "IzMTM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.247196,
+          47.651184
+        ]
+      },
+      "properties": {
+        "name": "Suceava / Str Zamca 28",
+        "description": "89.9 v Jurnal FM [F255] - 1kW [JurnalFM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "YzOTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          29.644289,
+          45.155775
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Sulina",
+        "description": "89.2 v Radio Trinitas [E24D] - 2kW [TRINITAS][89,20MHZ]\n100.9 h RRActualități [EE00] - 2kW [RRACTUAL]\n103.2 v Antena Satelor [EE09] - 2kW [_ANTENA_][SATELOR_][103.2_FM]\n106.2 v Radio Constanța [EE06] - 2kW [R-CTA___]\n107.0 v (**IN CURAND / SOON**) - 50W",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "A1MDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.466346,
+          44.913303
+        ]
+      },
+      "properties": {
+        "name": "Târgoviște / Bd Ferdinand",
+        "description": "98.5 v Radio ZU [E2AA] - 500W [RADIO_ZU][_98.5_FM]"
+      },
+      "id": "c1Mzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.477617,
+          44.949978
+        ]
+      },
+      "properties": {
+        "name": "Târgoviște / Mănăstirea Dealu",
+        "description": "88.1 v Radio MDI [E00B] - 100W [MDI_FM__][88,1_FM_][ASA_CUM_][__ITI___][_PLACE__]\n88.7 v Radio Guerrilla [E0D8] - 100W [Guerrila]\n89.2 v Național FM [9250] - 200W [National]\n90.5 v Radio Vocea Evangheliei [EFFF] - 300W [RVE_Tgv_]\n92.8 v Fresh FM [E280] - 200W [FRESHFM_][92.8_FM_][07454500][21______]\n104.5 v Itsy Bitsy FM [E3C8] - 2kW [ITSY____] [BITSY___]"
+      },
+      "id": "Y1NjQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.449529,
+          44.907396
+        ]
+      },
+      "properties": {
+        "name": "Târgoviște / Șos Gaesti",
+        "description": "89.8 v White FM [E089] - 300W [WHITE_FM][89.8_MHz]\n91.0 v Pro FM [E029] - 300W [PRO_FM__][91.0_FM_]\n94.7 v Puls FM [E05E] - 200W [PULS_FM_]\n98.0 v Kiss FM [515A] - 500W [KISS_FM_][98______]"
+      },
+      "id": "cxMzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.880962,
+          45.807855
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Târgu Bujor / SNR Băleni",
+        "description": "90.8 h Kiss FM [515A] - 2kW [KISS_FM_][__90.8__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "M0NjA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.912698,
+          45.840939
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Târgu Bujor / Umbrărești",
+        "description": "99.7 v Antena Satelor [EE09] - 1kW [_ANTENA_][SATELOR_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "A3NDU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.510656,
+          44.961944
+        ]
+      },
+      "properties": {
+        "name": "Târgu Cărbunești",
+        "description": "95.4 v Digi FM [E059] - 50W [DIGI_FM_][95.4_FM_]"
+      },
+      "id": "QxNjE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.270271,
+          45.037982
+        ]
+      },
+      "properties": {
+        "name": "Târgu Jiu / Hotel Gorj",
+        "description": "88.9 v Virgin Radio [E05F] - 100W [VIRGIN__][88,9_FM_]\n91.2 v Magic FM [E210] - 200W [MAGIC_FM][__91.2__]\n91.8 v Radio Omega [E157] - 300W [RADIO___][OMEGA___][HITURI__][100%____][91,8_FM_]\n92.3 v Radio Sud FM [1F1F] - 300W [SUD_FM__][_92,3FM_]\n97.3 v Radio ZU [E2AA] - 200W [Radio_ZU][97.3_FM_]\n97.9 v Radio Târgu Jiu [5158] - 300W [RADIO___][TG_JIU__][97,9_FM_]\n102.2 v Național FM [9250] - 100W [National]\n102.7 v Radio Vocea Speranței [noPI] - 300W [no RDS]"
+      },
+      "id": "g5NzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.55565,
+          46.52962
+        ]
+      },
+      "properties": {
+        "name": "Târgu Mureș / Parc Olimp",
+        "description": "97.1 v Erdely FM - 400W [RADIO___][ERDELYFM]\n105.6 v Radio Son - 300W [RADIO___][SON_____][105,6_FM]"
+      },
+      "id": "A0MjY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.587874,
+          46.549335
+        ]
+      },
+      "properties": {
+        "name": "Târgu Mureș / Platou Cornești",
+        "description": "89.1 h Digi FM [E059] - 10kW [Digi_FM_][89,1_FM_]\n90.7 v Europa FM [E299] - 4kW [EUROPAFM][_90.7___]\n92.7 v Virgin Radio [E05F] - 2kW [VIRGIN__][92.7_FM_]\n93.6 h RRActualități [EE00] - 10kW [RRACTUAL]\n96.0 v Marosvasarhelyi Radio [E1CD] - 2kW [MSVRADIO]\n100.0 v Dance FM - 200W [DANCE_FM]\n101.6 v Pro FM [E029] - 300W [PRO_FM__][101,6FM_]\n102.9 h Radio Târgu Mureș [EE07] - 10kW [Tg.Mures]\n104.9 h RRCultural [EE01] - 10kW [CULTURAL]"
+      },
+      "id": "k4OTM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.581512,
+          46.544237
+        ]
+      },
+      "properties": {
+        "name": "Târgu Mureș / Radiotel",
+        "description": "88.0 v Radio Gaga - 400W [__GAGA__][88,0_FM_][TG-MURES][SMS:0730][719_966_]\n88.4 v Rock FM [E057] - 400W [ROCK_FM_][_88.4___]\n90.3 v Kiss FM [515A] - 400W [KISS_FM_][__90.3__]\n98.0 v Radio ZU [E2AA] - 2kW [Radio_ZU][98.0_FM_]\n98.6 v Radio Reîntregirea - 300W [REINTRE-][GIREA___][+ARHIEP+][_+ALBA+_][98,6_FM_]\n101.2 v Magic FM [E210] - 400W [MAGIC_FM][101.2_FM]\n100.6 v Național FM [9250] - 2kW [National](**RETRAS**)\n106.4 v Radio Impuls - 200W [IMPULS__][106,4_FM]"
+      },
+      "id": "I5MTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.428524,
+          47.184601
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Târgu Neamț / Dealul Boiștea",
+        "description": "95.7 v Radio M Plus [10FF] - 500W [Mplus_FM]\n97.6 v Activ FM [E20B] - 700W [Activ_FM]\n106.7 v Radio Trinitas [E24D] - 1kW [TRINITAS][106,7MHz]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "QyMzY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.574254,
+          46.265234
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Târgu Ocna",
+        "description": "89.4 v Europa FM [E299] - 1kW [EUROPAFM][__89.4__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "UxMzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.130874,
+          46.001739
+        ]
+      },
+      "properties": {
+        "name": "Târgu Secuiesc / Parc Millenium",
+        "description": "95.0 v Siculus Radio [noPI] - 50W [no RDS]"
+      },
+      "id": "E5MjM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.137301,
+          45.990559
+        ]
+      },
+      "properties": {
+        "name": "Târgu Secuiesc / Str. Gării",
+        "description": "88.0 v Radio Gaga [E344] - 200W [_RADIO__][__GAGA__][88.0_FM_][SLAGEREK][_ES_UJ__][_ZENEK__]\n94.0 v Profi Radio [noPI] - 200W [no RDS]"
+      },
+      "id": "A1Nzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.282703,
+          46.330721
+        ]
+      },
+      "properties": {
+        "name": "Târnăveni",
+        "description": "87.7 v Radio Maria România [E1CC] - 200W [R.MARIA_]\n107.1 v Radio AS [E701] - 200W [RADIO_AS][107.1FM_]"
+      },
+      "id": "I5NTI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.584157,
+          47.477362
+        ]
+      },
+      "properties": {
+        "name": "Tășnad",
+        "description": "90.1 v Maria Radio Erdely [E1CD] - 100W [Maria_R.]"
+      },
+      "id": "Y1Mjk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.435334,
+          45.837134
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Tecuci / Bloc Turn C2",
+        "description": "106.9 v Radio Tecuci [E096] - 200W [RADIO___][TECUCI__][106,9___](**RETRAS**)",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "T97Cm"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.429643,
+          45.844123
+        ]
+      },
+      "properties": {
+        "name": "Tecuci / Primărie",
+        "description": "91.0 v Radio ZU [E2AA] - 200W [RADIO_ZU][_91,0_FM]\n106.1 v Radio Galați [5380] - 200W [_RADIO__][GALATI__][106,1FM_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "k2MjY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.225822,
+          45.739117
+        ]
+      },
+      "properties": {
+        "name": "Timișoara / Biserica Adventistă",
+        "description": "92.2 v Radio Vocea Speranței [noPI] - 300W [no RDS]\n92.2 v Radio Vocea Evangheliei [EFFF] - 100W [RVE-TM__]"
+      },
+      "id": "Y3MzE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.209617,
+          45.735616
+        ]
+      },
+      "properties": {
+        "name": "Timișoara / Calea Șagului",
+        "description": "93.3 v Radio Banat Link [E007] - 200W [BanatLnk]"
+      },
+      "id": "YzNTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.227769,
+          45.747185
+        ]
+      },
+      "properties": {
+        "name": "Timișoara / Facultatea de Electrotehnică",
+        "description": "88.8 v West City Radio [E000] - 200W [WESTCITY][88,8_FM_]"
+      },
+      "id": "E3OTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.232415,
+          45.755004
+        ]
+      },
+      "properties": {
+        "description": "89.7 v Radio Nova FM - 100W (**IN PLAN**)\n90.8 v Virgin Radio [E05F] - 200W [_VIRGIN_][_90.8_FM]\n104.4 v Europa FM [E299] - 5kW [EUROPAFM][_104.4__]",
+        "name": "Timișoara / Hotel Continental"
+      },
+      "id": "YzMTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.271183,
+          45.717581
+        ]
+      },
+      "properties": {
+        "name": "Timișoara / SNR Calea Urseni",
+        "description": "90.3 v Radio Trinitas [E24D] - 200W [TRINITAS][90.3_MHz]\n91.3 h Digi FM [E059] - 10kW [Digi_FM_][91,3_FM_]\n93.9 v Radio Impuls [E0D6] - 200W [IMPULS__][93.9_FM_]\n95.0 v Radio ZU [E2AA] - 200W [RADIO_ZU][95.0_FM_]\n96.1 v Național FM [9250] - 100W [National]\n96.9 v RFI România [EEEE] - 200W [RFI_____]\n97.4 v Pro FM [E029] - 200W [PRO_FM__][97.4_FM_]\n99.0 v Kiss FM [515A] - 500W [_KISS_FM][_99_FM__]\n100.0 v Radio Guerrilla [E0D8] - 200W [GUERILLA][100,0FM_]\n100.7 h RRCultural [EE01] - 10kW [CULTURAL]\n105.9 h Radio Timișoara [EE11] - 2kW [Radio_Tm][105,9_FM]\n106.4 h RRActualități [EE00] - 10kW [RRACTUAL]"
+      },
+      "id": "k2NTc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.568962,
+          44.662304
+        ]
+      },
+      "properties": {
+        "name": "Titu",
+        "description": "91.9 v Radio ZU [E2AA] - 50W [RADIO_ZU][_91.9_FM]"
+      },
+      "id": "MwMzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.353699,
+          46.924945
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Toplița / Str. 1 Dec 1918",
+        "description": "105.4 v (**IN CURAND / SOON**) - 50W"
+      },
+      "id": "c3ODQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.307657,
+          46.945553
+        ]
+      },
+      "properties": {
+        "name": "Toplița / Teasc",
+        "description": "89.5 v Hit FM Harghita [E188] - 50W [HIT_FM__]\n90.1 h Radio Trinitas [E24D] - 2kW [TRINITAS]\n94.4 v Maria Radio Erdely [E1CD] - 2kW [Maria_R.]\n94.9 v Radio Târgu Mureș [EE03] - 50W [RTGMURES]\n98.4 h RRCultural [EE01] - 2kW [CULTURAL]\n101.0 h RRActualități [EE00] - 2kW [RRACTUAL]\n102.3 h Digi FM [E059] - 2kW [Digi_FM_][102,3_FM]\n104.3 h Radio Son [2F2F] - 2kW [RADIOSON][_TOPLITA][104,3Mhz]"
+      },
+      "id": "g2MTQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.419722,
+          44.856569
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Topolog",
+        "description": "88.3 v Itsy Bitsy FM [E3C8] - 4kW [ITSY____][BITSY___]\n90.6 h Radio ZU [E2AA] - 5kW [RADIO_ZU][90.6_FM_]\n103.0 h RRCultural [EE01] - 30kW [CULTURAL]\n105.0 h RRActualități [EE00] - 30kW [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "kxMDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.792119,
+          45.181209
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Tulcea / Com Tower",
+        "description": "93.6 v Radio Vocea Speranței [E2F8] - 500W [___RVS__][RVS_93.6][93.6_FM_]\n101.8 v Radio ZU [E2AA] - 500W [RADIO_ZU][101.8_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "A0MTY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.785279,
+          45.161032
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Tulcea / SNR",
+        "description": "89.5 v Itsy Bitsy FM [E3C8] - 3kW [_ITSY___][_BITSY__]\n90.2 v Vibe FM [E222] - 1kW [_VIBE_FM][_90.2_FM]\n91.4 v Radio Impuls - 2kW [_IMPULS_][91.4_FM_]\n93.0 v Radio Constanța - 500W [RADIOCTA]\n95.8 v Radio Delta [A00B] - 2kW [_DELTA__][95,8_FM_]\n99.4 h RRActualități [EE00] - 10kW [RRACTUAL]\n105.4 h RRCultural [EE01] - 10kW [CULTURAL]\n107.4 v Europa FM [E299] - 5kW [EUROPAFM][_107.4__]\n107.9 v Virgin Radio [E05F] - 5kW [VIRGIN_][107.9_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        }
+      },
+      "id": "M4ODA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.791631,
+          45.164573
+        ]
+      },
+      "properties": {
+        "name": "Tulcea / Str. Babadag",
+        "description": "104.5 v Kiss FM [515A] - 1kW [KISS_FM_][_104.5__]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop"
+        }
+      },
+      "id": "Y3ODM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.77759,
+          46.56606
+        ]
+      },
+      "properties": {
+        "name": "Turda",
+        "description": "89.9 v Radio Transilvania [EEEE] - 200W [TRANSI__]\n107.7 v Radio Dor FM - 200W (**IN PLAN**)"
+      },
+      "id": "I5NzI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.871159,
+          43.761176
+        ]
+      },
+      "properties": {
+        "name": "Turnu Măgurele",
+        "description": "90.7 h Digi FM - 2kW (**IN PLAN**)\n97.2 h Radio Galaxy [E068] - 500W [GALAXYFM]\n100.6 v Radio Vocea Speranței [E2F8] - 50W [__RVS___][RVS100.6][100.6_FM]\n101.1 h RRCultural [EE01] - 2kW [CULTURAL]\n105.1 h RRActualități [EE00] - 2kW [RRACTUAL]"
+      },
+      "id": "g1NjQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.63411,
+          44.710554
+        ]
+      },
+      "properties": {
+        "name": "Urziceni",
+        "description": "91.8 v Fresh FM [E032] - 500W [FRESH_FM][91.8_MHz]\n99.0 v Radio Campus [E04D] - 200W [*CAMPUS*][99,0_FM_]"
+      },
+      "id": "OB5QS"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.047,
+          47.3654
+        ]
+      },
+      "properties": {
+        "name": "Văratec",
+        "description": "88.4 h Digi FM [E059] - 10kW [Digi_FM_][88,4_FM_]\n91.2 h RRActualități [EE00] - 10kW [RRACTUAL]\n98.1 h Maramureș FM - 10kW (**IN PLAN**)\n100.8 h RRCultural [EE01] - 10kW [CULTURAL]\n107.1 v Europa FM [E299] - 5kW [EUROPAFM][_107.1__]"
+      },
+      "id": "E3ODI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.607044,
+          44.245691
+        ]
+      },
+      "properties": {
+        "name": "Vârvoru de Jos",
+        "description": "106.0 v Radio Civic (**soon RLT FM**) [noPI] - 50W [no RDS]"
+      },
+      "id": "Y3Nzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.726172,
+          46.651653
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Vaslui / Delea",
+        "description": "89.7 v Smile FM [E932] - 200W [SMILE_FM][89,7_MHZ]\n95.2 v Radio Guerrilla [1248] - 200W [GUERILLA]\n106.7 v Radio Trinitas [noPI] - 200W [no RDS]"
+      },
+      "id": "r4PJC"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.733514,
+          46.638259
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Vaslui / Str. Stefan Cel Mare",
+        "description": "107.2 v Radio ZU [E2AA] - 200W [Radio_ZU][107,2_FM]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "YyNTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.744454,
+          46.622724
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Vaslui / Sud",
+        "description": "100.3 v Europa FM [E299] - 2kW [EUROPAFM][_100,3__]"
+      },
+      "id": "SC7Oi"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          27.789107,
+          46.670879
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Vaslui / Tanacu",
+        "description": "88.5 h Kiss FM [515A] - 2kW [KISS_FM_][88.5_FM_]\n89.2 v Național FM [9250] - 200W [National]\n91.2 v Rock FM [E057] - 2kW [ROCK_FM_][__91.2__]\n102.4 h RRCultural [EE01] - 2kW [CULTURAL]\n106.1 h RRActualități [EE00] - 2kW [RRACTUAL]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "g1Nzc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.338764,
+          47.317806
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Vatra Dornei / Dealul Diecilor",
+        "description": "98.2 v Digi FM [noPI] - 1kW [no RDS]\n100.7 h RR.Actualități [EE00] - 2kW [Rractual]\n107.7 h RR.Cultural [EE01] - 2kW [CULTURAL]"
+      },
+      "id": "EzMTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.353389,
+          47.34385
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Vatra Dornei / Hotel Bradul",
+        "description": "91.4 v Activ FM [E20B] - 200W  [Activ_FM]"
+      },
+      "id": "E5NjE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.360758,
+          47.345871
+        ]
+      },
+      "properties": {
+        "name": "Vatra Dornei / Oborului",
+        "description": "90.3 v Orion FM [E060] - 200W [ORION_VD]\n92.2 v Dorna FM [E058] - 200W [*DORNA*_][92.2_FM_]\n93.9 v Radio Guerrilla [1248] - 200W [GUERILLA]"
+      },
+      "id": "EyMzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.527763,
+          44.277163
+        ]
+      },
+      "properties": {
+        "name": "Videle",
+        "description": "90.4 v Pro FM [E029] - 100W [_PROFM__]"
+      },
+      "id": "M1MTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.963724,
+          45.417326
+        ]
+      },
+      "properties": {
+        "name": "Voineasa / Hotel Voineasa",
+        "description": "97.9 h Europa FM [E299] - 100W [EUROPAFM][_97.9___]\n107.6 h Radio Trinitas [E24D] - 100W [TRINITAS][107,6MHz]"
+      },
+      "id": "g0NTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.8204,
+          45.4554
+        ]
+      },
+      "properties": {
+        "name": "Voineasa / Mănileasa",
+        "description": "104.2 h Digi FM - 2kW [Digi_FM_][104,2_FM]"
+      },
+      "id": "AzNTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.054531,
+          47.183923
+        ]
+      },
+      "properties": {
+        "name": "Zalău",
+        "description": "89.6 v Koloszvari Radio - 200W (**IN PLAN**)\n90.3 v Favorit FM [9251] - 200W [Favorit_]\n90.8 v Power FM - 200W (**IN PLAN**)\n91.5 v Kiss FM [515A] - 200W [KISS_FM_][_91,5___]\n94.0 v Radio Unison - 200W [RADIO___][_UNISON_][94,0_FM_]\n95.8 v Național FM [9250] - 200W [National]\n96.4 v Magic FM [E210] - 200W [MAGIC_FM][96,4_FM_]"
+      },
+      "id": "kxODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.108561,
+          47.169447
+        ]
+      },
+      "properties": {
+        "name": "Zalău / Meseș",
+        "description": "88.1 h RRActualități [EE00] - 10kW [RRACTUAL]\n92.5 h Radio Maria România [E1CC] - 2kW [R.MARIA]\n93.1 v Radio Trinitas [E24D] - 5kW [TRINITAS][93,1_FM_]\n94.6 h Radio Transilvania [EEEE] - 2kW [TRANSI__]\n97.7 v Virgin Radio [E05F] - 5kW [_VIRGIN_][97.7_FM_]\n101.6 h Digi FM [E059] - 10kW [Digi_FM_][101,6_FM]\n102.7 v Europa FM [E299] - 10kW [EUROPAFM][_102,7__]\n103.3 v City Radio - 200W [CITY_FM_]\n105.0 h RRCultural [EE01] - 10kW [CULTURAL]\n106.9 v Antena Satelor [EE09] - 2kW [ASATELOR]"
+      },
+      "id": "E1MjU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.307007,
+          45.559917
+        ]
+      },
+      "properties": {
+        "name": "Zărnești",
+        "description": "88.2 v Europa FM - 50W (**IN PLAN**)"
+      },
+      "id": "A1MjY"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.367985,
+          43.646694
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Zimnicea",
+        "description": "94.0 h Național FM [9250] - 2kW [National]\n104.5 v Radio Vocea Speranței [E2F8] - 1kW [__RVS___][RVS104.5][104.5_FM]"
+      },
+      "id": "8G79i"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.390091,
+          43.823134
+        ]
+      },
+      "properties": {
+        "name": "Zimnicea / Izvoarele",
+        "description": "90.1 h RRActualități [EE00] - 2kW [RRACTUAL]\n96.1 v Vibe FM [E222] - 2kW [TMRWLAND]\n107.3 h Europa FM [E299] - 2kW [EUROPAFM][_107.3__]"
+      },
+      "id": "AyODQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.236256,
+          46.107993
+        ]
+      },
+      "properties": {
+        "name": "Zlatna / CET Ampelum",
+        "description": "97.3 v Radio Reîntregirea [noPI] - 100W [no RDS]"
+      },
+      "id": "Y4Mjc"
+    }
+  ]
+}
