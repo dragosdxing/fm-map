@@ -98,8 +98,8 @@ html, body { margin:0; padding:0; background: #000; }
 
 /* ================= DARK MODE LEAFLET POPUPS (SEMI-TRANSPARENT) ================= */
 .leaflet-popup-content-wrapper {
-    background: rgba(25, 25, 25, 0.85); /* 85% opacitate pentru a vedea harta/receptorul */
-    backdrop-filter: blur(4px); /* Efect modern de sticlă mată */
+    background: rgba(25, 25, 25, 0.85); 
+    backdrop-filter: blur(4px); 
     -webkit-backdrop-filter: blur(4px);
     color: #eee;
     border: 1px solid #444;
@@ -116,6 +116,22 @@ html, body { margin:0; padding:0; background: #000; }
 .leaflet-container a.leaflet-popup-close-button:hover { color: #fff; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .leaflet-popup-content a { color: #00ff00; }
+
+/* ================= DARK MODE TOOLTIPS (HOVER) ================= */
+.leaflet-tooltip {
+    background: rgba(25, 25, 25, 0.9);
+    color: #00ff00;
+    border: 1px solid #444;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    border-radius: 4px;
+    font-size: 13px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.leaflet-tooltip-top:before { border-top-color: #444; }
+.leaflet-tooltip-bottom:before { border-bottom-color: #444; }
+.leaflet-tooltip-left:before { border-left-color: #444; }
+.leaflet-tooltip-right:before { border-right-color: #444; }
 </style>
 </head>
 
@@ -154,7 +170,8 @@ var txIcon = L.icon({
     iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
     iconSize: [26, 26],
     iconAnchor: [13, 26],
-    popupAnchor: [0, -26]
+    popupAnchor: [0, -26],
+    tooltipAnchor: [0, -26] // Punctul de unde se ridică tooltip-ul
 });
 
 var receiverIcon = L.icon({
@@ -256,8 +273,17 @@ function tune(){
             let desc = feature.properties.description || "";
             let name = feature.properties.name || "Unknown Transmitter";
 
+            // ADAUGARE TOOLTIP (Afișaj doar la Hover)
+            layer.bindTooltip(`<b>${name}</b>`, {
+                direction: 'top', 
+                offset: [0, -10], // Ajută să nu acopere iconița antenei
+                opacity: 1
+            });
+
+            // Afișajul normal la Click
             layer.bindPopup(`<b style="font-size:15px;">${name}</b><br><hr>${desc}`);
 
+            // Acțiunea la Click-Dreapta (Distanță)
             layer.on("contextmenu", function(e){
                 if(!receiverMarker) return;
                 if(distanceLine) map.removeLayer(distanceLine);
@@ -271,7 +297,6 @@ function tune(){
                 let dist = formatDistance(distKm);
                 let azimuth = bearing(p1, p2);
 
-                // Dezactivăm autoPan-ul standard al ferestrei ca să-l putem controla noi mai inteligent
                 layer.bindPopup(
                     `<b style="font-size:15px;">${name}</b><br><hr>${desc}` +
                     `<hr><div style="color:#aaa;"><b>Distance:</b> <span style="color:#00ff00;">${dist}</span><br>` +
@@ -279,11 +304,10 @@ function tune(){
                     { autoPan: false } 
                 ).openPopup();
 
-                // SMART AUTO-FIT: Încadrăm automat ambele puncte, forțând spațiu în partea de sus pentru fereastră
                 map.flyToBounds(distanceLine.getBounds(), {
-                    paddingTopLeft: [50, 180], // Lăsăm 180px liberi sus pentru a nu acoperi pop-up-ul
+                    paddingTopLeft: [50, 180], 
                     paddingBottomRight: [50, 50],
-                    maxZoom: 14 // Facem zoom suficient încât să se separe receptorul de emițător dacă sunt prea aproape
+                    maxZoom: 14 
                 });
             });
         }
