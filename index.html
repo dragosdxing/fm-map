@@ -38,9 +38,13 @@ fetch('fm.json')
 
             // popup
 if(feature.properties){
+let desc = feature.properties.description || "";
+
+// pune linie nouă înainte de fiecare frecvență FM
+desc = desc.replace(/(\d{2,3}\.\d)/g, "<br>$1");
+
 layer.bindPopup(
-    "<b>" + (feature.properties.name || "") + "</b><br>" +
-    (feature.properties.description || "").replaceAll("\\n","<br>")
+    "<b>" + (feature.properties.name || "") + "</b>" + desc
 );
 }
         }
@@ -53,5 +57,6 @@ layer.bindPopup(
 </body>
 
 </html>
+
 
 
