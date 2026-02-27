@@ -391,13 +391,14 @@ function toggleRealCoverage(panoramaID, btnId){
         return;
     }
 
-    // AICI E MODIFICAREA: Folosim API-ul oficial de tile-uri XYZ (Nu WMS), FĂRĂ proxy!
-    const layer = L.tileLayer(
-        "https://www.heywhatsthat.com/api/tile.cgi?id=" + panoramaID + "&z={z}&x={x}&y={y}",
+    const layer = L.tileLayer.wms(
+        "https://www.heywhatsthat.com/bin/terrain.cgi",
         {
-            opacity: 0.65, // Am crescut putin opacitatea ca sa se vada mai bine
-            maxNativeZoom: 18,
-            maxZoom: 19
+            layers: 'visibility',
+            id: panoramaID,
+            format: "image/png",
+            transparent: true,
+            opacity: 0.55
         }
     );
 
@@ -417,8 +418,11 @@ function tune(){
     
     if(geoLayer) map.removeLayer(geoLayer);
     
+    // Curățăm ambele tipuri de coverage-uri la schimbarea frecvenței
     for (let key in activeCoverages) { map.removeLayer(activeCoverages[key]); }
     activeCoverages = {};
+    for (let key in realCoverageLayers) { map.removeLayer(realCoverageLayers[key]); }
+    realCoverageLayers = {};
 
     let filtered = [];
     let regexFM = /\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/;
@@ -489,7 +493,7 @@ function tune(){
             let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
             let coverageHtml = "";
 
-            // LOGICA CONDIȚIONATĂ PENTRU BUTONUL DE COVERAGE (Verificăm string-ul cu litere mici)
+            // LOGICA CONDIȚIONATĂ PENTRU BUTONUL DE COVERAGE
             let lowerName = name.toLowerCase();
             if (lowerName.includes("costila") || lowerName.includes("coștila") || lowerName.includes("bucegi")) {
                 let panoramaID = "GM1X5JB5";
