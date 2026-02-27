@@ -37,13 +37,12 @@ fetch('fm.geojson')
         onEachFeature: function(feature, layer){
 
             // popup
-            if(feature.properties){
-                layer.bindPopup(
-                    "<b>" + (feature.properties.Name || "Station") + "</b><br>" +
-                    "Freq: " + (feature.properties.Freq || "?") + " MHz<br>" +
-                    "ERP: " + (feature.properties.ERP || "?") + " W"
-                );
-            }
+if(feature.properties){
+    layer.bindPopup(
+        "<b>" + (feature.properties.name || "") + "</b><br>" +
+        (feature.properties.description || "")
+    );
+}
         }
     }).addTo(map);
 
@@ -52,4 +51,5 @@ fetch('fm.geojson')
 </script>
 
 </body>
+
 </html>
