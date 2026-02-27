@@ -377,7 +377,7 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
 };
 
-/* ================= HEYWHATSTHAT WMS LOGIC (PENTRU COSTILA) ================= */
+/* ================= HEYWHATSTHAT REAL COVERAGE (PENTRU COSTILA) ================= */
 function toggleRealCoverage(panoramaID, btnId){
     let btn = document.getElementById(btnId);
 
@@ -391,14 +391,13 @@ function toggleRealCoverage(panoramaID, btnId){
         return;
     }
 
-    // Am eliminat proxy-ul ca să ceară tile-urile direct și rapid de pe serverul original
-    const layer = L.tileLayer.wms(
-        "https://www.heywhatsthat.com/bin/terrain.cgi",
+    // AICI E MODIFICAREA: Folosim API-ul oficial de tile-uri XYZ (Nu WMS), FĂRĂ proxy!
+    const layer = L.tileLayer(
+        "https://www.heywhatsthat.com/api/tile.cgi?id=" + panoramaID + "&z={z}&x={x}&y={y}",
         {
-            layers: panoramaID,
-            format: "image/png",
-            transparent: true,
-            opacity: 0.55
+            opacity: 0.65, // Am crescut putin opacitatea ca sa se vada mai bine
+            maxNativeZoom: 18,
+            maxZoom: 19
         }
     );
 
@@ -490,8 +489,9 @@ function tune(){
             let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
             let coverageHtml = "";
 
-            // LOGICA CONDIȚIONATĂ PENTRU BUTONUL DE COVERAGE
-            if (name.toLowerCase().includes("costila") || name.toLowerCase().includes("coștila") || name.toLowerCase().includes("bucegi")) {
+            // LOGICA CONDIȚIONATĂ PENTRU BUTONUL DE COVERAGE (Verificăm string-ul cu litere mici)
+            let lowerName = name.toLowerCase();
+            if (lowerName.includes("costila") || lowerName.includes("coștila") || lowerName.includes("bucegi")) {
                 let panoramaID = "GM1X5JB5";
                 coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleRealCoverage('${panoramaID}','${covBtnId}')">📡 Real Coverage</button>`;
             } else {
@@ -517,8 +517,8 @@ function tune(){
             layer.on('popupopen', function() {
                 let btn = document.getElementById(covBtnId);
                 if (btn) {
-                    // Verifică starea pentru Real Coverage
-                    if (name.toLowerCase().includes("costila") || name.toLowerCase().includes("coștila") || name.toLowerCase().includes("bucegi")) {
+                    let lowerNamePopup = name.toLowerCase();
+                    if (lowerNamePopup.includes("costila") || lowerNamePopup.includes("coștila") || lowerNamePopup.includes("bucegi")) {
                         let panoramaID = "GM1X5JB5";
                         if (realCoverageLayers[panoramaID]) {
                             btn.innerText = "❌ Hide Real Coverage";
@@ -528,7 +528,6 @@ function tune(){
                             btn.classList.remove('active-cov');
                         }
                     } else {
-                        // Verifică starea pentru Coverage Generic
                         if (activeCoverages[id]) {
                             btn.innerText = "❌ Hide Coverage";
                             btn.classList.add('active-cov');
