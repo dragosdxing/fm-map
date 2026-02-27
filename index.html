@@ -435,17 +435,22 @@ function tune(){
             
             let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
 
+            // TOOLTIP ALB CU DISTANTA SI AZIMUT
             layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
             layer.on("mouseover", function(e){
                 let tooltipContent = `<b style="color:#fff;">${name}</b>`;
                 if (receiverMarker) {
-                    let distKm = map.distance(receiverMarker.getLatLng(), e.latlng) / 1000;
-                    tooltipContent += `<br><span style="font-size:11px; color:#ccc;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span></span>`;
+                    let p1 = receiverMarker.getLatLng();
+                    let p2 = e.latlng;
+                    let distKm = map.distance(p1, p2) / 1000;
+                    let azimuth = bearing(p1, p2);
+                    tooltipContent += `<br><span style="font-size:11px; color:#ccc;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span><br>Beam: <span style="color:#fff;">${azimuth.toFixed(0)}°</span></span>`;
                 }
                 layer.setTooltipContent(tooltipContent);
             });
 
+            // POPUP PRINCIPAL FARA DISTANTA/AZIMUT
             layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
 
             layer.on('popupopen', function() {
@@ -468,18 +473,12 @@ function tune(){
                 let p1 = receiverMarker.getLatLng();
                 let p2 = e.latlng;
                 
-                // LINIE DISTANTA ROȘIE SOLIDĂ PENTRU MAI MULTĂ CLARITATE
-                distanceLine = L.polyline([p1, p2], {color: "red", weight: 3}).addTo(map);
+                // LINIE DISTANTA ROȘIE DASHED
+                distanceLine = L.polyline([p1, p2], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
 
-                let distKm = map.distance(p1, p2) / 1000;
-                let dist = formatDistance(distKm);
-                let azimuth = bearing(p1, p2);
-
+                // Reafisam POPUP-ul principal curat
                 layer.bindPopup(
-                    `<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}` +
-                    `<hr><div style="color:#ccc;"><b>Distance:</b> <span style="color:#fff;">${dist}</span><br>` +
-                    `<b>Beam:</b> <span style="color:#fff;">${azimuth.toFixed(0)}°</span></div>` +
-                    `<hr>${coverageHtml}`,
+                    `<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`,
                     { autoPan: false } 
                 ).openPopup();
 
