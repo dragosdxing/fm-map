@@ -18,19 +18,21 @@ html,body{margin:0;padding:0;}
     background:white;
     padding:10px;
     border-radius:10px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.35);
+    box-shadow:0 3px 12px rgba(0,0,0,0.35);
     z-index:1000;
     font-family:Arial;
-    font-size:14px;
 }
 
-#radioPanel input{
+#freqInput{
     width:70px;
+    text-align:center;
+    font-size:16px;
 }
 
-#radioPanel button{
-    margin-top:4px;
-    margin-right:4px;
+button{
+    margin:2px;
+    padding:4px 8px;
+    cursor:pointer;
 }
 </style>
 </head>
@@ -38,139 +40,90 @@ html,body{margin:0;padding:0;}
 <body>
 
 <div id="radioPanel">
-    <b>FM Tuner</b><br>
-    <label>Frequency:</label>
-    <input id="freqInput" type="number" step="0.1" min="87.5" max="108" value="97.9">
-    <button onclick="tune()">Tune</button>
-    <br><br>
-    <b>Country:</b><br>
-    <button onclick="switchCountry('RO')">Romania</button>
-    <button onclick="switchCountry('MD')">Moldova</button>
+<b>FM Tuner</b><br>
+
+Frequency:<br>
+<button onclick="stepDown()">−</button>
+<input id="freqInput" type="text" value="97.9">
+<button onclick="stepUp()">+</button>
+
+<br><br>
+Country:<br>
+<button onclick="setCountry('ro')">Romania</button>
+<button onclick="setCountry('md')">Moldova</button>
 </div>
 
 <div id="map"></div>
 
 <script>
 
-// ================= MAP =================
+var map = L.map('map').setView([47.2, 26.5], 7);
 
-var map = L.map('map').setView([45.8, 26.5],7);
+L.tileLayer(
+'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+{ maxZoom:19 }
+).addTo(map);
 
-// --- ESRI SATELLITE ---
-var esriSat = L.tileLayer(
-'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
-    maxZoom:19,
-    attribution:'Tiles © Esri'
-}).addTo(map);
+L.tileLayer(
+'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+{ maxZoom:19, opacity:0.8 }
+).addTo(map);
 
-// --- ESRI LABELS ---
-var esriLabels = L.tileLayer(
-'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{
-    maxZoom:19,
-    attribution:'Labels © Esri'
-}).addTo(map);
-
-
-// ================= VARIABLES =================
+var antennaIcon = L.icon({
+    iconUrl: 'https://i.ibb.co/TtThCNR/antenna.png',
+    iconSize: [28,28],
+    iconAnchor: [14,28],
+    popupAnchor: [0,-28]
+});
 
 let allStationsRO = [];
 let allStationsMD = [];
-
-let geoLayerRO;
-let geoLayerMD;
-
-let filteredLayer;
-
-let currentCountry = "RO";
-
-
-// ================= DESCRIPTION FORMAT =================
-
-function formatDescription(desc){
-
-    // pune fiecare frecvență pe linie nouă
-    desc = desc.replace(/(\d{2,3}\.\d\s[hv])/gi,"<br>$1");
-
-    // elimină primul <br>
-    if(desc.startsWith("<br>")) desc = desc.substring(4);
-
-    return desc;
-}
-
-
-// ================= LOAD ROMANIA =================
+let currentCountry = "ro";
+let geoLayer;
 
 fetch('fm_ro.json')
-.then(r => r.json())
-.then(data => {
-
+.then(r=>r.json())
+.then(data=>{
     allStationsRO = data.features;
-
-    geoLayerRO = L.geoJSON(data,{
-        onEachFeature: function(feature, layer){
-
-            let desc = formatDescription(feature.properties.description || "");
-
-            layer.bindPopup(
-                "<b>" + (feature.properties.name || "") + "</b><br>" + desc
-            );
-        }
-    }).addTo(map);
+    tune();
 });
-
-
-// ================= LOAD MOLDOVA =================
 
 fetch('fm_md.json')
-.then(r => r.json())
-.then(data => {
-
+.then(r=>r.json())
+.then(data=>{
     allStationsMD = data.features;
-
-    geoLayerMD = L.geoJSON(data,{
-        onEachFeature: function(feature, layer){
-
-            let desc = formatDescription(feature.properties.description || "");
-
-            layer.bindPopup(
-                "<b>" + (feature.properties.name || "") + "</b><br>" + desc
-            );
-        }
-    });
 });
 
-
-// ================= SWITCH COUNTRY =================
-
-function switchCountry(c){
-
+function setCountry(c){
     currentCountry = c;
-
-    if(geoLayerRO) map.removeLayer(geoLayerRO);
-    if(geoLayerMD) map.removeLayer(geoLayerMD);
-    if(filteredLayer) map.removeLayer(filteredLayer);
-
-    if(c === "RO"){
-        geoLayerRO.addTo(map);
-        map.setView([45.8,26.5],7);
-    }else{
-        geoLayerMD.addTo(map);
-        map.setView([47.0,28.6],8);
-    }
-
     tune();
 }
 
+function stepUp(){
+    let f = parseFloat(freqInput.value);
+    f = Math.min(108,(f+0.1));
+    freqInput.value = f.toFixed(1);
+    tune();
+}
 
-// ================= TUNER =================
+function stepDown(){
+    let f = parseFloat(freqInput.value);
+    f = Math.max(87.5,(f-0.1));
+    freqInput.value = f.toFixed(1);
+    tune();
+}
+
+document.getElementById("freqInput").addEventListener("keydown",function(e){
+    if(e.key==="Enter") tune();
+});
 
 function tune(){
 
     let freq = parseFloat(document.getElementById("freqInput").value);
 
-    if(filteredLayer) map.removeLayer(filteredLayer);
+    if(geoLayer) map.removeLayer(geoLayer);
 
-    let dataset = (currentCountry === "RO") ? allStationsRO : allStationsMD;
+    let dataset = (currentCountry==="ro") ? allStationsRO : allStationsMD;
 
     let filteredFeatures = [];
 
@@ -178,7 +131,6 @@ function tune(){
 
         let desc = f.properties.description || "";
 
-        // separă fiecare post
         let stations = desc.split(/(?=\d{2,3}\.\d\s[hv])/i);
 
         let matched = stations.filter(s => {
@@ -189,21 +141,23 @@ function tune(){
             return Math.abs(parseFloat(m[0]) - freq) < 0.05;
         });
 
-        if(matched.length > 0){
+        if(matched.length>0){
 
             let newFeature = JSON.parse(JSON.stringify(f));
-            newFeature.properties.description = formatDescription(matched.join("<br>"));
+            newFeature.properties.description = matched.join("<br>");
 
             filteredFeatures.push(newFeature);
         }
     });
 
-    filteredLayer = L.geoJSON({
+    geoLayer = L.geoJSON({
         type:"FeatureCollection",
         features: filteredFeatures
     },{
+        pointToLayer: function(feature, latlng){
+            return L.marker(latlng,{icon:antennaIcon});
+        },
         onEachFeature: function(feature, layer){
-
             layer.bindPopup(
                 "<b>" + (feature.properties.name || "") + "</b><br>" +
                 feature.properties.description
