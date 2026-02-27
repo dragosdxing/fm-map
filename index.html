@@ -86,11 +86,41 @@ let distanceLine=null;
 /* ================= DISTANCE FORMAT ================= */
 
 function formatDistance(km){
-
     if(km < 1){
         return Math.round(km*1000) + " m";
     }else{
         return Math.round(km) + " km";
+    }
+}
+
+/* ================= REVERSE GEOCODING ================= */
+
+async function getLocationName(lat,lon){
+
+    try{
+        let url=`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
+
+        let r=await fetch(url,{
+            headers:{
+                "Accept":"application/json",
+                "User-Agent":"fm-dx-map"
+            }
+        });
+
+        let data=await r.json();
+        let a=data.address;
+
+        return (
+            a.city ||
+            a.town ||
+            a.village ||
+            a.municipality ||
+            a.county ||
+            "Unknown location"
+        );
+
+    }catch{
+        return "Unknown location";
     }
 }
 
@@ -135,7 +165,6 @@ function tune(){
         });
 
         if(matched.length>0){
-
             let newF=JSON.parse(JSON.stringify(f));
             newF.properties.description=matched.join("<br>");
             filtered.push(newF);
@@ -155,9 +184,7 @@ function tune(){
             let desc=feature.properties.description||"";
             desc=desc.replace(/(\d{2,3}[\.,]\d)/g,"<br>$1");
 
-            layer.bindPopup(
-                "<b>"+(feature.properties.name||"")+"</b><br>"+desc
-            );
+            layer.bindPopup("<b>"+(feature.properties.name||"")+"</b><br>"+desc);
 
             layer.on("contextmenu",function(e){
 
@@ -172,7 +199,6 @@ function tune(){
 
                 let distKm=map.distance(p1,p2)/1000;
                 let dist=formatDistance(distKm);
-
                 let azimuth=bearing(p1,p2);
 
                 layer.bindPopup(
@@ -220,15 +246,27 @@ map.on("contextmenu",function(e){
     receiverMarker=L.marker(e.latlng,{
         icon:receiverIcon,
         draggable:true
-    }).addTo(map)
-    .bindPopup("<b>Receiver position</b><br>(right click to remove)")
-    .openPopup();
+    }).addTo(map);
+
+    receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
+
+    getLocationName(e.latlng.lat,e.latlng.lng).then(name=>{
+        receiverMarker.setPopupContent("<b>"+name+"</b><br>(right click to remove)");
+    });
 
     receiverMarker.on("drag",()=>{
         if(distanceLine){
             map.removeLayer(distanceLine);
             distanceLine=null;
         }
+    });
+
+    receiverMarker.on("dragend",()=>{
+        let p=receiverMarker.getLatLng();
+        receiverMarker.setPopupContent("<b>Searching location...</b>");
+        getLocationName(p.lat,p.lng).then(name=>{
+            receiverMarker.setPopupContent("<b>"+name+"</b><br>(right click to remove)");
+        });
     });
 
     receiverMarker.on("contextmenu",()=>{
