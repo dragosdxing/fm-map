@@ -349,7 +349,7 @@ function locateUser() {
     );
 }
 
-/* ================= COVERAGE LOGIC (CERBURI GENERICE) ================= */
+/* ================= COVERAGE LOGIC (CERCURI GENERICE) ================= */
 window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
@@ -391,8 +391,9 @@ function toggleRealCoverage(panoramaID, btnId){
         return;
     }
 
+    // Am eliminat proxy-ul ca să ceară tile-urile direct și rapid de pe serverul original
     const layer = L.tileLayer.wms(
-        "https://corsproxy.io/?https://www.heywhatsthat.com/bin/terrain.cgi",
+        "https://www.heywhatsthat.com/bin/terrain.cgi",
         {
             layers: panoramaID,
             format: "image/png",
