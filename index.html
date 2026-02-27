@@ -38,10 +38,10 @@ fetch('fm.json')
 
             // popup
 if(feature.properties){
-    layer.bindPopup(
-        "<b>" + (feature.properties.name || "") + "</b><br>" +
-        (feature.properties.description || "")
-    );
+layer.bindPopup(
+    "<b>" + (feature.properties.name || "") + "</b><br>" +
+    (feature.properties.description || "").replaceAll("\\n","<br>")
+);
 }
         }
     }).addTo(map);
@@ -53,4 +53,5 @@ if(feature.properties){
 </body>
 
 </html>
+
 
