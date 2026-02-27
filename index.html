@@ -263,6 +263,8 @@ let currentCountry = "ro";
 let receiverMarker = null;
 let distanceLine = null;
 let activeCoverages = {};
+/* ===== HEYWHATSTHAT REAL COVERAGE ===== */
+let realCoverageLayers = {};
 
 function formatDistance(km){
     if(km < 1) return Math.round(km * 1000) + " m";
@@ -347,7 +349,7 @@ function locateUser() {
     );
 }
 
-/* ================= COVERAGE LOGIC ================= */
+/* ================= COVERAGE LOGIC (CERBURI GENERICE) ================= */
 window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
@@ -374,6 +376,39 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
 
     if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
 };
+
+/* ================= HEYWHATSTHAT WMS LOGIC (PENTRU COSTILA) ================= */
+function toggleRealCoverage(panoramaID, btnId){
+    let btn = document.getElementById(btnId);
+
+    if(realCoverageLayers[panoramaID]){
+        map.removeLayer(realCoverageLayers[panoramaID]);
+        delete realCoverageLayers[panoramaID];
+        if(btn){
+            btn.innerText = "📡 Real Coverage";
+            btn.classList.remove('active-cov');
+        }
+        return;
+    }
+
+    const layer = L.tileLayer.wms(
+        "https://corsproxy.io/?https://www.heywhatsthat.com/bin/terrain.cgi",
+        {
+            layers: panoramaID,
+            format: "image/png",
+            transparent: true,
+            opacity: 0.55
+        }
+    );
+
+    layer.addTo(map);
+    realCoverageLayers[panoramaID] = layer;
+
+    if(btn){
+        btn.innerText = "❌ Hide Real Coverage";
+        btn.classList.add('active-cov');
+    }
+}
 
 /* ================= TUNE & PARSE ================= */
 function tune(){
@@ -452,7 +487,15 @@ function tune(){
             }
 
             let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
-            let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
+            let coverageHtml = "";
+
+            // LOGICA CONDIȚIONATĂ PENTRU BUTONUL DE COVERAGE
+            if (name.toLowerCase().includes("costila") || name.toLowerCase().includes("coștila") || name.toLowerCase().includes("bucegi")) {
+                let panoramaID = "GM1X5JB5";
+                coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleRealCoverage('${panoramaID}','${covBtnId}')">📡 Real Coverage</button>`;
+            } else {
+                coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
+            }
 
             layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
@@ -473,17 +516,30 @@ function tune(){
             layer.on('popupopen', function() {
                 let btn = document.getElementById(covBtnId);
                 if (btn) {
-                    if (activeCoverages[id]) {
-                        btn.innerText = "❌ Hide Coverage";
-                        btn.classList.add('active-cov');
+                    // Verifică starea pentru Real Coverage
+                    if (name.toLowerCase().includes("costila") || name.toLowerCase().includes("coștila") || name.toLowerCase().includes("bucegi")) {
+                        let panoramaID = "GM1X5JB5";
+                        if (realCoverageLayers[panoramaID]) {
+                            btn.innerText = "❌ Hide Real Coverage";
+                            btn.classList.add('active-cov');
+                        } else {
+                            btn.innerText = "📡 Real Coverage";
+                            btn.classList.remove('active-cov');
+                        }
                     } else {
-                        btn.innerText = "📶 Show Coverage";
-                        btn.classList.remove('active-cov');
+                        // Verifică starea pentru Coverage Generic
+                        if (activeCoverages[id]) {
+                            btn.innerText = "❌ Hide Coverage";
+                            btn.classList.add('active-cov');
+                        } else {
+                            btn.innerText = "📶 Show Coverage";
+                            btn.classList.remove('active-cov');
+                        }
                     }
                 }
             });
 
-            // RESTAURAT: Liniile de distanță și azimut la click dreapta/long press pe emițător
+            // Liniile de distanță și azimut la click dreapta pe emițător
             layer.on("contextmenu", function(e){
                 if(!receiverMarker) return;
                 if(distanceLine) map.removeLayer(distanceLine);
@@ -565,7 +621,7 @@ function setCountry(c){
     loadStations(c);
 }
 
-/* ================= RECEIVER & BEARING (RESTAURAT!) ================= */
+/* ================= RECEIVER & BEARING ================= */
 map.on("contextmenu", function(e){
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker){ map.removeLayer(receiverMarker); receiverMarker = null; }
