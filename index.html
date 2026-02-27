@@ -16,28 +16,17 @@ html,body{margin:0;padding:0;}
     top:10px;
     left:60px;
     background:white;
-    padding:10px;
-    border-radius:10px;
-    box-shadow:0 3px 12px rgba(0,0,0,0.35);
+    padding:8px 10px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.3);
     z-index:1000;
     font-family:Arial;
+    font-size:14px;
 }
 
-#freqInput{
-    width:70px;
-    text-align:center;
-    font-size:16px;
-}
+#radioPanel input{ width:70px; }
 
-button{
-    margin:2px;
-    padding:4px 8px;
-    cursor:pointer;
-    border-radius:6px;
-    border:1px solid #aaa;
-    background:#f5f5f5;
-}
-button:hover{ background:#eaeaea; }
+.countryBtn{ margin-top:4px; }
 </style>
 </head>
 
@@ -45,16 +34,13 @@ button:hover{ background:#eaeaea; }
 
 <div id="radioPanel">
 <b>FM Tuner</b><br>
-
-Frequency:<br>
-<button onclick="stepDown()">−</button>
-<input id="freqInput" type="text" value="97.9">
-<button onclick="stepUp()">+</button>
+Frequency:
+<input id="freqInput" type="number" step="0.1" min="87.5" max="108" value="97.9">
 
 <br><br>
 Country:<br>
-<button onclick="setCountry('ro')">Romania</button>
-<button onclick="setCountry('md')">Moldova</button>
+<button class="countryBtn" onclick="setCountry('ro')">Romania</button>
+<button class="countryBtn" onclick="setCountry('md')">Moldova</button>
 </div>
 
 <div id="map"></div>
@@ -63,230 +49,212 @@ Country:<br>
 
 /* ================= MAP ================= */
 
-var map = L.map('map').setView([47.2, 26.5], 7);
+var map = L.map('map').setView([46.1, 26.5], 7);
 
-L.tileLayer(
-'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-{ maxZoom:19 }
-).addTo(map);
+L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
+    maxZoom:19
+}).addTo(map);
 
-L.tileLayer(
-'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
-{ maxZoom:19, opacity:0.85 }
-).addTo(map);
+L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{
+    maxZoom:19
+}).addTo(map);
 
 /* ================= ICONS ================= */
 
-var antennaIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
-    iconSize: [24,24],
-    iconAnchor: [12,24],
-    popupAnchor: [0,-22]
+var txIcon = L.icon({
+    iconUrl:'https://i.ibb.co/Bh7GDMv/antenna.png',
+    iconSize:[26,26],
+    iconAnchor:[13,26],
+    popupAnchor:[0,-26]
 });
 
 var receiverIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/Z2w2XK6/yagi.png',
-    iconSize: [30,30],
-    iconAnchor: [15,30]
+    iconUrl:'https://i.ibb.co/MkmK51LJ/yagi.png',
+    iconSize:[34,34],
+    iconAnchor:[17,34],
+    popupAnchor:[0,-30]
 });
 
-let receiverMarker = null;
-let distanceLine = null;
+/* ================= GLOBALS ================= */
 
-/* ================= DATA ================= */
+let geoLayer=null;
+let allStations=[];
+let currentCountry="ro";
+let receiverMarker=null;
+let distanceLine=null;
 
-let allStationsRO = [];
-let allStationsMD = [];
-let currentCountry = "ro";
-let geoLayer = null;
-let dataLoaded = false;
+/* ================= DISTANCE FORMAT ================= */
 
-Promise.all([
-    fetch('fm.json').then(r=>r.json()),
-    fetch('fm_md.json').then(r=>r.json())
-]).then(([ro,md])=>{
-    allStationsRO = ro.features;
-    allStationsMD = md.features;
-    dataLoaded = true;
-    tune();
-});
+function formatDistance(km){
 
-/* ================= CONTROLS ================= */
+    if(km < 1){
+        return Math.round(km*1000) + " m";
+    }else{
+        return Math.round(km) + " km";
+    }
+}
+
+/* ================= LOAD DATA ================= */
+
+function loadStations(country){
+
+    let file = country==="ro" ? "fm.json" : "fm_md.json";
+
+    fetch(file)
+    .then(r=>r.json())
+    .then(data=>{
+        allStations=data.features;
+        tune();
+    });
+}
+
+loadStations("ro");
+
+/* ================= TUNE ================= */
+
+function tune(){
+
+    if(!allStations.length) return;
+
+    let freq=parseFloat(document.getElementById("freqInput").value);
+
+    if(geoLayer) map.removeLayer(geoLayer);
+
+    let filtered=[];
+
+    allStations.forEach(f=>{
+
+        let desc=f.properties.description||"";
+
+        let stations=desc.split(/(?=\d{2,3}[\.,]\d\s*[hv]?)/gi);
+
+        let matched=stations.filter(s=>{
+            let m=s.match(/\d{2,3}[\.,]\d/);
+            if(!m) return false;
+            return Math.abs(parseFloat(m[0].replace(",","."))-freq)<0.05;
+        });
+
+        if(matched.length>0){
+
+            let newF=JSON.parse(JSON.stringify(f));
+            newF.properties.description=matched.join("<br>");
+            filtered.push(newF);
+        }
+    });
+
+    geoLayer=L.geoJSON({
+        type:"FeatureCollection",
+        features:filtered
+    },{
+        pointToLayer:function(feature,latlng){
+            return L.marker(latlng,{icon:txIcon});
+        },
+
+        onEachFeature:function(feature,layer){
+
+            let desc=feature.properties.description||"";
+            desc=desc.replace(/(\d{2,3}[\.,]\d)/g,"<br>$1");
+
+            layer.bindPopup(
+                "<b>"+(feature.properties.name||"")+"</b><br>"+desc
+            );
+
+            layer.on("contextmenu",function(e){
+
+                if(!receiverMarker) return;
+
+                if(distanceLine) map.removeLayer(distanceLine);
+
+                let p1=receiverMarker.getLatLng();
+                let p2=e.latlng;
+
+                distanceLine=L.polyline([p1,p2],{color:"yellow"}).addTo(map);
+
+                let distKm=map.distance(p1,p2)/1000;
+                let dist=formatDistance(distKm);
+
+                let azimuth=bearing(p1,p2);
+
+                layer.bindPopup(
+                    "<b>"+(feature.properties.name||"")+"</b><br>"+
+                    desc+
+                    "<hr>"+
+                    "Distance: "+dist+"<br>"+
+                    "Beam: "+azimuth.toFixed(0)+"°"
+                ).openPopup();
+            });
+        }
+    }).addTo(map);
+}
+
+/* ================= COUNTRY SWITCH ================= */
 
 function setCountry(c){
-    currentCountry = c;
-    tune();
+    currentCountry=c;
+    loadStations(c);
 }
 
-function stepUp(){
-    let f = parseFloat(freqInput.value)||97.9;
-    f = Math.min(108,(f+0.1));
-    freqInput.value = f.toFixed(1);
-    tune();
-}
+/* ================= AUTO TUNE ================= */
 
-function stepDown(){
-    let f = parseFloat(freqInput.value)||97.9;
-    f = Math.max(87.5,(f-0.1));
-    freqInput.value = f.toFixed(1);
-    tune();
-}
-
-document.getElementById("freqInput").addEventListener("keydown",function(e){
+document.getElementById("freqInput").addEventListener("input",tune);
+document.getElementById("freqInput").addEventListener("keyup",e=>{
     if(e.key==="Enter") tune();
 });
 
 /* ================= RECEIVER ================= */
 
-map.on('contextmenu', function(e){
+map.on("contextmenu",function(e){
+
+    if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
 
     if(receiverMarker){
         map.removeLayer(receiverMarker);
+        receiverMarker=null;
     }
 
-    receiverMarker = L.marker(e.latlng,{
+    if(distanceLine){
+        map.removeLayer(distanceLine);
+        distanceLine=null;
+    }
+
+    receiverMarker=L.marker(e.latlng,{
         icon:receiverIcon,
         draggable:true
     }).addTo(map)
-    .bindPopup("<b>Receiver position</b>")
+    .bindPopup("<b>Receiver position</b><br>(right click to remove)")
     .openPopup();
 
-    receiverMarker.on("drag", function(){
+    receiverMarker.on("drag",()=>{
         if(distanceLine){
             map.removeLayer(distanceLine);
+            distanceLine=null;
+        }
+    });
+
+    receiverMarker.on("contextmenu",()=>{
+        map.removeLayer(receiverMarker);
+        receiverMarker=null;
+
+        if(distanceLine){
+            map.removeLayer(distanceLine);
+            distanceLine=null;
         }
     });
 });
 
-/* ================= CALCULATIONS ================= */
+/* ================= BEARING ================= */
 
-function toRad(x){ return x*Math.PI/180; }
-function toDeg(x){ return x*180/Math.PI; }
+function bearing(a,b){
 
-function haversine(lat1, lon1, lat2, lon2){
-    let R = 6371;
-    let dLat = toRad(lat2-lat1);
-    let dLon = toRad(lon2-lon1);
+    let lat1=a.lat*Math.PI/180;
+    let lat2=b.lat*Math.PI/180;
+    let dLon=(b.lng-a.lng)*Math.PI/180;
 
-    let a =
-        Math.sin(dLat/2)**2 +
-        Math.cos(toRad(lat1))*Math.cos(toRad(lat2)) *
-        Math.sin(dLon/2)**2;
+    let y=Math.sin(dLon)*Math.cos(lat2);
+    let x=Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLon);
 
-    let c = 2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-    return R*c;
-}
-
-function calculateAzimuth(lat1, lon1, lat2, lon2){
-
-    let dLon = toRad(lon2-lon1);
-
-    let y = Math.sin(dLon) * Math.cos(toRad(lat2));
-    let x =
-        Math.cos(toRad(lat1))*Math.sin(toRad(lat2)) -
-        Math.sin(toRad(lat1))*Math.cos(toRad(lat2))*Math.cos(dLon);
-
-    let brng = toDeg(Math.atan2(y,x));
+    let brng=Math.atan2(y,x)*180/Math.PI;
     return (brng+360)%360;
-}
-
-/* estimare simplă rază ERP */
-function estimateRange(desc){
-
-    let m = desc.match(/(\d+)\s*kW/i);
-    if(!m) return null;
-
-    let erp = parseFloat(m[1]);
-
-    // model aproximativ: 20km pentru 1kW, ~√ERP scaling
-    return (20 * Math.sqrt(erp)).toFixed(1);
-}
-
-/* ================= TUNER ================= */
-
-function normalizeFreq(text){
-    return parseFloat(text.replace(",","."));
-}
-
-function extractFrequencies(desc){
-    let matches = desc.match(/\b(8[7-9][\.,]\d|9\d[\.,]\d|10[0-8][\.,]\d)\b/g);
-    if(!matches) return [];
-    return matches.map(f => normalizeFreq(f));
-}
-
-function tune(){
-
-    if(!dataLoaded) return;
-
-    let freq = parseFloat(document.getElementById("freqInput").value);
-
-    if(geoLayer) map.removeLayer(geoLayer);
-
-    let dataset = (currentCountry==="ro") ? allStationsRO : allStationsMD;
-
-    let filteredFeatures = [];
-
-    dataset.forEach(f => {
-
-        let desc = f.properties.description || "";
-        let freqs = extractFrequencies(desc);
-
-        let found = freqs.some(stationFreq =>
-            Math.abs(stationFreq - freq) < 0.051
-        );
-
-        if(found){
-            filteredFeatures.push(f);
-        }
-    });
-
-    geoLayer = L.geoJSON({
-        type:"FeatureCollection",
-        features: filteredFeatures
-    },{
-        pointToLayer: function(feature, latlng){
-            return L.marker(latlng,{icon:antennaIcon});
-        },
-        onEachFeature: function(feature, layer){
-
-            layer.on('contextmenu', function(){
-
-                if(!receiverMarker){
-                    alert("Place receiver first (right click on map).");
-                    return;
-                }
-
-                let r = receiverMarker.getLatLng();
-                let txLat = feature.geometry.coordinates[1];
-                let txLng = feature.geometry.coordinates[0];
-
-                let d = haversine(r.lat,r.lng,txLat,txLng);
-                let az = calculateAzimuth(r.lat,r.lng,txLat,txLng);
-                let range = estimateRange(feature.properties.description);
-
-                if(distanceLine){
-                    map.removeLayer(distanceLine);
-                }
-
-                distanceLine = L.polyline([
-                    [r.lat,r.lng],
-                    [txLat,txLng]
-                ],{color:'lime',weight:2}).addTo(map);
-
-                layer.bindPopup(
-                    "<b>"+feature.properties.name+"</b><br>"+
-                    "Distance: <b>"+d.toFixed(2)+" km</b><br>"+
-                    "Azimuth: <b>"+az.toFixed(1)+"°</b><br>"+
-                    (range ? "Estimated range: <b>"+range+" km</b>" : "")
-                ).openPopup();
-            });
-
-            layer.bindPopup(
-                "<b>"+(feature.properties.name||"")+"</b><br>"+
-                feature.properties.description
-            );
-        }
-    }).addTo(map);
 }
 
 </script>
