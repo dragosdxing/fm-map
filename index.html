@@ -207,12 +207,12 @@ function loadStations(country){
 }
 loadStations("ro"); 
 
-/* ================= COVERAGE TOGGLE LOGIC ================= */
-window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
+/* ================= COVERAGE HYBRID LOGIC ================= */
+window.toggleCoverage = function(lat, lng, powerWatts, btnId, coverageFile) {
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
 
-    // Daca este activ, il stergem de pe harta
+    // Opreste acoperirea daca e deja pornita
     if (activeCoverages[id]) {
         map.removeLayer(activeCoverages[id]);
         delete activeCoverages[id];
@@ -220,25 +220,51 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
         return;
     }
 
-    // Noul model matematic pentru propagare FM realista
-    // Folosim o curba logaritmica (puterea la 0.25) pentru a scala corect Wații
-    let baseRadiusKm = Math.pow(powerWatts, 0.25);
-    
-    let rStrong = (baseRadiusKm * 5) * 1000; // Zona Verde (Semnal puternic)
-    let rWeak = (baseRadiusKm * 9) * 1000;   // Zona Galbenă (Fringe/DX local)
+    // VERIFICAM DACA AVEM FISIER HEYWHATSTHAT
+    if (coverageFile && coverageFile !== 'undefined' && coverageFile.trim() !== "") {
+        if(btn) btn.innerText = "⏳ Loading Terrain...";
+        
+        // Incarcam fisierul GeoJSON real cu relief
+        fetch(coverageFile)
+        .then(r => {
+            if(!r.ok) throw new Error("Fisierul coverage lipseste");
+            return r.json();
+        })
+        .then(geoData => {
+            let coverageLayer = L.geoJSON(geoData, {
+                style: function() {
+                    return { color: '#ff0000', weight: 1, fillColor: '#ff0000', fillOpacity: 0.35 };
+                }
+            }).addTo(map);
+            
+            activeCoverages[id] = coverageLayer;
+            if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
+        })
+        .catch(err => {
+            console.error(err);
+            if(btn) { 
+                btn.innerText = "⚠️ Missing file"; 
+                setTimeout(() => { btn.innerText = "📶 Show Coverage"; }, 2500); 
+            }
+        });
+    } else {
+        // FALLBACK: CALCUL MATEMATIC PENTRU CELELALTE
+        let baseRadiusKm = Math.pow(powerWatts, 0.25);
+        let rStrong = (baseRadiusKm * 5) * 1000;
+        let rWeak = (baseRadiusKm * 9) * 1000;
 
-    // Limită fizică de orizont radio (curbura Pământului limitează drastic FM-ul)
-    // Niciun post nu va fi desenat cu acoperire mai mare de 180km.
-    if (rStrong > 100000) rStrong = 100000; // max 100 km pt verde
-    if (rWeak > 180000) rWeak = 180000;     // max 180 km pt galben
+        // Limita de securitate sa nu acoperim tot globul din greseala
+        if (rStrong > 100000) rStrong = 100000; 
+        if (rWeak > 180000) rWeak = 180000;
 
-    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
-    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
+        let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
+        let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
 
-    let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
-    activeCoverages[id] = coverageGroup;
+        let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
+        activeCoverages[id] = coverageGroup;
 
-    if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
+        if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
+    }
 };
 
 /* ================= TUNE & PARSE ================= */
@@ -248,7 +274,6 @@ function tune(){
     
     if(geoLayer) map.removeLayer(geoLayer);
     
-    // Curățăm harta de acoperirile vechi dacă dăm auto-tune pe altă frecvență
     for (let key in activeCoverages) { map.removeLayer(activeCoverages[key]); }
     activeCoverages = {};
 
@@ -291,12 +316,14 @@ function tune(){
             let desc = feature.properties.description || "";
             let name = feature.properties.name || "Unknown Transmitter";
             
+            // Verificam daca in JSON-ul tau ai setat atributul "coverage_file"
+            let covFile = feature.properties.coverage_file || "";
+
             let lat = feature.geometry.coordinates[1];
             let lng = feature.geometry.coordinates[0];
             let id = lat + "_" + lng;
 
-            // Extragem PUTEREA în mod curat
-            let powerWatts = 100; // Valoare default
+            let powerWatts = 100;
             let powerMatch = desc.match(/-\s*([\d\.,]+)\s*(W|kW)/i);
             if (powerMatch) {
                 let val = parseFloat(powerMatch[1].replace(",", "."));
@@ -304,11 +331,10 @@ function tune(){
                 powerWatts = unit === "kw" ? val * 1000 : val;
             }
 
-            // Generăm un ID unic sigur pentru buton, fără puncte
             let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
             
-            // Construim codul HTML al butonului, trecând DOAR valori numerice curate (lat, lng, powerWatts)
-            let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
+            // Trimitem functiei si fisierul in caz ca exista
+            let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}', '${covFile}')">📶 Show Coverage</button>`;
 
             layer.bindTooltip(`<b style="color:#00ff00;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
@@ -321,10 +347,8 @@ function tune(){
                 layer.setTooltipContent(tooltipContent);
             });
 
-            // Afișajul la Click Stânga
             layer.bindPopup(`<b style="font-size:15px;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
 
-            // Sincronizarea inteligentă a stării butonului la deschiderea oricărui popup
             layer.on('popupopen', function() {
                 let btn = document.getElementById(covBtnId);
                 if (btn) {
@@ -338,7 +362,6 @@ function tune(){
                 }
             });
 
-            // Afișajul la Click Dreapta (Distanță)
             layer.on("contextmenu", function(e){
                 if(!receiverMarker) return;
                 if(distanceLine) map.removeLayer(distanceLine);
@@ -435,4 +458,3 @@ function bearing(a, b){
 </script>
 </body>
 </html>
-
