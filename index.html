@@ -109,6 +109,34 @@ html, body { margin:0; padding:0; background: #000; }
     border-color: #00cc00; 
 }
 
+/* ================= BUTOANE ACȚIUNI REPUSE ================= */
+.action-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 8px 4px;
+    cursor: pointer;
+    background: transparent;
+    color: #fff; 
+    border: 1px solid #fff; 
+    border-radius: 4px;
+    font-weight: bold;
+    transition: 0.2s;
+    font-size: 11px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+.action-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
 .rds-box {
     display: inline-block;
     background: #111;
@@ -162,6 +190,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 <div id="radioPanel">
     <div style="margin-bottom: 12px; font-size: 16px; text-align: center;"><b>📻 FM Tuner</b></div>
+    
     <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px;">
         <button class="tune-btn" onclick="stepFreq(-0.1)">-</button>
         <div class="lcd-screen">
@@ -170,9 +199,17 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
         </div>
         <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
     </div>
+    
+    <div style="font-size: 12px; margin-bottom: 6px; text-align: center; color: #aaa;">Country / Database:</div>
     <div style="display: flex; justify-content: center; gap: 8px;">
         <button id="btn-ro" class="countryBtn active" onclick="setCountry('ro')">Romania</button>
         <button id="btn-md" class="countryBtn" onclick="setCountry('md')">Moldova</button>
+    </div>
+
+    <div class="action-row">
+        <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
+        <a href="https://servers.fmdx.org/" target="_blank" class="action-btn">📻 TEF Servers</a>
+        <a href="https://www.youtube.com/@DragosDXing" target="_blank" class="action-btn">▶️ My Youtube</a>
     </div>
 </div>
 
@@ -197,6 +234,20 @@ function loadStations(country){
     fetch(file).then(r => r.json()).then(data => { allStations = data.features; tune(); });
 }
 loadStations("ro");
+
+/* ================= GEOLOCATION ================= */
+function locateUser() {
+    let btn = document.getElementById("geoBtn");
+    if (!navigator.geolocation) return;
+    btn.innerHTML = "⏳ Locating...";
+    navigator.geolocation.getCurrentPosition((position) => {
+        let latlng = L.latLng(position.coords.latitude, position.coords.longitude);
+        if (!receiverMarker) receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+        else receiverMarker.setLatLng(latlng);
+        map.flyTo(latlng, 12);
+        btn.innerHTML = "📍 Geolocation";
+    });
+}
 
 /* ================= TUNE & PARSE ================= */
 function tune(){
@@ -231,7 +282,6 @@ function tune(){
 
                 let s2 = s.replace(regexFM, "<b style='color:#fff;'>$&</b>"); 
                 
-                // RDS REPAIR
                 s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)(\s*\([^)]+\))?$/, function(match, powerStr, rdsBlocks, extraText) {
                     extraText = extraText || "";
                     let rdsMatches = rdsBlocks.match(/\[([^\]]+)\]/g);
@@ -261,7 +311,6 @@ function tune(){
             let lat = feature.geometry.coordinates[1], lng = feature.geometry.coordinates[0];
             let id = lat + "_" + lng;
 
-            // FIX TOOLTIP: Acum afișează corect textul în caseta gri
             layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
             layer.on("mouseover", function(e){
@@ -287,6 +336,23 @@ function tune(){
         }
     }).addTo(map);
 }
+
+/* ================= COVERAGE LOGIC ================= */
+window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
+    let id = lat + "_" + lng;
+    let btn = document.getElementById(btnId);
+    if (activeCoverages[id]) {
+        map.removeLayer(activeCoverages[id]);
+        delete activeCoverages[id];
+        btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov');
+        return;
+    }
+    let baseRadiusKm = Math.pow(powerWatts, 0.25);
+    let covWeak = L.circle([lat, lng], { radius: (baseRadiusKm * 9) * 1000, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
+    let covStrong = L.circle([lat, lng], { radius: (baseRadiusKm * 5) * 1000, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
+    activeCoverages[id] = L.layerGroup([covWeak, covStrong]).addTo(map);
+    btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov');
+};
 
 /* ================= RDS ANIMATION ================= */
 setInterval(() => {
