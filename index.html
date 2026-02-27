@@ -74,6 +74,21 @@ html, body { margin:0; padding:0; background: #000; }
 .countryBtn:hover { background: #444; }
 .countryBtn.active { background: #00ff00; color: #111; border-color: #00cc00; }
 
+.geo-btn {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 6px;
+    cursor: pointer;
+    background: #1a4a1a;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.geo-btn:hover { background: #00ff00; color: #111; }
+
 /* ================= STILIZARE RDS TIP RADIO ================= */
 .rds-box {
     display: inline-block;
@@ -145,13 +160,15 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 <div id="radioPanel">
     <div style="margin-bottom: 10px; font-size: 16px;"><b>📻 FM Tuner</b></div>
     
-    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 15px;">
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
         <button class="tune-btn" onclick="stepFreq(-0.1)">-</button>
         <input id="freqInput" type="number" step="0.1" min="87.5" max="108" value="97.9">
         <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
     </div>
     
-    <div style="font-size: 12px; margin-bottom: 4px; color: #aaa;">Country / Database:</div>
+    <button id="geoBtn" class="geo-btn" onclick="locateUser()">📍 Geolocation</button>
+    
+    <div style="font-size: 12px; margin-bottom: 4px; margin-top: 10px; color: #aaa;">Country / Database:</div>
     <button id="btn-ro" class="countryBtn active" onclick="setCountry('ro')">Romania</button>
     <button id="btn-md" class="countryBtn" onclick="setCountry('md')">Moldova</button>
 </div>
@@ -207,8 +224,72 @@ function loadStations(country){
 }
 loadStations("ro"); 
 
-/* ================= COVERAGE HYBRID LOGIC ================= */
-window.toggleCoverage = function(lat, lng, powerWatts, btnId, coverageFile) {
+/* ================= GEOLOCATION ================= */
+function locateUser() {
+    let btn = document.getElementById("geoBtn");
+
+    if (!navigator.geolocation) {
+        alert("Geolocația nu este suportată de browser-ul tău.");
+        return;
+    }
+
+    btn.innerHTML = "⏳ Locating...";
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+            let latlng = L.latLng(lat, lng);
+
+            // Stergem linia de distanta daca exista
+            if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+
+            // Mutam sau cream receptorul
+            if (!receiverMarker) {
+                receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+            } else {
+                receiverMarker.setLatLng(latlng);
+            }
+
+            // Centram harta
+            map.flyTo(latlng, 12);
+
+            receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
+
+            getLocationName(lat, lng).then(name => {
+                receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`);
+            });
+
+            btn.innerHTML = "📍 Geolocation";
+            
+            // Reparam evenimentele de drag pentru marker-ul creat/mutat
+            receiverMarker.off("drag");
+            receiverMarker.off("dragend");
+            receiverMarker.off("contextmenu");
+            
+            receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
+            receiverMarker.on("dragend", () => {
+                let p = receiverMarker.getLatLng();
+                receiverMarker.setPopupContent("<b>Searching location...</b>");
+                getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>${name}</b><br>(right click to remove)`); });
+            });
+            receiverMarker.on("contextmenu", () => {
+                map.removeLayer(receiverMarker); receiverMarker = null;
+                if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
+            });
+
+        }, 
+        (error) => {
+            alert("Nu am putut obține locația. Asigură-te că i-ai dat browser-ului permisiunea de a folosi GPS-ul.");
+            btn.innerHTML = "📍 Geolocation";
+            console.error(error);
+        },
+        { enableHighAccuracy: true } // Fortam GPS-ul daca exista pe device
+    );
+}
+
+/* ================= COVERAGE LOGIC (MATH ONLY) ================= */
+window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
 
@@ -220,51 +301,22 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, coverageFile) {
         return;
     }
 
-    // VERIFICAM DACA AVEM FISIER HEYWHATSTHAT
-    if (coverageFile && coverageFile !== 'undefined' && coverageFile.trim() !== "") {
-        if(btn) btn.innerText = "⏳ Loading Terrain...";
-        
-        // Incarcam fisierul GeoJSON real cu relief
-        fetch(coverageFile)
-        .then(r => {
-            if(!r.ok) throw new Error("Fisierul coverage lipseste");
-            return r.json();
-        })
-        .then(geoData => {
-            let coverageLayer = L.geoJSON(geoData, {
-                style: function() {
-                    return { color: '#ff0000', weight: 1, fillColor: '#ff0000', fillOpacity: 0.35 };
-                }
-            }).addTo(map);
-            
-            activeCoverages[id] = coverageLayer;
-            if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
-        })
-        .catch(err => {
-            console.error(err);
-            if(btn) { 
-                btn.innerText = "⚠️ Missing file"; 
-                setTimeout(() => { btn.innerText = "📶 Show Coverage"; }, 2500); 
-            }
-        });
-    } else {
-        // FALLBACK: CALCUL MATEMATIC PENTRU CELELALTE
-        let baseRadiusKm = Math.pow(powerWatts, 0.25);
-        let rStrong = (baseRadiusKm * 5) * 1000;
-        let rWeak = (baseRadiusKm * 9) * 1000;
+    // CALCUL MATEMATIC PENTRU TOTI
+    let baseRadiusKm = Math.pow(powerWatts, 0.25);
+    let rStrong = (baseRadiusKm * 5) * 1000;
+    let rWeak = (baseRadiusKm * 9) * 1000;
 
-        // Limita de securitate sa nu acoperim tot globul din greseala
-        if (rStrong > 100000) rStrong = 100000; 
-        if (rWeak > 180000) rWeak = 180000;
+    // Limita de securitate sa nu acoperim tot globul din greseala
+    if (rStrong > 100000) rStrong = 100000; 
+    if (rWeak > 180000) rWeak = 180000;
 
-        let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
-        let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
+    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
+    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
 
-        let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
-        activeCoverages[id] = coverageGroup;
+    let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
+    activeCoverages[id] = coverageGroup;
 
-        if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
-    }
+    if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
 };
 
 /* ================= TUNE & PARSE ================= */
@@ -316,9 +368,6 @@ function tune(){
             let desc = feature.properties.description || "";
             let name = feature.properties.name || "Unknown Transmitter";
             
-            // Verificam daca in JSON-ul tau ai setat atributul "coverage_file"
-            let covFile = feature.properties.coverage_file || "";
-
             let lat = feature.geometry.coordinates[1];
             let lng = feature.geometry.coordinates[0];
             let id = lat + "_" + lng;
@@ -333,8 +382,7 @@ function tune(){
 
             let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
             
-            // Trimitem functiei si fisierul in caz ca exista
-            let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}', '${covFile}')">📶 Show Coverage</button>`;
+            let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
 
             layer.bindTooltip(`<b style="color:#00ff00;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
@@ -425,7 +473,7 @@ function setCountry(c){
     loadStations(c);
 }
 
-/* ================= RECEIVER & BEARING ================= */
+/* ================= RECEIVER & BEARING (MANUAL) ================= */
 map.on("contextmenu", function(e){
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker){ map.removeLayer(receiverMarker); receiverMarker = null; }
@@ -435,6 +483,7 @@ map.on("contextmenu", function(e){
     receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
 
     getLocationName(e.latlng.lat, e.latlng.lng).then(name => { receiverMarker.setPopupContent(`<b>${name}</b><br>(right click to remove)`); });
+    
     receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
     receiverMarker.on("dragend", () => {
         let p = receiverMarker.getLatLng();
