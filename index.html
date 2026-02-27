@@ -71,7 +71,7 @@ html, body { margin:0; padding:0; background: #000; }
     font-weight: bold;
     margin-top: -2px;
     letter-spacing: 1px;
-    text-shadow: 0 0 3px rgba(0,255,0,0.4);
+    text-shadow: 0 0 3px rgba(0,255,0,0.5);
 }
 
 /* ================= BUTOANE TUNE ================= */
@@ -468,8 +468,8 @@ function tune(){
                 let p1 = receiverMarker.getLatLng();
                 let p2 = e.latlng;
                 
-                // LINIE DISTANTA GRI DISTINCTA CA SA NU SE CONFUNDE CU GRANITELE JUDEȚELOR
-                distanceLine = L.polyline([p1, p2], {color: "#aaa", weight: 3, dashArray: "5, 5"}).addTo(map);
+                // LINIE DISTANTA ROȘIE SOLIDĂ PENTRU MAI MULTĂ CLARITATE
+                distanceLine = L.polyline([p1, p2], {color: "red", weight: 3}).addTo(map);
 
                 let distKm = map.distance(p1, p2) / 1000;
                 let dist = formatDistance(distKm);
