@@ -10,12 +10,33 @@
 <style>
 html,body{margin:0;padding:0;}
 #map{height:100vh;width:100vw;}
+
+#radioPanel{
+    position:absolute;
+    top:10px;
+    left:60px;
+    background:white;
+    padding:8px 10px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.3);
+    z-index:1000;
+    font-family:Arial;
+}
+#radioPanel input{
+    width:70px;
+}
 </style>
 </head>
 
 <body>
 
 <div id="map"></div>
+
+<div id="radioPanel">
+    <label>Frequency:</label>
+    <input id="freqInput" type="number" step="0.1" min="87.5" max="108" value="97.9">
+    <button onclick="tune()">Tune</button>
+</div>
 
 <script>
 
@@ -28,35 +49,90 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'© OpenStreetMap'
 }).addTo(map);
 
-// încarcă baza ta de date
+// variabile globale necesare pentru filtrare
+let allStations = [];
+let geoLayer = null;
+
+// încarcă baza de date
 fetch('fm.json')
 .then(response => response.json())
 .then(data => {
 
-    L.geoJSON(data,{
+    // salvăm toate stațiile
+    allStations = data.features;
+
+    // desenăm layerul inițial
+    geoLayer = L.geoJSON(data,{
         onEachFeature: function(feature, layer){
 
-            // popup
-if(feature.properties){
-let desc = feature.properties.description || "";
+            if(feature.properties){
 
-// pune linie nouă înainte de fiecare frecvență FM
-desc = desc.replace(/(\d{2,3}\.\d)/g, "<br>$1");
+                let desc = feature.properties.description || "";
 
-layer.bindPopup(
-    "<b>" + (feature.properties.name || "") + "</b>" + desc
-);
-}
+                // formatare vizuală
+                desc = desc.replace(/(\d{2,3}\.\d)/g, "<br>$1");
+
+                layer.bindPopup(
+                    "<b>" + (feature.properties.name || "") + "</b>" + desc
+                );
+            }
         }
     }).addTo(map);
 
 });
 
+// funcția de acordare
+function tune(){
+
+    let freq = parseFloat(document.getElementById("freqInput").value);
+
+    if(geoLayer){
+        map.removeLayer(geoLayer);
+    }
+
+    let filteredFeatures = [];
+
+    allStations.forEach(f => {
+
+        let desc = f.properties.description || "";
+
+        // separă posturile individuale
+        let stations = desc.split(/(?=\d{2,3}\.\d\s[hv])/i);
+
+        // caută postul care corespunde frecvenței
+        let matched = stations.filter(s => {
+
+            let m = s.match(/\d{2,3}\.\d/);
+            if(!m) return false;
+
+            return Math.abs(parseFloat(m[0]) - freq) < 0.05;
+        });
+
+        if(matched.length > 0){
+
+            let newFeature = JSON.parse(JSON.stringify(f));
+
+            newFeature.properties.description = matched.join("<br>");
+
+            filteredFeatures.push(newFeature);
+        }
+    });
+
+    geoLayer = L.geoJSON({
+        type:"FeatureCollection",
+        features: filteredFeatures
+    },{
+        onEachFeature: function(feature, layer){
+
+            layer.bindPopup(
+                "<b>" + (feature.properties.name || "") + "</b><br>" +
+                feature.properties.description
+            );
+        }
+    }).addTo(map);
+}
+
 </script>
 
 </body>
-
 </html>
-
-
-
