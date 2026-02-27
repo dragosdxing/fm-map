@@ -27,9 +27,10 @@ html, body { margin:0; padding:0; background: #000; }
     z-index: 1000;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    width: 280px;
 }
 
-/* ================= ECRAN LCD PENTRU FRECVENȚĂ ================= */
+/* ================= ECRAN LCD PENTRU FRECVENȚĂ (VERDE) ================= */
 .lcd-screen {
     background: #111;
     border: 1px solid #000;
@@ -39,16 +40,16 @@ html, body { margin:0; padding:0; background: #000; }
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 75px;
+    min-width: 80px;
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.9);
 }
 
 #freqInput { 
     background: transparent;
     border: none;
-    color: #00ff00;
+    color: #00ff00; /* RĂMÂNE VERDE */
     font-family: 'DS-Digital', sans-serif;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: normal;
     text-align: center;
     width: 100%;
@@ -56,31 +57,32 @@ html, body { margin:0; padding:0; background: #000; }
     padding: 0;
     margin: 0;
     letter-spacing: 2px;
-    text-shadow: 0 0 5px rgba(0,255,0,0.6); 
+    text-shadow: 0 0 6px rgba(0,255,0,0.4);
 }
 
 #freqInput::-webkit-outer-spin-button,
 #freqInput::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+/* Input-ul a fost transformat in text field nativ pentru a permite custom input fara buguri browser */
 #freqInput[type=number] { -moz-appearance: textfield; }
 
 .mhz-label {
-    color: #00ff00;
+    color: #00ff00; /* RĂMÂNE VERDE */
     font-size: 11px;
     font-family: Arial, sans-serif;
     font-weight: bold;
     margin-top: -2px;
     letter-spacing: 1px;
-    text-shadow: 0 0 3px rgba(0,255,0,0.5);
+    text-shadow: 0 0 3px rgba(0,255,0,0.4);
 }
 
 /* ================= BUTOANE TUNE ================= */
 .tune-btn {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     font-weight: bold;
     cursor: pointer;
     background: #383a40;
-    color: #ccc;
+    color: #fff;
     border: 1px solid #2b2d31;
     border-radius: 4px;
     font-size: 18px;
@@ -90,28 +92,45 @@ html, body { margin:0; padding:0; background: #000; }
     justify-content: center;
     transition: 0.2s;
 }
-.tune-btn:hover { background: #404249; color: #fff; }
+.tune-btn:hover { background: #4f525a; }
 
-/* ================= RAND BUTOANE ACTIUNI ================= */
+/* ================= BUTOANE ȚĂRI (Centrate, VERDE la selecție) ================= */
+.countryBtn { 
+    cursor: pointer;
+    padding: 6px 16px;
+    border: 1px solid #555;
+    background: #383a40;
+    color: #fff; /* Inactiv e Alb */
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.countryBtn:hover { background: #404249; }
+.countryBtn.active { 
+    background: #00ff00; /* ACTIV E VERDE */
+    color: #111; 
+    border-color: #00cc00; 
+}
+
+/* ================= RAND BUTOANE ACTIUNI (JOS, ALBE) ================= */
 .action-row {
     display: flex;
     gap: 8px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 20px;
     width: 100%;
 }
 
 .action-btn {
     flex: 1;
-    padding: 8px 10px;
+    padding: 8px 4px;
     cursor: pointer;
     background: transparent;
-    color: #00ff00;
-    border: 1px solid #00ff00;
+    color: #fff; /* TOTUL ALB */
+    border: 1px solid #fff; /* BORDER ALB */
     border-radius: 4px;
     font-weight: bold;
     transition: 0.2s;
-    font-size: 12px;
+    font-size: 11px;
     text-align: center;
     text-decoration: none;
     display: flex;
@@ -119,39 +138,13 @@ html, body { margin:0; padding:0; background: #000; }
     justify-content: center;
     white-space: nowrap;
 }
-.action-btn:hover { background: rgba(0,255,0,0.1); color: #fff; }
+.action-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
-/* Stilizare speciala pentru butonul YouTube */
-.yt-btn {
-    color: #ff4d4d;
-    border-color: #ff4d4d;
-}
-.yt-btn:hover { background: rgba(255,77,77,0.1); }
-
-/* ================= BUTOANE ȚĂRI ================= */
-.countryBtn { 
-    margin-top: 6px; 
-    cursor: pointer;
-    padding: 6px 12px;
-    border: 1px solid #383a40;
-    background: #383a40;
-    color: #aaa;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: all 0.2s;
-}
-.countryBtn:hover { background: #404249; color: #eee; }
-.countryBtn.active { 
-    background: #00ff00; 
-    color: #111; 
-    border-color: #00cc00; 
-}
-
-/* ================= STILIZARE RDS TIP RADIO ================= */
+/* ================= STILIZARE RDS TIP RADIO (VERDE) ================= */
 .rds-box {
     display: inline-block;
     background: #111;
-    color: #00ff00;
+    color: #00ff00; /* RĂMÂNE VERDE */
     font-family: 'Courier New', Courier, monospace;
     padding: 2px 6px;
     border-radius: 3px;
@@ -162,27 +155,27 @@ html, body { margin:0; padding:0; background: #000; }
     box-shadow: inset 0 0 5px rgba(0,255,0,0.4);
 }
 
-/* ================= DARK MODE LEAFLET POPUPS ================= */
+/* ================= DARK MODE LEAFLET POPUPS (Tot restul ALB) ================= */
 .leaflet-popup-content-wrapper {
     background: rgba(25, 25, 25, 0.85); 
     backdrop-filter: blur(4px); 
     -webkit-backdrop-filter: blur(4px);
-    color: #eee;
+    color: #fff; /* TEXT POPUP ALB */
     border: 1px solid #444;
     box-shadow: 0 3px 14px rgba(0,0,0,0.8);
     border-radius: 6px;
 }
 .leaflet-popup-tip { background: rgba(25, 25, 25, 0.85); border-top: 1px solid #444; border-left: 1px solid #444; }
 .leaflet-popup-content { margin: 14px; line-height: 1.5; }
-.leaflet-container a.leaflet-popup-close-button { color: #aaa; }
-.leaflet-container a.leaflet-popup-close-button:hover { color: #fff; }
+.leaflet-container a.leaflet-popup-close-button { color: #fff; }
+.leaflet-container a.leaflet-popup-close-button:hover { color: #aaa; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
-.leaflet-popup-content a { color: #00ff00; }
+.leaflet-popup-content a { color: #fff; text-decoration: underline; }
 
 /* ================= DARK MODE TOOLTIPS (HOVER) ================= */
 .leaflet-tooltip {
     background: rgba(25, 25, 25, 0.9);
-    color: #eee;
+    color: #fff; /* TOOLTIP ALB */
     border: 1px solid #444;
     box-shadow: 0 2px 8px rgba(0,0,0,0.8);
     border-radius: 4px;
@@ -193,11 +186,11 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 }
 .leaflet-tooltip-top:before { border-top-color: #444; }
 
-/* ================= COVERAGE BUTTON ================= */
+/* ================= COVERAGE BUTTON (ALB) ================= */
 .cov-btn {
-    background: #333;
-    color: #00ff00;
-    border: 1px solid #00ff00;
+    background: transparent;
+    color: #fff; /* ALB */
+    border: 1px solid #fff; /* ALB */
     padding: 6px 10px;
     border-radius: 4px;
     cursor: pointer;
@@ -207,36 +200,35 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     transition: 0.2s;
     font-size: 13px;
 }
-.cov-btn:hover { background: #00ff00; color: #111; }
-.cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
-.cov-btn.active-cov:hover { background: #cc0000; }
+.cov-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+.cov-btn.active-cov { background: #fff; color: #111; border-color: #fff; }
 </style>
 </head>
 
 <body>
 
 <div id="radioPanel">
-    <div style="margin-bottom: 12px; font-size: 16px;"><b>📻 FM Tuner</b></div>
+    <div style="margin-bottom: 12px; font-size: 16px; text-align: center;"><b>📻 FM Tuner</b></div>
     
-    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px;">
         <button class="tune-btn" onclick="stepFreq(-0.1)">-</button>
         <div class="lcd-screen">
-            <input id="freqInput" type="number" step="0.1" min="87.5" max="108" value="97.9">
+            <input id="freqInput" type="text" value="97.9">
             <div class="mhz-label">MHz</div>
         </div>
         <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
     </div>
     
+    <div style="font-size: 12px; margin-bottom: 6px; text-align: center; color: #aaa;">Country / Database:</div>
+    <div style="display: flex; justify-content: center; gap: 8px;">
+        <button id="btn-ro" class="countryBtn active" onclick="setCountry('ro')">Romania</button>
+        <button id="btn-md" class="countryBtn" onclick="setCountry('md')">Moldova</button>
+    </div>
+
     <div class="action-row">
         <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
         <a href="https://servers.fmdx.org/" target="_blank" class="action-btn">📻 TEF Servers</a>
-        <a href="https://www.youtube.com/@DragosDXing" target="_blank" class="action-btn yt-btn">▶️ My Youtube</a>
-    </div>
-    
-    <div style="font-size: 12px; margin-bottom: 4px; margin-top: 10px; color: #aaa;">Country / Database:</div>
-    <div style="display: flex; gap: 6px;">
-        <button id="btn-ro" class="countryBtn active" onclick="setCountry('ro')">Romania</button>
-        <button id="btn-md" class="countryBtn" onclick="setCountry('md')">Moldova</button>
+        <a href="https://www.youtube.com/@DragosDXing" target="_blank" class="action-btn">▶️ My Youtube</a>
     </div>
 </div>
 
@@ -342,7 +334,7 @@ function locateUser() {
 
         }, 
         (error) => {
-            alert("Nu am putut obține locația. Asigură-te că i-ai dat browser-ului permisiunea de a folosi GPS-ul.");
+            alert("Nu am putut obține locația. Asigură-te că i-ai dat permisiunea de a folosi GPS-ul.");
             btn.innerHTML = "📍 Geolocation";
             console.error(error);
         },
@@ -369,8 +361,8 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     if (rStrong > 100000) rStrong = 100000; 
     if (rWeak > 180000) rWeak = 180000;
 
-    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
-    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
+    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#fff', fillOpacity: 0.10 });
+    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#fff', fillOpacity: 0.20 });
 
     let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
     activeCoverages[id] = coverageGroup;
@@ -405,7 +397,8 @@ function tune(){
         if(matched.length > 0){
             let newF = JSON.parse(JSON.stringify(f));
             let formatted = matched.map(s => {
-                let s2 = s.replace(regexFM, "<b style='color:#00ff00;'>$&</b>"); 
+                // FRECVENȚA IN POP-UP ESTE ACUM ALBĂ
+                let s2 = s.replace(regexFM, "<b style='color:#fff;'>$&</b>"); 
                 s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)(\s*\([^)]+\))?$/, function(match, powerStr, rdsBlocks, extraText) {
                     extraText = extraText || "";
                     let frames = rdsBlocks.match(/\[([^\]]+)\]/g).map(frame => frame.slice(1, -1));
@@ -443,18 +436,20 @@ function tune(){
             
             let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
 
-            layer.bindTooltip(`<b style="color:#00ff00;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
+            // TOOLTIP ALB
+            layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
             layer.on("mouseover", function(e){
-                let tooltipContent = `<b style="color:#00ff00;">${name}</b>`;
+                let tooltipContent = `<b style="color:#fff;">${name}</b>`;
                 if (receiverMarker) {
                     let distKm = map.distance(receiverMarker.getLatLng(), e.latlng) / 1000;
-                    tooltipContent += `<br><span style="font-size:11px; color:#aaa;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span></span>`;
+                    tooltipContent += `<br><span style="font-size:11px; color:#ccc;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span></span>`;
                 }
                 layer.setTooltipContent(tooltipContent);
             });
 
-            layer.bindPopup(`<b style="font-size:15px;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
+            // POPUP ALB
+            layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
 
             layer.on('popupopen', function() {
                 let btn = document.getElementById(covBtnId);
@@ -475,16 +470,18 @@ function tune(){
 
                 let p1 = receiverMarker.getLatLng();
                 let p2 = e.latlng;
-                distanceLine = L.polyline([p1, p2], {color: "#00ff00", weight: 3, dashArray: "5, 5"}).addTo(map);
+                // LINIE DISTANTA ALBA
+                distanceLine = L.polyline([p1, p2], {color: "#fff", weight: 3, dashArray: "5, 5"}).addTo(map);
 
                 let distKm = map.distance(p1, p2) / 1000;
                 let dist = formatDistance(distKm);
                 let azimuth = bearing(p1, p2);
 
+                // TEXT DISTANTA SI AZIMUT ALB
                 layer.bindPopup(
-                    `<b style="font-size:15px;">${name}</b><br><hr>${desc}` +
-                    `<hr><div style="color:#aaa;"><b>Distance:</b> <span style="color:#00ff00;">${dist}</span><br>` +
-                    `<b>Beam:</b> <span style="color:#00ff00;">${azimuth.toFixed(0)}°</span></div>` +
+                    `<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}` +
+                    `<hr><div style="color:#ccc;"><b>Distance:</b> <span style="color:#fff;">${dist}</span><br>` +
+                    `<b>Beam:</b> <span style="color:#fff;">${azimuth.toFixed(0)}°</span></div>` +
                     `<hr>${coverageHtml}`,
                     { autoPan: false } 
                 ).openPopup();
@@ -511,7 +508,28 @@ setInterval(() => {
     });
 }, 2500);
 
-/* ================= AUTO TUNE CONTROLS ================= */
+/* ================= AUTO TUNE CONTROLS (SMART INPUT) ================= */
+function parseFrequency() {
+    let input = document.getElementById("freqInput");
+    let raw = input.value.trim().replace(',', '.');
+    let val = parseFloat(raw);
+    
+    if (!isNaN(val)) {
+        // Formateaza numar intreg (ex: 979 -> 97.9, 1000 -> 100.0)
+        if (val >= 875 && val <= 1080 && raw.indexOf('.') === -1) {
+            val = val / 10;
+        }
+        // Protectii limite banda FM
+        if (val < 87.5) val = 87.5;
+        if (val > 108.0) val = 108.0;
+    } else {
+        val = 97.9; // Fallback in caz de eroare la tastare
+    }
+    
+    input.value = val.toFixed(1);
+    tune();
+}
+
 function stepFreq(delta) {
     let input = document.getElementById("freqInput");
     let val = parseFloat(input.value) + delta;
@@ -521,8 +539,14 @@ function stepFreq(delta) {
     tune();
 }
 
-document.getElementById("freqInput").addEventListener("input", tune);
-document.getElementById("freqInput").addEventListener("keyup", e => { if(e.key === "Enter") tune(); });
+// Executam formatarea cand userul da "Enter" sau apasa click in afara casutei
+let inputField = document.getElementById("freqInput");
+inputField.addEventListener("blur", parseFrequency);
+inputField.addEventListener("keyup", e => { 
+    if(e.key === "Enter") {
+        inputField.blur(); // Asta va apela automat "blur" si va curata frecventa
+    } 
+});
 
 /* ================= COUNTRY SWITCH ================= */
 function setCountry(c){
