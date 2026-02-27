@@ -62,7 +62,6 @@ html, body { margin:0; padding:0; background: #000; }
 
 #freqInput::-webkit-outer-spin-button,
 #freqInput::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-/* Input-ul a fost transformat in text field nativ pentru a permite custom input fara buguri browser */
 #freqInput[type=number] { -moz-appearance: textfield; }
 
 .mhz-label {
@@ -186,11 +185,11 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 }
 .leaflet-tooltip-top:before { border-top-color: #444; }
 
-/* ================= COVERAGE BUTTON (ALB) ================= */
+/* ================= COVERAGE BUTTON (VERDE/ROSU ORIGINAL) ================= */
 .cov-btn {
-    background: transparent;
-    color: #fff; /* ALB */
-    border: 1px solid #fff; /* ALB */
+    background: #333;
+    color: #00ff00;
+    border: 1px solid #00ff00;
     padding: 6px 10px;
     border-radius: 4px;
     cursor: pointer;
@@ -200,8 +199,9 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     transition: 0.2s;
     font-size: 13px;
 }
-.cov-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
-.cov-btn.active-cov { background: #fff; color: #111; border-color: #fff; }
+.cov-btn:hover { background: #00ff00; color: #111; }
+.cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
+.cov-btn.active-cov:hover { background: #cc0000; }
 </style>
 </head>
 
@@ -342,7 +342,7 @@ function locateUser() {
     );
 }
 
-/* ================= COVERAGE LOGIC ================= */
+/* ================= COVERAGE LOGIC (COLOR REDONE) ================= */
 window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
@@ -361,8 +361,9 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     if (rStrong > 100000) rStrong = 100000; 
     if (rWeak > 180000) rWeak = 180000;
 
-    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#fff', fillOpacity: 0.10 });
-    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#fff', fillOpacity: 0.20 });
+    // Culorile de acoperire initiale (Galben/Verde)
+    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
+    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
 
     let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
     activeCoverages[id] = coverageGroup;
