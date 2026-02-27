@@ -220,13 +220,17 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
         return;
     }
 
-    // Calcul acoperire
-    let rStrong = (Math.sqrt(powerWatts) * 1.6) * 1000;
-    let rWeak = (Math.sqrt(powerWatts) * 3.2) * 1000;
+    // Noul model matematic pentru propagare FM realista
+    // Folosim o curba logaritmica (puterea la 0.25) pentru a scala corect Wații
+    let baseRadiusKm = Math.pow(powerWatts, 0.25);
+    
+    let rStrong = (baseRadiusKm * 5) * 1000; // Zona Verde (Semnal puternic)
+    let rWeak = (baseRadiusKm * 9) * 1000;   // Zona Galbenă (Fringe/DX local)
 
-    // Limitări maxime
-    if (rStrong > 150000) rStrong = 150000; 
-    if (rWeak > 250000) rWeak = 250000;
+    // Limită fizică de orizont radio (curbura Pământului limitează drastic FM-ul)
+    // Niciun post nu va fi desenat cu acoperire mai mare de 180km.
+    if (rStrong > 100000) rStrong = 100000; // max 100 km pt verde
+    if (rWeak > 180000) rWeak = 180000;     // max 180 km pt galben
 
     let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
     let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
@@ -431,3 +435,4 @@ function bearing(a, b){
 </script>
 </body>
 </html>
+
