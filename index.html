@@ -33,6 +33,21 @@ button{
     margin:2px;
     padding:4px 8px;
     cursor:pointer;
+    border-radius:6px;
+    border:1px solid #aaa;
+    background:#f5f5f5;
+}
+
+button:hover{
+    background:#eaeaea;
+}
+
+/* white halo around antenna */
+.antenna-wrapper{
+    background:white;
+    border-radius:50%;
+    padding:4px;
+    box-shadow:0 0 7px rgba(0,0,0,0.7);
 }
 </style>
 </head>
@@ -59,6 +74,7 @@ Country:<br>
 
 var map = L.map('map').setView([47.2, 26.5], 7);
 
+/* ESRI Satellite */
 L.tileLayer(
 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 { maxZoom:19 }
@@ -66,28 +82,32 @@ L.tileLayer(
 
 L.tileLayer(
 'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
-{ maxZoom:19, opacity:0.8 }
+{ maxZoom:19, opacity:0.85 }
 ).addTo(map);
 
-var antennaIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/TtThCNR/antenna.png',
-    iconSize: [28,28],
-    iconAnchor: [14,28],
-    popupAnchor: [0,-28]
+/* antenna icon with halo */
+var antennaIcon = L.divIcon({
+    html:'<div class="antenna-wrapper"><img src="https://i.ibb.co/TtThCNR/antenna.png" width="22"></div>',
+    className:'',
+    iconSize:[30,30],
+    iconAnchor:[15,28],
+    popupAnchor:[0,-28]
 });
 
 let allStationsRO = [];
 let allStationsMD = [];
 let currentCountry = "ro";
-let geoLayer;
+let geoLayer = null;
 
-fetch('fm_ro.json')
+/* LOAD ROMANIA */
+fetch('fm.json')
 .then(r=>r.json())
 .then(data=>{
     allStationsRO = data.features;
     tune();
 });
 
+/* LOAD MOLDOVA */
 fetch('fm_md.json')
 .then(r=>r.json())
 .then(data=>{
@@ -100,14 +120,14 @@ function setCountry(c){
 }
 
 function stepUp(){
-    let f = parseFloat(freqInput.value);
+    let f = parseFloat(freqInput.value)||97.9;
     f = Math.min(108,(f+0.1));
     freqInput.value = f.toFixed(1);
     tune();
 }
 
 function stepDown(){
-    let f = parseFloat(freqInput.value);
+    let f = parseFloat(freqInput.value)||97.9;
     f = Math.max(87.5,(f-0.1));
     freqInput.value = f.toFixed(1);
     tune();
