@@ -40,10 +40,7 @@ html, body { margin:0; padding:0; background: #000; }
 }
 
 #radioPanel input::-webkit-outer-spin-button,
-#radioPanel input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
+#radioPanel input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 #radioPanel input[type=number] { -moz-appearance: textfield; }
 
 .tune-btn {
@@ -75,11 +72,7 @@ html, body { margin:0; padding:0; background: #000; }
     transition: all 0.2s;
 }
 .countryBtn:hover { background: #444; }
-.countryBtn.active {
-    background: #00ff00;
-    color: #111;
-    border-color: #00cc00;
-}
+.countryBtn.active { background: #00ff00; color: #111; border-color: #00cc00; }
 
 /* ================= STILIZARE RDS TIP RADIO ================= */
 .rds-box {
@@ -96,7 +89,7 @@ html, body { margin:0; padding:0; background: #000; }
     box-shadow: inset 0 0 5px rgba(0,255,0,0.4);
 }
 
-/* ================= DARK MODE LEAFLET POPUPS (SEMI-TRANSPARENT) ================= */
+/* ================= DARK MODE LEAFLET POPUPS ================= */
 .leaflet-popup-content-wrapper {
     background: rgba(25, 25, 25, 0.85); 
     backdrop-filter: blur(4px); 
@@ -106,11 +99,7 @@ html, body { margin:0; padding:0; background: #000; }
     box-shadow: 0 3px 14px rgba(0,0,0,0.8);
     border-radius: 6px;
 }
-.leaflet-popup-tip {
-    background: rgba(25, 25, 25, 0.85);
-    border-top: 1px solid #444;
-    border-left: 1px solid #444;
-}
+.leaflet-popup-tip { background: rgba(25, 25, 25, 0.85); border-top: 1px solid #444; border-left: 1px solid #444; }
 .leaflet-popup-content { margin: 14px; line-height: 1.5; }
 .leaflet-container a.leaflet-popup-close-button { color: #aaa; }
 .leaflet-container a.leaflet-popup-close-button:hover { color: #fff; }
@@ -130,9 +119,23 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     text-align: center;
 }
 .leaflet-tooltip-top:before { border-top-color: #444; }
-.leaflet-tooltip-bottom:before { border-bottom-color: #444; }
-.leaflet-tooltip-left:before { border-left-color: #444; }
-.leaflet-tooltip-right:before { border-right-color: #444; }
+
+/* ================= COVERAGE BUTTON ================= */
+.cov-btn {
+    background: #333;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+    width: 100%;
+    transition: 0.2s;
+}
+.cov-btn:hover { background: #00ff00; color: #111; }
+.cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
+.cov-btn.active-cov:hover { background: #cc0000; }
 </style>
 </head>
 
@@ -158,28 +161,17 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 /* ================= MAP ================= */
 var map = L.map('map').setView([46.1, 26.5], 7);
 
-L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
-    maxZoom: 19
-}).addTo(map);
-
-L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{
-    maxZoom: 19
-}).addTo(map);
+L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 }).addTo(map);
+L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 }).addTo(map);
 
 /* ================= ICONS ================= */
 var txIcon = L.icon({
     iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
-    iconSize: [26, 26],
-    iconAnchor: [13, 26],
-    popupAnchor: [0, -26],
-    tooltipAnchor: [0, -26]
+    iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
 });
-
 var receiverIcon = L.icon({
     iconUrl: 'https://i.ibb.co/MkmK51LJ/yagi.png',
-    iconSize: [34, 34],
-    iconAnchor: [17, 34],
-    popupAnchor: [0, -30]
+    iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -30]
 });
 
 /* ================= GLOBALS ================= */
@@ -188,6 +180,7 @@ let allStations = [];
 let currentCountry = "ro";
 let receiverMarker = null;
 let distanceLine = null;
+let activeCoverages = {}; // Stochează acoperirile active pentru a le putea șterge
 
 function formatDistance(km){
     if(km < 1) return Math.round(km * 1000) + " m";
@@ -199,34 +192,74 @@ async function getLocationName(lat, lon){
         let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
         let r = await fetch(url, { headers: { "Accept": "application/json" } });
         let data = await r.json();
-        let a = data.address;
-        return (a.city || a.town || a.village || a.municipality || a.county || "Unknown location");
-    } catch {
-        return "Unknown location";
-    }
+        return (data.address.city || data.address.town || data.address.village || data.address.municipality || data.address.county || "Unknown location");
+    } catch { return "Unknown location"; }
 }
 
 /* ================= LOAD DATA ================= */
 function loadStations(country){
     let file = country === "ro" ? "fm.json" : "fm_md.json";
-
-    fetch(file)
-    .then(r => r.json())
-    .then(data => {
+    fetch(file).then(r => r.json()).then(data => {
         allStations = data.features;
         tune();
-    })
-    .catch(err => console.error("Eroare la încărcarea fișierului JSON:", err));
+    }).catch(err => console.error("Eroare la încărcarea JSON:", err));
 }
-
 loadStations("ro"); 
+
+/* ================= COVERAGE TOGGLE LOGIC ================= */
+// Această funcție este apelată de butonul din pop-up
+window.toggleCoverage = function(lat, lng, descStr, btnId) {
+    let id = lat + "_" + lng;
+    let btn = document.getElementById(btnId);
+
+    // Dacă acoperirea este deja afișată, o ștergem
+    if (activeCoverages[id]) {
+        map.removeLayer(activeCoverages[id]);
+        delete activeCoverages[id];
+        if(btn) { btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov'); }
+        return;
+    }
+
+    // Extragem puterea din descriere (ex: caută "200W" sau "1.5kW")
+    let powerMatch = descStr.match(/-\s*([\d\.,]+)\s*(W|kW)/i);
+    let powerWatts = 100; // Putere default fallback
+
+    if (powerMatch) {
+        let val = parseFloat(powerMatch[1].replace(",", "."));
+        let unit = powerMatch[2].toLowerCase();
+        powerWatts = unit === "kw" ? val * 1000 : val;
+    }
+
+    // Calcul matematic aproximativ pentru propagare Line-Of-Sight FM
+    // rStrong = Semnal perfect (Verde) | rWeak = Semnal cu zgomot/fringe (Galben)
+    let rStrong = (Math.sqrt(powerWatts) * 1.6) * 1000; // în metri
+    let rWeak = (Math.sqrt(powerWatts) * 3.2) * 1000;   // în metri
+
+    // Limitări maxime pentru a nu acoperi absurd harta din cauza unei erori de scriere
+    if (rStrong > 150000) rStrong = 150000; 
+    if (rWeak > 250000) rWeak = 250000;
+
+    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
+    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
+
+    // Grupăm cele două cercuri și le adăugăm pe hartă sub markere
+    let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
+    activeCoverages[id] = coverageGroup;
+
+    if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
+};
 
 /* ================= TUNE & PARSE ================= */
 function tune(){
     if(!allStations.length) return;
-
     let freq = parseFloat(document.getElementById("freqInput").value);
+    
+    // Curățăm harta de markere și acoperiri vechi la schimbarea frecvenței
     if(geoLayer) map.removeLayer(geoLayer);
+    for (let key in activeCoverages) {
+        map.removeLayer(activeCoverages[key]);
+    }
+    activeCoverages = {};
 
     let filtered = [];
     let regexFM = /\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/;
@@ -244,86 +277,76 @@ function tune(){
 
         if(matched.length > 0){
             let newF = JSON.parse(JSON.stringify(f));
-            
             let formatted = matched.map(s => {
                 let s2 = s.replace(regexFM, "<b style='color:#00ff00;'>$&</b>"); 
-                
                 s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)(\s*\([^)]+\))?$/, function(match, powerStr, rdsBlocks, extraText) {
                     extraText = extraText || "";
                     let frames = rdsBlocks.match(/\[([^\]]+)\]/g).map(frame => frame.slice(1, -1));
                     let safeFrames = encodeURIComponent(JSON.stringify(frames));
                     return powerStr + ` <span class="rds-box" data-frames="${safeFrames}" data-idx="0">[${frames[0]}]</span>` + extraText;
                 });
-
                 return s2;
             });
-
             newF.properties.description = formatted.join("<br><hr>");
+            // Salvăm textul brut al frecvenței pentru a extrage puterea la apăsarea butonului de coverage
+            newF.properties.rawDescForCoverage = matched.join(" ");
             filtered.push(newF);
         }
     });
 
     geoLayer = L.geoJSON({
-        type: "FeatureCollection",
-        features: filtered
+        type: "FeatureCollection", features: filtered
     }, {
-        pointToLayer: function(feature, latlng){
-            return L.marker(latlng, {icon: txIcon});
-        },
+        pointToLayer: function(feature, latlng){ return L.marker(latlng, {icon: txIcon}); },
         onEachFeature: function(feature, layer){
             let desc = feature.properties.description || "";
             let name = feature.properties.name || "Unknown Transmitter";
+            let rawDesc = feature.properties.rawDescForCoverage || "";
+            
+            // Generăm un ID unic pentru buton și scriptul de coverage
+            let covBtnId = "covBtn_" + feature.geometry.coordinates[1] + "_" + feature.geometry.coordinates[0];
+            covBtnId = covBtnId.replace(/\./g, ''); // Eliminăm punctele din ID
+            
+            // Preparam datele trimise catre functia toggle (evităm ghilimelele care strică HTML-ul)
+            let safeRawDesc = rawDesc.replace(/'/g, "\\'").replace(/"/g, '\\"');
+            let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${feature.geometry.coordinates[1]}, ${feature.geometry.coordinates[0]}, '${safeRawDesc}', '${covBtnId}')">📶 Show Coverage</button>`;
 
-            // Inițializăm Tooltip-ul doar cu numele
-            layer.bindTooltip(`<b style="color:#00ff00;">${name}</b>`, {
-                direction: 'top', 
-                offset: [0, -10],
-                opacity: 1
-            });
+            layer.bindTooltip(`<b style="color:#00ff00;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
-            // ACTUALIZARE DINAMICĂ: Când trecem cu mouse-ul, calculăm distanța dacă există receptorul
             layer.on("mouseover", function(e){
                 let tooltipContent = `<b style="color:#00ff00;">${name}</b>`;
                 if (receiverMarker) {
-                    let p1 = receiverMarker.getLatLng();
-                    let p2 = e.latlng;
-                    let distKm = map.distance(p1, p2) / 1000;
-                    let dist = formatDistance(distKm);
-                    
-                    tooltipContent += `<br><span style="font-size:11px; color:#aaa;">Dist: <span style="color:#fff;">${dist}</span></span>`;
+                    let distKm = map.distance(receiverMarker.getLatLng(), e.latlng) / 1000;
+                    tooltipContent += `<br><span style="font-size:11px; color:#aaa;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span></span>`;
                 }
                 layer.setTooltipContent(tooltipContent);
             });
 
-            // Afișajul normal la Click Stânga
-            layer.bindPopup(`<b style="font-size:15px;">${name}</b><br><hr>${desc}`);
+            // Adăugăm butonul de coverage în structura pop-up-ului standard (stânga click)
+            layer.bindPopup(`<b style="font-size:15px;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
 
-            // Acțiunea la Click-Dreapta (Distanță și Linie)
             layer.on("contextmenu", function(e){
                 if(!receiverMarker) return;
                 if(distanceLine) map.removeLayer(distanceLine);
 
                 let p1 = receiverMarker.getLatLng();
                 let p2 = e.latlng;
-
                 distanceLine = L.polyline([p1, p2], {color: "#00ff00", weight: 3, dashArray: "5, 5"}).addTo(map);
 
                 let distKm = map.distance(p1, p2) / 1000;
                 let dist = formatDistance(distKm);
                 let azimuth = bearing(p1, p2);
 
+                // Adăugăm butonul de coverage și în pop-up-ul cu distanța calculată
                 layer.bindPopup(
                     `<b style="font-size:15px;">${name}</b><br><hr>${desc}` +
                     `<hr><div style="color:#aaa;"><b>Distance:</b> <span style="color:#00ff00;">${dist}</span><br>` +
-                    `<b>Beam:</b> <span style="color:#00ff00;">${azimuth.toFixed(0)}°</span></div>`,
+                    `<b>Beam:</b> <span style="color:#00ff00;">${azimuth.toFixed(0)}°</span></div>` +
+                    `${coverageHtml}`,
                     { autoPan: false } 
                 ).openPopup();
 
-                map.flyToBounds(distanceLine.getBounds(), {
-                    paddingTopLeft: [50, 180], 
-                    paddingBottomRight: [50, 50],
-                    maxZoom: 14 
-                });
+                map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
             });
         }
     }).addTo(map);
@@ -356,9 +379,7 @@ function stepFreq(delta) {
 }
 
 document.getElementById("freqInput").addEventListener("input", tune);
-document.getElementById("freqInput").addEventListener("keyup", e => {
-    if(e.key === "Enter") tune();
-});
+document.getElementById("freqInput").addEventListener("keyup", e => { if(e.key === "Enter") tune(); });
 
 /* ================= COUNTRY SWITCH ================= */
 function setCountry(c){
@@ -371,29 +392,19 @@ function setCountry(c){
 /* ================= RECEIVER & BEARING ================= */
 map.on("contextmenu", function(e){
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
-
     if(receiverMarker){ map.removeLayer(receiverMarker); receiverMarker = null; }
     if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
 
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
     receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
 
-    getLocationName(e.latlng.lat, e.latlng.lng).then(name => {
-        receiverMarker.setPopupContent(`<b>${name}</b><br>(right click to remove)`);
-    });
-
-    receiverMarker.on("drag", () => {
-        if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
-    });
-
+    getLocationName(e.latlng.lat, e.latlng.lng).then(name => { receiverMarker.setPopupContent(`<b>${name}</b><br>(right click to remove)`); });
+    receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
     receiverMarker.on("dragend", () => {
         let p = receiverMarker.getLatLng();
         receiverMarker.setPopupContent("<b>Searching location...</b>");
-        getLocationName(p.lat, p.lng).then(name => {
-            receiverMarker.setPopupContent(`<b>${name}</b><br>(right click to remove)`);
-        });
+        getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>${name}</b><br>(right click to remove)`); });
     });
-
     receiverMarker.on("contextmenu", () => {
         map.removeLayer(receiverMarker); receiverMarker = null;
         if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
@@ -401,8 +412,7 @@ map.on("contextmenu", function(e){
 });
 
 function bearing(a, b){
-    let lat1 = a.lat * Math.PI / 180;
-    let lat2 = b.lat * Math.PI / 180;
+    let lat1 = a.lat * Math.PI / 180; let lat2 = b.lat * Math.PI / 180;
     let dLon = (b.lng - a.lng) * Math.PI / 180;
     let y = Math.sin(dLon) * Math.cos(lat2);
     let x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
