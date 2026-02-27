@@ -61,9 +61,10 @@ Country:<br>
 
 <script>
 
+/* ================= MAP ================= */
+
 var map = L.map('map').setView([47.2, 26.5], 7);
 
-/* ESRI Satellite */
 L.tileLayer(
 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 { maxZoom:19 }
@@ -74,33 +75,36 @@ L.tileLayer(
 { maxZoom:19, opacity:0.85 }
 ).addTo(map);
 
-/* antenna icon */
+/* ================= ICON ================= */
+
 var antennaIcon = L.icon({
     iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
-    iconSize: [26, 26],
-    iconAnchor: [13, 26],
-    popupAnchor: [0, -24]
+    iconSize: [26,26],
+    iconAnchor: [13,26],
+    popupAnchor: [0,-24]
 });
+
+/* ================= DATA ================= */
 
 let allStationsRO = [];
 let allStationsMD = [];
 let currentCountry = "ro";
 let geoLayer = null;
+let dataLoaded = false;
 
-/* ROMANIA */
-fetch('fm.json')
-.then(r=>r.json())
-.then(data=>{
-    allStationsRO = data.features;
-    tune();
+/* load both datasets BEFORE tuner works */
+
+Promise.all([
+    fetch('fm.json').then(r=>r.json()),
+    fetch('fm_md.json').then(r=>r.json())
+]).then(([ro,md])=>{
+    allStationsRO = ro.features;
+    allStationsMD = md.features;
+    dataLoaded = true;
+    tune(); // prima pornire automata
 });
 
-/* MOLDOVA */
-fetch('fm_md.json')
-.then(r=>r.json())
-.then(data=>{
-    allStationsMD = data.features;
-});
+/* ================= CONTROLS ================= */
 
 function setCountry(c){
     currentCountry = c;
@@ -125,7 +129,25 @@ document.getElementById("freqInput").addEventListener("keydown",function(e){
     if(e.key==="Enter") tune();
 });
 
+/* ================= TUNER ================= */
+
+function normalizeFreq(text){
+    return parseFloat(text.replace(",","."));
+}
+
+function extractFrequencies(desc){
+
+    // extrage TOATE frecventele 87.5-108.0 inclusiv cu virgula
+    let matches = desc.match(/\b(8[7-9][\.,]\d|9\d[\.,]\d|10[0-8][\.,]\d)\b/g);
+
+    if(!matches) return [];
+
+    return matches.map(f => normalizeFreq(f));
+}
+
 function tune(){
+
+    if(!dataLoaded) return;
 
     let freq = parseFloat(document.getElementById("freqInput").value);
 
@@ -138,25 +160,14 @@ function tune(){
     dataset.forEach(f => {
 
         let desc = f.properties.description || "";
+        let freqs = extractFrequencies(desc);
 
-        let stations = desc.split(/(?=\d{2,3}[\.,]\d)/i);
+        let found = freqs.some(stationFreq =>
+            Math.abs(stationFreq - freq) < 0.051
+        );
 
-        let matched = stations.filter(s => {
-
-            let m = s.match(/\b(8[7-9]\.\d|9\d\.\d|10[0-8]\.\d)\b/);
-            if(!m) return false;
-
-            let stationFreq = parseFloat(m[0].replace(",", "."));
-
-            return Math.abs(stationFreq - freq) < 0.051;
-        });
-
-        if(matched.length>0){
-
-            let newFeature = JSON.parse(JSON.stringify(f));
-            newFeature.properties.description = matched.join("<br>");
-
-            filteredFeatures.push(newFeature);
+        if(found){
+            filteredFeatures.push(f);
         }
     });
 
