@@ -65,6 +65,10 @@ html, body { margin:0; padding:0; background: #000; }
     text-shadow: 0 0 6px rgba(0,255,0,0.4);
 }
 
+#freqInput::-webkit-outer-spin-button,
+#freqInput::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+#freqInput[type=number] { -moz-appearance: textfield; }
+
 .mhz-label {
     color: #00ff00; 
     font-size: 11px;
@@ -103,13 +107,13 @@ html, body { margin:0; padding:0; background: #000; }
     font-weight: bold;
     transition: all 0.2s;
 }
+.countryBtn:hover { background: #404249; }
 .countryBtn.active { 
     background: #00ff00; 
     color: #111; 
     border-color: #00cc00; 
 }
 
-/* ================= BUTOANE ACȚIUNI REPUSE ================= */
 .action-row {
     display: flex;
     gap: 8px;
@@ -155,21 +159,31 @@ html, body { margin:0; padding:0; background: #000; }
 .leaflet-popup-content-wrapper {
     background: rgba(25, 25, 25, 0.85); 
     backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(4px);
     color: #fff; 
     border: 1px solid #444;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.8);
     border-radius: 6px;
 }
+.leaflet-popup-tip { background: rgba(25, 25, 25, 0.85); border-top: 1px solid #444; border-left: 1px solid #444; }
 .leaflet-popup-content { margin: 14px; line-height: 1.5; }
+.leaflet-container a.leaflet-popup-close-button { color: #fff; }
+.leaflet-container a.leaflet-popup-close-button:hover { color: #aaa; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
+.leaflet-popup-content a { color: #fff; text-decoration: underline; }
 
 .leaflet-tooltip {
     background: rgba(25, 25, 25, 0.9);
     color: #fff; 
     border: 1px solid #444;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.8);
     border-radius: 4px;
     font-size: 13px;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    text-align: center;
 }
+.leaflet-tooltip-top:before { border-top-color: #444; }
 
 .cov-btn {
     background: #333;
@@ -181,8 +195,12 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     font-weight: bold;
     margin-top: 8px;
     width: 100%;
+    transition: 0.2s;
+    font-size: 13px;
 }
+.cov-btn:hover { background: #00ff00; color: #111; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
+.cov-btn.active-cov:hover { background: #cc0000; }
 </style>
 </head>
 
@@ -216,44 +234,154 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 <div id="map"></div>
 
 <script>
+/* ================= MAP ================= */
 var map = L.map('map').setView([46.1, 26.5], 7);
 
 L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 }).addTo(map);
 L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 }).addTo(map);
 
-var txIcon = L.icon({ iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png', iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26] });
-var warningIcon = L.icon({ iconUrl: 'https://i.ibb.co/C374c5g7/warning.png', iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26] });
-var receiverIcon = L.icon({ iconUrl: 'https://i.ibb.co/MkmK51LJ/yagi.png', iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -30] });
+/* ================= ICONS ================= */
+var txIcon = L.icon({
+    iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
+    iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
+});
 
-let geoLayer = null, allStations = [], currentCountry = "ro", receiverMarker = null, distanceLine = null, activeCoverages = {};
+var warningIcon = L.icon({
+    iconUrl: 'https://i.ibb.co/C374c5g7/warning.png',
+    iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
+});
 
-function formatDistance(km){ return km < 1 ? Math.round(km * 1000) + " m" : Math.round(km) + " km"; }
+var receiverIcon = L.icon({
+    iconUrl: 'https://i.ibb.co/MkmK51LJ/yagi.png',
+    iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -30]
+});
 
+/* ================= GLOBALS ================= */
+let geoLayer = null;
+let allStations = [];
+let currentCountry = "ro";
+let receiverMarker = null;
+let distanceLine = null;
+let activeCoverages = {};
+
+function formatDistance(km){
+    if(km < 1) return Math.round(km * 1000) + " m";
+    return Math.round(km) + " km";
+}
+
+async function getLocationName(lat, lon){
+    try {
+        let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
+        let r = await fetch(url, { headers: { "Accept": "application/json" } });
+        let data = await r.json();
+        return (data.address.city || data.address.town || data.address.village || data.address.municipality || data.address.county || "Unknown location");
+    } catch { return "Unknown location"; }
+}
+
+/* ================= LOAD DATA ================= */
 function loadStations(country){
     let file = country === "ro" ? "fm.json" : "fm_md.json";
-    fetch(file).then(r => r.json()).then(data => { allStations = data.features; tune(); });
+    fetch(file).then(r => r.json()).then(data => {
+        allStations = data.features;
+        tune();
+    }).catch(err => console.error("Eroare la încărcarea JSON:", err));
 }
-loadStations("ro");
+loadStations("ro"); 
 
 /* ================= GEOLOCATION ================= */
 function locateUser() {
     let btn = document.getElementById("geoBtn");
-    if (!navigator.geolocation) return;
+
+    if (!navigator.geolocation) {
+        alert("Geolocația nu este suportată de browser-ul tău.");
+        return;
+    }
+
     btn.innerHTML = "⏳ Locating...";
-    navigator.geolocation.getCurrentPosition((position) => {
-        let latlng = L.latLng(position.coords.latitude, position.coords.longitude);
-        if (!receiverMarker) receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-        else receiverMarker.setLatLng(latlng);
-        map.flyTo(latlng, 12);
-        btn.innerHTML = "📍 Geolocation";
-    });
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+            let latlng = L.latLng(lat, lng);
+
+            if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+
+            if (!receiverMarker) {
+                receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+            } else {
+                receiverMarker.setLatLng(latlng);
+            }
+
+            map.flyTo(latlng, 12);
+            receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
+
+            getLocationName(lat, lng).then(name => {
+                receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`);
+            });
+
+            btn.innerHTML = "📍 Geolocation";
+            
+            receiverMarker.off("drag");
+            receiverMarker.off("dragend");
+            receiverMarker.off("contextmenu");
+            
+            receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
+            receiverMarker.on("dragend", () => {
+                let p = receiverMarker.getLatLng();
+                receiverMarker.setPopupContent("<b>Searching location...</b>");
+                getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
+            });
+            receiverMarker.on("contextmenu", () => {
+                map.removeLayer(receiverMarker); receiverMarker = null;
+                if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
+            });
+
+        }, 
+        (error) => {
+            alert("Nu am putut obține locația. Asigură-te că i-ai dat permisiunea de a folosi GPS-ul.");
+            btn.innerHTML = "📍 Geolocation";
+            console.error(error);
+        },
+        { enableHighAccuracy: true }
+    );
 }
+
+/* ================= COVERAGE LOGIC ================= */
+window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
+    let id = lat + "_" + lng;
+    let btn = document.getElementById(btnId);
+
+    if (activeCoverages[id]) {
+        map.removeLayer(activeCoverages[id]);
+        delete activeCoverages[id];
+        if(btn) { btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov'); }
+        return;
+    }
+
+    let baseRadiusKm = Math.pow(powerWatts, 0.25);
+    let rStrong = (baseRadiusKm * 5) * 1000;
+    let rWeak = (baseRadiusKm * 9) * 1000;
+
+    if (rStrong > 100000) rStrong = 100000; 
+    if (rWeak > 180000) rWeak = 180000;
+
+    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
+    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
+
+    let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
+    activeCoverages[id] = coverageGroup;
+
+    if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
+};
 
 /* ================= TUNE & PARSE ================= */
 function tune(){
     if(!allStations.length) return;
     let freq = parseFloat(document.getElementById("freqInput").value);
+    
     if(geoLayer) map.removeLayer(geoLayer);
+    
     for (let key in activeCoverages) { map.removeLayer(activeCoverages[key]); }
     activeCoverages = {};
 
@@ -301,67 +429,90 @@ function tune(){
         }
     });
 
-    geoLayer = L.geoJSON({ type: "FeatureCollection", features: filtered }, {
+    geoLayer = L.geoJSON({
+        type: "FeatureCollection", features: filtered
+    }, {
         pointToLayer: function(feature, latlng){ 
             return L.marker(latlng, {icon: feature.properties._hasError ? warningIcon : txIcon}); 
         },
         onEachFeature: function(feature, layer){
-            let name = feature.properties.name || "Unknown Transmitter";
             let desc = feature.properties.description || "";
-            let lat = feature.geometry.coordinates[1], lng = feature.geometry.coordinates[0];
+            let name = feature.properties.name || "Unknown Transmitter";
+            
+            let lat = feature.geometry.coordinates[1];
+            let lng = feature.geometry.coordinates[0];
             let id = lat + "_" + lng;
+
+            let powerWatts = 100;
+            let powerMatch = desc.match(/-\s*([\d\.,]+)\s*(W|kW)/i);
+            if (powerMatch) {
+                let val = parseFloat(powerMatch[1].replace(",", "."));
+                let unit = powerMatch[2].toLowerCase();
+                powerWatts = unit === "kw" ? val * 1000 : val;
+            }
+
+            let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
+            let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
 
             layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
             layer.on("mouseover", function(e){
                 let tooltipContent = `<b style="color:#fff;">${name}</b>`;
                 if (receiverMarker) {
-                    let distKm = map.distance(receiverMarker.getLatLng(), e.latlng) / 1000;
-                    tooltipContent += `<br><span style="font-size:11px; color:#ccc;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span></span>`;
+                    let p1 = receiverMarker.getLatLng();
+                    let p2 = e.latlng;
+                    let distKm = map.distance(p1, p2) / 1000;
+                    let azimuth = bearing(p1, p2);
+                    tooltipContent += `<br><span style="font-size:11px; color:#ccc;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span><br>Beam: <span style="color:#fff;">${azimuth.toFixed(0)}°</span></span>`;
                 }
                 layer.setTooltipContent(tooltipContent);
             });
 
-            let pW = 100;
-            let pM = desc.match(/-\s*([\d\.,]+)\s*(W|kW)/i);
-            if (pM) {
-                let v = parseFloat(pM[1].replace(",", "."));
-                pW = pM[2].toLowerCase() === "kw" ? v * 1000 : v;
-            }
+            layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
 
-            let cB = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
-            let cH = `<button id="${cB}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${pW}, '${cB}')">📶 Show Coverage</button>`;
+            layer.on('popupopen', function() {
+                let btn = document.getElementById(covBtnId);
+                if (btn) {
+                    if (activeCoverages[id]) {
+                        btn.innerText = "❌ Hide Coverage";
+                        btn.classList.add('active-cov');
+                    } else {
+                        btn.innerText = "📶 Show Coverage";
+                        btn.classList.remove('active-cov');
+                    }
+                }
+            });
 
-            layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${cH}`);
+            // RESTAURAT: Liniile de distanță și azimut la click dreapta/long press pe emițător
+            layer.on("contextmenu", function(e){
+                if(!receiverMarker) return;
+                if(distanceLine) map.removeLayer(distanceLine);
+
+                let p1 = receiverMarker.getLatLng();
+                let p2 = e.latlng;
+                
+                distanceLine = L.polyline([p1, p2], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
+
+                layer.bindPopup(
+                    `<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`,
+                    { autoPan: false } 
+                ).openPopup();
+
+                map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
+            });
         }
     }).addTo(map);
 }
 
-/* ================= COVERAGE LOGIC ================= */
-window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
-    let id = lat + "_" + lng;
-    let btn = document.getElementById(btnId);
-    if (activeCoverages[id]) {
-        map.removeLayer(activeCoverages[id]);
-        delete activeCoverages[id];
-        btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov');
-        return;
-    }
-    let baseRadiusKm = Math.pow(powerWatts, 0.25);
-    let covWeak = L.circle([lat, lng], { radius: (baseRadiusKm * 9) * 1000, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
-    let covStrong = L.circle([lat, lng], { radius: (baseRadiusKm * 5) * 1000, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
-    activeCoverages[id] = L.layerGroup([covWeak, covStrong]).addTo(map);
-    btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov');
-};
-
-/* ================= RDS ANIMATION ================= */
+/* ================= RDS ANIMATION SCRIPT ================= */
 setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
         let framesAttr = box.getAttribute('data-frames');
         if (framesAttr) {
             let frames = JSON.parse(decodeURIComponent(framesAttr));
             if (frames.length > 1) {
-                let idx = (parseInt(box.getAttribute('data-idx')) + 1) % frames.length;
+                let idx = parseInt(box.getAttribute('data-idx'));
+                idx = (idx + 1) % frames.length; 
                 box.setAttribute('data-idx', idx);
                 box.innerText = `[${frames[idx]}]`;
             }
@@ -369,19 +520,81 @@ setInterval(() => {
     });
 }, 2500);
 
-/* ================= CONTROLS ================= */
-function stepFreq(d) {
-    let i = document.getElementById("freqInput");
-    let v = parseFloat(i.value) + d;
-    if(v < 87.5) v = 108.0; if(v > 108.0) v = 87.5;
-    i.value = v.toFixed(1); tune();
+/* ================= AUTO TUNE CONTROLS ================= */
+function parseFrequency() {
+    let input = document.getElementById("freqInput");
+    let raw = input.value.trim().replace(',', '.');
+    let val = parseFloat(raw);
+    
+    if (!isNaN(val)) {
+        if (val >= 875 && val <= 1080 && raw.indexOf('.') === -1) {
+            val = val / 10;
+        }
+        if (val < 87.5) val = 87.5;
+        if (val > 108.0) val = 108.0;
+    } else {
+        val = 97.9;
+    }
+    
+    input.value = val.toFixed(1);
+    tune();
 }
 
+function stepFreq(delta) {
+    let input = document.getElementById("freqInput");
+    let val = parseFloat(input.value) + delta;
+    if(val < 87.5) val = 108.0;
+    if(val > 108.0) val = 87.5;
+    input.value = val.toFixed(1);
+    tune();
+}
+
+let inputField = document.getElementById("freqInput");
+inputField.addEventListener("blur", parseFrequency);
+inputField.addEventListener("keyup", e => { 
+    if(e.key === "Enter") {
+        inputField.blur();
+    } 
+});
+
+/* ================= COUNTRY SWITCH ================= */
 function setCountry(c){
     currentCountry = c;
     document.getElementById("btn-ro").classList.toggle("active", c === "ro");
     document.getElementById("btn-md").classList.toggle("active", c === "md");
     loadStations(c);
+}
+
+/* ================= RECEIVER & BEARING (RESTAURAT!) ================= */
+map.on("contextmenu", function(e){
+    if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
+    if(receiverMarker){ map.removeLayer(receiverMarker); receiverMarker = null; }
+    if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
+
+    receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+    receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
+
+    getLocationName(e.latlng.lat, e.latlng.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
+    
+    receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
+    receiverMarker.on("dragend", () => {
+        let p = receiverMarker.getLatLng();
+        receiverMarker.setPopupContent("<b>Searching location...</b>");
+        getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
+    });
+    receiverMarker.on("contextmenu", () => {
+        map.removeLayer(receiverMarker); receiverMarker = null;
+        if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
+    });
+});
+
+function bearing(a, b){
+    let lat1 = a.lat * Math.PI / 180; let lat2 = b.lat * Math.PI / 180;
+    let dLon = (b.lng - a.lng) * Math.PI / 180;
+    let y = Math.sin(dLon) * Math.cos(lat2);
+    let x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+    let brng = Math.atan2(y, x) * 180 / Math.PI;
+    return (brng + 360) % 360;
 }
 </script>
 </body>
