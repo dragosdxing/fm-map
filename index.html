@@ -13,13 +13,13 @@
 html, body { margin:0; padding:0; background: #000; }
 #map { height:100vh; width:100vw; }
 
-/* ================= MODIFICARE: Stil pentru textul cu eroare ================= */
+/* ================= STILURI ALERTE ȘI ERORI ================= */
 .status-error-text {
-    color: #ff4444 !important;
+    color: #ff4444 !important; /* Roșu pentru textul cu eroare */
     font-weight: bold;
 }
 
-/* Stil existent restul ramane neschimbat */
+/* ================= DARK MODE PANOU CONTROL ================= */
 #radioPanel {
     position: absolute;
     top: 10px;
@@ -103,7 +103,6 @@ html, body { margin:0; padding:0; background: #000; }
     font-weight: bold;
     transition: all 0.2s;
 }
-.countryBtn:hover { background: #404249; }
 .countryBtn.active { 
     background: #00ff00; 
     color: #111; 
@@ -140,7 +139,7 @@ html, body { margin:0; padding:0; background: #000; }
 .rds-box {
     display: inline-block;
     background: #111;
-    color: #00ff00; 
+    color: #00ff00 !important; /* Rămâne VERDE forțat */
     font-family: 'Courier New', Courier, monospace;
     padding: 2px 6px;
     border-radius: 3px;
@@ -163,22 +162,7 @@ html, body { margin:0; padding:0; background: #000; }
 .leaflet-popup-tip { background: rgba(25, 25, 25, 0.85); border-top: 1px solid #444; border-left: 1px solid #444; }
 .leaflet-popup-content { margin: 14px; line-height: 1.5; }
 .leaflet-container a.leaflet-popup-close-button { color: #fff; }
-.leaflet-container a.leaflet-popup-close-button:hover { color: #aaa; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
-.leaflet-popup-content a { color: #fff; text-decoration: underline; }
-
-.leaflet-tooltip {
-    background: rgba(25, 25, 25, 0.9);
-    color: #fff; 
-    border: 1px solid #444;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    border-radius: 4px;
-    font-size: 13px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    text-align: center;
-}
-.leaflet-tooltip-top:before { border-top-color: #444; }
 
 .cov-btn {
     background: #333;
@@ -195,7 +179,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 }
 .cov-btn:hover { background: #00ff00; color: #111; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
-.cov-btn.active-cov:hover { background: #cc0000; }
 </style>
 </head>
 
@@ -241,7 +224,6 @@ var txIcon = L.icon({
     iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
 });
 
-/* ================= MODIFICARE: Definim iconița de Warning ================= */
 var warningIcon = L.icon({
     iconUrl: 'https://i.ibb.co/C374c5g7/warning.png',
     iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
@@ -270,7 +252,7 @@ async function getLocationName(lat, lon){
         let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
         let r = await fetch(url, { headers: { "Accept": "application/json" } });
         let data = await r.json();
-        return (data.address.city || data.address.town || data.address.village || data.address.municipality || data.address.county || "Unknown location");
+        return (data.address.city || data.address.town || data.address.village || "Unknown location");
     } catch { return "Unknown location"; }
 }
 
@@ -280,48 +262,22 @@ function loadStations(country){
     fetch(file).then(r => r.json()).then(data => {
         allStations = data.features;
         tune();
-    }).catch(err => console.error("Eroare la încărcarea JSON:", err));
+    }).catch(err => console.error("Error loading JSON:", err));
 }
 loadStations("ro"); 
 
 /* ================= GEOLOCATION ================= */
 function locateUser() {
     let btn = document.getElementById("geoBtn");
-    if (!navigator.geolocation) {
-        alert("Geolocația nu este suportată de browser-ul tău.");
-        return;
-    }
+    if (!navigator.geolocation) return;
     btn.innerHTML = "⏳ Locating...";
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            let lat = position.coords.latitude;
-            let lng = position.coords.longitude;
-            let latlng = L.latLng(lat, lng);
-            if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
-            if (!receiverMarker) {
-                receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-            } else {
-                receiverMarker.setLatLng(latlng);
-            }
-            map.flyTo(latlng, 12);
-            receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-            getLocationName(lat, lng).then(name => {
-                receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`);
-            });
-            btn.innerHTML = "📍 Geolocation";
-            receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
-            receiverMarker.on("dragend", () => {
-                let p = receiverMarker.getLatLng();
-                receiverMarker.setPopupContent("<b>Searching location...</b>");
-                getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
-            });
-        }, 
-        (error) => {
-            alert("Nu am putut obține locația.");
-            btn.innerHTML = "📍 Geolocation";
-        },
-        { enableHighAccuracy: true }
-    );
+    navigator.geolocation.getCurrentPosition((position) => {
+        let latlng = L.latLng(position.coords.latitude, position.coords.longitude);
+        if (!receiverMarker) receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+        else receiverMarker.setLatLng(latlng);
+        map.flyTo(latlng, 12);
+        btn.innerHTML = "📍 Geolocation";
+    });
 }
 
 /* ================= COVERAGE LOGIC ================= */
@@ -331,17 +287,14 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     if (activeCoverages[id]) {
         map.removeLayer(activeCoverages[id]);
         delete activeCoverages[id];
-        if(btn) { btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov'); }
+        btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov');
         return;
     }
     let baseRadiusKm = Math.pow(powerWatts, 0.25);
-    let rStrong = (baseRadiusKm * 5) * 1000;
-    let rWeak = (baseRadiusKm * 9) * 1000;
-    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
-    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
-    let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
-    activeCoverages[id] = coverageGroup;
-    if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
+    let covWeak = L.circle([lat, lng], { radius: (baseRadiusKm * 9) * 1000, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
+    let covStrong = L.circle([lat, lng], { radius: (baseRadiusKm * 5) * 1000, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
+    activeCoverages[id] = L.layerGroup([covWeak, covStrong]).addTo(map);
+    btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov');
 };
 
 /* ================= TUNE & PARSE ================= */
@@ -368,110 +321,66 @@ function tune(){
 
         if(matched.length > 0){
             let newF = JSON.parse(JSON.stringify(f));
-            
-            // MODIFICARE: Detectăm erorile pentru a decide iconița și stilul textului
             let hasMajorError = false;
             const errorKeywords = ["(**NO AUDIO**)", "(*BLANK CARRIER*)", "(**OFF**)", "(*NO AUDIO*)"];
 
             let formatted = matched.map(s => {
-                // Verificăm dacă rândul curent are eroare
                 let lineHasError = errorKeywords.some(keyword => s.includes(keyword));
                 if(lineHasError) hasMajorError = true;
 
                 let s2 = s.replace(regexFM, "<b style='color:#fff;'>$&</b>"); 
                 
-                // Aplicăm clasa de roșu dacă există eroare pe linie
-                if(lineHasError) {
-                    s2 = `<span class="status-error-text">${s2}</span>`;
-                }
-
                 s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)(\s*\([^)]+\))?$/, function(match, powerStr, rdsBlocks, extraText) {
                     extraText = extraText || "";
                     let frames = rdsBlocks.match(/\[([^\]]+)\]/g).map(frame => frame.slice(1, -1));
                     let safeFrames = encodeURIComponent(JSON.stringify(frames));
                     return powerStr + ` <span class="rds-box" data-frames="${safeFrames}" data-idx="0">[${frames[0]}]</span>` + extraText;
                 });
+
+                if(lineHasError) s2 = `<span class="status-error-text">${s2}</span>`;
                 return s2;
             });
 
             newF.properties.description = formatted.join("<br><hr>");
-            newF.properties._hasError = hasMajorError; // Salvăm starea în proprietăți
+            newF.properties._hasError = hasMajorError; 
             filtered.push(newF);
         }
     });
 
-    geoLayer = L.geoJSON({
-        type: "FeatureCollection", features: filtered
-    }, {
-        // MODIFICARE: pointToLayer alege iconița în funcție de eroare
+    geoLayer = L.geoJSON({ type: "FeatureCollection", features: filtered }, {
         pointToLayer: function(feature, latlng){ 
-            let iconToUse = feature.properties._hasError ? warningIcon : txIcon;
-            return L.marker(latlng, {icon: iconToUse}); 
+            return L.marker(latlng, {icon: feature.properties._hasError ? warningIcon : txIcon}); 
         },
         onEachFeature: function(feature, layer){
             let desc = feature.properties.description || "";
             let name = feature.properties.name || "Unknown Transmitter";
-            let lat = feature.geometry.coordinates[1];
-            let lng = feature.geometry.coordinates[0];
+            let lat = feature.geometry.coordinates[1], lng = feature.geometry.coordinates[0];
             let id = lat + "_" + lng;
 
-            let powerWatts = 100;
-            let powerMatch = desc.match(/-\s*([\d\.,]+)\s*(W|kW)/i);
-            if (powerMatch) {
-                let val = parseFloat(powerMatch[1].replace(",", "."));
-                let unit = powerMatch[2].toLowerCase();
-                powerWatts = unit === "kw" ? val * 1000 : val;
+            let pW = 100;
+            let pM = desc.match(/-\s*([\d\.,]+)\s*(W|kW)/i);
+            if (pM) {
+                let v = parseFloat(pM[1].replace(",", "."));
+                pW = pM[2].toLowerCase() === "kw" ? v * 1000 : v;
             }
 
-            let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
-            let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
+            let cB = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
+            let cH = `<button id="${cB}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${pW}, '${cB}')">📶 Show Coverage</button>`;
 
             layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
-
-            layer.on("mouseover", function(e){
-                let tooltipContent = `<b style="color:#fff;">${name}</b>`;
-                if (receiverMarker) {
-                    let p1 = receiverMarker.getLatLng();
-                    let p2 = e.latlng;
-                    let distKm = map.distance(p1, p2) / 1000;
-                    let azimuth = bearing(p1, p2);
-                    tooltipContent += `<br><span style="font-size:11px; color:#ccc;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span><br>Beam: <span style="color:#fff;">${azimuth.toFixed(0)}°</span></span>`;
-                }
-                layer.setTooltipContent(tooltipContent);
-            });
-
-            layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
-
-            layer.on('popupopen', function() {
-                let btn = document.getElementById(covBtnId);
-                if (btn && activeCoverages[id]) {
-                    btn.innerText = "❌ Hide Coverage";
-                    btn.classList.add('active-cov');
-                }
-            });
-
-            layer.on("contextmenu", function(e){
-                if(!receiverMarker) return;
-                if(distanceLine) map.removeLayer(distanceLine);
-                let p1 = receiverMarker.getLatLng();
-                let p2 = e.latlng;
-                distanceLine = L.polyline([p1, p2], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
-                layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`, { autoPan: false }).openPopup();
-                map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
-            });
+            layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${cH}`);
         }
     }).addTo(map);
 }
 
-/* ================= RDS ANIMATION SCRIPT ================= */
+/* ================= RDS ANIMATION ================= */
 setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
         let framesAttr = box.getAttribute('data-frames');
         if (framesAttr) {
             let frames = JSON.parse(decodeURIComponent(framesAttr));
             if (frames.length > 1) {
-                let idx = parseInt(box.getAttribute('data-idx'));
-                idx = (idx + 1) % frames.length; 
+                let idx = (parseInt(box.getAttribute('data-idx')) + 1) % frames.length;
                 box.setAttribute('data-idx', idx);
                 box.innerText = `[${frames[idx]}]`;
             }
@@ -479,57 +388,19 @@ setInterval(() => {
     });
 }, 2500);
 
-/* ================= AUTO TUNE CONTROLS ================= */
-function parseFrequency() {
-    let input = document.getElementById("freqInput");
-    let raw = input.value.trim().replace(',', '.');
-    let val = parseFloat(raw);
-    if (!isNaN(val)) {
-        if (val >= 875 && val <= 1080 && raw.indexOf('.') === -1) val = val / 10;
-        if (val < 87.5) val = 87.5;
-        if (val > 108.0) val = 108.0;
-    } else { val = 97.9; }
-    input.value = val.toFixed(1);
-    tune();
+/* ================= CONTROLS ================= */
+function stepFreq(d) {
+    let i = document.getElementById("freqInput");
+    let v = parseFloat(i.value) + d;
+    if(v < 87.5) v = 108.0; if(v > 108.0) v = 87.5;
+    i.value = v.toFixed(1); tune();
 }
 
-function stepFreq(delta) {
-    let input = document.getElementById("freqInput");
-    let val = parseFloat(input.value) + delta;
-    if(val < 87.5) val = 108.0;
-    if(val > 108.0) val = 87.5;
-    input.value = val.toFixed(1);
-    tune();
-}
-
-document.getElementById("freqInput").addEventListener("blur", parseFrequency);
-document.getElementById("freqInput").addEventListener("keyup", e => { if(e.key === "Enter") e.target.blur(); });
-
-/* ================= COUNTRY SWITCH ================= */
 function setCountry(c){
     currentCountry = c;
     document.getElementById("btn-ro").classList.toggle("active", c === "ro");
     document.getElementById("btn-md").classList.toggle("active", c === "md");
     loadStations(c);
-}
-
-/* ================= RECEIVER & BEARING ================= */
-map.on("contextmenu", function(e){
-    if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
-    if(receiverMarker){ map.removeLayer(receiverMarker); receiverMarker = null; }
-    if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
-    receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-    receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-    getLocationName(e.latlng.lat, e.latlng.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
-});
-
-function bearing(a, b){
-    let lat1 = a.lat * Math.PI / 180; let lat2 = b.lat * Math.PI / 180;
-    let dLon = (b.lng - a.lng) * Math.PI / 180;
-    let y = Math.sin(dLon) * Math.cos(lat2);
-    let x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-    let brng = Math.atan2(y, x) * 180 / Math.PI;
-    return (brng + 360) % 360;
 }
 </script>
 </body>
