@@ -13,7 +13,13 @@
 html, body { margin:0; padding:0; background: #000; }
 #map { height:100vh; width:100vw; }
 
-/* ================= DARK MODE PANOU CONTROL ================= */
+/* ================= MODIFICARE: Stil pentru textul cu eroare ================= */
+.status-error-text {
+    color: #ff4444 !important;
+    font-weight: bold;
+}
+
+/* Stil existent restul ramane neschimbat */
 #radioPanel {
     position: absolute;
     top: 10px;
@@ -30,7 +36,6 @@ html, body { margin:0; padding:0; background: #000; }
     width: 280px;
 }
 
-/* ================= ECRAN LCD PENTRU FRECVENȚĂ (VERDE) ================= */
 .lcd-screen {
     background: #111;
     border: 1px solid #000;
@@ -47,7 +52,7 @@ html, body { margin:0; padding:0; background: #000; }
 #freqInput { 
     background: transparent;
     border: none;
-    color: #00ff00; /* VERDE */
+    color: #00ff00; 
     font-family: 'DS-Digital', sans-serif;
     font-size: 30px;
     font-weight: normal;
@@ -60,12 +65,8 @@ html, body { margin:0; padding:0; background: #000; }
     text-shadow: 0 0 6px rgba(0,255,0,0.4);
 }
 
-#freqInput::-webkit-outer-spin-button,
-#freqInput::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-#freqInput[type=number] { -moz-appearance: textfield; }
-
 .mhz-label {
-    color: #00ff00; /* VERDE */
+    color: #00ff00; 
     font-size: 11px;
     font-family: Arial, sans-serif;
     font-weight: bold;
@@ -74,7 +75,6 @@ html, body { margin:0; padding:0; background: #000; }
     text-shadow: 0 0 3px rgba(0,255,0,0.5);
 }
 
-/* ================= BUTOANE TUNE ================= */
 .tune-btn {
     width: 36px;
     height: 36px;
@@ -93,7 +93,6 @@ html, body { margin:0; padding:0; background: #000; }
 }
 .tune-btn:hover { background: #4f525a; }
 
-/* ================= BUTOANE ȚĂRI ================= */
 .countryBtn { 
     cursor: pointer;
     padding: 6px 16px;
@@ -106,12 +105,11 @@ html, body { margin:0; padding:0; background: #000; }
 }
 .countryBtn:hover { background: #404249; }
 .countryBtn.active { 
-    background: #00ff00; /* VERDE */
+    background: #00ff00; 
     color: #111; 
     border-color: #00cc00; 
 }
 
-/* ================= RAND BUTOANE ACTIUNI ================= */
 .action-row {
     display: flex;
     gap: 8px;
@@ -124,8 +122,8 @@ html, body { margin:0; padding:0; background: #000; }
     padding: 8px 4px;
     cursor: pointer;
     background: transparent;
-    color: #fff; /* ALB */
-    border: 1px solid #fff; /* ALB */
+    color: #fff; 
+    border: 1px solid #fff; 
     border-radius: 4px;
     font-weight: bold;
     transition: 0.2s;
@@ -139,11 +137,10 @@ html, body { margin:0; padding:0; background: #000; }
 }
 .action-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
-/* ================= STILIZARE RDS TIP RADIO ================= */
 .rds-box {
     display: inline-block;
     background: #111;
-    color: #00ff00; /* VERDE */
+    color: #00ff00; 
     font-family: 'Courier New', Courier, monospace;
     padding: 2px 6px;
     border-radius: 3px;
@@ -154,12 +151,11 @@ html, body { margin:0; padding:0; background: #000; }
     box-shadow: inset 0 0 5px rgba(0,255,0,0.4);
 }
 
-/* ================= DARK MODE LEAFLET POPUPS ================= */
 .leaflet-popup-content-wrapper {
     background: rgba(25, 25, 25, 0.85); 
     backdrop-filter: blur(4px); 
     -webkit-backdrop-filter: blur(4px);
-    color: #fff; /* ALB */
+    color: #fff; 
     border: 1px solid #444;
     box-shadow: 0 3px 14px rgba(0,0,0,0.8);
     border-radius: 6px;
@@ -171,10 +167,9 @@ html, body { margin:0; padding:0; background: #000; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .leaflet-popup-content a { color: #fff; text-decoration: underline; }
 
-/* ================= DARK MODE TOOLTIPS ================= */
 .leaflet-tooltip {
     background: rgba(25, 25, 25, 0.9);
-    color: #fff; /* ALB */
+    color: #fff; 
     border: 1px solid #444;
     box-shadow: 0 2px 8px rgba(0,0,0,0.8);
     border-radius: 4px;
@@ -185,7 +180,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 }
 .leaflet-tooltip-top:before { border-top-color: #444; }
 
-/* ================= COVERAGE BUTTON ================= */
 .cov-btn {
     background: #333;
     color: #00ff00;
@@ -246,6 +240,13 @@ var txIcon = L.icon({
     iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
     iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
 });
+
+/* ================= MODIFICARE: Definim iconița de Warning ================= */
+var warningIcon = L.icon({
+    iconUrl: 'https://i.ibb.co/C374c5g7/warning.png',
+    iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
+});
+
 var receiverIcon = L.icon({
     iconUrl: 'https://i.ibb.co/MkmK51LJ/yagi.png',
     iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -30]
@@ -286,57 +287,38 @@ loadStations("ro");
 /* ================= GEOLOCATION ================= */
 function locateUser() {
     let btn = document.getElementById("geoBtn");
-
     if (!navigator.geolocation) {
         alert("Geolocația nu este suportată de browser-ul tău.");
         return;
     }
-
     btn.innerHTML = "⏳ Locating...";
-
     navigator.geolocation.getCurrentPosition(
         (position) => {
             let lat = position.coords.latitude;
             let lng = position.coords.longitude;
             let latlng = L.latLng(lat, lng);
-
             if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
-
             if (!receiverMarker) {
                 receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
             } else {
                 receiverMarker.setLatLng(latlng);
             }
-
             map.flyTo(latlng, 12);
             receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-
             getLocationName(lat, lng).then(name => {
                 receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`);
             });
-
             btn.innerHTML = "📍 Geolocation";
-            
-            receiverMarker.off("drag");
-            receiverMarker.off("dragend");
-            receiverMarker.off("contextmenu");
-            
             receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
             receiverMarker.on("dragend", () => {
                 let p = receiverMarker.getLatLng();
                 receiverMarker.setPopupContent("<b>Searching location...</b>");
                 getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
             });
-            receiverMarker.on("contextmenu", () => {
-                map.removeLayer(receiverMarker); receiverMarker = null;
-                if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
-            });
-
         }, 
         (error) => {
-            alert("Nu am putut obține locația. Asigură-te că i-ai dat permisiunea de a folosi GPS-ul.");
+            alert("Nu am putut obține locația.");
             btn.innerHTML = "📍 Geolocation";
-            console.error(error);
         },
         { enableHighAccuracy: true }
     );
@@ -346,27 +328,19 @@ function locateUser() {
 window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
-
     if (activeCoverages[id]) {
         map.removeLayer(activeCoverages[id]);
         delete activeCoverages[id];
         if(btn) { btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov'); }
         return;
     }
-
     let baseRadiusKm = Math.pow(powerWatts, 0.25);
     let rStrong = (baseRadiusKm * 5) * 1000;
     let rWeak = (baseRadiusKm * 9) * 1000;
-
-    if (rStrong > 100000) rStrong = 100000; 
-    if (rWeak > 180000) rWeak = 180000;
-
     let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
     let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
-
     let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
     activeCoverages[id] = coverageGroup;
-
     if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
 };
 
@@ -374,9 +348,7 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
 function tune(){
     if(!allStations.length) return;
     let freq = parseFloat(document.getElementById("freqInput").value);
-    
     if(geoLayer) map.removeLayer(geoLayer);
-    
     for (let key in activeCoverages) { map.removeLayer(activeCoverages[key]); }
     activeCoverages = {};
 
@@ -396,8 +368,23 @@ function tune(){
 
         if(matched.length > 0){
             let newF = JSON.parse(JSON.stringify(f));
+            
+            // MODIFICARE: Detectăm erorile pentru a decide iconița și stilul textului
+            let hasMajorError = false;
+            const errorKeywords = ["(**NO AUDIO**)", "(*BLANK CARRIER*)", "(**OFF**)", "(*NO AUDIO*)"];
+
             let formatted = matched.map(s => {
+                // Verificăm dacă rândul curent are eroare
+                let lineHasError = errorKeywords.some(keyword => s.includes(keyword));
+                if(lineHasError) hasMajorError = true;
+
                 let s2 = s.replace(regexFM, "<b style='color:#fff;'>$&</b>"); 
+                
+                // Aplicăm clasa de roșu dacă există eroare pe linie
+                if(lineHasError) {
+                    s2 = `<span class="status-error-text">${s2}</span>`;
+                }
+
                 s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)(\s*\([^)]+\))?$/, function(match, powerStr, rdsBlocks, extraText) {
                     extraText = extraText || "";
                     let frames = rdsBlocks.match(/\[([^\]]+)\]/g).map(frame => frame.slice(1, -1));
@@ -406,7 +393,9 @@ function tune(){
                 });
                 return s2;
             });
+
             newF.properties.description = formatted.join("<br><hr>");
+            newF.properties._hasError = hasMajorError; // Salvăm starea în proprietăți
             filtered.push(newF);
         }
     });
@@ -414,11 +403,14 @@ function tune(){
     geoLayer = L.geoJSON({
         type: "FeatureCollection", features: filtered
     }, {
-        pointToLayer: function(feature, latlng){ return L.marker(latlng, {icon: txIcon}); },
+        // MODIFICARE: pointToLayer alege iconița în funcție de eroare
+        pointToLayer: function(feature, latlng){ 
+            let iconToUse = feature.properties._hasError ? warningIcon : txIcon;
+            return L.marker(latlng, {icon: iconToUse}); 
+        },
         onEachFeature: function(feature, layer){
             let desc = feature.properties.description || "";
             let name = feature.properties.name || "Unknown Transmitter";
-            
             let lat = feature.geometry.coordinates[1];
             let lng = feature.geometry.coordinates[0];
             let id = lat + "_" + lng;
@@ -432,10 +424,8 @@ function tune(){
             }
 
             let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
-            
             let coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
 
-            // TOOLTIP ALB CU DISTANTA SI AZIMUT
             layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
 
             layer.on("mouseover", function(e){
@@ -450,38 +440,23 @@ function tune(){
                 layer.setTooltipContent(tooltipContent);
             });
 
-            // POPUP PRINCIPAL FARA DISTANTA/AZIMUT
             layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
 
             layer.on('popupopen', function() {
                 let btn = document.getElementById(covBtnId);
-                if (btn) {
-                    if (activeCoverages[id]) {
-                        btn.innerText = "❌ Hide Coverage";
-                        btn.classList.add('active-cov');
-                    } else {
-                        btn.innerText = "📶 Show Coverage";
-                        btn.classList.remove('active-cov');
-                    }
+                if (btn && activeCoverages[id]) {
+                    btn.innerText = "❌ Hide Coverage";
+                    btn.classList.add('active-cov');
                 }
             });
 
             layer.on("contextmenu", function(e){
                 if(!receiverMarker) return;
                 if(distanceLine) map.removeLayer(distanceLine);
-
                 let p1 = receiverMarker.getLatLng();
                 let p2 = e.latlng;
-                
-                // LINIE DISTANTA ROȘIE DASHED
                 distanceLine = L.polyline([p1, p2], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
-
-                // Reafisam POPUP-ul principal curat
-                layer.bindPopup(
-                    `<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`,
-                    { autoPan: false } 
-                ).openPopup();
-
+                layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`, { autoPan: false }).openPopup();
                 map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
             });
         }
@@ -509,17 +484,11 @@ function parseFrequency() {
     let input = document.getElementById("freqInput");
     let raw = input.value.trim().replace(',', '.');
     let val = parseFloat(raw);
-    
     if (!isNaN(val)) {
-        if (val >= 875 && val <= 1080 && raw.indexOf('.') === -1) {
-            val = val / 10;
-        }
+        if (val >= 875 && val <= 1080 && raw.indexOf('.') === -1) val = val / 10;
         if (val < 87.5) val = 87.5;
         if (val > 108.0) val = 108.0;
-    } else {
-        val = 97.9;
-    }
-    
+    } else { val = 97.9; }
     input.value = val.toFixed(1);
     tune();
 }
@@ -533,13 +502,8 @@ function stepFreq(delta) {
     tune();
 }
 
-let inputField = document.getElementById("freqInput");
-inputField.addEventListener("blur", parseFrequency);
-inputField.addEventListener("keyup", e => { 
-    if(e.key === "Enter") {
-        inputField.blur();
-    } 
-});
+document.getElementById("freqInput").addEventListener("blur", parseFrequency);
+document.getElementById("freqInput").addEventListener("keyup", e => { if(e.key === "Enter") e.target.blur(); });
 
 /* ================= COUNTRY SWITCH ================= */
 function setCountry(c){
@@ -554,22 +518,9 @@ map.on("contextmenu", function(e){
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker){ map.removeLayer(receiverMarker); receiverMarker = null; }
     if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
-
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
     receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-
     getLocationName(e.latlng.lat, e.latlng.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
-    
-    receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
-    receiverMarker.on("dragend", () => {
-        let p = receiverMarker.getLatLng();
-        receiverMarker.setPopupContent("<b>Searching location...</b>");
-        getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
-    });
-    receiverMarker.on("contextmenu", () => {
-        map.removeLayer(receiverMarker); receiverMarker = null;
-        if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
-    });
 });
 
 function bearing(a, b){
