@@ -38,7 +38,6 @@ button{
     background:#f5f5f5;
 }
 button:hover{ background:#eaeaea; }
-
 </style>
 </head>
 
@@ -75,7 +74,7 @@ L.tileLayer(
 { maxZoom:19, opacity:0.85 }
 ).addTo(map);
 
-/* antena mica cu halo */
+/* antenna icon */
 var antennaIcon = L.icon({
     iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
     iconSize: [26, 26],
@@ -140,14 +139,16 @@ function tune(){
 
         let desc = f.properties.description || "";
 
-        let stations = desc.split(/(?=\d{2,3}\.\d\s[hv])/i);
+        let stations = desc.split(/(?=\d{2,3}[\.,]\d)/i);
 
         let matched = stations.filter(s => {
 
-            let m = s.match(/\d{2,3}\.\d/);
+            let m = s.match(/\b(8[7-9]\.\d|9\d\.\d|10[0-8]\.\d)\b/);
             if(!m) return false;
 
-            return Math.abs(parseFloat(m[0]) - freq) < 0.05;
+            let stationFreq = parseFloat(m[0].replace(",", "."));
+
+            return Math.abs(stationFreq - freq) < 0.051;
         });
 
         if(matched.length>0){
@@ -178,4 +179,3 @@ function tune(){
 </script>
 </body>
 </html>
-
