@@ -120,13 +120,14 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 /* ================= DARK MODE TOOLTIPS (HOVER) ================= */
 .leaflet-tooltip {
     background: rgba(25, 25, 25, 0.9);
-    color: #00ff00;
+    color: #eee;
     border: 1px solid #444;
     box-shadow: 0 2px 8px rgba(0,0,0,0.8);
     border-radius: 4px;
     font-size: 13px;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    text-align: center;
 }
 .leaflet-tooltip-top:before { border-top-color: #444; }
 .leaflet-tooltip-bottom:before { border-bottom-color: #444; }
@@ -171,7 +172,7 @@ var txIcon = L.icon({
     iconSize: [26, 26],
     iconAnchor: [13, 26],
     popupAnchor: [0, -26],
-    tooltipAnchor: [0, -26] // Punctul de unde se ridică tooltip-ul
+    tooltipAnchor: [0, -26]
 });
 
 var receiverIcon = L.icon({
@@ -273,17 +274,31 @@ function tune(){
             let desc = feature.properties.description || "";
             let name = feature.properties.name || "Unknown Transmitter";
 
-            // ADAUGARE TOOLTIP (Afișaj doar la Hover)
-            layer.bindTooltip(`<b>${name}</b>`, {
+            // Inițializăm Tooltip-ul doar cu numele
+            layer.bindTooltip(`<b style="color:#00ff00;">${name}</b>`, {
                 direction: 'top', 
-                offset: [0, -10], // Ajută să nu acopere iconița antenei
+                offset: [0, -10],
                 opacity: 1
             });
 
-            // Afișajul normal la Click
+            // ACTUALIZARE DINAMICĂ: Când trecem cu mouse-ul, calculăm distanța dacă există receptorul
+            layer.on("mouseover", function(e){
+                let tooltipContent = `<b style="color:#00ff00;">${name}</b>`;
+                if (receiverMarker) {
+                    let p1 = receiverMarker.getLatLng();
+                    let p2 = e.latlng;
+                    let distKm = map.distance(p1, p2) / 1000;
+                    let dist = formatDistance(distKm);
+                    
+                    tooltipContent += `<br><span style="font-size:11px; color:#aaa;">Dist: <span style="color:#fff;">${dist}</span></span>`;
+                }
+                layer.setTooltipContent(tooltipContent);
+            });
+
+            // Afișajul normal la Click Stânga
             layer.bindPopup(`<b style="font-size:15px;">${name}</b><br><hr>${desc}`);
 
-            // Acțiunea la Click-Dreapta (Distanță)
+            // Acțiunea la Click-Dreapta (Distanță și Linie)
             layer.on("contextmenu", function(e){
                 if(!receiverMarker) return;
                 if(distanceLine) map.removeLayer(distanceLine);
