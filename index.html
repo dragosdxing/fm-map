@@ -19,6 +19,11 @@ html, body { margin:0; padding:0; background: #000; }
     font-weight: bold;
 }
 
+/* Stil pentru iconița de eroare (face iconița albastră/originală să pară roșie) */
+.error-icon-style {
+    filter: hue-rotate(140deg) brightness(0.8) saturate(3);
+}
+
 /* ================= DARK MODE PANOU CONTROL ================= */
 #radioPanel {
     position: absolute;
@@ -201,6 +206,14 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .cov-btn:hover { background: #00ff00; color: #111; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
 .cov-btn.active-cov:hover { background: #cc0000; }
+
+.dist-info-popup {
+    font-size: 12px;
+    color: #00ff00;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    display: block;
+}
 </style>
 </head>
 
@@ -241,14 +254,13 @@ L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imager
 L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 }).addTo(map);
 
 /* ================= ICONS ================= */
+// NOUA ICONIȚĂ EMITĂTOR
 var txIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/Bh7GDMv/antenna.png',
-    iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
-});
-
-var warningIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/C374c5g7/warning.png',
-    iconSize: [26, 26], iconAnchor: [13, 26], popupAnchor: [0, -26], tooltipAnchor: [0, -26]
+    iconUrl: 'https://i.ibb.co/nshx6Jr1/tower.png', // Sursă directă către imaginea ta
+    iconSize: [32, 32], 
+    iconAnchor: [16, 32], 
+    popupAnchor: [0, -32], 
+    tooltipAnchor: [0, -32]
 });
 
 var receiverIcon = L.icon({
@@ -263,7 +275,6 @@ let currentCountry = "ro";
 let receiverMarker = null;
 let distanceLine = null;
 let activeCoverages = {};
-/* ===== HEYWHATSTHAT REAL COVERAGE ===== */
 let realCoverageLayers = {};
 
 function formatDistance(km){
@@ -293,41 +304,29 @@ loadStations("ro");
 /* ================= GEOLOCATION ================= */
 function locateUser() {
     let btn = document.getElementById("geoBtn");
-
     if (!navigator.geolocation) {
         alert("Geolocația nu este suportată de browser-ul tău.");
         return;
     }
-
     btn.innerHTML = "⏳ Locating...";
-
     navigator.geolocation.getCurrentPosition(
         (position) => {
             let lat = position.coords.latitude;
             let lng = position.coords.longitude;
             let latlng = L.latLng(lat, lng);
-
             if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
-
             if (!receiverMarker) {
                 receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
             } else {
                 receiverMarker.setLatLng(latlng);
             }
-
             map.flyTo(latlng, 12);
             receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-
             getLocationName(lat, lng).then(name => {
                 receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`);
             });
-
             btn.innerHTML = "📍 Geolocation";
-            
-            receiverMarker.off("drag");
-            receiverMarker.off("dragend");
-            receiverMarker.off("contextmenu");
-            
+            receiverMarker.off("drag dragend contextmenu");
             receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
             receiverMarker.on("dragend", () => {
                 let p = receiverMarker.getLatLng();
@@ -338,87 +337,57 @@ function locateUser() {
                 map.removeLayer(receiverMarker); receiverMarker = null;
                 if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
             });
-
         }, 
         (error) => {
-            alert("Nu am putut obține locația. Asigură-te că i-ai dat permisiunea de a folosi GPS-ul.");
+            alert("Nu am putut obține locația.");
             btn.innerHTML = "📍 Geolocation";
-            console.error(error);
         },
         { enableHighAccuracy: true }
     );
 }
 
-/* ================= COVERAGE LOGIC (CERCURI GENERICE) ================= */
+/* ================= COVERAGE LOGIC ================= */
 window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
-
     if (activeCoverages[id]) {
         map.removeLayer(activeCoverages[id]);
         delete activeCoverages[id];
         if(btn) { btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov'); }
         return;
     }
-
     let baseRadiusKm = Math.pow(powerWatts, 0.25);
     let rStrong = (baseRadiusKm * 5) * 1000;
     let rWeak = (baseRadiusKm * 9) * 1000;
-
     if (rStrong > 100000) rStrong = 100000; 
     if (rWeak > 180000) rWeak = 180000;
-
     let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
     let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
-
-    let coverageGroup = L.layerGroup([covWeak, covStrong]).addTo(map);
-    activeCoverages[id] = coverageGroup;
-
+    activeCoverages[id] = L.layerGroup([covWeak, covStrong]).addTo(map);
     if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
 };
 
-/* ================= HEYWHATSTHAT REAL COVERAGE (PENTRU COSTILA) ================= */
 function toggleRealCoverage(panoramaID, btnId){
     let btn = document.getElementById(btnId);
-
     if(realCoverageLayers[panoramaID]){
         map.removeLayer(realCoverageLayers[panoramaID]);
         delete realCoverageLayers[panoramaID];
-        if(btn){
-            btn.innerText = "📡 Real Coverage";
-            btn.classList.remove('active-cov');
-        }
+        if(btn){ btn.innerText = "📡 Real Coverage"; btn.classList.remove('active-cov'); }
         return;
     }
-
-    const layer = L.tileLayer.wms(
-        "https://www.heywhatsthat.com/bin/terrain.cgi",
-        {
-            layers: 'visibility',
-            id: panoramaID,
-            format: "image/png",
-            transparent: true,
-            opacity: 0.55
-        }
-    );
-
+    const layer = L.tileLayer.wms("https://www.heywhatsthat.com/bin/terrain.cgi", {
+        layers: 'visibility', id: panoramaID, format: "image/png", transparent: true, opacity: 0.55
+    });
     layer.addTo(map);
     realCoverageLayers[panoramaID] = layer;
-
-    if(btn){
-        btn.innerText = "❌ Hide Real Coverage";
-        btn.classList.add('active-cov');
-    }
+    if(btn){ btn.innerText = "❌ Hide Real Coverage"; btn.classList.add('active-cov'); }
 }
 
 /* ================= TUNE & PARSE ================= */
 function tune(){
     if(!allStations.length) return;
     let freq = parseFloat(document.getElementById("freqInput").value);
-    
     if(geoLayer) map.removeLayer(geoLayer);
-    
-    // Curățăm ambele tipuri de coverage-uri la schimbarea frecvenței
     for (let key in activeCoverages) { map.removeLayer(activeCoverages[key]); }
     activeCoverages = {};
     for (let key in realCoverageLayers) { map.removeLayer(realCoverageLayers[key]); }
@@ -431,7 +400,6 @@ function tune(){
     allStations.forEach(f => {
         let desc = f.properties.description || "";
         let stations = desc.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi);
-
         let matched = stations.filter(s => {
             let m = s.match(regexFM);
             if(!m) return false;
@@ -442,13 +410,10 @@ function tune(){
         if(matched.length > 0){
             let newF = JSON.parse(JSON.stringify(f));
             let hasMajorError = false;
-
             let formatted = matched.map(s => {
                 let lineHasError = errorKeywords.some(keyword => s.includes(keyword));
                 if(lineHasError) hasMajorError = true;
-
                 let s2 = s.replace(regexFM, "<b style='color:#fff;'>$&</b>"); 
-                
                 s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)(\s*\([^)]+\))?$/, function(match, powerStr, rdsBlocks, extraText) {
                     extraText = extraText || "";
                     let rdsMatches = rdsBlocks.match(/\[([^\]]+)\]/g);
@@ -457,27 +422,29 @@ function tune(){
                     let safeFrames = encodeURIComponent(JSON.stringify(frames));
                     return powerStr + ` <span class="rds-box" data-frames="${safeFrames}" data-idx="0">[${frames[0]}]</span>` + extraText;
                 });
-
                 if(lineHasError) s2 = `<span class="status-error-text">${s2}</span>`;
                 return s2;
             });
-
             newF.properties.description = formatted.join("<br><hr>");
             newF.properties._hasError = hasMajorError; 
             filtered.push(newF);
         }
     });
 
-    geoLayer = L.geoJSON({
-        type: "FeatureCollection", features: filtered
-    }, {
+    geoLayer = L.geoJSON({ type: "FeatureCollection", features: filtered }, {
         pointToLayer: function(feature, latlng){ 
-            return L.marker(latlng, {icon: feature.properties._hasError ? warningIcon : txIcon}); 
+            let marker = L.marker(latlng, {icon: txIcon});
+            // Aplicăm clasa de eroare dacă stația e OFF/NO AUDIO
+            if(feature.properties._hasError) {
+                marker.on('add', function(){
+                    this._icon.classList.add('error-icon-style');
+                });
+            }
+            return marker;
         },
         onEachFeature: function(feature, layer){
             let desc = feature.properties.description || "";
             let name = feature.properties.name || "Unknown Transmitter";
-            
             let lat = feature.geometry.coordinates[1];
             let lng = feature.geometry.coordinates[0];
             let id = lat + "_" + lng;
@@ -492,87 +459,69 @@ function tune(){
 
             let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
             let coverageHtml = "";
-
-            // LOGICA CONDIȚIONATĂ PENTRU BUTONUL DE COVERAGE
             let lowerName = name.toLowerCase();
-            if (lowerName.includes("costila") || lowerName.includes("coștila") || lowerName.includes("bucegi")) {
-                let panoramaID = "GM1X5JB5";
-                coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleRealCoverage('${panoramaID}','${covBtnId}')">📡 Real Coverage</button>`;
+            if (lowerName.includes("costila") || lowerName.includes("bucegi")) {
+                coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleRealCoverage('GM1X5JB5','${covBtnId}')">📡 Real Coverage</button>`;
             } else {
                 coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
             }
 
             layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
-
             layer.on("mouseover", function(e){
                 let tooltipContent = `<b style="color:#fff;">${name}</b>`;
                 if (receiverMarker) {
                     let p1 = receiverMarker.getLatLng();
-                    let p2 = e.latlng;
-                    let distKm = map.distance(p1, p2) / 1000;
-                    let azimuth = bearing(p1, p2);
+                    let distKm = map.distance(p1, e.latlng) / 1000;
+                    let azimuth = bearing(p1, e.latlng);
                     tooltipContent += `<br><span style="font-size:11px; color:#ccc;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span><br>Beam: <span style="color:#fff;">${azimuth.toFixed(0)}°</span></span>`;
                 }
                 layer.setTooltipContent(tooltipContent);
             });
 
-            layer.bindPopup(`<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`);
+            let getPopupContent = () => {
+                let distHtml = "";
+                if (receiverMarker) {
+                    let p1 = receiverMarker.getLatLng();
+                    let distKm = map.distance(p1, L.latLng(lat, lng)) / 1000;
+                    let azimuth = bearing(p1, L.latLng(lat, lng));
+                    distHtml = `<span class="dist-info-popup">📏 ${formatDistance(distKm)} | 🧭 ${azimuth.toFixed(0)}°</span>`;
+                }
+                return `<b style="font-size:15px; color:#fff;">${name}</b><br>${distHtml}<hr>${desc}<hr>${coverageHtml}`;
+            };
 
+            layer.bindPopup(getPopupContent());
             layer.on('popupopen', function() {
+                layer.setPopupContent(getPopupContent());
                 let btn = document.getElementById(covBtnId);
                 if (btn) {
-                    let lowerNamePopup = name.toLowerCase();
-                    if (lowerNamePopup.includes("costila") || lowerNamePopup.includes("coștila") || lowerNamePopup.includes("bucegi")) {
-                        let panoramaID = "GM1X5JB5";
-                        if (realCoverageLayers[panoramaID]) {
-                            btn.innerText = "❌ Hide Real Coverage";
-                            btn.classList.add('active-cov');
-                        } else {
-                            btn.innerText = "📡 Real Coverage";
-                            btn.classList.remove('active-cov');
-                        }
-                    } else {
-                        if (activeCoverages[id]) {
-                            btn.innerText = "❌ Hide Coverage";
-                            btn.classList.add('active-cov');
-                        } else {
-                            btn.innerText = "📶 Show Coverage";
-                            btn.classList.remove('active-cov');
-                        }
+                    if (lowerName.includes("costila") || lowerName.includes("bucegi")) {
+                        if (realCoverageLayers["GM1X5JB5"]) { btn.innerText = "❌ Hide Real Coverage"; btn.classList.add('active-cov'); }
+                    } else if (activeCoverages[id]) {
+                        btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov');
                     }
                 }
             });
 
-            // Liniile de distanță și azimut la click dreapta pe emițător
             layer.on("contextmenu", function(e){
                 if(!receiverMarker) return;
                 if(distanceLine) map.removeLayer(distanceLine);
-
                 let p1 = receiverMarker.getLatLng();
-                let p2 = e.latlng;
-                
-                distanceLine = L.polyline([p1, p2], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
-
-                layer.bindPopup(
-                    `<b style="font-size:15px; color:#fff;">${name}</b><br><hr>${desc}<hr>${coverageHtml}`,
-                    { autoPan: false } 
-                ).openPopup();
-
+                distanceLine = L.polyline([p1, e.latlng], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
+                layer.bindPopup(getPopupContent(), { autoPan: false }).openPopup();
                 map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
             });
         }
     }).addTo(map);
 }
 
-/* ================= RDS ANIMATION SCRIPT ================= */
+/* ================= RDS & CONTROLS ================= */
 setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
         let framesAttr = box.getAttribute('data-frames');
         if (framesAttr) {
             let frames = JSON.parse(decodeURIComponent(framesAttr));
             if (frames.length > 1) {
-                let idx = parseInt(box.getAttribute('data-idx'));
-                idx = (idx + 1) % frames.length; 
+                let idx = (parseInt(box.getAttribute('data-idx')) + 1) % frames.length; 
                 box.setAttribute('data-idx', idx);
                 box.innerText = `[${frames[idx]}]`;
             }
@@ -580,22 +529,14 @@ setInterval(() => {
     });
 }, 2500);
 
-/* ================= AUTO TUNE CONTROLS ================= */
 function parseFrequency() {
     let input = document.getElementById("freqInput");
     let raw = input.value.trim().replace(',', '.');
     let val = parseFloat(raw);
-    
     if (!isNaN(val)) {
-        if (val >= 875 && val <= 1080 && raw.indexOf('.') === -1) {
-            val = val / 10;
-        }
-        if (val < 87.5) val = 87.5;
-        if (val > 108.0) val = 108.0;
-    } else {
-        val = 97.9;
-    }
-    
+        if (val >= 875 && val <= 1080 && raw.indexOf('.') === -1) val /= 10;
+        if (val < 87.5) val = 87.5; if (val > 108.0) val = 108.0;
+    } else val = 97.9;
     input.value = val.toFixed(1);
     tune();
 }
@@ -603,21 +544,14 @@ function parseFrequency() {
 function stepFreq(delta) {
     let input = document.getElementById("freqInput");
     let val = parseFloat(input.value) + delta;
-    if(val < 87.5) val = 108.0;
-    if(val > 108.0) val = 87.5;
+    if(val < 87.5) val = 108.0; if(val > 108.0) val = 87.5;
     input.value = val.toFixed(1);
     tune();
 }
 
-let inputField = document.getElementById("freqInput");
-inputField.addEventListener("blur", parseFrequency);
-inputField.addEventListener("keyup", e => { 
-    if(e.key === "Enter") {
-        inputField.blur();
-    } 
-});
+document.getElementById("freqInput").addEventListener("blur", parseFrequency);
+document.getElementById("freqInput").addEventListener("keyup", e => { if(e.key === "Enter") e.target.blur(); });
 
-/* ================= COUNTRY SWITCH ================= */
 function setCountry(c){
     currentCountry = c;
     document.getElementById("btn-ro").classList.toggle("active", c === "ro");
@@ -625,27 +559,20 @@ function setCountry(c){
     loadStations(c);
 }
 
-/* ================= RECEIVER & BEARING ================= */
 map.on("contextmenu", function(e){
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
-    if(receiverMarker){ map.removeLayer(receiverMarker); receiverMarker = null; }
-    if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
-
+    if(receiverMarker) map.removeLayer(receiverMarker);
+    if(distanceLine) map.removeLayer(distanceLine);
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
     receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-
     getLocationName(e.latlng.lat, e.latlng.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
-    
-    receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
+    receiverMarker.on("drag", () => { if(distanceLine) map.removeLayer(distanceLine); });
     receiverMarker.on("dragend", () => {
         let p = receiverMarker.getLatLng();
         receiverMarker.setPopupContent("<b>Searching location...</b>");
         getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
     });
-    receiverMarker.on("contextmenu", () => {
-        map.removeLayer(receiverMarker); receiverMarker = null;
-        if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
-    });
+    receiverMarker.on("contextmenu", () => { map.removeLayer(receiverMarker); receiverMarker = null; if(distanceLine) map.removeLayer(distanceLine); });
 });
 
 function bearing(a, b){
@@ -653,8 +580,7 @@ function bearing(a, b){
     let dLon = (b.lng - a.lng) * Math.PI / 180;
     let y = Math.sin(dLon) * Math.cos(lat2);
     let x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-    let brng = Math.atan2(y, x) * 180 / Math.PI;
-    return (brng + 360) % 360;
+    return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
 }
 </script>
 </body>
