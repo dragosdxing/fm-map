@@ -19,9 +19,9 @@ html, body { margin:0; padding:0; background: #000; }
     font-weight: bold;
 }
 
-/* Stil pentru iconița de eroare (face iconița albastră/originală să pară roșie) */
+/* Filtrul pentru a face iconița roșie în caz de eroare */
 .error-icon-style {
-    filter: hue-rotate(140deg) brightness(0.8) saturate(3);
+    filter: hue-rotate(140deg) brightness(0.9) saturate(4);
 }
 
 /* ================= DARK MODE PANOU CONTROL ================= */
@@ -70,10 +70,6 @@ html, body { margin:0; padding:0; background: #000; }
     text-shadow: 0 0 6px rgba(0,255,0,0.4);
 }
 
-#freqInput::-webkit-outer-spin-button,
-#freqInput::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-#freqInput[type=number] { -moz-appearance: textfield; }
-
 .mhz-label {
     color: #00ff00; 
     font-size: 11px;
@@ -100,7 +96,6 @@ html, body { margin:0; padding:0; background: #000; }
     justify-content: center;
     transition: 0.2s;
 }
-.tune-btn:hover { background: #4f525a; }
 
 .countryBtn { 
     cursor: pointer;
@@ -110,41 +105,33 @@ html, body { margin:0; padding:0; background: #000; }
     color: #fff; 
     border-radius: 4px;
     font-weight: bold;
-    transition: all 0.2s;
 }
-.countryBtn:hover { background: #404249; }
 .countryBtn.active { 
     background: #00ff00; 
     color: #111; 
-    border-color: #00cc00; 
 }
 
 .action-row {
     display: flex;
     gap: 8px;
     margin-top: 20px;
-    width: 100%;
 }
 
 .action-btn {
     flex: 1;
     padding: 8px 4px;
-    cursor: pointer;
     background: transparent;
     color: #fff; 
     border: 1px solid #fff; 
     border-radius: 4px;
     font-weight: bold;
-    transition: 0.2s;
     font-size: 11px;
     text-align: center;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap;
 }
-.action-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
 .rds-box {
     display: inline-block;
@@ -157,38 +144,23 @@ html, body { margin:0; padding:0; background: #000; }
     letter-spacing: 2px;
     min-width: 95px;
     text-align: center;
-    box-shadow: inset 0 0 5px rgba(0,255,0,0.4);
 }
 
 /* ================= POPUPS & TOOLTIPS ================= */
 .leaflet-popup-content-wrapper {
     background: rgba(25, 25, 25, 0.85); 
     backdrop-filter: blur(4px); 
-    -webkit-backdrop-filter: blur(4px);
     color: #fff; 
     border: 1px solid #444;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.8);
-    border-radius: 6px;
 }
-.leaflet-popup-tip { background: rgba(25, 25, 25, 0.85); border-top: 1px solid #444; border-left: 1px solid #444; }
 .leaflet-popup-content { margin: 14px; line-height: 1.5; }
-.leaflet-container a.leaflet-popup-close-button { color: #fff; }
-.leaflet-container a.leaflet-popup-close-button:hover { color: #aaa; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
-.leaflet-popup-content a { color: #fff; text-decoration: underline; }
 
 .leaflet-tooltip {
     background: rgba(25, 25, 25, 0.9);
     color: #fff; 
     border: 1px solid #444;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    border-radius: 4px;
-    font-size: 13px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    text-align: center;
 }
-.leaflet-tooltip-top:before { border-top-color: #444; }
 
 .cov-btn {
     background: #333;
@@ -198,14 +170,10 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 8px;
     width: 100%;
-    transition: 0.2s;
     font-size: 13px;
 }
-.cov-btn:hover { background: #00ff00; color: #111; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
-.cov-btn.active-cov:hover { background: #cc0000; }
 
 .dist-info-popup {
     font-size: 12px;
@@ -254,13 +222,13 @@ L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imager
 L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 }).addTo(map);
 
 /* ================= ICONS ================= */
-// NOUA ICONIȚĂ EMITĂTOR
+// ACTUALIZARE: Noua iconiță cerută
 var txIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/nshx6Jr1/tower.png', // Sursă directă către imaginea ta
-    iconSize: [32, 32], 
-    iconAnchor: [16, 32], 
-    popupAnchor: [0, -32], 
-    tooltipAnchor: [0, -32]
+    iconUrl: 'https://i.ibb.co/nMzymZsq/tower.png', 
+    iconSize: [36, 36], 
+    iconAnchor: [18, 36], 
+    popupAnchor: [0, -36], 
+    tooltipAnchor: [0, -36]
 });
 
 var receiverIcon = L.icon({
@@ -287,7 +255,7 @@ async function getLocationName(lat, lon){
         let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
         let r = await fetch(url, { headers: { "Accept": "application/json" } });
         let data = await r.json();
-        return (data.address.city || data.address.town || data.address.village || data.address.municipality || data.address.county || "Unknown location");
+        return (data.address.city || data.address.town || data.address.village || "Unknown location");
     } catch { return "Unknown location"; }
 }
 
@@ -297,24 +265,20 @@ function loadStations(country){
     fetch(file).then(r => r.json()).then(data => {
         allStations = data.features;
         tune();
-    }).catch(err => console.error("Eroare la încărcarea JSON:", err));
+    }).catch(err => console.error("Eroare JSON:", err));
 }
 loadStations("ro"); 
 
 /* ================= GEOLOCATION ================= */
 function locateUser() {
     let btn = document.getElementById("geoBtn");
-    if (!navigator.geolocation) {
-        alert("Geolocația nu este suportată de browser-ul tău.");
-        return;
-    }
+    if (!navigator.geolocation) return;
     btn.innerHTML = "⏳ Locating...";
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
+    navigator.geolocation.getCurrentPosition((position) => {
             let lat = position.coords.latitude;
             let lng = position.coords.longitude;
             let latlng = L.latLng(lat, lng);
-            if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+            if (distanceLine) map.removeLayer(distanceLine);
             if (!receiverMarker) {
                 receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
             } else {
@@ -327,21 +291,14 @@ function locateUser() {
             });
             btn.innerHTML = "📍 Geolocation";
             receiverMarker.off("drag dragend contextmenu");
-            receiverMarker.on("drag", () => { if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; } });
+            receiverMarker.on("drag", () => { if(distanceLine) map.removeLayer(distanceLine); });
             receiverMarker.on("dragend", () => {
                 let p = receiverMarker.getLatLng();
-                receiverMarker.setPopupContent("<b>Searching location...</b>");
-                getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
+                getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b>`); });
             });
-            receiverMarker.on("contextmenu", () => {
-                map.removeLayer(receiverMarker); receiverMarker = null;
-                if(distanceLine){ map.removeLayer(distanceLine); distanceLine = null; }
-            });
+            receiverMarker.on("contextmenu", () => { map.removeLayer(receiverMarker); receiverMarker = null; });
         }, 
-        (error) => {
-            alert("Nu am putut obține locația.");
-            btn.innerHTML = "📍 Geolocation";
-        },
+        () => { btn.innerHTML = "📍 Geolocation"; },
         { enableHighAccuracy: true }
     );
 }
@@ -356,32 +313,14 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
         if(btn) { btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov'); }
         return;
     }
-    let baseRadiusKm = Math.pow(powerWatts, 0.25);
-    let rStrong = (baseRadiusKm * 5) * 1000;
-    let rWeak = (baseRadiusKm * 9) * 1000;
-    if (rStrong > 100000) rStrong = 100000; 
-    if (rWeak > 180000) rWeak = 180000;
-    let covWeak = L.circle([lat, lng], { radius: rWeak, color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 });
-    let covStrong = L.circle([lat, lng], { radius: rStrong, color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 });
-    activeCoverages[id] = L.layerGroup([covWeak, covStrong]).addTo(map);
+    let rStrong = (Math.pow(powerWatts, 0.25) * 5) * 1000;
+    let rWeak = (Math.pow(powerWatts, 0.25) * 9) * 1000;
+    activeCoverages[id] = L.layerGroup([
+        L.circle([lat, lng], { radius: Math.min(rWeak, 180000), color: 'none', fillColor: '#ffff00', fillOpacity: 0.15 }),
+        L.circle([lat, lng], { radius: Math.min(rStrong, 100000), color: 'none', fillColor: '#00ff00', fillOpacity: 0.25 })
+    ]).addTo(map);
     if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
 };
-
-function toggleRealCoverage(panoramaID, btnId){
-    let btn = document.getElementById(btnId);
-    if(realCoverageLayers[panoramaID]){
-        map.removeLayer(realCoverageLayers[panoramaID]);
-        delete realCoverageLayers[panoramaID];
-        if(btn){ btn.innerText = "📡 Real Coverage"; btn.classList.remove('active-cov'); }
-        return;
-    }
-    const layer = L.tileLayer.wms("https://www.heywhatsthat.com/bin/terrain.cgi", {
-        layers: 'visibility', id: panoramaID, format: "image/png", transparent: true, opacity: 0.55
-    });
-    layer.addTo(map);
-    realCoverageLayers[panoramaID] = layer;
-    if(btn){ btn.innerText = "❌ Hide Real Coverage"; btn.classList.add('active-cov'); }
-}
 
 /* ================= TUNE & PARSE ================= */
 function tune(){
@@ -390,8 +329,6 @@ function tune(){
     if(geoLayer) map.removeLayer(geoLayer);
     for (let key in activeCoverages) { map.removeLayer(activeCoverages[key]); }
     activeCoverages = {};
-    for (let key in realCoverageLayers) { map.removeLayer(realCoverageLayers[key]); }
-    realCoverageLayers = {};
 
     let filtered = [];
     let regexFM = /\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/;
@@ -402,9 +339,7 @@ function tune(){
         let stations = desc.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi);
         let matched = stations.filter(s => {
             let m = s.match(regexFM);
-            if(!m) return false;
-            let fVal = parseFloat(m[0].replace(",", "."));
-            return Math.abs(fVal - freq) <= 0.05;
+            return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05;
         });
 
         if(matched.length > 0){
@@ -415,15 +350,11 @@ function tune(){
                 if(lineHasError) hasMajorError = true;
                 let s2 = s.replace(regexFM, "<b style='color:#fff;'>$&</b>"); 
                 s2 = s2.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)(\s*\([^)]+\))?$/, function(match, powerStr, rdsBlocks, extraText) {
-                    extraText = extraText || "";
-                    let rdsMatches = rdsBlocks.match(/\[([^\]]+)\]/g);
-                    if(!rdsMatches) return match;
-                    let frames = rdsMatches.map(frame => frame.slice(1, -1));
+                    let frames = rdsBlocks.match(/\[([^\]]+)\]/g).map(frame => frame.slice(1, -1));
                     let safeFrames = encodeURIComponent(JSON.stringify(frames));
-                    return powerStr + ` <span class="rds-box" data-frames="${safeFrames}" data-idx="0">[${frames[0]}]</span>` + extraText;
+                    return powerStr + ` <span class="rds-box" data-frames="${safeFrames}" data-idx="0">[${frames[0]}]</span>` + (extraText || "");
                 });
-                if(lineHasError) s2 = `<span class="status-error-text">${s2}</span>`;
-                return s2;
+                return lineHasError ? `<span class="status-error-text">${s2}</span>` : s2;
             });
             newF.properties.description = formatted.join("<br><hr>");
             newF.properties._hasError = hasMajorError; 
@@ -434,152 +365,90 @@ function tune(){
     geoLayer = L.geoJSON({ type: "FeatureCollection", features: filtered }, {
         pointToLayer: function(feature, latlng){ 
             let marker = L.marker(latlng, {icon: txIcon});
-            // Aplicăm clasa de eroare dacă stația e OFF/NO AUDIO
             if(feature.properties._hasError) {
-                marker.on('add', function(){
-                    this._icon.classList.add('error-icon-style');
-                });
+                marker.on('add', function(){ this._icon.classList.add('error-icon-style'); });
             }
             return marker;
         },
         onEachFeature: function(feature, layer){
             let desc = feature.properties.description || "";
-            let name = feature.properties.name || "Unknown Transmitter";
+            let name = feature.properties.name || "Unknown";
             let lat = feature.geometry.coordinates[1];
             let lng = feature.geometry.coordinates[0];
-            let id = lat + "_" + lng;
 
             let powerWatts = 100;
-            let powerMatch = desc.match(/-\s*([\d\.,]+)\s*(W|kW)/i);
-            if (powerMatch) {
-                let val = parseFloat(powerMatch[1].replace(",", "."));
-                let unit = powerMatch[2].toLowerCase();
-                powerWatts = unit === "kw" ? val * 1000 : val;
+            let pMatch = desc.match(/-\s*([\d\.,]+)\s*(W|kW)/i);
+            if (pMatch) {
+                let val = parseFloat(pMatch[1].replace(",", "."));
+                powerWatts = pMatch[2].toLowerCase() === "kw" ? val * 1000 : val;
             }
 
             let covBtnId = "cov_" + lat.toString().replace(/\./g, "") + "_" + lng.toString().replace(/\./g, "");
-            let coverageHtml = "";
-            let lowerName = name.toLowerCase();
-            if (lowerName.includes("costila") || lowerName.includes("bucegi")) {
-                coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleRealCoverage('GM1X5JB5','${covBtnId}')">📡 Real Coverage</button>`;
-            } else {
-                coverageHtml = `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
-            }
-
-            layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10], opacity: 1 });
-            layer.on("mouseover", function(e){
-                let tooltipContent = `<b style="color:#fff;">${name}</b>`;
-                if (receiverMarker) {
-                    let p1 = receiverMarker.getLatLng();
-                    let distKm = map.distance(p1, e.latlng) / 1000;
-                    let azimuth = bearing(p1, e.latlng);
-                    tooltipContent += `<br><span style="font-size:11px; color:#ccc;">Dist: <span style="color:#fff;">${formatDistance(distKm)}</span><br>Beam: <span style="color:#fff;">${azimuth.toFixed(0)}°</span></span>`;
-                }
-                layer.setTooltipContent(tooltipContent);
-            });
+            let coverageHtml = (name.toLowerCase().includes("costila") || name.toLowerCase().includes("bucegi")) ?
+                `<button id="${covBtnId}" class="cov-btn" onclick="toggleRealCoverage('GM1X5JB5','${covBtnId}')">📡 Real Coverage</button>` :
+                `<button id="${covBtnId}" class="cov-btn" onclick="toggleCoverage(${lat}, ${lng}, ${powerWatts}, '${covBtnId}')">📶 Show Coverage</button>`;
 
             let getPopupContent = () => {
                 let distHtml = "";
                 if (receiverMarker) {
                     let p1 = receiverMarker.getLatLng();
-                    let distKm = map.distance(p1, L.latLng(lat, lng)) / 1000;
-                    let azimuth = bearing(p1, L.latLng(lat, lng));
-                    distHtml = `<span class="dist-info-popup">📏 ${formatDistance(distKm)} | 🧭 ${azimuth.toFixed(0)}°</span>`;
+                    let d = map.distance(p1, L.latLng(lat, lng)) / 1000;
+                    distHtml = `<span class="dist-info-popup">📏 ${formatDistance(d)} | 🧭 ${bearing(p1, L.latLng(lat, lng)).toFixed(0)}°</span>`;
                 }
                 return `<b style="font-size:15px; color:#fff;">${name}</b><br>${distHtml}<hr>${desc}<hr>${coverageHtml}`;
             };
 
+            layer.bindTooltip(`<b style="color:#fff;">${name}</b>`, { direction: 'top', offset: [0, -10] });
             layer.bindPopup(getPopupContent());
-            layer.on('popupopen', function() {
-                layer.setPopupContent(getPopupContent());
-                let btn = document.getElementById(covBtnId);
-                if (btn) {
-                    if (lowerName.includes("costila") || lowerName.includes("bucegi")) {
-                        if (realCoverageLayers["GM1X5JB5"]) { btn.innerText = "❌ Hide Real Coverage"; btn.classList.add('active-cov'); }
-                    } else if (activeCoverages[id]) {
-                        btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov');
-                    }
-                }
-            });
+            layer.on('popupopen', () => { layer.setPopupContent(getPopupContent()); });
 
-            layer.on("contextmenu", function(e){
+            layer.on("contextmenu", (e) => {
                 if(!receiverMarker) return;
                 if(distanceLine) map.removeLayer(distanceLine);
-                let p1 = receiverMarker.getLatLng();
-                distanceLine = L.polyline([p1, e.latlng], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
-                layer.bindPopup(getPopupContent(), { autoPan: false }).openPopup();
-                map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
+                distanceLine = L.polyline([receiverMarker.getLatLng(), e.latlng], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
+                layer.openPopup();
             });
         }
     }).addTo(map);
 }
 
-/* ================= RDS & CONTROLS ================= */
+/* ================= RDS & BEARING ================= */
 setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
-        let framesAttr = box.getAttribute('data-frames');
-        if (framesAttr) {
-            let frames = JSON.parse(decodeURIComponent(framesAttr));
-            if (frames.length > 1) {
-                let idx = (parseInt(box.getAttribute('data-idx')) + 1) % frames.length; 
-                box.setAttribute('data-idx', idx);
-                box.innerText = `[${frames[idx]}]`;
-            }
+        let frames = JSON.parse(decodeURIComponent(box.getAttribute('data-frames')));
+        if (frames.length > 1) {
+            let idx = (parseInt(box.getAttribute('data-idx')) + 1) % frames.length; 
+            box.setAttribute('data-idx', idx);
+            box.innerText = `[${frames[idx]}]`;
         }
     });
 }, 2500);
 
-function parseFrequency() {
-    let input = document.getElementById("freqInput");
-    let raw = input.value.trim().replace(',', '.');
-    let val = parseFloat(raw);
-    if (!isNaN(val)) {
-        if (val >= 875 && val <= 1080 && raw.indexOf('.') === -1) val /= 10;
-        if (val < 87.5) val = 87.5; if (val > 108.0) val = 108.0;
-    } else val = 97.9;
-    input.value = val.toFixed(1);
-    tune();
-}
-
 function stepFreq(delta) {
-    let input = document.getElementById("freqInput");
-    let val = parseFloat(input.value) + delta;
-    if(val < 87.5) val = 108.0; if(val > 108.0) val = 87.5;
-    input.value = val.toFixed(1);
+    let i = document.getElementById("freqInput");
+    let v = parseFloat(i.value) + delta;
+    i.value = (v < 87.5 ? 108 : (v > 108 ? 87.5 : v)).toFixed(1);
     tune();
 }
-
-document.getElementById("freqInput").addEventListener("blur", parseFrequency);
-document.getElementById("freqInput").addEventListener("keyup", e => { if(e.key === "Enter") e.target.blur(); });
 
 function setCountry(c){
-    currentCountry = c;
     document.getElementById("btn-ro").classList.toggle("active", c === "ro");
     document.getElementById("btn-md").classList.toggle("active", c === "md");
     loadStations(c);
 }
 
-map.on("contextmenu", function(e){
+map.on("contextmenu", (e) => {
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker) map.removeLayer(receiverMarker);
-    if(distanceLine) map.removeLayer(distanceLine);
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-    receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-    getLocationName(e.latlng.lat, e.latlng.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
-    receiverMarker.on("drag", () => { if(distanceLine) map.removeLayer(distanceLine); });
-    receiverMarker.on("dragend", () => {
-        let p = receiverMarker.getLatLng();
-        receiverMarker.setPopupContent("<b>Searching location...</b>");
-        getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b><br>(right click to remove)`); });
-    });
-    receiverMarker.on("contextmenu", () => { map.removeLayer(receiverMarker); receiverMarker = null; if(distanceLine) map.removeLayer(distanceLine); });
+    getLocationName(e.latlng.lat, e.latlng.lng).then(name => { receiverMarker.bindPopup(`<b>📍 ${name}</b>`).openPopup(); });
 });
 
 function bearing(a, b){
-    let lat1 = a.lat * Math.PI / 180; let lat2 = b.lat * Math.PI / 180;
-    let dLon = (b.lng - a.lng) * Math.PI / 180;
-    let y = Math.sin(dLon) * Math.cos(lat2);
-    let x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+    let l1 = a.lat * Math.PI / 180, l2 = b.lat * Math.PI / 180;
+    let dl = (b.lng - a.lng) * Math.PI / 180;
+    let y = Math.sin(dl) * Math.cos(l2);
+    let x = Math.cos(l1) * Math.sin(l2) - Math.sin(l1) * Math.cos(l2) * Math.cos(dl);
     return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
 }
 </script>
