@@ -61,7 +61,7 @@ html, body { margin:0; padding:0; background: #000; }
 }
 
 .leaflet-popup-content-wrapper { background: rgba(25, 25, 25, 0.85); backdrop-filter: blur(4px); color: #fff; border: 1px solid #444; }
-.leaflet-popup-content { margin: 14px; line-height: 1.5; }
+.leaflet-popup-content { margin: 14px; line-height: 1.5; min-width: 220px; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 .leaflet-tooltip {
@@ -69,7 +69,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     border: 1px solid #444; padding: 6px 10px; font-size: 13px; text-align: center;
 }
 
-.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 6px 10px; border-radius: 4px; cursor: pointer; width: 100%; }
+.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 6px 10px; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 5px;}
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
 .dist-info-popup { font-size: 12px; color: #00ff00; margin-top: -8px; margin-bottom: 8px; display: block; }
 </style>
@@ -114,11 +114,11 @@ var receiverIcon = L.icon({
     iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -30]
 });
 
-let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
+let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, currentTxCoords = null;
 
 function formatDistance(km){ return km < 1 ? Math.round(km * 1000) + " m" : Math.round(km) + " km"; }
 
-function updateDistanceLine() {
+function updateLine() {
     if (receiverMarker && currentTxCoords && distanceLine) {
         distanceLine.setLatLngs([receiverMarker.getLatLng(), currentTxCoords]);
     }
@@ -127,34 +127,56 @@ function updateDistanceLine() {
 function tune(){
     let freq = parseFloat(document.getElementById("freqInput").value);
     if(geoLayer) map.removeLayer(geoLayer);
-    currentTxCoords = null; // Resetăm ținta liniei la schimbarea frecvenței
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+    currentTxCoords = null;
+
+    let regexFM = /\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/;
+    const errorKeywords = ["(**NO AUDIO**)", "(*BLANK CARRIER*)", "(**OFF**)", "(*NO AUDIO*)"];
 
     let filtered = allStations.filter(f => {
-        let matches = (f.properties.description || "").match(/\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/g);
+        let matches = (f.properties.description || "").match(new RegExp(regexFM, "g"));
         return matches && matches.some(m => Math.abs(parseFloat(m.replace(",", ".")) - freq) <= 0.05);
+    }).map(f => {
+        let newF = JSON.parse(JSON.stringify(f));
+        let stations = newF.properties.description.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi);
+        let hasError = false;
+
+        let formatted = stations.map(s => {
+            if (errorKeywords.some(k => s.includes(k))) hasError = true;
+            let res = s.replace(regexFM, "<b>$&</b>");
+            res = res.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)/, function(match, p, rds) {
+                let frames = rds.match(/\[([^\]]+)\]/g).map(x => x.slice(1,-1));
+                return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${frames[0]}]</span>`;
+            });
+            return errorKeywords.some(k => s.includes(k)) ? `<span class="status-error-text">${res}</span>` : res;
+        });
+
+        newF.properties._processedDesc = formatted.join("<br><hr>");
+        newF.properties._hasError = hasError;
+        return newF;
     });
 
     geoLayer = L.geoJSON({ type: "FeatureCollection", features: filtered }, {
         pointToLayer: (feature, latlng) => {
-            let marker = L.marker(latlng, {icon: txIcon});
-            if((feature.properties.description || "").includes("OFF")) marker.on('add', function(){ this._icon.classList.add('error-icon-style'); });
-            return marker;
+            let m = L.marker(latlng, {icon: txIcon});
+            if(feature.properties._hasError) m.on('add', function(){ this._icon.classList.add('error-icon-style'); });
+            return m;
         },
         onEachFeature: (feature, layer) => {
             let latlng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
-            
-            let updateTooltip = () => {
-                let content = `<b>${feature.properties.name}</b>`;
-                if (receiverMarker) {
-                    let d = map.distance(receiverMarker.getLatLng(), latlng) / 1000;
-                    content += `<br><span style="color:#00ff00;">📏 ${formatDistance(d)}</span>`;
-                }
-                layer.setTooltipContent(content);
+
+            let getDistHtml = () => {
+                if (!receiverMarker) return "";
+                let d = map.distance(receiverMarker.getLatLng(), latlng) / 1000;
+                return `<span class="dist-info-popup">📏 ${formatDistance(d)} | 🧭 ${bearing(receiverMarker.getLatLng(), latlng).toFixed(0)}°</span>`;
             };
 
             layer.bindTooltip("", { direction: 'top' });
-            layer.on('mouseover', updateTooltip);
+            layer.on('mouseover', () => {
+                let content = `<b>${feature.properties.name}</b>`;
+                if(receiverMarker) content += `<br><span style="color:#00ff00;">📏 ${formatDistance(map.distance(receiverMarker.getLatLng(), latlng)/1000)}</span>`;
+                layer.setTooltipContent(content);
+            });
 
             layer.on("contextmenu", (e) => {
                 L.DomEvent.stopPropagation(e);
@@ -165,7 +187,7 @@ function tune(){
                 layer.openPopup();
             });
 
-            layer.bindPopup(`<b>${feature.properties.name}</b><hr>${feature.properties.description}`);
+            layer.bindPopup(() => `<b>${feature.properties.name}</b><br>${getDistHtml()}<hr>${feature.properties._processedDesc}<hr><button class="cov-btn">📶 Show Coverage</button>`);
         }
     }).addTo(map);
 }
@@ -173,18 +195,24 @@ function tune(){
 map.on("contextmenu", (e) => {
     if(receiverMarker) map.removeLayer(receiverMarker);
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
-    
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-    
-    receiverMarker.on("drag", updateDistanceLine);
-    
+    receiverMarker.on("drag", updateLine);
     receiverMarker.on("contextmenu", (ev) => {
         L.DomEvent.stopPropagation(ev);
-        map.removeLayer(receiverMarker);
-        receiverMarker = null;
+        map.removeLayer(receiverMarker); receiverMarker = null;
         if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
     });
 });
+
+setInterval(() => {
+    document.querySelectorAll('.rds-box').forEach(box => {
+        let frames = JSON.parse(decodeURIComponent(box.dataset.frames));
+        if (frames.length > 1) {
+            let idx = (parseInt(box.dataset.idx) + 1) % frames.length;
+            box.dataset.idx = idx; box.innerText = `[${frames[idx]}]`;
+        }
+    });
+}, 2500);
 
 function stepFreq(delta) {
     let i = document.getElementById("freqInput");
@@ -194,17 +222,15 @@ function stepFreq(delta) {
 }
 
 function setCountry(c){
-    document.getElementById("btn-ro").classList.toggle("active", c === 'ro');
-    document.getElementById("btn-md").classList.toggle("active", c === 'md');
-    fetch(c === 'ro' ? 'fm.json' : 'fm_md.json').then(r => r.json()).then(data => { allStations = data.features; tune(); });
+    document.getElementById("btn-ro").className = (c=='ro'?'countryBtn active':'countryBtn');
+    document.getElementById("btn-md").className = (c=='md'?'countryBtn active':'countryBtn');
+    fetch(c=='ro'?'fm.json':'fm_md.json').then(r=>r.json()).then(d=>{allStations=d.features; tune();});
 }
 
 function bearing(a, b){
-    let l1 = a.lat * Math.PI / 180, l2 = b.lat * Math.PI / 180;
-    let dl = (b.lng - a.lng) * Math.PI / 180;
-    return (Math.atan2(Math.sin(dl) * Math.cos(l2), Math.cos(l1) * Math.sin(l2) - Math.sin(l1) * Math.cos(l2) * Math.cos(dl)) * 180 / Math.PI + 360) % 360;
+    let l1=a.lat*Math.PI/180, l2=b.lat*Math.PI/180, dl=(b.lng-a.lng)*Math.PI/180;
+    return (Math.atan2(Math.sin(dl)*Math.cos(l2), Math.cos(l1)*Math.sin(l2)-Math.sin(l1)*Math.cos(l2)*Math.cos(dl))*180/Math.PI+360)%360;
 }
-
 setCountry('ro');
 </script>
 </body>
