@@ -1230,7 +1230,7 @@
       },
       "properties": {
         "name": "București / BRD Tower",
-        "description": "92.1 v Vibe FM [E222] - 2kW [_VIBE_FM][_92.1_FM]\n100.2 v Virgin Radio [E05F] - 3kW [_VIRGIN_][100.2_FM]\n106.7 v Europa FM [E299] - 5kW [EUROPAFM][_106.7__]\n107.3 v Euronews Radio - 2kW (**IN PLAN**)",
+        "description": "90.2 v Nostalgia Radio [E132] - 6kW [NOSTALGI]\n92.1 v Vibe FM [E222] - 2kW [_VIBE_FM][_92.1_FM]\n100.2 v Virgin Radio [E05F] - 3kW [_VIRGIN_][100.2_FM]\n106.7 v Europa FM [E299] - 5kW [EUROPAFM][_106.7__]\n107.3 v Euronews Radio - 2kW (**IN PLAN**)",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
         }
@@ -1349,21 +1349,6 @@
         "coordinates": [
           26.0879,
           44.4518
-        ]
-      },
-      "properties": {
-        "name": "București / Piața Victoriei Bloc D2",
-        "description": "90.2 v Nostalgia Radio [E132] - 6kW [NOSTALGI]"
-      },
-      "id": "AxMzE"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          26.050354,
-          44.438725
         ]
       },
       "properties": {
@@ -2067,7 +2052,7 @@
       },
       "properties": {
         "name": "Constanța / Bloc Rotund",
-        "description": "91.6 v Play Radio [E190] - 750W [__PLAY__][RADIO___][91.6_FM_]\n92.9 v Radio CFM [E091] - 500W [CFM_92.9]\n99.7 v Radio Dobrogea [E099] - 1kW [+DOAMNE+][+AJUTA+_][DOBROGEA]\n107.5 v Radio ZU [E2AA] - 2kW [RADIO_ZU][107.5_FM]",
+        "description": "91.6 v Play Radio [E190] - 750W [__PLAY__]\n92.9 v Radio CFM [E091] - 500W [CFM_92.9]\n99.7 v Radio Dobrogea [E099] - 1kW [+DOAMNE+][+AJUTA+_][DOBROGEA]\n107.5 v Radio ZU [E2AA] - 2kW [RADIO_ZU][107.5_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
