@@ -60,8 +60,8 @@ html, body { margin:0; padding:0; background: #000; }
     border-radius: 3px; font-weight: bold; min-width: 95px; text-align: center;
 }
 
-.leaflet-popup-content-wrapper { background: rgba(25, 25, 25, 0.85); backdrop-filter: blur(4px); color: #fff; border: 1px solid #444; }
-.leaflet-popup-content { margin: 14px; line-height: 1.5; min-width: 220px; }
+.leaflet-popup-content-wrapper { background: rgba(25, 25, 25, 0.9); backdrop-filter: blur(4px); color: #fff; border: 1px solid #444; }
+.leaflet-popup-content { margin: 14px; line-height: 1.6; min-width: 250px; }
 hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 .leaflet-tooltip {
@@ -69,9 +69,8 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     border: 1px solid #444; padding: 6px 10px; font-size: 13px; text-align: center;
 }
 
-.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 6px 10px; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 5px;}
-.cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
-.dist-info-popup { font-size: 12px; color: #00ff00; margin-top: -8px; margin-bottom: 8px; display: block; }
+.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 8px 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
+.dist-info-popup { font-size: 12px; color: #00ff00; margin-bottom: 8px; display: block; border-bottom: 1px solid #444; padding-bottom: 5px; }
 </style>
 </head>
 
@@ -139,9 +138,15 @@ function tune(){
     }).map(f => {
         let newF = JSON.parse(JSON.stringify(f));
         let stations = newF.properties.description.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi);
-        let hasError = false;
+        
+        // FILTRARE: Alegem doar stația care se potrivește cu frecvența selectată
+        let matchedStations = stations.filter(s => {
+            let m = s.match(regexFM);
+            return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05;
+        });
 
-        let formatted = stations.map(s => {
+        let hasError = false;
+        let formatted = matchedStations.map(s => {
             if (errorKeywords.some(k => s.includes(k))) hasError = true;
             let res = s.replace(regexFM, "<b>$&</b>");
             res = res.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)/, function(match, p, rds) {
@@ -165,18 +170,17 @@ function tune(){
         onEachFeature: (feature, layer) => {
             let latlng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
 
-            let getDistHtml = () => {
-                if (!receiverMarker) return "";
-                let d = map.distance(receiverMarker.getLatLng(), latlng) / 1000;
-                return `<span class="dist-info-popup">📏 ${formatDistance(d)} | 🧭 ${bearing(receiverMarker.getLatLng(), latlng).toFixed(0)}°</span>`;
+            let updateTooltip = () => {
+                let content = `<b>${feature.properties.name}</b>`;
+                if(receiverMarker) {
+                    let d = map.distance(receiverMarker.getLatLng(), latlng) / 1000;
+                    content += `<br><span style="color:#00ff00;">📏 ${formatDistance(d)}</span>`;
+                }
+                layer.setTooltipContent(content);
             };
 
             layer.bindTooltip("", { direction: 'top' });
-            layer.on('mouseover', () => {
-                let content = `<b>${feature.properties.name}</b>`;
-                if(receiverMarker) content += `<br><span style="color:#00ff00;">📏 ${formatDistance(map.distance(receiverMarker.getLatLng(), latlng)/1000)}</span>`;
-                layer.setTooltipContent(content);
-            });
+            layer.on('mouseover', updateTooltip);
 
             layer.on("contextmenu", (e) => {
                 L.DomEvent.stopPropagation(e);
@@ -187,14 +191,24 @@ function tune(){
                 layer.openPopup();
             });
 
-            layer.bindPopup(() => `<b>${feature.properties.name}</b><br>${getDistHtml()}<hr>${feature.properties._processedDesc}<hr><button class="cov-btn">📶 Show Coverage</button>`);
+            layer.bindPopup(() => {
+                let distHtml = "";
+                if (receiverMarker) {
+                    let d = map.distance(receiverMarker.getLatLng(), latlng) / 1000;
+                    let b = bearing(receiverMarker.getLatLng(), latlng);
+                    distHtml = `<div class="dist-info-popup">📏 ${formatDistance(d)} | 🧭 ${b.toFixed(0)}°</div>`;
+                }
+                return `<b>${feature.properties.name}</b><br>${distHtml}${feature.properties._processedDesc}<br><br><button class="cov-btn">📶 Show Coverage</button>`;
+            });
         }
     }).addTo(map);
 }
 
 map.on("contextmenu", (e) => {
+    if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker) map.removeLayer(receiverMarker);
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
+    
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
     receiverMarker.on("drag", updateLine);
     receiverMarker.on("contextmenu", (ev) => {
