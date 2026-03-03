@@ -147,17 +147,22 @@ const countyMap = {
     "București": "B", "Municipiul București": "B"
 };
 
-// FUNCȚIE NOUĂ: Formatează dinamic ora și data
+// FUNCȚIE ACTUALIZATĂ: Recunoaște formatul de oră cu secunde (ex: h:mm:ss, _h:mm:ss)
 function getDynamicRDS(text) {
     let now = new Date();
     let hh = String(now.getHours()).padStart(2, '0');
     let mm = String(now.getMinutes()).padStart(2, '0');
+    let ss = String(now.getSeconds()).padStart(2, '0');
     let dd = String(now.getDate()).padStart(2, '0');
     let mo = String(now.getMonth() + 1).padStart(2, '0');
     let yy = String(now.getFullYear()).slice(-2);
     
-    // Înlocuiește ignorând litere mari/mici
-    return text.replace(/HH:MM/gi, `${hh}:${mm}`).replace(/DD\.MM\.YY/gi, `${dd}.${mo}.${yy}`);
+    return text
+        .replace(/_h:mm:ss/gi, `${hh}:${mm}:${ss}`)
+        .replace(/hh:mm:ss/gi, `${hh}:${mm}:${ss}`)
+        .replace(/h:mm:ss/gi, `${hh}:${mm}:${ss}`)
+        .replace(/HH:MM/gi, `${hh}:${mm}`)
+        .replace(/DD\.MM\.YY/gi, `${dd}.${mo}.${yy}`);
 }
 
 function formatDistance(km){ return km < 1 ? Math.round(km * 1000) + " m" : Math.round(km) + " km"; }
@@ -293,7 +298,6 @@ function tune(){
                 if(!rdsMatch) return match;
                 let frames = rdsMatch.map(x => x.slice(1,-1));
                 
-                // Aplicăm formatarea dinamică RDS pentru prima afișare
                 let displayFrame = getDynamicRDS(frames[0]);
                 
                 return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${displayFrame}]</span>`;
@@ -377,7 +381,6 @@ map.on("contextmenu", (e) => {
     });
 });
 
-// Modificat pentru a actualiza ora dinamic pe fiecare "ticăit"
 setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
         let frames = JSON.parse(decodeURIComponent(box.dataset.frames));
@@ -388,7 +391,6 @@ setInterval(() => {
             box.dataset.idx = idx;
         }
         
-        // Înlocuim dinamic stringul chiar dacă e o singură pagină de RDS
         box.innerText = `[${getDynamicRDS(frames[idx])}]`;
     });
 }, 2500);
