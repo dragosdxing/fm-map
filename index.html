@@ -13,7 +13,6 @@
 html, body { margin:0; padding:0; background: #000; overflow: hidden; }
 #map { height:100vh; width:100vw; }
 
-/* MODIFICARE CSS: Animație de clipire și culori specifice doar pentru textul de eroare */
 .error-badge { color: #ff4444 !important; font-weight: bold; }
 @keyframes blink-warning {
     0%, 100% { opacity: 1; }
@@ -148,6 +147,19 @@ const countyMap = {
     "București": "B", "Municipiul București": "B"
 };
 
+// FUNCȚIE NOUĂ: Formatează dinamic ora și data
+function getDynamicRDS(text) {
+    let now = new Date();
+    let hh = String(now.getHours()).padStart(2, '0');
+    let mm = String(now.getMinutes()).padStart(2, '0');
+    let dd = String(now.getDate()).padStart(2, '0');
+    let mo = String(now.getMonth() + 1).padStart(2, '0');
+    let yy = String(now.getFullYear()).slice(-2);
+    
+    // Înlocuiește ignorând litere mari/mici
+    return text.replace(/HH:MM/gi, `${hh}:${mm}`).replace(/DD\.MM\.YY/gi, `${dd}.${mo}.${yy}`);
+}
+
 function formatDistance(km){ return km < 1 ? Math.round(km * 1000) + " m" : Math.round(km) + " km"; }
 
 function updateLine() {
@@ -268,7 +280,6 @@ function tune(){
         let formatted = matched.map(s => {
             let res = s;
             
-            // MODIFICARE: Căutăm textele de eroare și le izolăm cu roșu și emoji intermitent, FĂRĂ a colora restul textului
             errorKeywords.forEach(k => {
                 if (res.includes(k)) {
                     hasError = true;
@@ -281,9 +292,13 @@ function tune(){
                 let rdsMatch = rds.match(/\[([^\]]+)\]/g);
                 if(!rdsMatch) return match;
                 let frames = rdsMatch.map(x => x.slice(1,-1));
-                return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${frames[0]}]</span>`;
+                
+                // Aplicăm formatarea dinamică RDS pentru prima afișare
+                let displayFrame = getDynamicRDS(frames[0]);
+                
+                return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${displayFrame}]</span>`;
             });
-            return res; // Nu mai învelim cu <span class="status-error-text"> întregul rând
+            return res;
         });
         
         newF.properties._processedDesc = formatted.join("<br><hr>");
@@ -362,13 +377,19 @@ map.on("contextmenu", (e) => {
     });
 });
 
+// Modificat pentru a actualiza ora dinamic pe fiecare "ticăit"
 setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
         let frames = JSON.parse(decodeURIComponent(box.dataset.frames));
+        let idx = parseInt(box.dataset.idx);
+        
         if (frames.length > 1) {
-            let idx = (parseInt(box.dataset.idx) + 1) % frames.length;
-            box.dataset.idx = idx; box.innerText = `[${frames[idx]}]`;
+            idx = (idx + 1) % frames.length;
+            box.dataset.idx = idx;
         }
+        
+        // Înlocuim dinamic stringul chiar dacă e o singură pagină de RDS
+        box.innerText = `[${getDynamicRDS(frames[idx])}]`;
     });
 }, 2500);
 
