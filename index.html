@@ -115,9 +115,9 @@ var txIcon = L.icon({
     iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36], tooltipAnchor: [0, -36]
 });
 
-// MODIFICARE: Noua iconiță pentru receptor
+// MODIFICARE: Noua iconiță pentru receptor conform cerinței
 var receiverIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/B5D6SRfP/yagi.png',
+    iconUrl: 'https://i.ibb.co/4RgHttTy/yagi.png',
     iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36]
 });
 
@@ -131,11 +131,23 @@ function updateLine() {
     }
 }
 
+// FUNCȚIE RESTAURATĂ: Preluarea numelui locației
+async function getLocationName(lat, lon){
+    try {
+        let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
+        let r = await fetch(url, { headers: { "Accept": "application/json" } });
+        let data = await r.json();
+        return (data.address.city || data.address.town || data.address.village || data.address.municipality || data.address.county || "Unknown location");
+    } catch { return "Unknown location"; }
+}
+
 function locateUser() {
+    let btn = document.getElementById("geoBtn");
     if (!navigator.geolocation) {
         alert("Geolocation is not supported by your browser.");
         return;
     }
+    btn.innerHTML = "⏳ Locating...";
     navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
         const latlng = L.latLng(latitude, longitude);
@@ -145,18 +157,32 @@ function locateUser() {
         
         receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
         
+        // Căutare și afișare locație
+        receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
+        getLocationName(latitude, longitude).then(name => {
+            receiverMarker.setPopupContent(`<b>📍 ${name}</b>`);
+        });
+        
         receiverMarker.on("drag", updateLine);
+        receiverMarker.on("dragend", () => {
+            let p = receiverMarker.getLatLng();
+            receiverMarker.setPopupContent("<b>Searching location...</b>");
+            getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b>`); });
+        });
+
         receiverMarker.on("contextmenu", (ev) => {
             L.DomEvent.stopPropagation(ev);
             map.removeLayer(receiverMarker); 
             receiverMarker = null;
-            if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+            if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
         });
         
         map.setView(latlng, 10);
+        btn.innerHTML = "📍 Geolocation";
         tune(); 
     }, () => {
         alert("Unable to retrieve your location.");
+        btn.innerHTML = "📍 Geolocation";
     });
 }
 
@@ -283,13 +309,27 @@ function tune(){
 map.on("contextmenu", (e) => {
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker) map.removeLayer(receiverMarker);
-    if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+    if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
+    
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+    
+    // Căutare și afișare locație la click dreapta
+    receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
+    getLocationName(e.latlng.lat, e.latlng.lng).then(name => {
+        receiverMarker.setPopupContent(`<b>📍 ${name}</b>`);
+    });
+
     receiverMarker.on("drag", updateLine);
+    receiverMarker.on("dragend", () => {
+        let p = receiverMarker.getLatLng();
+        receiverMarker.setPopupContent("<b>Searching location...</b>");
+        getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b>`); });
+    });
+
     receiverMarker.on("contextmenu", (ev) => {
         L.DomEvent.stopPropagation(ev);
         map.removeLayer(receiverMarker); receiverMarker = null;
-        if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+        if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
     });
 });
 
