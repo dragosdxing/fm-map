@@ -271,13 +271,15 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
         return;
     }
     
-    // Matematică ajustată: 30kW e clar mult mai mare decât 500W
-    let rStrong = (Math.pow(powerWatts, 0.30) * 3.5) * 1000;
-    let rWeak = (Math.pow(powerWatts, 0.30) * 7.0) * 1000;
+    // COMPROMIS MATEMATIC: 
+    // Mărim baza verde (Strong) ca puterile mari (100kW - Coștila) să ajungă departe (București ~130km)
+    // Reducem proporția galbenă (Weak) ca să nu umflăm prea mult puterile medii (30kW - Odobești spre vest)
+    let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
+    let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
     
     activeCoverages[id] = L.layerGroup([
-        generateIrregularPolygon(lat, lng, Math.min(rWeak, 160000), '#ffff00', 0.15, 1),
-        generateIrregularPolygon(lat, lng, Math.min(rStrong, 90000), '#00ff00', 0.25, 2)
+        generateIrregularPolygon(lat, lng, Math.min(rWeak, 200000), '#ffff00', 0.15, 1),
+        generateIrregularPolygon(lat, lng, Math.min(rStrong, 140000), '#00ff00', 0.25, 2)
     ]).addTo(map);
     
     if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
@@ -347,7 +349,6 @@ function tune(){
             let latlng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
             let powerWatts = 100;
             
-            // MODIFICARE AICI: Căutăm puterea DOAR în rândurile care aparțin postului selectat!
             let pMatch = (feature.properties._processedDesc || "").match(/([\d\.,]+)\s*(W|kW)/i);
             if(pMatch) {
                 let val = parseFloat(pMatch[1].replace(",", "."));
@@ -394,7 +395,6 @@ function tune(){
 
 map.on("contextmenu", (e) => {
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
-    if(receiverMarker) map.map;
     if(receiverMarker) map.removeLayer(receiverMarker);
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
     
