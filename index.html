@@ -78,9 +78,8 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
 .dist-info-popup { font-size: 12px; color: #aaa; margin-bottom: 8px; display: block; border-bottom: 1px solid #444; padding-bottom: 5px; }
 
-/* MODIFICARE CSS: Pop-up receptor mai mic și compact */
 .receiver-popup .leaflet-popup-content { min-width: 10px !important; margin: 8px 12px; white-space: nowrap; text-align: center; font-size: 14px; }
-.receiver-popup .leaflet-popup-close-button { display: none; } /* Ascundem X-ul pentru a fi mai curat */
+.receiver-popup .leaflet-popup-close-button { display: none; }
 </style>
 </head>
 
@@ -119,15 +118,16 @@ var txIcon = L.icon({
     iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36], tooltipAnchor: [0, -36]
 });
 
-// MODIFICARE: Noua iconiță TEF6686 pentru receptor
+// MODIFICARE AICI: Format dreptunghiular pentru a nu fi plat și ancorare perfectă pe mijloc
 var receiverIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/4RgHttTy/tef6686.png', 
-    iconSize: [38, 28], iconAnchor: [19, 14], popupAnchor: [0, -16]
+    iconUrl: 'https://i.ibb.co/4RgHttTy/tef.png', 
+    iconSize: [48, 32],      // Dimensiuni care păstrează proporțiile reale ale radioului TEF
+    iconAnchor: [24, 16],    // Centrul absolut al iconiței, pentru ca linia să se oprească fix la mijloc
+    popupAnchor: [0, -18]
 });
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
 
-// Dicționar județe pentru abreviere
 const countyMap = {
     "Alba": "AB", "Arad": "AR", "Argeș": "AG", "Bacău": "BC", "Bihor": "BH", "Bistrița-Năsăud": "BN",
     "Botoșani": "BT", "Brașov": "BV", "Brăila": "BR", "Buzău": "BZ", "Caraș-Severin": "CS",
@@ -148,7 +148,6 @@ function updateLine() {
     }
 }
 
-// FUNCȚIE: Aflare locație + Abrevieri Județe
 async function getLocationName(lat, lon){
     try {
         let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
@@ -295,7 +294,6 @@ function tune(){
                 if(receiverMarker) {
                     let d = map.distance(receiverMarker.getLatLng(), latlng)/1000;
                     let b = bearing(receiverMarker.getLatLng(), latlng).toFixed(0);
-                    // MODIFICARE: Azimut și distanță în Tooltip
                     content += `<br>Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span>`;
                 }
                 layer.setTooltipContent(content);
@@ -310,7 +308,6 @@ function tune(){
                 if(distanceLine) map.removeLayer(distanceLine);
                 distanceLine = L.polyline([receiverMarker.getLatLng(), latlng], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
                 layer.openPopup();
-                // MODIFICARE: Auto-centrare hartă la trasarea liniei
                 map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
             });
 
@@ -328,7 +325,6 @@ function tune(){
     }).addTo(map);
 }
 
-// Click dreapta pe hartă pentru a seta receptorul manual
 map.on("contextmenu", (e) => {
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker) map.removeLayer(receiverMarker);
