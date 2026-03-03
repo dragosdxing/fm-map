@@ -130,7 +130,6 @@ function updateLine() {
     }
 }
 
-// FUNCȚIA GEOLOCATION REPARATĂ
 function locateUser() {
     if (!navigator.geolocation) {
         alert("Geolocation is not supported by your browser.");
@@ -138,21 +137,24 @@ function locateUser() {
     }
     navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        const latlng = [latitude, longitude];
+        const latlng = L.latLng(latitude, longitude);
         
         if (receiverMarker) map.removeLayer(receiverMarker);
         if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
         
+        // Atribuim marker-ul variabilei globale receiverMarker
         receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+        
         receiverMarker.on("drag", updateLine);
         receiverMarker.on("contextmenu", (ev) => {
             L.DomEvent.stopPropagation(ev);
-            map.removeLayer(receiverMarker); receiverMarker = null;
+            map.removeLayer(receiverMarker); 
+            receiverMarker = null;
             if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
         });
         
         map.setView(latlng, 10);
-        tune(); // Re-tunăm pentru a calcula distanțele de la noua locație
+        tune(); 
     }, () => {
         alert("Unable to retrieve your location.");
     });
@@ -187,8 +189,10 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
 };
 
 function tune(){
-    let freq = parseFloat(document.getElementById("freqInput").value);
+    let freqValue = document.getElementById("freqInput").value;
+    let freq = parseFloat(freqValue);
     if (isNaN(freq)) return;
+    
     if(geoLayer) map.removeLayer(geoLayer);
     for (let k in activeCoverages) map.removeLayer(activeCoverages[k]);
     activeCoverages = {};
@@ -198,7 +202,8 @@ function tune(){
     const errorKeywords = ["(**NO AUDIO**)", "(*BLANK CARRIER*)", "(**OFF**)", "(*NO AUDIO*)"];
 
     let filtered = allStations.filter(f => {
-        let matches = (f.properties.description || "").match(new RegExp(regexFM, "g"));
+        let desc = f.properties.description || "";
+        let matches = desc.match(new RegExp(regexFM, "g"));
         return matches && matches.some(m => Math.abs(parseFloat(m.replace(",", ".")) - freq) <= 0.05);
     }).map(f => {
         let newF = JSON.parse(JSON.stringify(f));
@@ -238,14 +243,17 @@ function tune(){
             }
 
             layer.bindTooltip("", { direction: 'top', sticky: true });
-            layer.on('mouseover click', () => {
+            
+            let updateTooltipContent = () => {
                 let content = `<b>${feature.properties.name}</b>`;
                 if(receiverMarker) {
                     let d = map.distance(receiverMarker.getLatLng(), latlng)/1000;
                     content += `<br>Dist: <span class="dist-val">${formatDistance(d)}</span>`;
                 }
                 layer.setTooltipContent(content);
-            });
+            };
+
+            layer.on('mouseover click', updateTooltipContent);
 
             layer.on("contextmenu", (e) => {
                 L.DomEvent.stopPropagation(e);
