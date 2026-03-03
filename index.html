@@ -265,6 +265,7 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
     
+    // Dacă acoperirea e deja pe hartă, o ștergem (toggle off)
     if (activeCoverages[id]) {
         map.removeLayer(activeCoverages[id]);
         delete activeCoverages[id];
@@ -272,32 +273,62 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         return;
     }
     
-    // --- DETECTORI RELEE ---
+    // --- DETECTORI RELEE (Coordonate aproximative piloni) ---
     let isCostila = (lat > 45.40 && lat < 45.45 && lng > 25.43 && lng < 25.49);
     let isPietrarie = (lat > 47.05 && lat < 47.15 && lng > 27.58 && lng < 27.68);
+    let isOdobesti = (lat > 45.72 && lat < 45.80 && lng > 27.00 && lng < 27.15); 
     
     if (isCostila) {
+        // HACK: Coștila
         let costilaBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
         activeCoverages[id] = L.imageOverlay('NAUTELA1AE32340D0_0.png', costilaBounds, { opacity: 0.65, interactive: false }).addTo(map);
         
     } else if (isPietrarie) {
-        // --- HACK PENTRU PIETRĂRIE ---
+        // HACK: Pietrărie
         let pietrarieBounds = [[44.3881, 23.68446], [49.78402, 31.60917]];
         activeCoverages[id] = L.imageOverlay('pietrarie100.png', pietrarieBounds, { opacity: 0.65, interactive: false }).addTo(map);
         
+    } else if (isOdobesti) {
+        // HACK: Odobești (Selectare dinamică în funcție de post)
+        let odobestiBounds = [[43.15911, 23.0758], [48.55504, 30.82356]];
+        let imgFile = 'mgod500.png'; // Punem 500W ca default
+        
+        // Extragem textul din popup ca să știm pe ce am dat click
+        let content = "";
+        if (btn && btn.closest('.leaflet-popup-content')) {
+            content = btn.closest('.leaflet-popup-content').innerText.toLowerCase();
+        }
+        
+        // Căutăm frecvența sau numele în textul afișat
+        if (content.includes("90.0") || content.includes("digi")) {
+            imgFile = 'mgod30k.png';
+        } else if (content.includes("101.0") || content.includes("102.5") || content.includes("cultural") || content.includes("actualit")) {
+            imgFile = 'mgod50k.png';
+        } else if (content.includes("97.0") || content.includes("focus")) {
+            imgFile = 'mgod10k.png';
+        } else if (content.includes("93.0") || content.includes("95.3") || content.includes("97.7") || content.includes("102.0") || content.includes("trinitas") || content.includes("impuls") || content.includes("itsy") || content.includes("sport total")) {
+            imgFile = 'mgod500.png';
+        }
+        
+        activeCoverages[id] = L.imageOverlay(imgFile, odobestiBounds, { opacity: 0.65, interactive: false }).addTo(map);
+        
     } else if (imgPath && boundsStr) {
+        // Fallback pentru alte imagini definite corect în fm.json (dacă le vei pune vreodată)
         let bounds = JSON.parse(boundsStr);
         activeCoverages[id] = L.imageOverlay(imgPath, bounds, { opacity: 0.65, interactive: false }).addTo(map);
         
     } else {
+        // Fallback la "cercurile" matematice pentru restul emițătoarelor din țară
         let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
         let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
+        
         activeCoverages[id] = L.layerGroup([
             generateIrregularPolygon(lat, lng, Math.min(rWeak, 200000), '#ffff00', 0.15, 1),
             generateIrregularPolygon(lat, lng, Math.min(rStrong, 140000), '#00ff00', 0.25, 2)
         ]).addTo(map);
     }
     
+    // Schimbăm starea butonului
     if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
 };
 
@@ -472,5 +503,6 @@ setCountry('ro');
 </script>
 </body>
 </html>
+
 
 
