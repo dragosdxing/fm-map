@@ -271,8 +271,9 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
         return;
     }
     
-    let rStrong = (Math.pow(powerWatts, 0.28) * 4) * 1000;
-    let rWeak = (Math.pow(powerWatts, 0.28) * 7.5) * 1000;
+    // Matematică ajustată: 30kW e clar mult mai mare decât 500W
+    let rStrong = (Math.pow(powerWatts, 0.30) * 3.5) * 1000;
+    let rWeak = (Math.pow(powerWatts, 0.30) * 7.0) * 1000;
     
     activeCoverages[id] = L.layerGroup([
         generateIrregularPolygon(lat, lng, Math.min(rWeak, 160000), '#ffff00', 0.15, 1),
@@ -345,7 +346,9 @@ function tune(){
         onEachFeature: (feature, layer) => {
             let latlng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
             let powerWatts = 100;
-            let pMatch = (feature.properties.description || "").match(/-\s*([\d\.,]+)\s*(W|kW)/i);
+            
+            // MODIFICARE AICI: Căutăm puterea DOAR în rândurile care aparțin postului selectat!
+            let pMatch = (feature.properties._processedDesc || "").match(/([\d\.,]+)\s*(W|kW)/i);
             if(pMatch) {
                 let val = parseFloat(pMatch[1].replace(",", "."));
                 powerWatts = pMatch[2].toLowerCase() === "kw" ? val * 1000 : val;
@@ -391,6 +394,7 @@ function tune(){
 
 map.on("contextmenu", (e) => {
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
+    if(receiverMarker) map.map;
     if(receiverMarker) map.removeLayer(receiverMarker);
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
     
@@ -432,7 +436,6 @@ function setCountry(c){
     document.getElementById("btn-ro").className = (c=='ro'?'countryBtn active':'countryBtn');
     document.getElementById("btn-md").className = (c=='md'?'countryBtn active':'countryBtn');
     
-    // Am adăugat alertă dacă JSON-ul refuză să se încarce
     fetch(c=='ro'?'fm.json':'fm_md.json')
         .then(r => {
             if(!r.ok) throw new Error("File not found");
@@ -440,7 +443,7 @@ function setCountry(c){
         })
         .then(d => { allStations=d.features; tune(); })
         .catch(err => {
-            alert("⚠️ Eroare: Nu s-a putut încărca fișierul JSON. Verifică dacă rulezi de pe server local și dacă fișierul e în același folder!");
+            alert("⚠️ Eroare: Nu s-a putut încărca fișierul JSON.");
             console.error(err);
         });
 }
