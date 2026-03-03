@@ -77,6 +77,10 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
 .dist-info-popup { font-size: 12px; color: #aaa; margin-bottom: 8px; display: block; border-bottom: 1px solid #444; padding-bottom: 5px; }
+
+/* MODIFICARE CSS: Pop-up receptor mai mic și compact */
+.receiver-popup .leaflet-popup-content { min-width: 10px !important; margin: 8px 12px; white-space: nowrap; text-align: center; font-size: 14px; }
+.receiver-popup .leaflet-popup-close-button { display: none; } /* Ascundem X-ul pentru a fi mai curat */
 </style>
 </head>
 
@@ -115,13 +119,26 @@ var txIcon = L.icon({
     iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36], tooltipAnchor: [0, -36]
 });
 
-// MODIFICARE: Noua iconiță pentru receptor conform cerinței
+// MODIFICARE: Noua iconiță TEF6686 pentru receptor
 var receiverIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/4RgHttTy/yagi.png',
-    iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36]
+    iconUrl: 'https://i.ibb.co/4RgHttTy/tef6686.png', 
+    iconSize: [38, 28], iconAnchor: [19, 14], popupAnchor: [0, -16]
 });
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
+
+// Dicționar județe pentru abreviere
+const countyMap = {
+    "Alba": "AB", "Arad": "AR", "Argeș": "AG", "Bacău": "BC", "Bihor": "BH", "Bistrița-Năsăud": "BN",
+    "Botoșani": "BT", "Brașov": "BV", "Brăila": "BR", "Buzău": "BZ", "Caraș-Severin": "CS",
+    "Călărași": "CL", "Cluj": "CJ", "Constanța": "CT", "Covasna": "CV", "Dâmbovița": "DB",
+    "Dolj": "DJ", "Galați": "GL", "Giurgiu": "GR", "Gorj": "GJ", "Harghita": "HR",
+    "Hunedoara": "HD", "Ialomița": "IL", "Iași": "IS", "Ilfov": "IF", "Maramureș": "MM",
+    "Mehedinți": "MH", "Mureș": "MS", "Neamț": "NT", "Olt": "OT", "Prahova": "PH",
+    "Satu Mare": "SM", "Sălaj": "SJ", "Sibiu": "SB", "Suceava": "SV", "Teleorman": "TR",
+    "Timiș": "TM", "Tulcea": "TL", "Vaslui": "VS", "Vâlcea": "VL", "Vrancea": "VN",
+    "București": "B", "Municipiul București": "B"
+};
 
 function formatDistance(km){ return km < 1 ? Math.round(km * 1000) + " m" : Math.round(km) + " km"; }
 
@@ -131,49 +148,50 @@ function updateLine() {
     }
 }
 
-// FUNCȚIE RESTAURATĂ: Preluarea numelui locației
+// FUNCȚIE: Aflare locație + Abrevieri Județe
 async function getLocationName(lat, lon){
     try {
         let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
         let r = await fetch(url, { headers: { "Accept": "application/json" } });
         let data = await r.json();
-        return (data.address.city || data.address.town || data.address.village || data.address.municipality || data.address.county || "Unknown location");
+        if(!data.address) return "Unknown location";
+        
+        let locName = data.address.city || data.address.town || data.address.village || data.address.municipality || "Unknown";
+        let county = data.address.county || "";
+        county = county.replace("Județul ", "").replace(" County", "").trim();
+        
+        let abr = countyMap[county];
+        return abr ? `${locName}, ${abr}` : locName;
     } catch { return "Unknown location"; }
+}
+
+function bindReceiverPopup(lat, lng) {
+    receiverMarker.bindPopup("<b>⏳ Searching...</b>", { className: 'receiver-popup', autoClose: false, closeOnClick: false }).openPopup();
+    getLocationName(lat, lng).then(name => {
+        if (receiverMarker) receiverMarker.setPopupContent(`<b>📍 ${name}</b>`);
+    });
 }
 
 function locateUser() {
     let btn = document.getElementById("geoBtn");
-    if (!navigator.geolocation) {
-        alert("Geolocation is not supported by your browser.");
-        return;
-    }
+    if (!navigator.geolocation) { alert("Geolocation is not supported by your browser."); return; }
+    
     btn.innerHTML = "⏳ Locating...";
     navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
         const latlng = L.latLng(latitude, longitude);
         
         if (receiverMarker) map.removeLayer(receiverMarker);
-        if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+        if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
         
         receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-        
-        // Căutare și afișare locație
-        receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-        getLocationName(latitude, longitude).then(name => {
-            receiverMarker.setPopupContent(`<b>📍 ${name}</b>`);
-        });
+        bindReceiverPopup(latitude, longitude);
         
         receiverMarker.on("drag", updateLine);
-        receiverMarker.on("dragend", () => {
-            let p = receiverMarker.getLatLng();
-            receiverMarker.setPopupContent("<b>Searching location...</b>");
-            getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b>`); });
-        });
-
+        receiverMarker.on("dragend", () => { bindReceiverPopup(receiverMarker.getLatLng().lat, receiverMarker.getLatLng().lng); });
         receiverMarker.on("contextmenu", (ev) => {
             L.DomEvent.stopPropagation(ev);
-            map.removeLayer(receiverMarker); 
-            receiverMarker = null;
+            map.removeLayer(receiverMarker); receiverMarker = null;
             if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
         });
         
@@ -276,7 +294,9 @@ function tune(){
                 let content = `<b>${feature.properties.name}</b>`;
                 if(receiverMarker) {
                     let d = map.distance(receiverMarker.getLatLng(), latlng)/1000;
-                    content += `<br>Dist: <span class="dist-val">${formatDistance(d)}</span>`;
+                    let b = bearing(receiverMarker.getLatLng(), latlng).toFixed(0);
+                    // MODIFICARE: Azimut și distanță în Tooltip
+                    content += `<br>Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span>`;
                 }
                 layer.setTooltipContent(content);
             };
@@ -290,6 +310,8 @@ function tune(){
                 if(distanceLine) map.removeLayer(distanceLine);
                 distanceLine = L.polyline([receiverMarker.getLatLng(), latlng], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
                 layer.openPopup();
+                // MODIFICARE: Auto-centrare hartă la trasarea liniei
+                map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
             });
 
             let btnId = "cov_" + (latlng.lat + latlng.lng).toString().replace(".","");
@@ -306,25 +328,17 @@ function tune(){
     }).addTo(map);
 }
 
+// Click dreapta pe hartă pentru a seta receptorul manual
 map.on("contextmenu", (e) => {
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker) map.removeLayer(receiverMarker);
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
     
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+    bindReceiverPopup(e.latlng.lat, e.latlng.lng);
     
-    // Căutare și afișare locație la click dreapta
-    receiverMarker.bindPopup("<b>Searching location...</b>").openPopup();
-    getLocationName(e.latlng.lat, e.latlng.lng).then(name => {
-        receiverMarker.setPopupContent(`<b>📍 ${name}</b>`);
-    });
-
     receiverMarker.on("drag", updateLine);
-    receiverMarker.on("dragend", () => {
-        let p = receiverMarker.getLatLng();
-        receiverMarker.setPopupContent("<b>Searching location...</b>");
-        getLocationName(p.lat, p.lng).then(name => { receiverMarker.setPopupContent(`<b>📍 ${name}</b>`); });
-    });
+    receiverMarker.on("dragend", () => { bindReceiverPopup(receiverMarker.getLatLng().lat, receiverMarker.getLatLng().lng); });
 
     receiverMarker.on("contextmenu", (ev) => {
         L.DomEvent.stopPropagation(ev);
