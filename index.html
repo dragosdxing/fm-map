@@ -261,9 +261,11 @@ function generateIrregularPolygon(lat, lng, radiusMeters, color, opacity, seedOf
     return L.polygon(points, { color: color, weight: 0, fillColor: color, fillOpacity: opacity, interactive: false });
 }
 
-window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
+window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr) {
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
+    
+    // Dacă acoperirea e deja pe hartă, o ștergem (toggle off)
     if (activeCoverages[id]) {
         map.removeLayer(activeCoverages[id]);
         delete activeCoverages[id];
@@ -271,16 +273,33 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId) {
         return;
     }
     
-    // COMPROMIS MATEMATIC: 
-    // Mărim baza verde (Strong) ca puterile mari (100kW - Coștila) să ajungă departe (București ~130km)
-    // Reducem proporția galbenă (Weak) ca să nu umflăm prea mult puterile medii (30kW - Odobești spre vest)
-    let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
-    let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
+    // --- HACK PENTRU COSTILA ---
+    // Verificăm dacă am dat click pe un emițător de pe Coștila (folosim o mică marjă de eroare la coordonate)
+    let isCostila = (lat > 45.40 && lat < 45.45 && lng > 25.43 && lng < 25.49);
     
-    activeCoverages[id] = L.layerGroup([
-        generateIrregularPolygon(lat, lng, Math.min(rWeak, 200000), '#ffff00', 0.15, 1),
-        generateIrregularPolygon(lat, lng, Math.min(rStrong, 140000), '#00ff00', 0.25, 2)
-    ]).addTo(map);
+    if (isCostila) {
+        // Dacă e Coștila, ignorăm fm.json și încărcăm direct poza urcată de tine
+        let costilaBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
+        activeCoverages[id] = L.imageOverlay('NAUTELA1AE32340D0_0.png', costilaBounds, { 
+            opacity: 0.65, 
+            interactive: false 
+        }).addTo(map);
+        
+    } else if (imgPath && boundsStr) {
+        // Dacă avem altă imagine setată în JSON (pentru viitor)
+        let bounds = JSON.parse(boundsStr);
+        activeCoverages[id] = L.imageOverlay(imgPath, bounds, { opacity: 0.65, interactive: false }).addTo(map);
+        
+    } else {
+        // Dacă nu e nici Coștila, nici altă poză, generăm pata matematică galben/verde
+        let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
+        let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
+        
+        activeCoverages[id] = L.layerGroup([
+            generateIrregularPolygon(lat, lng, Math.min(rWeak, 200000), '#ffff00', 0.15, 1),
+            generateIrregularPolygon(lat, lng, Math.min(rStrong, 140000), '#00ff00', 0.25, 2)
+        ]).addTo(map);
+    }
     
     if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
 };
@@ -456,3 +475,4 @@ setCountry('ro');
 </script>
 </body>
 </html>
+
