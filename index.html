@@ -54,7 +54,7 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
     flex: 1; padding: 8px 4px; background: transparent; color: #fff; 
     border: 1px solid #fff; border-radius: 4px; font-weight: bold;
     font-size: 11px; text-align: center; text-decoration: none;
-    min-width: 80px;
+    min-width: 80px; cursor: pointer;
 }
 
 .rds-box {
@@ -72,7 +72,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     border: 1px solid #444; padding: 6px 10px; font-size: 13px; text-align: center;
 }
 
-/* Stil pentru distanță în alb */
 .dist-val { color: #ffffff !important; font-weight: bold; }
 
 .cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
@@ -129,6 +128,34 @@ function updateLine() {
     if (receiverMarker && currentTxCoords && distanceLine) {
         distanceLine.setLatLngs([receiverMarker.getLatLng(), currentTxCoords]);
     }
+}
+
+// FUNCȚIA GEOLOCATION REPARATĂ
+function locateUser() {
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        return;
+    }
+    navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        const latlng = [latitude, longitude];
+        
+        if (receiverMarker) map.removeLayer(receiverMarker);
+        if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+        
+        receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+        receiverMarker.on("drag", updateLine);
+        receiverMarker.on("contextmenu", (ev) => {
+            L.DomEvent.stopPropagation(ev);
+            map.removeLayer(receiverMarker); receiverMarker = null;
+            if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+        });
+        
+        map.setView(latlng, 10);
+        tune(); // Re-tunăm pentru a calcula distanțele de la noua locație
+    }, () => {
+        alert("Unable to retrieve your location.");
+    });
 }
 
 document.getElementById('freqInput').addEventListener('input', function(e) {
