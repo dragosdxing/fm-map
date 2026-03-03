@@ -273,7 +273,7 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         return;
     }
     
-    // Extragem textul din popup ca să știm exact pe ce am dat click (pentru a diferenția releele apropiate)
+    // Extragem textul din popup ca să știm exact pe ce am dat click
     let content = "";
     if (btn && btn.closest('.leaflet-popup-content')) {
         content = btn.closest('.leaflet-popup-content').innerText.toLowerCase();
@@ -281,9 +281,10 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
     
     // --- DETECTORI RELEE ---
     let isCostila = (lat > 45.40 && lat < 45.45 && lng > 25.43 && lng < 25.49);
-    // HACK: Am adăugat condiția să conțină "pietr" ca să excludem Dealul Păun
     let isPietrarie = (lat > 47.05 && lat < 47.15 && lng > 27.58 && lng < 27.68) && content.includes("pietr");
-    let isOdobesti = (lat > 45.72 && lat < 45.80 && lng > 27.00 && lng < 27.15); 
+    
+    // HACK REPARAT: Am lărgit chenarul ca să prindă sigur Măgura Odobești (aprox 45.83 / 26.97)
+    let isOdobesti = (lat > 45.75 && lat < 45.90 && lng > 26.85 && lng < 27.10); 
     
     if (isCostila) {
         let costilaBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
@@ -295,7 +296,7 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         
     } else if (isOdobesti) {
         let odobestiBounds = [[43.15911, 23.0758], [48.55504, 30.82356]];
-        let imgFile = 'mgod500.png'; // Default pentru cele mici
+        let imgFile = 'mgod500.png'; // Default
         
         if (content.includes("90.0") || content.includes("digi")) {
             imgFile = 'mgod30k.png';
@@ -314,7 +315,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         activeCoverages[id] = L.imageOverlay(imgPath, bounds, { opacity: 0.65, interactive: false }).addTo(map);
         
     } else {
-        // Generarea cercurilor matematice standard (va intra aici Dealul Păun)
         let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
         let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
         
@@ -498,6 +498,7 @@ setCountry('ro');
 </script>
 </body>
 </html>
+
 
 
 
