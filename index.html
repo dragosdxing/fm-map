@@ -265,7 +265,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
     
-    // Dacă acoperirea e deja pe hartă, o ștergem (toggle off)
     if (activeCoverages[id]) {
         map.removeLayer(activeCoverages[id]);
         delete activeCoverages[id];
@@ -273,28 +272,26 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         return;
     }
     
-    // --- HACK PENTRU COSTILA ---
-    // Verificăm dacă am dat click pe un emițător de pe Coștila (folosim o mică marjă de eroare la coordonate)
+    // --- DETECTORI RELEE ---
     let isCostila = (lat > 45.40 && lat < 45.45 && lng > 25.43 && lng < 25.49);
+    let isPietrarie = (lat > 47.05 && lat < 47.15 && lng > 27.58 && lng < 27.68);
     
     if (isCostila) {
-        // Dacă e Coștila, ignorăm fm.json și încărcăm direct poza urcată de tine
         let costilaBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
-        activeCoverages[id] = L.imageOverlay('NAUTELA1AE32340D0_0.png', costilaBounds, { 
-            opacity: 0.65, 
-            interactive: false 
-        }).addTo(map);
+        activeCoverages[id] = L.imageOverlay('NAUTELA1AE32340D0_0.png', costilaBounds, { opacity: 0.65, interactive: false }).addTo(map);
+        
+    } else if (isPietrarie) {
+        // --- HACK PENTRU PIETRĂRIE ---
+        let pietrarieBounds = [[44.3881, 23.68446], [49.78402, 31.60917]];
+        activeCoverages[id] = L.imageOverlay('pietrarie100.png', pietrarieBounds, { opacity: 0.65, interactive: false }).addTo(map);
         
     } else if (imgPath && boundsStr) {
-        // Dacă avem altă imagine setată în JSON (pentru viitor)
         let bounds = JSON.parse(boundsStr);
         activeCoverages[id] = L.imageOverlay(imgPath, bounds, { opacity: 0.65, interactive: false }).addTo(map);
         
     } else {
-        // Dacă nu e nici Coștila, nici altă poză, generăm pata matematică galben/verde
         let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
         let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
-        
         activeCoverages[id] = L.layerGroup([
             generateIrregularPolygon(lat, lng, Math.min(rWeak, 200000), '#ffff00', 0.15, 1),
             generateIrregularPolygon(lat, lng, Math.min(rStrong, 140000), '#00ff00', 0.25, 2)
@@ -475,4 +472,5 @@ setCountry('ro');
 </script>
 </body>
 </html>
+
 
