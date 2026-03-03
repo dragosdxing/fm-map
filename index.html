@@ -265,7 +265,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
     let id = lat + "_" + lng;
     let btn = document.getElementById(btnId);
     
-    // Dacă acoperirea e deja pe hartă, o ștergem (toggle off)
     if (activeCoverages[id]) {
         map.removeLayer(activeCoverages[id]);
         delete activeCoverages[id];
@@ -273,18 +272,18 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         return;
     }
     
-    // Extragem textul din popup ca să știm exact pe ce am dat click
     let content = "";
     if (btn && btn.closest('.leaflet-popup-content')) {
         content = btn.closest('.leaflet-popup-content').innerText.toLowerCase();
     }
     
-    // --- DETECTORI RELEE ---
+    // --- DETECTORI RELEE (LĂRGITE CA SĂ NU RĂMÂNEM PE DINAFARĂ) ---
     let isCostila = (lat > 45.40 && lat < 45.45 && lng > 25.43 && lng < 25.49);
-    let isPietrarie = (lat > 47.05 && lat < 47.15 && lng > 27.58 && lng < 27.68) && content.includes("pietr");
+    let isPietrarie = (lat > 47.05 && lat < 47.15 && lng > 27.58 && lng < 27.68);
     let isOdobesti = (lat > 45.75 && lat < 45.90 && lng > 26.85 && lng < 27.10); 
-    // HACK CAHUL: Coordonatele SRTV Cahul + condiție strictă pe text
-    let isCahul = (lat > 45.85 && lat < 45.95 && lng > 28.15 && lng < 28.25) && content.includes("cahul");
+    
+    // Am lărgit mult zona pentru Cahul ca să prindem coordonatele din fm_md.json
+    let isCahul = (lat > 45.80 && lat < 46.10 && lng > 28.00 && lng < 28.40);
     
     if (isCostila) {
         let costilaBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
@@ -297,7 +296,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
     } else if (isOdobesti) {
         let imgFile = 'mgod500.png'; 
         let odobestiBounds = [[44.95775, 25.65839], [46.7564, 28.24097]]; 
-        
         if (content.includes("90.0") || content.includes("digi")) {
             imgFile = 'mgod30k.png';
             odobestiBounds = [[43.15911, 23.0758], [48.55504, 30.82356]];
@@ -307,16 +305,11 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         } else if (content.includes("97.0") || content.includes("focus")) {
             imgFile = 'mgod10k.png';
             odobestiBounds = [[44.50809, 25.01274], [47.20606, 28.88662]];
-        } else if (content.includes("93.0") || content.includes("95.3") || content.includes("97.7") || content.includes("102.0") || content.includes("trinitas") || content.includes("impuls") || content.includes("itsy") || content.includes("sport total")) {
-            imgFile = 'mgod500.png';
-            odobestiBounds = [[44.95775, 25.65839], [46.7564, 28.24097]];
         }
-        
         activeCoverages[id] = L.imageOverlay(imgFile, odobestiBounds, { opacity: 0.65, interactive: false }).addTo(map);
         
     } else if (isCahul) {
-        // --- CAZ SPECIAL CAHUL ---
-        let imgFile = 'cahul_893.png'; // Default la cea mai mică putere
+        let imgFile = 'cahul_893.png'; 
         let cahulBounds = [[45.03565, 26.98287], [46.83429, 29.56908]]; 
         
         if (content.includes("105.2")) {
@@ -332,7 +325,7 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
             imgFile = 'cahul_989.png';
             cahulBounds = [[44.13633, 25.68977], [47.73362, 30.86219]];
         } else if (content.includes("93.3") || content.includes("98.2")) {
-            imgFile = 'cahul_933.png'; // Am adăugat .png aici că lipsea din mesajul tău
+            imgFile = 'cahul_933.png';
             cahulBounds = [[43.68667, 25.04321], [48.18327, 31.50874]];
         } else if (content.includes("91.5") || content.includes("92.6")) {
             imgFile = 'cahul_915.png';
@@ -344,7 +337,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
             imgFile = 'cahul_893.png';
             cahulBounds = [[45.03565, 26.98287], [46.83429, 29.56908]];
         }
-
         activeCoverages[id] = L.imageOverlay(imgFile, cahulBounds, { opacity: 0.65, interactive: false }).addTo(map);
 
     } else if (imgPath && boundsStr) {
@@ -354,7 +346,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
     } else {
         let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
         let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
-        
         activeCoverages[id] = L.layerGroup([
             generateIrregularPolygon(lat, lng, Math.min(rWeak, 200000), '#ffff00', 0.15, 1),
             generateIrregularPolygon(lat, lng, Math.min(rStrong, 140000), '#00ff00', 0.25, 2)
@@ -535,6 +526,7 @@ setCountry('ro');
 </script>
 </body>
 </html>
+
 
 
 
