@@ -13,7 +13,16 @@
 html, body { margin:0; padding:0; background: #000; overflow: hidden; }
 #map { height:100vh; width:100vw; }
 
-.status-error-text { color: #ff4444 !important; font-weight: bold; }
+/* MODIFICARE CSS: Animație de clipire și culori specifice doar pentru textul de eroare */
+.error-badge { color: #ff4444 !important; font-weight: bold; }
+@keyframes blink-warning {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+.warning-emoji {
+    animation: blink-warning 1.5s infinite;
+}
+
 .error-icon-style { filter: hue-rotate(140deg) brightness(0.9) saturate(4); }
 
 #radioPanel {
@@ -118,11 +127,10 @@ var txIcon = L.icon({
     iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36], tooltipAnchor: [0, -36]
 });
 
-// MODIFICARE AICI: Format dreptunghiular pentru a nu fi plat și ancorare perfectă pe mijloc
 var receiverIcon = L.icon({
     iconUrl: 'https://i.ibb.co/4RgHttTy/tef.png', 
-    iconSize: [48, 32],      // Dimensiuni care păstrează proporțiile reale ale radioului TEF
-    iconAnchor: [24, 16],    // Centrul absolut al iconiței, pentru ca linia să se oprească fix la mijloc
+    iconSize: [48, 32],      
+    iconAnchor: [24, 16],    
     popupAnchor: [0, -18]
 });
 
@@ -255,18 +263,29 @@ function tune(){
             let m = s.match(regexFM);
             return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05;
         });
+        
         let hasError = false;
         let formatted = matched.map(s => {
-            if (errorKeywords.some(k => s.includes(k))) hasError = true;
-            let res = s.replace(regexFM, "<b>$&</b>");
+            let res = s;
+            
+            // MODIFICARE: Căutăm textele de eroare și le izolăm cu roșu și emoji intermitent, FĂRĂ a colora restul textului
+            errorKeywords.forEach(k => {
+                if (res.includes(k)) {
+                    hasError = true;
+                    res = res.replace(k, `<span class="warning-emoji">⚠️</span> <span class="error-badge">${k}</span> <span class="warning-emoji">⚠️</span>`);
+                }
+            });
+            
+            res = res.replace(regexFM, "<b>$&</b>");
             res = res.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)/, function(match, p, rds) {
                 let rdsMatch = rds.match(/\[([^\]]+)\]/g);
                 if(!rdsMatch) return match;
                 let frames = rdsMatch.map(x => x.slice(1,-1));
                 return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${frames[0]}]</span>`;
             });
-            return errorKeywords.some(k => s.includes(k)) ? `<span class="status-error-text">${res}</span>` : res;
+            return res; // Nu mai învelim cu <span class="status-error-text"> întregul rând
         });
+        
         newF.properties._processedDesc = formatted.join("<br><hr>");
         newF.properties._hasError = hasError;
         return newF;
