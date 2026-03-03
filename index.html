@@ -115,9 +115,10 @@ var txIcon = L.icon({
     iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36], tooltipAnchor: [0, -36]
 });
 
+// MODIFICARE: Noua iconiță pentru receptor
 var receiverIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/MkmK51LJ/yagi.png',
-    iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -30]
+    iconUrl: 'https://i.ibb.co/B5D6SRfP/yagi.png',
+    iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36]
 });
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
@@ -142,7 +143,6 @@ function locateUser() {
         if (receiverMarker) map.removeLayer(receiverMarker);
         if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
         
-        // Atribuim marker-ul variabilei globale receiverMarker
         receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
         
         receiverMarker.on("drag", updateLine);
@@ -217,7 +217,9 @@ function tune(){
             if (errorKeywords.some(k => s.includes(k))) hasError = true;
             let res = s.replace(regexFM, "<b>$&</b>");
             res = res.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)/, function(match, p, rds) {
-                let frames = rds.match(/\[([^\]]+)\]/g).map(x => x.slice(1,-1));
+                let rdsMatch = rds.match(/\[([^\]]+)\]/g);
+                if(!rdsMatch) return match;
+                let frames = rdsMatch.map(x => x.slice(1,-1));
                 return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${frames[0]}]</span>`;
             });
             return errorKeywords.some(k => s.includes(k)) ? `<span class="status-error-text">${res}</span>` : res;
