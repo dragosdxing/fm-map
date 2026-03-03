@@ -283,6 +283,8 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
     let isCostila = (lat > 45.40 && lat < 45.45 && lng > 25.43 && lng < 25.49);
     let isPietrarie = (lat > 47.05 && lat < 47.15 && lng > 27.58 && lng < 27.68) && content.includes("pietr");
     let isOdobesti = (lat > 45.75 && lat < 45.90 && lng > 26.85 && lng < 27.10); 
+    // HACK CAHUL: Coordonatele SRTV Cahul + condiție strictă pe text
+    let isCahul = (lat > 45.85 && lat < 45.95 && lng > 28.15 && lng < 28.25) && content.includes("cahul");
     
     if (isCostila) {
         let costilaBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
@@ -293,11 +295,9 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         activeCoverages[id] = L.imageOverlay('pietrarie100.png', pietrarieBounds, { opacity: 0.65, interactive: false }).addTo(map);
         
     } else if (isOdobesti) {
-        // Setăm default pentru 500W
         let imgFile = 'mgod500.png'; 
         let odobestiBounds = [[44.95775, 25.65839], [46.7564, 28.24097]]; 
         
-        // Suprascriem poza ȘI coordonatele în funcție de post
         if (content.includes("90.0") || content.includes("digi")) {
             imgFile = 'mgod30k.png';
             odobestiBounds = [[43.15911, 23.0758], [48.55504, 30.82356]];
@@ -314,6 +314,39 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         
         activeCoverages[id] = L.imageOverlay(imgFile, odobestiBounds, { opacity: 0.65, interactive: false }).addTo(map);
         
+    } else if (isCahul) {
+        // --- CAZ SPECIAL CAHUL ---
+        let imgFile = 'cahul_893.png'; // Default la cea mai mică putere
+        let cahulBounds = [[45.03565, 26.98287], [46.83429, 29.56908]]; 
+        
+        if (content.includes("105.2")) {
+            imgFile = 'cahul_1052.png';
+            cahulBounds = [[43.23701, 24.39666], [48.63293, 32.15529]];
+        } else if (content.includes("100.7")) {
+            imgFile = 'cahul_1007.png';
+            cahulBounds = [[43.23701, 24.39666], [48.63293, 32.15529]];
+        } else if (content.includes("107.7")) {
+            imgFile = 'cahul_1077.png';
+            cahulBounds = [[43.23701, 24.39666], [48.63293, 32.15529]];
+        } else if (content.includes("98.9")) {
+            imgFile = 'cahul_989.png';
+            cahulBounds = [[44.13633, 25.68977], [47.73362, 30.86219]];
+        } else if (content.includes("93.3") || content.includes("98.2")) {
+            imgFile = 'cahul_933.png'; // Am adăugat .png aici că lipsea din mesajul tău
+            cahulBounds = [[43.68667, 25.04321], [48.18327, 31.50874]];
+        } else if (content.includes("91.5") || content.includes("92.6")) {
+            imgFile = 'cahul_915.png';
+            cahulBounds = [[44.58599, 26.33632], [47.28395, 30.21563]];
+        } else if (content.includes("90.4")) {
+            imgFile = 'cahul_904.png';
+            cahulBounds = [[44.13633, 25.68977], [47.73362, 30.86219]];
+        } else if (content.includes("89.3")) {
+            imgFile = 'cahul_893.png';
+            cahulBounds = [[45.03565, 26.98287], [46.83429, 29.56908]];
+        }
+
+        activeCoverages[id] = L.imageOverlay(imgFile, cahulBounds, { opacity: 0.65, interactive: false }).addTo(map);
+
     } else if (imgPath && boundsStr) {
         let bounds = JSON.parse(boundsStr);
         activeCoverages[id] = L.imageOverlay(imgPath, bounds, { opacity: 0.65, interactive: false }).addTo(map);
@@ -502,6 +535,7 @@ setCountry('ro');
 </script>
 </body>
 </html>
+
 
 
 
