@@ -3217,7 +3217,7 @@
       },
       "properties": {
         "name": "Iași / Hotel Moldova",
-        "description": "87.8 v Pro FM [E029] - 400W [PRO_FM__][87,8_FM_]\n94.3 v Radio Guerrilla [E0D8] - 300W [GUERILLA]\n97.4 v Ercis FM - 500W (**IN PLAN**)\n98.6 v Romantic FM [E2AB] - 300W [ROMANTIC][98.6_FM_]\n104.0 v Radio ZU [E2AA] - 300W [RADIO_ZU][104_FM__]\n105.0 v Viva FM [E558] - 200W [VIVA_FM_][__105___]",
+        "description": "87.8 v Pro FM [E029] - 400W [PRO_FM__][87,8_FM_]\n94.3 v Radio Guerrilla [E0D8] - 300W [GUERILLA]\n97.4 v Ercis FM - 500W [ERCIS_FM]\n98.6 v Romantic FM [E2AB] - 300W [ROMANTIC][98.6_FM_]\n104.0 v Radio ZU [E2AA] - 300W [RADIO_ZU][104_FM__]\n105.0 v Viva FM [E558] - 200W [VIVA_FM_][__105___]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
