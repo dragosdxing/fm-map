@@ -1430,7 +1430,7 @@
         ]
       },
       "properties": {
-        "name": "Buzău / Bd 1 Dec 1918",
+        "name": "Buzău / Bloc PTTR",
         "description": "94.7 v Digi FM [E059] - 200W [Digi_FM_][94,7_FM_]\n106.2 v Pro FM [E029] - 200W [PROFM___]"
       },
       "id": "IzNDk"
@@ -1440,12 +1440,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.811694,
-          45.144985
+          26.818068,
+          45.152212
         ]
       },
       "properties": {
-        "name": "Buzău / Bd Unirii",
+        "name": "Buzău / Bloc 105",
         "description": "100.3 v Europa FM [E299] - 2kW [EUROPAFM][100.3___]\n102.7 v Vibe FM [E222] - 100W [TMRWLAND]",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
@@ -1458,12 +1458,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.816018,
-          45.156047
+          26.808016,
+          45.143165
         ]
       },
       "properties": {
-        "description": "105.6 v Magic FM [E210] - 200W [MAGIC___][FM_105.6]",
+        "description": "105.6 v Magic FM [E210] - 500W [MAGIC___][FM_105.6]",
         "name": "Buzău / Bloc 16J"
       },
       "id": "E0Mzk"
@@ -1472,8 +1472,8 @@
       "type": "Feature",
       "geometry": {
         "coordinates": [
-          26.542947,
-          45.118717
+          26.816128,
+          45.155939
         ],
         "type": "Point"
       },
@@ -1493,7 +1493,7 @@
         ]
       },
       "properties": {
-        "name": "Buzău / Eurosting",
+        "name": "Buzău / Bloc Crinul Alb",
         "description": "93.8 v Focus FM [E828] - 200W [FOCUS_FM][REGIONAL][BUZAU___][VRANCEA_][BRAILA__][93,8_MHz]",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
@@ -1506,13 +1506,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.822374,
-          45.15854
+          26.813240,
+          45.150802
         ]
       },
       "properties": {
-        "name": "Buzău / Str Pietroasele",
-        "description": "98.0 v Radio Campus [E04D] - 100W [*CAMPUS*][98,0_FM_]"
+        "name": "Buzău / Bloc U3",
+        "description": "98.0 v Radio Campus [E04D] - 300W [*CAMPUS*][98,0_FM_]"
       },
       "id": "c2OTc"
     },
@@ -1521,8 +1521,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          23.183212,
-          44.222814
+          26.822068,
+          45.159646
         ]
       },
       "properties": {
