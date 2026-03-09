@@ -4417,7 +4417,7 @@
       },
       "properties": {
         "name": "Râmnicu Vâlcea / Dealul Capela",
-        "description": "89.0 v Radio Metronom - 500W [Metronom]\n90.4 v Europa FM {E299] - 2kW [EUROPAFM][_90,4___]\n95.7 v Radio ZU [E2AA] - 400W [RADIO_ZU][95.7_FM_]",
+        "description": "89.0 v Radio Metronom - 500W [Metronom]\n90.4 v Europa FM {E299] - 2kW [EUROPAFM][_90,4___]\n95.7 v Radio ZU [E2AA] - 400W [RADIO_ZU][95.7_FM_]\n98.1 v Pro FM [E027] - 200W [_PRO_FM_][_98.1_FM]",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
         }
@@ -4429,12 +4429,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          24.365085,
-          45.104342
+          24.374625,
+          45.096585
         ]
       },
       "properties": {
-        "name": "Râmnicu Vâlcea / Mircea cel Bătrân",
+        "name": "Râmnicu Vâlcea / Casa Tineretului",
         "description": "101.6 v Magic FM [E210] - 300W [MAGIC_FM][101,6_FM]"
       },
       "id": "c0OTA"
@@ -4444,13 +4444,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          24.351014,
-          45.101365
+          24.400453,
+          45.041205
         ]
       },
       "properties": {
-        "name": "Râmnicu Vâlcea / Morilor",
-        "description": "98.1 v Pro FM [E027] - 200W [_PRO_FM_][_98.1_FM]\n99.8 v Radio Oltenia-Craiova [EE03] - 200W [OLTENIA_]"
+        "name": "Râmnicu Vâlcea / Izbășești",
+        "description": "99.8 v Radio Oltenia-Craiova [EE03] - 200W [OLTENIA_]"
       },
       "id": "A0MDU"
     },
