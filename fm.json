@@ -1586,7 +1586,7 @@
         ]
       },
       "properties": {
-        "description": "105.5 v Radio Stil FM [E029] - 300W [STIL_FM_][105,5_FM][PRO_FM__]",
+        "description": "105.5 v Radio Stil FM [E029] - 1kW [STIL_FM_][105,5_FM][PRO_FM__]",
         "name": "Călărași / Nicolae Bălcescu"
       },
       "id": "IxNzY"
@@ -3873,7 +3873,7 @@
       },
       "properties": {
         "name": "Oltenița / Hotarele",
-        "description": "91.1 h RRActualități [EE00] - 2kW [RRACTUAL]\n97.3 v Radio Vocea Speranței [E2F8] - 2kW [__RVS___][RVS_97.3][_97.3___]"
+        "description": "91.1 h RRActualități [EE00] - 1kW [RRACTUAL]\n97.3 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS_97.3][_97.3___]"
       },
       "id": "c2OTU"
     },
@@ -4402,7 +4402,7 @@
       },
       "properties": {
         "name": "Râmnicu Vâlcea / Cozia",
-        "description": "88.6 v Itsy Bitsy FM [E2C8] - 100W [ITSY____][BITSY___]\n91.5 v Virgin Radio [E05F] - 5kW [VIRGIN__][91.5_FM_]\n93.6 v Radio Trinitas [E24D] - 10kW [TRINITAS][93,6MHz_]\n94.3 v Digi FM [E059] - 10kW [DIGI_FM_][94,3_FM_]\n96.4 v Radio Galaxy [E068] - 7kW [GALAXYFM]\n97.0 v Sweet FM [000E] - 500W [Sweet_FM][_Pitesti][__PURE__][DANCE___][97.0_FM_][Sweet_FM][_Valcea_]\n99.2 h Kiss FM [515A] - 30kW [KISS_FM_][__99.2__]\n102.5 h RRCultural [EE01] - 30kW [CULTURAL]\n103.4 h RRActualități [EE00] - 30kW [RRACTUAL]"
+        "description": "88.6 v Itsy Bitsy FM [E2C8] - 100W [ITSY____][BITSY___]\n91.5 v Virgin Radio [E05F] - 5kW [VIRGIN__][91.5_FM_]\n93.6 v Radio Trinitas [E24D] - 6kW [TRINITAS][93,6MHz_]\n94.3 v Digi FM [E059] - 10kW [DIGI_FM_][94,3_FM_]\n96.4 v Radio Galaxy [E068] - 7kW [GALAXYFM]\n97.0 v Sweet FM [000E] - 500W [Sweet_FM][_Pitesti][__PURE__][DANCE___][97.0_FM_][Sweet_FM][_Valcea_]\n99.2 h Kiss FM [515A] - 30kW [KISS_FM_][__99.2__]\n102.5 h RRCultural [EE01] - 30kW [CULTURAL]\n103.4 h RRActualități [EE00] - 30kW [RRACTUAL]"
       },
       "id": "tZWQz"
     },
@@ -4417,13 +4417,29 @@
       },
       "properties": {
         "name": "Râmnicu Vâlcea / Dealul Capela",
-        "description": "89.0 v Radio Metronom - 500W [Metronom]\n90.4 v Europa FM {E299] - 2kW [EUROPAFM][_90,4___]\n95.7 v Radio ZU [E2AA] - 400W [RADIO_ZU][95.7_FM_]\n98.1 v Pro FM [E027] - 200W [_PRO_FM_][_98.1_FM]",
+        "description": "90.4 v Europa FM {E299] - 2kW [EUROPAFM][_90,4___]\n98.1 v Pro FM [E027] - 200W [_PRO_FM_][_98.1_FM]",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
         }
       },
       "id": "QzNzA"
     },
+    ,
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [ 24.405026 , 45.104416 ]
+  },
+  "properties": {
+    "name": "Râmnicu Vâlcea / Fețeni",
+    "description": "89.0 v Radio Metronom - 500W [Metronom]\n95.7 v Radio ZU {E2AA} - 400W [RADIO_ZU][95.7_FM_]",
+    "_umap_options": {
+      "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+    }
+  },
+  "id": "metronom_zu_nou"
+}
     {
       "type": "Feature",
       "geometry": {
@@ -5222,7 +5238,7 @@
       },
       "properties": {
         "name": "Slobozia / Combinat",
-        "description": "88.9 v Național FM [9250] - 500W [National]\n105.6 v Fresh FM [E032] - 500W [FRESH_FM][105.6MHz]",
+        "description": "88.9 v Național FM [9250] - 200W [National]\n105.6 v Fresh FM [E032] - 500W [FRESH_FM][105.6MHz]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
