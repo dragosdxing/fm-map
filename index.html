@@ -118,8 +118,27 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 <script>
 var map = L.map('map', { tap: false }).setView([46.1, 26.5], 7);
-L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 }).addTo(map);
-L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 }).addTo(map);
+
+// --- MODIFICARE AICI: Definire layere și adăugare toggle în stânga jos ---
+var esriSat = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
+var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
+var esriLayer = L.layerGroup([esriSat, esriLabels]); // Am grupat satelitul + granițele
+
+var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+    maxZoom: 19, 
+    attribution: '&copy; OpenStreetMap contributors' 
+});
+
+// Setăm Esri ca hartă implicită
+esriLayer.addTo(map);
+
+// Creăm controlul pentru schimbarea hărții și îl punem în stânga jos (bottomleft)
+var baseMaps = {
+    "Satelit (Esri)": esriLayer,
+    "Harta Clasică (OSM)": osmLayer
+};
+L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
+// --- SFÂRȘIT MODIFICARE ---
 
 var txIcon = L.icon({
     iconUrl: 'https://i.ibb.co/nMzymZsq/tower.png', 
@@ -574,12 +593,3 @@ setCountry('ro');
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
