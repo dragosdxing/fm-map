@@ -119,26 +119,22 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 <script>
 var map = L.map('map', { tap: false }).setView([46.1, 26.5], 7);
 
-// --- MODIFICARE AICI: Definire layere și adăugare toggle în stânga jos ---
 var esriSat = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
 var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
-var esriLayer = L.layerGroup([esriSat, esriLabels]); // Am grupat satelitul + granițele
+var esriLayer = L.layerGroup([esriSat, esriLabels]);
 
 var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { 
     maxZoom: 19, 
     attribution: '&copy; OpenStreetMap contributors' 
 });
 
-// Setăm Esri ca hartă implicită
 esriLayer.addTo(map);
 
-// Creăm controlul pentru schimbarea hărții și îl punem în stânga jos (bottomleft)
 var baseMaps = {
     "Satelit (Esri)": esriLayer,
     "Harta Clasică (OSM)": osmLayer
 };
 L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
-// --- SFÂRȘIT MODIFICARE ---
 
 var txIcon = L.icon({
     iconUrl: 'https://i.ibb.co/nMzymZsq/tower.png', 
@@ -146,9 +142,9 @@ var txIcon = L.icon({
 });
 
 var receiverIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/4RgHttTy/tef.png', 
-    iconSize: [48, 32],      
-    iconAnchor: [24, 16],    
+    iconUrl: 'https://i.ibb.co/0p15GKrx/image.png', 
+    iconSize: [36, 36],      
+    iconAnchor: [18, 18],    
     popupAnchor: [0, -18]
 });
 
@@ -296,13 +292,10 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         content = btn.closest('.leaflet-popup-content').innerText.toLowerCase();
     }
     
-    // --- DETECTORI RELEE ---
     let isCostila = (lat > 45.40 && lat < 45.45 && lng > 25.43 && lng < 25.49);
     let isPietrarie = (lat > 47.05 && lat < 47.15 && lng > 27.58 && lng < 27.68);
     let isOdobesti = (lat > 45.75 && lat < 45.90 && lng > 26.85 && lng < 27.10); 
     let isCahul = (lat > 45.80 && lat < 46.10 && lng > 28.00 && lng < 28.40);
-    
-    // --- NOI DETECTORI (București, Soveja, Buzău) ---
     let isBucuresti = (lat > 44.35 && lat < 44.55 && lng > 25.95 && lng < 26.25);
     let isSoveja = (lat > 45.95 && lat < 46.10 && lng > 26.50 && lng < 26.80);
     let isBuzau = (lat > 45.05 && lat < 45.25 && lng > 26.65 && lng < 26.95);
@@ -315,8 +308,11 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         customBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
         
     } else if (isPietrarie) {
-        customImg = 'pietrarie100.png';
-        customBounds = [[44.3881, 23.68446], [49.78402, 31.60917]];
+        // AM ADĂUGAT FILTRAREA AICI CA SĂ FIE DOAR PENTRU PIETRĂRIE, NU ȘI DEALUL PĂUN
+        if (content.includes("pietrărie") || content.includes("pietrarie")) {
+            customImg = 'pietrarie100.png';
+            customBounds = [[44.3881, 23.68446], [49.78402, 31.60917]];
+        }
         
     } else if (isOdobesti) {
         customImg = 'mgod500.png'; 
@@ -358,9 +354,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
             customBounds = [[44.13633, 25.68977], [47.73362, 30.86219]];
         }
     
-    // -----------------------------------------------------------------
-    // NOILE INSERĂRI PENTRU BUCUREȘTI, SOVEJA ȘI BUZĂU
-    // -----------------------------------------------------------------
     } else if (isBucuresti) {
         if (content.includes("98.3") || content.includes("101.3") || content.includes("105.3")) {
             customImg = 'srr_buc.png';
@@ -401,16 +394,12 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         }
     }
     
-    // --- Aplicare finală overlay ---
     if (customImg && customBounds) {
-        // Dacă am găsit o potrivire în script, aplicăm harta PNG
         activeCoverages[id] = L.imageOverlay(customImg, customBounds, { opacity: 0.65, interactive: false }).addTo(map);
     } else if (imgPath && boundsStr) {
-        // Dacă vin date direct din json, le aplicăm
         let bounds = JSON.parse(boundsStr);
         activeCoverages[id] = L.imageOverlay(imgPath, bounds, { opacity: 0.65, interactive: false }).addTo(map);
     } else {
-        // Fallback: Algoritmul standard cu cercuri galben/verde
         let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
         let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
         activeCoverages[id] = L.layerGroup([
