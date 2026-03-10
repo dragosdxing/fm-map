@@ -233,7 +233,7 @@
       },
       "properties": {
         "name": "Alexandria / Radiocom",
-        "description": "88.1 v Radio Vocea Speranței [E2F8] - 200W [__RVS___][Radio___][Vocea___][Sperante][perantei][__RVS___][88.1_MHz]\n89.7 h RRCultural [EE01] - 10kW [CULTURAL]\n91.8 h RRActualități [EE00] - 10kW [RRACTUAL]\n95.0 v Pro FM [E029] - 200W [PRO_FM__][95.0_FM_]\n100.3 v Radio Galaxy [5005] - 200W [GALAXYFM]\n103.3 v Realitatea FM [E132] - 500W [REAL_FM_][103.3MHz]\n106.9 v Itsy Bitsy FM [E3C8] - 400W [_ITSY___][_BITSY__]"
+        "description": "88.1 v Radio Vocea Speranței [E2F8] - 200W [__RVS___][Radio___][Vocea___][Sperante][perantei][__RVS___][88.1_MHz]\n89.7 h RR.Cultural [EE01] - 10kW [CULTURAL]\n91.8 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n95.0 v Pro FM [E029] - 200W [PRO_FM__][95.0_FM_]\n100.3 v Radio Galaxy [5005] - 200W [GALAXYFM]\n103.3 v Realitatea FM [E132] - 500W [REAL_FM_][103.3MHz]\n106.9 v Itsy Bitsy FM [E3C8] - 400W [_ITSY___][_BITSY__]"
       },
       "id": "A2Njg"
     },
@@ -323,7 +323,7 @@
       },
       "properties": {
         "name": "Arad / Șiria",
-        "description": "103.8 h RRActualități [EE00] - 60kW [RRACTUAL]\n105.3 h Digi FM [E059] - 60kW [Digi_FM_][105,3_FM]\n106.8 h RRCultural [EE01] - 50kW [CULTURAL]"
+        "description": "103.8 h RR.Actualități [EE00] - 60kW [RRACTUAL]\n105.3 h Digi FM [E059] - 60kW [Digi_FM_][105,3_FM]\n106.8 h RR.Cultural [EE01] - 50kW [CULTURAL]"
       },
       "id": "YxNzY"
     },
@@ -530,7 +530,7 @@
       },
       "properties": {
         "name": "Baia Mare / Vf. Mogoșa",
-        "description": "94.3 v Radio Trinitas [E24D] - 10kW [TRINITAS][94,30MHZ]\n100.1 h RRCultural [EE01] - 60kW [CULTURAL]\n102.5 h RRActualități [EE00] - 40kW [RRACTUAL]\n104.2 v City Radio [E106] - 500W [CITY_FM_]\n105.3 h Digi FM [E059] - 60kW [Digi_FM_][105,3FM_]"
+        "description": "94.3 v Radio Trinitas [E24D] - 10kW [TRINITAS][94,30MHZ]\n100.1 h RR.Cultural [EE01] - 60kW [CULTURAL]\n102.5 h RR.Actualități [EE00] - 40kW [RRACTUAL]\n104.2 v City Radio [E106] - 500W [CITY_FM_]\n105.3 h Digi FM [E059] - 60kW [Digi_FM_][105,3FM_]"
       },
       "id": "UzMDM"
     },
@@ -545,7 +545,7 @@
       },
       "properties": {
         "name": "Băile Herculane / Dealul Stoghirului",
-        "description": "97.3 h RRActualități [EE00] - 100W [RRACTUAL]"
+        "description": "97.3 h RR.Actualități [EE00] - 100W [RRACTUAL]"
       },
       "id": "YzMTE"
     },
@@ -575,7 +575,7 @@
       },
       "properties": {
         "name": "Băneasa / Dobrogea Sud",
-        "description": "89.1 h RRCultural [EE01] - 30kW [CULTURAL]\n93.9 h Digi FM [E059] - 30kW [Digi_FM_][93,9_FM_]\n105.2 h Europa FM [E299] - 5kW [EUROPAFM][_105.2__]\n106.6 h RRActualități [EE00] - 30kW [RRACTUAL]",
+        "description": "89.1 h RR.Cultural [EE01] - 30kW [CULTURAL]\n93.9 h Digi FM [E059] - 30kW [Digi_FM_][93,9_FM_]\n105.2 h Europa FM [E299] - 5kW [EUROPAFM][_105.2__]\n106.6 h RR.Actualități [EE00] - 30kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -631,7 +631,7 @@
       },
       "properties": {
         "name": "Bârlad / Popeni",
-        "description": "93.7 v Radio Trinitas [E24D] - 5kW [TRINITAS][93,70MHz]\n95.7 v Digi FM [E059] - 10kW [DIGI_FM_][95,7_FM_]\n97.3 v Radio ZU [E2AA] - 10kW [RADIO_ZU][97.3_FM_] \n102.8 h RRCultural [EE01] - 30kW [no RDS]\n103.9 h RRActualități [EE00] - 30kW [RRACTUAL]",
+        "description": "93.7 v Radio Trinitas [E24D] - 5kW [TRINITAS][93,70MHz]\n95.7 v Digi FM [E059] - 10kW [DIGI_FM_][95,7_FM_]\n97.3 v Radio ZU [E2AA] - 10kW [RADIO_ZU][97.3_FM_] \n102.8 h RR.Cultural [EE01] - 30kW [no RDS]\n103.9 h RR.Actualități [EE00] - 30kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -731,7 +731,7 @@
         "type": "Point"
       },
       "properties": {
-        "description": "87.7 h RRActualități [EE00] - 100W [RRACTUAL]\n96.1 v Jurnal FM [F255] - 500W [JurnalFM]",
+        "description": "87.7 h RR.Actualități [EE00] - 100W [RRACTUAL]\n96.1 v Jurnal FM [F255] - 500W [JurnalFM]",
         "name": "Bicaz / Radiocom"
       },
       "id": "I3NDg"
@@ -807,7 +807,7 @@
       },
       "properties": {
         "name": "Bistrița / Heniu",
-        "description": "92.0 v Kiss FM [515A] - 10kW [KISS_FM_][__92____]\n93.4 h Radio Trinitas [E24D] - 30kW [TRINITAS][93,4MHz_]\n96.6 v Radio Someș [E34D] - 1kW [SOMES___]\n99.3 v Magic FM [E210] - 10kW [MAGIC_FM]\n101.3 h RRCultural [EE01] - 30kW [CULTURAL]\n102.0 v Radio Renașterea [E400] - 3kW [RADIO___][RENA____][STEREA__]\n103.9 h RRActualități [EE00] - 30kW [RRACTUAL]\n107.8 h Digi FM [E059] - 30kW [Digi_FM_][107,8_FM]"
+        "description": "92.0 v Kiss FM [515A] - 10kW [KISS_FM_][__92____]\n93.4 h Radio Trinitas [E24D] - 30kW [TRINITAS][93,4MHz_]\n96.6 v Radio Someș [E34D] - 1kW [SOMES___]\n99.3 v Magic FM [E210] - 10kW [MAGIC_FM]\n101.3 h RR.Cultural [EE01] - 30kW [CULTURAL]\n102.0 v Radio Renașterea [E400] - 3kW [RADIO___][RENA____][STEREA__]\n103.9 h RR.Actualități [EE00] - 30kW [RRACTUAL]\n107.8 h Digi FM [E059] - 30kW [Digi_FM_][107,8_FM]"
       },
       "id": "k1NDE"
     },
@@ -1086,7 +1086,7 @@
       },
       "properties": {
         "name": "Bran",
-        "description": "103.7 h RRActualități [EE00] - 1kW [RRACTUAL]"
+        "description": "103.7 h RR.Actualități [EE00] - 1kW [RRACTUAL]"
       },
       "id": "Y1NjU"
     },
@@ -1175,7 +1175,7 @@
         "type": "Point"
       },
       "properties": {
-        "description": "87.8 v Radio Brașov [E401] - 100W [_RADIO__][_BRASOV_][_87,8MHz]\n89.2 v Europa FM [E299] - 1kW [EUROPAFM][__89.2__]\n89.9 v Pro FM [E029] - 200W [PRO_FM__][89.9FM__]\n92.5 v Virgin Radio [E05F] - 500W [VIRGIN__][92.5_FM_]\n93.3 v RRBrașov [EE21] - 200W [BV93,3FM]\n93.8 v Super FM [E050] - 500W [SUPER_FM][93,8MHz_]\n98.2 v Jurnal FM [F255] - 800W [JurnalFM]\n100.7 h Digi FM [E059] - 1kW [Digi_FM_][100,7_FM]\n102.5 h RRActualități [EE00] - 2kW [RRACTUAL]\n105.0 h RRCultural [EE01] - 2kW [CULTURAL]",
+        "description": "87.8 v Radio Brașov [E401] - 100W [_RADIO__][_BRASOV_][_87,8MHz]\n89.2 v Europa FM [E299] - 1kW [EUROPAFM][__89.2__]\n89.9 v Pro FM [E029] - 200W [PRO_FM__][89.9FM__]\n92.5 v Virgin Radio [E05F] - 500W [VIRGIN__][92.5_FM_]\n93.3 v RRBrașov [EE21] - 200W [BV93,3FM]\n93.8 v Super FM [E050] - 500W [SUPER_FM][93,8MHz_]\n98.2 v Jurnal FM [F255] - 800W [JurnalFM]\n100.7 h Digi FM [E059] - 1kW [Digi_FM_][100,7_FM]\n102.5 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n105.0 h RR.Cultural [EE01] - 2kW [CULTURAL]",
         "name": "Brașov / Tâmpa-Restaurant Panoramic",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
@@ -1308,7 +1308,7 @@
       },
       "properties": {
         "name": "București / Herăstrău",
-        "description": "97.9 v Digi FM [E059] - 3kW [DIGI_FM_][97.9_FM_]\n98.3 h București FM - 100kW [BFM_98.3]\n101.3 h RRCultural [EE01] - 100kW [CULTURAL]\n104.8 v RRMuzical [EE02] - 5kW [_RADIO__][ROMANIA_][MUZICAL_]\n105.3 h RRActualități [EE00] - 100kW [R_ACTUAL]"
+        "description": "97.9 v Digi FM [E059] - 3kW [DIGI_FM_][97.9_FM_]\n98.3 h București FM - 100kW [BFM_98.3]\n101.3 h RR.Cultural [EE01] - 100kW [CULTURAL]\n104.8 v RR.Muzical [EE02] - 5kW [_RADIO__][ROMANIA_][MUZICAL_]\n105.3 h RR.Actualități [EE00] - 100kW [R_ACTUAL]"
       },
       "id": "I4MTU"
     },
@@ -1479,7 +1479,7 @@
       },
       "properties": {
         "name": "Buzău / Dealul Istrița",
-        "description": "87.9 v Buzz FM [5380] - 200W [BUZZ_FM_][87.9_MHz][softROCK]\n89.7 v Radio Vocea Speranței [E2F8] - 500W [__RVS___]\n91.3 h Kiss FM [515A] - 30kW [KISS_FM_] [91.3_FM_]\n92.5 v Radio ZU [E2AA] - 5kW [RADIO_ZU][_92.5_FM]\n96.7 v Radio Impuls [E0D8] - 1kW [_IMPULS_]\n98.7 v Virgin Radio [E05F] - 6kW [VIRGIN__][98.7_FM_]\n103.7 h RRCultural [EE01] - 30kW [CULTURAL]\n107.0 h RRActualități [EE00] - 30kW [RRACTUAL]"
+        "description": "87.9 v Buzz FM [5380] - 200W [BUZZ_FM_][87.9_MHz][softROCK]\n89.7 v Radio Vocea Speranței [E2F8] - 500W [__RVS___]\n91.3 h Kiss FM [515A] - 30kW [KISS_FM_] [91.3_FM_]\n92.5 v Radio ZU [E2AA] - 5kW [RADIO_ZU][_92.5_FM]\n96.7 v Radio Impuls [E0D8] - 1kW [_IMPULS_]\n98.7 v Virgin Radio [E05F] - 6kW [VIRGIN__][98.7_FM_]\n103.7 h RR.Cultural [EE01] - 30kW [CULTURAL]\n107.0 h RR.Actualități [EE00] - 30kW [RRACTUAL]"
       },
       "id": "M0NDI"
     },
@@ -1527,7 +1527,7 @@
       },
       "properties": {
         "name": "Calafat / Plenița",
-        "description": "90.2 h RRActualități [EE00] - 10kW [RRACTUAL]\n101.1 h RRCultural [EE01] - 10kW [CULTURAL]"
+        "description": "90.2 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n101.1 h RR.Cultural [EE01] - 10kW [CULTURAL]"
       },
       "id": "gyMjE"
     },
@@ -1557,7 +1557,7 @@
       },
       "properties": {
         "name": "Călărași / Combinat Modelu",
-        "description": "89.5 v RRActualități [EE00] - 2kW [RRACTUAL]\n101.1 v Radio Voces Campi [E000] - 300W [RADIO___][VOCES___][CAMPI___]"
+        "description": "89.5 v RR.Actualități [EE00] - 2kW [RRACTUAL]\n101.1 v Radio Voces Campi [E000] - 300W [RADIO___][VOCES___][CAMPI___]"
       },
       "id": "MxODU"
     },
@@ -2093,7 +2093,7 @@
       },
       "properties": {
         "name": "Constanța / Gara",
-        "description": "92.4 v Radio Trinitas [E24D] - 500W [TRINITAS][92,40MHZ]\n100.1 v Radio Constanța [EE06] - 5kW [RADIO___][CONSTANT][___A____][100.1___]\n102.7 v RRActualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][_102,7__]",
+        "description": "92.4 v Radio Trinitas [E24D] - 500W [TRINITAS][92,40MHZ]\n100.1 v Radio Constanța [EE06] - 5kW [RADIO___][CONSTANT][___A____][100.1___]\n102.7 v RR.Actualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][_102,7__]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -2176,7 +2176,7 @@
       },
       "properties": {
         "name": "Constanța / SNR Techirghiol",
-        "description": "90.8 h Radio Constanța [EE06] - 2kW [RADIO___][__C-TA__][90.8_FM_]\n95.8 v Sweet FM [E30E] - 500W [SWEET_FM][95,8_FM_][NOW...__][WE_PLAY_][SWEET_FM]\n96.2 h Digi FM [E059] - 30kW [Digi_FM_][96,2_FM_]\n97.8 v Itsy Bitsy FM [E3C8] - 6kW [ITSY____][BITSY___]\n105.5 h RRActualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][_105,5__]",
+        "description": "90.8 h Radio Constanța [EE06] - 2kW [RADIO___][__C-TA__][90.8_FM_]\n95.8 v Sweet FM [E30E] - 500W [SWEET_FM][95,8_FM_][NOW...__][WE_PLAY_][SWEET_FM]\n96.2 h Digi FM [E059] - 30kW [Digi_FM_][96,2_FM_]\n97.8 v Itsy Bitsy FM [E3C8] - 6kW [ITSY____][BITSY___]\n105.5 h RR.Actualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][_105,5__]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -2312,7 +2312,7 @@
       },
       "properties": {
         "name": "Craiova / Șimnicu de Jos",
-        "description": "88.7 h RRActualități [EE00] - 30kW [RRACTUAL]\n92.0 v Radio Impuls [E0D6] - 6kW [IMPULS__][92,0_FM_]\n94.0 v RFI România [E000] - 100W [RFI_94FM]\n94.8 v Itsy Bitsy FM [E3C8] - 100W [ITSY____][BITSY___]\n100.1 v Radio Trinitas [E24D] - 400W [TRINITAS][100,1MHz]\n102.9 v Radio Oltenia Craiova [EE03] - 15kW [OLTENIA_]\n103.6 v Radio Horion [9008] - 100W [Horion__][nPublici][SONG ID]\n104.5 v Europa FM [E299] - 3kW [EUROPAFM][_104,5__]\n105.5 h Digi FM [E059] - 30kW [Digi_FM_][105,5_FM]\n107.6 v Național FM [9250] - 100W [National]"
+        "description": "88.7 h RR.Actualități [EE00] - 30kW [RRACTUAL]\n92.0 v Radio Impuls [E0D6] - 6kW [IMPULS__][92,0_FM_]\n94.0 v RFI România [E000] - 100W [RFI_94FM]\n94.8 v Itsy Bitsy FM [E3C8] - 100W [ITSY____][BITSY___]\n100.1 v Radio Trinitas [E24D] - 400W [TRINITAS][100,1MHz]\n102.9 v Radio Oltenia Craiova [EE03] - 15kW [OLTENIA_]\n103.6 v Radio Horion [9008] - 100W [Horion__][nPublici][SONG ID]\n104.5 v Europa FM [E299] - 3kW [EUROPAFM][_104,5__]\n105.5 h Digi FM [E059] - 30kW [Digi_FM_][105,5_FM]\n107.6 v Național FM [9250] - 100W [National]"
       },
       "id": "MxMDQ"
     },
@@ -2402,7 +2402,7 @@
       },
       "properties": {
         "name": "Dăbuleni",
-        "description": "91.2 h RRCultural [EE01] - 2kW [CULTURAL]\n99.1 h RRActualități [EE00] - 2kW [RRACTUAL]"
+        "description": "91.2 h RR.Cultural [EE01] - 2kW [CULTURAL]\n99.1 h RR.Actualități [EE00] - 2kW [RRACTUAL]"
       },
       "id": "c5OTk"
     },
@@ -2498,7 +2498,7 @@
       },
       "properties": {
         "name": "Deva / Măgura Boiului",
-        "description": "95.9 h Digi FM [E059] - 8kW [Digi_FM_][95,9_FM_]\n103.4 h RRActualități [EE00] - 30kW [RRACTUAL]\n105.0 h RRCultural [EE01] - 30kW [CULTURAL]"
+        "description": "95.9 h Digi FM [E059] - 8kW [Digi_FM_][95,9_FM_]\n103.4 h RR.Actualități [EE00] - 30kW [RRACTUAL]\n105.0 h RR.Cultural [EE01] - 30kW [CULTURAL]"
       },
       "id": "c4Mjk"
     },
@@ -2603,7 +2603,7 @@
       },
       "properties": {
         "name": "Drobeta Turnu Severin / Balota",
-        "description": "91.4 h RRActualități [EE00] - 30kW [RRACTUAL]\n97.9 v Radio Trinitas - 50W (**IN PLAN**)\n98.5 v Radio Trinitas [E24D]- 2kW [TRINITAS][98,5_MHz]\n100.0 v Europa FM [E299] - 5kW [EUROPAFM][_100.0__]\n100.5 v Radio Galaxy [E068] - 300W [GALAXYFM]\n105.8 h RRCultural [EE01] - 30kW [CULTURAL]\n107.9 v Digi FM [E059] - 10kW [Digi_FM_][107,9_FM]",
+        "description": "91.4 h RR.Actualități [EE00] - 30kW [RRACTUAL]\n97.9 v Radio Trinitas - 50W (**IN PLAN**)\n98.5 v Radio Trinitas [E24D]- 2kW [TRINITAS][98,5_MHz]\n100.0 v Europa FM [E299] - 5kW [EUROPAFM][_100.0__]\n100.5 v Radio Galaxy [E068] - 300W [GALAXYFM]\n105.8 h RR.Cultural [EE01] - 30kW [CULTURAL]\n107.9 v Digi FM [E059] - 10kW [Digi_FM_][107,9_FM]",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
         }
@@ -2684,7 +2684,7 @@
       },
       "properties": {
         "name": "Făget / Coșevița",
-        "description": "89.8 h RRActualități [EE00] - 5kW [RRACTUAL]\n95.2 v Radio Trinitas [E24D] - 2kW [TRINITAS][95,2_MHz]\n100.9 h Europa FM - 5kW (**IN PLAN**)\n103.6 h Radio Timișoara [EE11] - 5kW [RTm103.6]"
+        "description": "89.8 h RR.Actualități [EE00] - 5kW [RRACTUAL]\n95.2 v Radio Trinitas [E24D] - 2kW [TRINITAS][95,2_MHz]\n100.9 h Europa FM - 5kW (**IN PLAN**)\n103.6 h Radio Timișoara [EE11] - 5kW [RTm103.6]"
       },
       "id": "k4NzE"
     },
@@ -2885,7 +2885,7 @@
       },
       "properties": {
         "name": "Galați / Văcăreni",
-        "description": "92.0 v Digi FM [E059] - 10kW [Digi_FM_][92_FM___]\n96.5 v Radio Trinitas [E24D] - 10kW [TRINITAS][96,5_MHz]\n101.6 m RRCultural [EE01] - 60kW [CULTURAL]\n106.4 m RRActualități [EE00] - 60kW [RRACTUAL]",
+        "description": "92.0 v Digi FM [E059] - 10kW [Digi_FM_][92_FM___]\n96.5 v Radio Trinitas [E24D] - 10kW [TRINITAS][96,5_MHz]\n101.6 m RR.Cultural [EE01] - 60kW [CULTURAL]\n106.4 m RR.Actualități [EE00] - 60kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -2920,7 +2920,7 @@
       },
       "properties": {
         "name": "Gheorgheni / Str Băii",
-        "description": "88.5 h RRActualități [EE00] - 2kW [RRACTUAL]\n92.3 v Marosvasarhelyi Radio [E010] - 50W [no RDS]"
+        "description": "88.5 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n92.3 v Marosvasarhelyi Radio [E010] - 50W [no RDS]"
       },
       "id": "Y3ODY"
     },
@@ -2935,7 +2935,7 @@
       },
       "properties": {
         "name": "Giurgiu",
-        "description": "89.4 v Europa FM [E299] - 2kW [EUROPAFM][__89.4__]\n95.3 h Radio Trinitas [E24D] - 200W [TRINITAS][92,5_MHz]\n96.5 v Kiss FM [515A] - 200W [KISS_FM_][96.5____]\n102.6 h RRCultural [EE01] - 2kW [CULTURAL]\n104.6 h RRActualitati [EE00] - 2kW [RRACTUAL]\n107.1 v National FM [9250] - 100W [National]"
+        "description": "89.4 v Europa FM [E299] - 2kW [EUROPAFM][__89.4__]\n95.3 h Radio Trinitas [E24D] - 200W [TRINITAS][92,5_MHz]\n96.5 v Kiss FM [515A] - 200W [KISS_FM_][96.5____]\n102.6 h RR.Cultural [EE01] - 2kW [CULTURAL]\n104.6 h RRActualitati [EE00] - 2kW [RRACTUAL]\n107.1 v National FM [9250] - 100W [National]"
       },
       "id": "Y2MTQ"
     },
@@ -3005,6 +3005,21 @@
       },
       "id": "YwNjE"
     },
+     {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          26.420000, 
+          45.480000
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "description": "101.8 h RR.Actualități [EE00] - 100W [no RDS]",
+        "name": "Gura Teghii"
+      },
+      "id": "gurateghii"
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -3016,7 +3031,7 @@
       },
       "properties": {
         "name": "Harghita Băi",
-        "description": "89.7 h Radio Maria Erdely [E1CD] - 30kW [MARIA_R.]\n91.4 h Digi FM [E059] - 60kW [Digi_FM_][91,4_FM_]\n93.0 v Radio Trinitas [E24D] - 6kW [TRINITAS][93,00MHz]\n98.9 h Radio Târgu Mureș [EE07] - 60kW [TG_MURES]\n100.2 v Europa FM [E299] - 5kW [EUROPAFM][100.2___]\n103.4 h RRActualități [EE00] - 60kW [RRACTUAL]\n104.7 v Kiss FM [515A] - 10kW [KISS_FM_][_104.7__]\n106.8 h Marosvasarhelyi Radio [EE10] - 64kW [MSVRADIO]"
+        "description": "89.7 h Radio Maria Erdely [E1CD] - 30kW [MARIA_R.]\n91.4 h Digi FM [E059] - 60kW [Digi_FM_][91,4_FM_]\n93.0 v Radio Trinitas [E24D] - 6kW [TRINITAS][93,00MHz]\n98.9 h Radio Târgu Mureș [EE07] - 60kW [TG_MURES]\n100.2 v Europa FM [E299] - 5kW [EUROPAFM][100.2___]\n103.4 h RR.Actualități [EE00] - 60kW [RRACTUAL]\n104.7 v Kiss FM [515A] - 10kW [KISS_FM_][_104.7__]\n106.8 h Marosvasarhelyi Radio [EE10] - 64kW [MSVRADIO]"
       },
       "id": "A5NTc"
     },
@@ -3177,7 +3192,7 @@
       },
       "properties": {
         "name": "Huși / Dealul Dobrina",
-        "description": "94.5 v Radio Iași [EE03] - 2kW [RADIO__][__IASI__][94.5_FM_]\n97.6 v Smile FM - 50W (**IN PLAN**)\n101.7 h RRActualități [EE00] - 2kW [RRACTUAL]\n103.7 h RRCultural [EE01] - 2kW [CULTURAL]",
+        "description": "94.5 v Radio Iași [EE03] - 2kW [RADIO__][__IASI__][94.5_FM_]\n97.6 v Smile FM - 50W (**IN PLAN**)\n101.7 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n103.7 h RR.Cultural [EE01] - 2kW [CULTURAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -3237,7 +3252,7 @@
       },
       "properties": {
         "name": "Iași / SRR Iași",
-        "description": "95.4 v RRMuzical [EE02] - 200W [ROMANIA_][MUZICAL_][95,4_FM_]"
+        "description": "95.4 v RR.Muzical [EE02] - 200W [ROMANIA_][MUZICAL_][95,4_FM_]"
       },
       "id": "g4MTM"
     },
@@ -3302,7 +3317,7 @@
       },
       "properties": {
         "name": "Lehliu Gară / Dragoș Vodă",
-        "description": "106.2 h RRActualități [EE00] - 500W [RRACTUAL]"
+        "description": "106.2 h RR.Actualități [EE00] - 500W [RRACTUAL]"
       },
       "id": "kwNzk"
     },
@@ -3377,7 +3392,7 @@
       },
       "properties": {
         "name": "Măgura Odobești",
-        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz]\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___] (**NO AUDIO**)\n101.0 h RRCultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RRActualități [EE00] - 45kW [RRACTUAL]",
+        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz]\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___] (**NO AUDIO**)\n101.0 h RR.Cultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RR.Actualități [EE00] - 45kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -3398,7 +3413,7 @@
       },
       "properties": {
         "name": "Mahmudia",
-        "description": "88.9 v Radio ZU [E2AA] - 2kW [RADIO_ZU][88.9_FM_]\n90.9 v Europa FM - 1kW (**IN PLAN**)\n96.8 v Kiss FM [515A] - 3kW [KISS_FM_][__96,8__]\n100.5 h RRActualități [EE00] - 10kW [RRACTUAL]\n102.0 h RRCultural [EE01] - 10kW [CULTURAL]",
+        "description": "88.9 v Radio ZU [E2AA] - 2kW [RADIO_ZU][88.9_FM_]\n90.9 v Europa FM - 1kW (**IN PLAN**)\n96.8 v Kiss FM [515A] - 3kW [KISS_FM_][__96,8__]\n100.5 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n102.0 h RR.Cultural [EE01] - 10kW [CULTURAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -3439,7 +3454,7 @@
       },
       "properties": {
         "name": "Mangalia / Radiocom",
-        "description": "92.7 h RRCultural [EE01] - 2kW [CULTURAL]\n98.9 v Radio Trinitas [E24D] - 500W [TRINITAS][98,90MHz]\n100.1 v Radio Constanța [EE06] - 5kW [_RADIO__][CONSTANT][TA______][_100,1_M]\n100.6 v Radio ZU [E2AA] - 200W [RADIO_ZU][100.6_FM]\n102.7 v RRActualități [EE00] - 5kW [RRACTUAL]\n104.1 v Europa FM [E299] - 2kW [EUROPAFM][_104.1__]\n107.1 v Pro FM [E029] - 2kW [PRO_FM__][107,1_FM]",
+        "description": "92.7 h RR.Cultural [EE01] - 2kW [CULTURAL]\n98.9 v Radio Trinitas [E24D] - 500W [TRINITAS][98,90MHz]\n100.1 v Radio Constanța [EE06] - 5kW [_RADIO__][CONSTANT][TA______][_100,1_M]\n100.6 v Radio ZU [E2AA] - 200W [RADIO_ZU][100.6_FM]\n102.7 v RR.Actualități [EE00] - 5kW [RRACTUAL]\n104.1 v Europa FM [E299] - 2kW [EUROPAFM][_104.1__]\n107.1 v Pro FM [E029] - 2kW [PRO_FM__][107,1_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -3475,7 +3490,7 @@
       },
       "properties": {
         "name": "Medgidia",
-        "description": "89.9 h Pro FM [E029] - 2kW [PRO_FM__][89,9_FM_]\n93.5 v Nostalgia Radio - 500W (**IN PLAN**)\n95.1 v Radio ZU [E2AA] - 2kW [RADIO_ZU][95.1_FM_]\n97.5 v Radio Terra [4242] - 2kW [_TERRA__]\n101.4 h RRActualități [EE00] - 2kW [RRACTUAL]",
+        "description": "89.9 h Pro FM [E029] - 2kW [PRO_FM__][89,9_FM_]\n93.5 v Nostalgia Radio - 500W (**IN PLAN**)\n95.1 v Radio ZU [E2AA] - 2kW [RADIO_ZU][95.1_FM_]\n97.5 v Radio Terra [4242] - 2kW [_TERRA__]\n101.4 h RR.Actualități [EE00] - 2kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -3611,7 +3626,7 @@
       },
       "properties": {
         "name": "Moldova Nouă",
-        "description": "93.8 h RRCultural [EE01] - 2kW [CULTURAL]\n104.3 v Radio Trinitas [E24D] - 2kW [TRINITAS][104,3_FM]\n105.1 h RRActualități [EE00] - 2kW [RRACTUAL]\n106.6 h Radio 9FM [E200] - 2kW [9_FM___1][06.6___9][_FM___10][6.6_9FM_][_106.6__][__9_FM__][_106.6__][________]\n107.8 h Europa FM - 50W (**IN PLAN**)"
+        "description": "93.8 h RR.Cultural [EE01] - 2kW [CULTURAL]\n104.3 v Radio Trinitas [E24D] - 2kW [TRINITAS][104,3_FM]\n105.1 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n106.6 h Radio 9FM [E200] - 2kW [9_FM___1][06.6___9][_FM___10][6.6_9FM_][_106.6__][__9_FM__][_106.6__][________]\n107.8 h Europa FM - 50W (**IN PLAN**)"
       },
       "id": "Q5ODI"
     },
@@ -3764,7 +3779,7 @@
       },
       "properties": {
         "name": "Negrești Oaș / Pietroasa",
-        "description": "89.4 h RRActualități [EE00] - 2kW [RRACTUAL]\n93.3 v Radio Cluj [EE03] - 1kW [R_CLUJFM]\n104.8 v Europa FM [E299] - 2kW [EUROPAFM][_104.8__]\n107.4 h Digi FM [E059] - 2kW [Digi_FM_][107.4___]"
+        "description": "89.4 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n93.3 v Radio Cluj [EE03] - 1kW [R_CLUJFM]\n104.8 v Europa FM [E299] - 2kW [EUROPAFM][_104.8__]\n107.4 h Digi FM [E059] - 2kW [Digi_FM_][107.4___]"
       },
       "id": "c0ODg"
     },
@@ -3794,7 +3809,7 @@
       },
       "properties": {
         "name": "Novaci / Cerbu",
-        "description": "87.8 v Radio Infinit [E018] - 2kW [INFINIT][87,8_MHz_][_NR. 1__][IN_GORJ_]\n89.5 h RRCultural [EE01] - 100kW [CULTURAL]\n90.1 v Radio Galaxy [E068] - 500W [GALAXYFM]\n92.9 h RRActualități [EE00] - 100kW [RRACTUAL]\n93.4 v Radio Trinitas [E24D] - 500W [TRINITAS][93,4_MHz]\n96.2 v Radio Accent [E477] - 400W [_ACCENT_][__96,2FM][REGIONAL][OLTENIA_]\n100.7 m Digi FM [E059] - 20kW [DIGI_FM_][100,7_FM]\n105.0 h Radio Oltenia Craiova [EE03] - 100kW [OLTENIA_]\n107.1 v Europa FM [E299] - 10kW [EUROPAFM][_107.1__]"
+        "description": "87.8 v Radio Infinit [E018] - 2kW [INFINIT][87,8_MHz_][_NR. 1__][IN_GORJ_]\n89.5 h RR.Cultural [EE01] - 100kW [CULTURAL]\n90.1 v Radio Galaxy [E068] - 500W [GALAXYFM]\n92.9 h RR.Actualități [EE00] - 100kW [RRACTUAL]\n93.4 v Radio Trinitas [E24D] - 500W [TRINITAS][93,4_MHz]\n96.2 v Radio Accent [E477] - 400W [_ACCENT_][__96,2FM][REGIONAL][OLTENIA_]\n100.7 m Digi FM [E059] - 20kW [DIGI_FM_][100,7_FM]\n105.0 h Radio Oltenia Craiova [EE03] - 100kW [OLTENIA_]\n107.1 v Europa FM [E299] - 10kW [EUROPAFM][_107.1__]"
       },
       "id": "Q0OTY"
     },
@@ -3873,7 +3888,7 @@
       },
       "properties": {
         "name": "Oltenița / Hotarele",
-        "description": "91.1 h RRActualități [EE00] - 1kW [RRACTUAL]\n97.3 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS_97.3][_97.3___]"
+        "description": "91.1 h RR.Actualități [EE00] - 1kW [RRACTUAL]\n97.3 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS_97.3][_97.3___]"
       },
       "id": "c2OTU"
     },
@@ -3960,7 +3975,7 @@
       },
       "properties": {
         "name": "Oradea / SNR Emil Isac",
-        "description": "87.8 v Radio Trinitas [E24D] - 1kW [TRINITAS][87,80MHZ]\n93.2 v Europa FM [E299] - 5kW [EUROPAFM][_93.2___]\n96.1 h RRCultural [EE01] - 60kW [CULTURAL]\n102.2 v Radio Maria Erdely [E1CD] - 200W [MARIA R.]\n104.1 h RRActualități [EE00] - 60kW [RRACTUAL]\n107.0 v Național FM [9250] - 200W [National]\n107.6 h Digi FM [E059] - 60kW [Digi_FM_][107,6_FM]"
+        "description": "87.8 v Radio Trinitas [E24D] - 1kW [TRINITAS][87,80MHZ]\n93.2 v Europa FM [E299] - 5kW [EUROPAFM][_93.2___]\n96.1 h RR.Cultural [EE01] - 60kW [CULTURAL]\n102.2 v Radio Maria Erdely [E1CD] - 200W [MARIA R.]\n104.1 h RR.Actualități [EE00] - 60kW [RRACTUAL]\n107.0 v Național FM [9250] - 200W [National]\n107.6 h Digi FM [E059] - 60kW [Digi_FM_][107,6_FM]"
       },
       "id": "YzNjk"
     },
@@ -3990,7 +4005,7 @@
       },
       "properties": {
         "name": "Orșova",
-        "description": "104.1 h RRActualități [EE00] - 50W [RRACTUAL]\n107.3 v Radio Galaxy [E068] - 100W [GALAXYFM]"
+        "description": "104.1 h RR.Actualități [EE00] - 50W [RRACTUAL]\n107.3 v Radio Galaxy [E068] - 100W [GALAXYFM]"
       },
       "id": "EyNzA"
     },
@@ -4055,7 +4070,7 @@
       },
       "properties": {
         "name": "Petroșani / Parângul Mare",
-        "description": "88.1 h RRActualități [EE00] - 60kW [RRActual][88.1_MHz]\n90.6 h RRCultural [EE01] - 60kW [Cultural][90.6_MHz]\n93.7 v Radio Trinitas [E24D] - 300W [TRINITAS][93,7_MHz]\n98.5 h Digi FM [E059] - 10kW [DIGI_FM_][98,5_FM_]\n101.5 v Radio Timișoara [EE11] - 1kW [RTm101.5]\n104.1 h Kiss FM [515A] - 10kW [KISS_FM_][_104.1__]\n105.9 h Radio ZU [E2AA] - 5kW [RADIO_ZU][105.9_FM]"
+        "description": "88.1 h RR.Actualități [EE00] - 60kW [RRActual][88.1_MHz]\n90.6 h RR.Cultural [EE01] - 60kW [Cultural][90.6_MHz]\n93.7 v Radio Trinitas [E24D] - 300W [TRINITAS][93,7_MHz]\n98.5 h Digi FM [E059] - 10kW [DIGI_FM_][98,5_FM_]\n101.5 v Radio Timișoara [EE11] - 1kW [RTm101.5]\n104.1 h Kiss FM [515A] - 10kW [KISS_FM_][_104.1__]\n105.9 h Radio ZU [E2AA] - 5kW [RADIO_ZU][105.9_FM]"
       },
       "id": "UzODM"
     },
@@ -4115,7 +4130,7 @@
       },
       "properties": {
         "name": "Pitești / Doamna Stanca",
-        "description": "90.7 v RRActualități [EE00] - 300W [ROMANIA_][_ACTUAL_][90.7_FM_]"
+        "description": "90.7 v RR.Actualități [EE00] - 300W [ROMANIA_][_ACTUAL_][90.7_FM_]"
       },
       "id": "MxNjY"
     },
@@ -4402,7 +4417,7 @@
       },
       "properties": {
         "name": "Râmnicu Vâlcea / Cozia",
-        "description": "88.6 v Itsy Bitsy FM [E2C8] - 100W [ITSY____][BITSY___]\n91.5 v Virgin Radio [E05F] - 5kW [VIRGIN__][91.5_FM_]\n93.6 v Radio Trinitas [E24D] - 6kW [TRINITAS][93,6MHz_]\n94.3 v Digi FM [E059] - 10kW [DIGI_FM_][94,3_FM_]\n96.4 v Radio Galaxy [E068] - 7kW [GALAXYFM]\n97.0 v Sweet FM [000E] - 500W [Sweet_FM][_Pitesti][__PURE__][DANCE___][97.0_FM_][Sweet_FM][_Valcea_]\n99.2 h Kiss FM [515A] - 30kW [KISS_FM_][__99.2__]\n102.5 h RRCultural [EE01] - 30kW [CULTURAL]\n103.4 h RRActualități [EE00] - 30kW [RRACTUAL]"
+        "description": "88.6 v Itsy Bitsy FM [E2C8] - 100W [ITSY____][BITSY___]\n91.5 v Virgin Radio [E05F] - 5kW [VIRGIN__][91.5_FM_]\n93.6 v Radio Trinitas [E24D] - 6kW [TRINITAS][93,6MHz_]\n94.3 v Digi FM [E059] - 10kW [DIGI_FM_][94,3_FM_]\n96.4 v Radio Galaxy [E068] - 7kW [GALAXYFM]\n97.0 v Sweet FM [000E] - 500W [Sweet_FM][_Pitesti][__PURE__][DANCE___][97.0_FM_][Sweet_FM][_Valcea_]\n99.2 h Kiss FM [515A] - 30kW [KISS_FM_][__99.2__]\n102.5 h RR.Cultural [EE01] - 30kW [CULTURAL]\n103.4 h RR.Actualități [EE00] - 30kW [RRACTUAL]"
       },
       "id": "tZWQz"
     },
@@ -4525,7 +4540,7 @@
       },
       "properties": {
         "name": "Resița / Semenic",
-        "description": "88.5 h Digi FM [E059] - 100kW [Digi_FM_][88,5_FM_]\n102.5 h RRActualități [EE00] - 100kW [RRACTUAL]\n105.6 h Radio Reșița [EE03] - 100kW [R_Resita]"
+        "description": "88.5 h Digi FM [E059] - 100kW [Digi_FM_][88,5_FM_]\n102.5 h RR.Actualități [EE00] - 100kW [RRACTUAL]\n105.6 h Radio Reșița [EE03] - 100kW [R_Resita]"
       },
       "id": "UyMDQ"
     },
@@ -4712,7 +4727,7 @@
       },
       "properties": {
         "name": "Satu Mare / Prefectura",
-        "description": "87.9 h Radio Cluj [EE03] - 2kW [R_CLUJFM]\n96.5 h Pro FM [E029] - 2kW [PRO_FM__][96.5_FM_]\n101.4 h RRActualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][101.4_FM]\n104.0 h Digi FM [E059] - 2kW [Digi_FM_][104,0_FM]"
+        "description": "87.9 h Radio Cluj [EE03] - 2kW [R_CLUJFM]\n96.5 h Pro FM [E029] - 2kW [PRO_FM__][96.5_FM_]\n101.4 h RR.Actualități [EE00] - 2kW [ROMANIA_][_ACTUAL_][101.4_FM]\n104.0 h Digi FM [E059] - 2kW [Digi_FM_][104,0_FM]"
       },
       "id": "IzNTQ"
     },
@@ -4973,7 +4988,7 @@
       },
       "properties": {
         "name": "Sibiu / Păltiniș",
-        "description": "92.4 v Digi FM [E059] - 10kW [DIGI_FM_][92.4_FM_]\n93.8 v Magic FM [E210] - 5kW [MAGIC_FM][__93.8__]\n94.9 v Pro FM [E029] - 10kW [PRO_FM__][94.9_FM_]\n95.4 v Radio Antena Sibiului [EE03] - 2kW [RADIO___][ANTENA__][SIBIULUI]\n96.6 v Radio ZU [E2AA] - 6kW [RADIO_ZU][96.6_FM_]\n101.8 h RRActualități [EE00] - 60kW [RRACTUAL]\n103.7 h RRCultural [EE01] - 60kW [CULTURAL]\n106.2 v Europa FM [E299] - 10kW [EUROPAFM][_106.2__]"
+        "description": "92.4 v Digi FM [E059] - 10kW [DIGI_FM_][92.4_FM_]\n93.8 v Magic FM [E210] - 5kW [MAGIC_FM][__93.8__]\n94.9 v Pro FM [E029] - 10kW [PRO_FM__][94.9_FM_]\n95.4 v Radio Antena Sibiului [EE03] - 2kW [RADIO___][ANTENA__][SIBIULUI]\n96.6 v Radio ZU [E2AA] - 6kW [RADIO_ZU][96.6_FM_]\n101.8 h RR.Actualități [EE00] - 60kW [RRACTUAL]\n103.7 h RR.Cultural [EE01] - 60kW [CULTURAL]\n106.2 v Europa FM [E299] - 10kW [EUROPAFM][_106.2__]"
       },
       "id": "M0Nzk"
     },
@@ -4988,7 +5003,7 @@
       },
       "properties": {
         "name": "Sighetu Marmației / Dealul Solovan",
-        "description": "87.9 v Radio Trinitas [E24D] - 2kW [TRINITAS][87,90MHz]\n89.3 v Sighet FM [E014] - 2kW [SighetFM]\n93.8 v Antena Satelor [EE09] - 1kW [ANTENA__][SATELOR_][93.80MHz]\n97.4 h City Radio [E106] - 2kW [CITY_FM_]\n101.7 h Radio Cluj [EE03] - 2kW [R_CLUJFM]\n106.2 h RRActualități [EE00] - 2kW [RRACTUAL]"
+        "description": "87.9 v Radio Trinitas [E24D] - 2kW [TRINITAS][87,90MHz]\n89.3 v Sighet FM [E014] - 2kW [SighetFM]\n93.8 v Antena Satelor [EE09] - 1kW [ANTENA__][SATELOR_][93.80MHz]\n97.4 h City Radio [E106] - 2kW [CITY_FM_]\n101.7 h Radio Cluj [EE03] - 2kW [R_CLUJFM]\n106.2 h RR.Actualități [EE00] - 2kW [RRACTUAL]"
       },
       "id": "Y3MzY"
     },
@@ -5286,7 +5301,7 @@
         "type": "Point"
       },
       "properties": {
-        "description": "96.3 h RRActualități [EE00] - 2kW [R_ACTUAL]\n102.6 Radio Trinitas [E24D] - 500W [TRINITAS][102,6MHz]\n104.5 h RRCultural [EE01] - 2kW [CULTURAL]",
+        "description": "96.3 h RR.Actualități [EE00] - 2kW [R_ACTUAL]\n102.6 Radio Trinitas [E24D] - 500W [TRINITAS][102,6MHz]\n104.5 h RR.Cultural [EE01] - 2kW [CULTURAL]",
         "name": "Slobozia / SNR"
       },
       "id": "UKYyM"
@@ -5584,7 +5599,7 @@
       },
       "properties": {
         "name": "Sulina",
-        "description": "89.2 v Radio Trinitas [E24D] - 2kW [TRINITAS][89,20MHZ]\n100.9 h RRActualități [EE00] - 2kW [RRACTUAL]\n103.2 v Antena Satelor [EE09] - 2kW [_ANTENA_][SATELOR_][103.2_FM]\n106.2 v Radio Constanța [EE06] - 2kW [R-CTA___]\n107.0 v (**IN CURAND / SOON**) - 50W",
+        "description": "89.2 v Radio Trinitas [E24D] - 2kW [TRINITAS][89,20MHZ]\n100.9 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n103.2 v Antena Satelor [EE09] - 2kW [_ANTENA_][SATELOR_][103.2_FM]\n106.2 v Radio Constanța [EE06] - 2kW [R-CTA___]\n107.0 v (**IN CURAND / SOON**) - 50W",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -5736,7 +5751,7 @@
       },
       "properties": {
         "name": "Târgu Mureș / Platou Cornești",
-        "description": "89.1 h Digi FM [E059] - 10kW [Digi_FM_][89,1_FM_]\n90.7 v Europa FM [E299] - 4kW [EUROPAFM][_90.7___]\n92.7 v Virgin Radio [E05F] - 2kW [VIRGIN__][92.7_FM_]\n93.6 h RRActualități [EE00] - 10kW [RRACTUAL]\n96.0 v Marosvasarhelyi Radio [E1CD] - 2kW [MSVRADIO]\n100.0 v Dance FM - 200W [DANCE_FM]\n101.6 v Pro FM [E029] - 300W [PRO_FM__][101,6FM_]\n102.9 h Radio Târgu Mureș [EE07] - 10kW [Tg.Mures]\n104.9 h RRCultural [EE01] - 10kW [CULTURAL]"
+        "description": "89.1 h Digi FM [E059] - 10kW [Digi_FM_][89,1_FM_]\n90.7 v Europa FM [E299] - 4kW [EUROPAFM][_90.7___]\n92.7 v Virgin Radio [E05F] - 2kW [VIRGIN__][92.7_FM_]\n93.6 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n96.0 v Marosvasarhelyi Radio [E1CD] - 2kW [MSVRADIO]\n100.0 v Dance FM - 200W [DANCE_FM]\n101.6 v Pro FM [E029] - 300W [PRO_FM__][101,6FM_]\n102.9 h Radio Târgu Mureș [EE07] - 10kW [Tg.Mures]\n104.9 h RR.Cultural [EE01] - 10kW [CULTURAL]"
       },
       "id": "k4OTM"
     },
@@ -5968,7 +5983,7 @@
       },
       "properties": {
         "name": "Timișoara / SNR Calea Urseni",
-        "description": "90.3 v Radio Trinitas [E24D] - 200W [TRINITAS][90.3_MHz]\n91.3 h Digi FM [E059] - 10kW [Digi_FM_][91,3_FM_]\n93.9 v Radio Impuls [E0D6] - 200W [IMPULS__][93.9_FM_]\n95.0 v Radio ZU [E2AA] - 200W [RADIO_ZU][95.0_FM_]\n96.1 v Național FM [9250] - 100W [National]\n96.9 v RFI România [EEEE] - 200W [RFI_____]\n97.4 v Pro FM [E029] - 200W [PRO_FM__][97.4_FM_]\n99.0 v Kiss FM [515A] - 500W [_KISS_FM][_99_FM__]\n100.0 v Radio Guerrilla [E0D8] - 200W [GUERILLA][100,0FM_]\n100.7 h RRCultural [EE01] - 10kW [CULTURAL]\n105.9 h Radio Timișoara [EE11] - 2kW [Radio_Tm][105,9_FM]\n106.4 h RRActualități [EE00] - 10kW [RRACTUAL]"
+        "description": "90.3 v Radio Trinitas [E24D] - 200W [TRINITAS][90.3_MHz]\n91.3 h Digi FM [E059] - 10kW [Digi_FM_][91,3_FM_]\n93.9 v Radio Impuls [E0D6] - 200W [IMPULS__][93.9_FM_]\n95.0 v Radio ZU [E2AA] - 200W [RADIO_ZU][95.0_FM_]\n96.1 v Național FM [9250] - 100W [National]\n96.9 v RFI România [EEEE] - 200W [RFI_____]\n97.4 v Pro FM [E029] - 200W [PRO_FM__][97.4_FM_]\n99.0 v Kiss FM [515A] - 500W [_KISS_FM][_99_FM__]\n100.0 v Radio Guerrilla [E0D8] - 200W [GUERILLA][100,0FM_]\n100.7 h RR.Cultural [EE01] - 10kW [CULTURAL]\n105.9 h Radio Timișoara [EE11] - 2kW [Radio_Tm][105,9_FM]\n106.4 h RR.Actualități [EE00] - 10kW [RRACTUAL]"
       },
       "id": "k2NTc"
     },
@@ -6013,7 +6028,7 @@
       },
       "properties": {
         "name": "Toplița / Teasc",
-        "description": "89.5 v Hit FM Harghita [E188] - 50W [HIT_FM__]\n90.1 h Radio Trinitas [E24D] - 2kW [TRINITAS]\n94.4 v Maria Radio Erdely [E1CD] - 2kW [Maria_R.]\n94.9 v Radio Târgu Mureș [EE03] - 50W [RTGMURES]\n98.4 h RRCultural [EE01] - 2kW [CULTURAL]\n101.0 h RRActualități [EE00] - 2kW [RRACTUAL]\n102.3 h Digi FM [E059] - 2kW [Digi_FM_][102,3_FM]\n104.3 h Radio Son [2F2F] - 2kW [RADIOSON][_TOPLITA][104,3Mhz]"
+        "description": "89.5 v Hit FM Harghita [E188] - 50W [HIT_FM__]\n90.1 h Radio Trinitas [E24D] - 2kW [TRINITAS]\n94.4 v Maria Radio Erdely [E1CD] - 2kW [Maria_R.]\n94.9 v Radio Târgu Mureș [EE03] - 50W [RTGMURES]\n98.4 h RR.Cultural [EE01] - 2kW [CULTURAL]\n101.0 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n102.3 h Digi FM [E059] - 2kW [Digi_FM_][102,3_FM]\n104.3 h Radio Son [2F2F] - 2kW [RADIOSON][_TOPLITA][104,3Mhz]"
       },
       "id": "g2MTQ"
     },
@@ -6028,7 +6043,7 @@
       },
       "properties": {
         "name": "Topolog",
-        "description": "88.3 v Itsy Bitsy FM [E3C8] - 4kW [ITSY____][BITSY___]\n90.6 h Radio ZU [E2AA] - 5kW [RADIO_ZU][90.6_FM_]\n103.0 h RRCultural [EE01] - 30kW [CULTURAL]\n105.0 h RRActualități [EE00] - 30kW [RRACTUAL]",
+        "description": "88.3 v Itsy Bitsy FM [E3C8] - 4kW [ITSY____][BITSY___]\n90.6 h Radio ZU [E2AA] - 5kW [RADIO_ZU][90.6_FM_]\n103.0 h RR.Cultural [EE01] - 30kW [CULTURAL]\n105.0 h RR.Actualități [EE00] - 30kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -6069,7 +6084,7 @@
       },
       "properties": {
         "name": "Tulcea / SNR",
-        "description": "89.5 v Itsy Bitsy FM [E3C8] - 3kW [_ITSY___][_BITSY__]\n90.2 v Vibe FM [E222] - 1kW [_VIBE_FM][_90.2_FM]\n91.4 v Radio Impuls - 2kW [_IMPULS_][91.4_FM_]\n93.0 v Radio Constanța - 500W [RADIOCTA]\n95.8 v Radio Delta [A00B] - 2kW [_DELTA__][95,8_FM_]\n99.4 h RRActualități [EE00] - 10kW [RRACTUAL]\n105.4 h RRCultural [EE01] - 10kW [CULTURAL]\n107.4 v Europa FM [E299] - 5kW [EUROPAFM][_107.4__]\n107.9 v Virgin Radio [E05F] - 5kW [VIRGIN_][107.9_FM]",
+        "description": "89.5 v Itsy Bitsy FM [E3C8] - 3kW [_ITSY___][_BITSY__]\n90.2 v Vibe FM [E222] - 1kW [_VIBE_FM][_90.2_FM]\n91.4 v Radio Impuls - 2kW [_IMPULS_][91.4_FM_]\n93.0 v Radio Constanța - 500W [RADIOCTA]\n95.8 v Radio Delta [A00B] - 2kW [_DELTA__][95,8_FM_]\n99.4 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n105.4 h RR.Cultural [EE01] - 10kW [CULTURAL]\n107.4 v Europa FM [E299] - 5kW [EUROPAFM][_107.4__]\n107.9 v Virgin Radio [E05F] - 5kW [VIRGIN_][107.9_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -6123,7 +6138,7 @@
       },
       "properties": {
         "name": "Turnu Măgurele",
-        "description": "90.7 h Digi FM - 2kW (**IN PLAN**)\n97.2 h Radio Galaxy [E068] - 500W [GALAXYFM]\n100.6 v Radio Vocea Speranței [E2F8] - 50W [__RVS___][RVS100.6][100.6_FM]\n101.1 h RRCultural [EE01] - 2kW [CULTURAL]\n105.1 h RRActualități [EE00] - 2kW [RRACTUAL]"
+        "description": "90.7 h Digi FM - 2kW (**IN PLAN**)\n97.2 h Radio Galaxy [E068] - 500W [GALAXYFM]\n100.6 v Radio Vocea Speranței [E2F8] - 50W [__RVS___][RVS100.6][100.6_FM]\n101.1 h RR.Cultural [EE01] - 2kW [CULTURAL]\n105.1 h RR.Actualități [EE00] - 2kW [RRACTUAL]"
       },
       "id": "g1NjQ"
     },
@@ -6153,7 +6168,7 @@
       },
       "properties": {
         "name": "Văratec",
-        "description": "88.4 h Digi FM [E059] - 10kW [Digi_FM_][88,4_FM_]\n91.2 h RRActualități [EE00] - 10kW [RRACTUAL]\n98.1 h Maramureș FM - 10kW (**IN PLAN**)\n100.8 h RRCultural [EE01] - 10kW [CULTURAL]\n107.1 v Europa FM [E299] - 5kW [EUROPAFM][_107.1__]"
+        "description": "88.4 h Digi FM [E059] - 10kW [Digi_FM_][88,4_FM_]\n91.2 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n98.1 h Maramureș FM - 10kW (**IN PLAN**)\n100.8 h RR.Cultural [EE01] - 10kW [CULTURAL]\n107.1 v Europa FM [E299] - 5kW [EUROPAFM][_107.1__]"
       },
       "id": "E3ODI"
     },
@@ -6234,7 +6249,7 @@
       },
       "properties": {
         "name": "Vaslui / Tanacu",
-        "description": "88.5 h Kiss FM [515A] - 2kW [KISS_FM_][88.5_FM_]\n89.2 v Național FM [9250] - 200W [National]\n91.2 v Rock FM [E057] - 2kW [ROCK_FM_][__91.2__]\n102.4 h RRCultural [EE01] - 2kW [CULTURAL]\n106.1 h RRActualități [EE00] - 2kW [RRACTUAL]",
+        "description": "88.5 h Kiss FM [515A] - 2kW [KISS_FM_][88.5_FM_]\n89.2 v Național FM [9250] - 200W [National]\n91.2 v Rock FM [E057] - 2kW [ROCK_FM_][__91.2__]\n102.4 h RR.Cultural [EE01] - 2kW [CULTURAL]\n106.1 h RR.Actualități [EE00] - 2kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -6360,7 +6375,7 @@
       },
       "properties": {
         "name": "Zalău / Meseș",
-        "description": "88.1 h RRActualități [EE00] - 10kW [RRACTUAL]\n92.5 h Radio Maria România [E1CC] - 2kW [R.MARIA]\n93.1 v Radio Trinitas [E24D] - 5kW [TRINITAS][93,1_FM_]\n94.6 h Radio Transilvania [EEEE] - 2kW [TRANSI__]\n97.7 v Virgin Radio [E05F] - 5kW [_VIRGIN_][97.7_FM_]\n101.6 h Digi FM [E059] - 10kW [Digi_FM_][101,6_FM]\n102.7 v Europa FM [E299] - 10kW [EUROPAFM][_102,7__]\n103.3 v City Radio - 200W [CITY_FM_]\n105.0 h RRCultural [EE01] - 10kW [CULTURAL]\n106.9 v Antena Satelor [EE09] - 2kW [ASATELOR]"
+        "description": "88.1 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n92.5 h Radio Maria România [E1CC] - 2kW [R.MARIA]\n93.1 v Radio Trinitas [E24D] - 5kW [TRINITAS][93,1_FM_]\n94.6 h Radio Transilvania [EEEE] - 2kW [TRANSI__]\n97.7 v Virgin Radio [E05F] - 5kW [_VIRGIN_][97.7_FM_]\n101.6 h Digi FM [E059] - 10kW [Digi_FM_][101,6_FM]\n102.7 v Europa FM [E299] - 10kW [EUROPAFM][_102,7__]\n103.3 v City Radio - 200W [CITY_FM_]\n105.0 h RR.Cultural [EE01] - 10kW [CULTURAL]\n106.9 v Antena Satelor [EE09] - 2kW [ASATELOR]"
       },
       "id": "E1MjU"
     },
@@ -6405,7 +6420,7 @@
       },
       "properties": {
         "name": "Zimnicea / Izvoarele",
-        "description": "90.1 h RRActualități [EE00] - 2kW [RRACTUAL]\n96.1 v Vibe FM [E222] - 2kW [TMRWLAND]\n107.3 h Europa FM [E299] - 2kW [EUROPAFM][_107.3__]"
+        "description": "90.1 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n96.1 v Vibe FM [E222] - 2kW [TMRWLAND]\n107.3 h Europa FM [E299] - 2kW [EUROPAFM][_107.3__]"
       },
       "id": "AyODQ"
     },
