@@ -130,7 +130,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     <div class="action-row">
         <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
         <button class="action-btn" onclick="toggleLogModal()">📓 Jurnal DX</button>
-        <a href="https://servers.fmdx.org/" target="_blank" class="action-btn">📻 TEF Servers</a>
+        <a href="https://www.youtube.com/@dragosdxing" target="_blank" class="action-btn">▶️ My Youtube</a>
     </div>
 </div>
 
@@ -182,7 +182,13 @@ var receiverIcon = L.icon({
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
 
-// --- SISTEM JURNAL DX (LOGBOOK) ---
+function saveReceiverPos(lat, lng) {
+    localStorage.setItem('savedReceiverPos', JSON.stringify({lat: lat, lng: lng}));
+}
+function clearReceiverPos() {
+    localStorage.removeItem('savedReceiverPos');
+}
+
 window.dxLog = JSON.parse(localStorage.getItem('dxLog') || '[]');
 
 window.addLogEntry = function(encodedLine, btnElem) {
@@ -192,7 +198,6 @@ window.addLogEntry = function(encodedLine, btnElem) {
         localStorage.setItem('dxLog', JSON.stringify(dxLog));
     }
     
-    // Feedback vizual pe buton
     if(btnElem) {
         let oldText = btnElem.innerText;
         btnElem.innerText = "✔ Salvat!";
@@ -229,7 +234,6 @@ window.clearLog = function() {
         document.getElementById('logContent').innerText = 'Jurnalul a fost șters.';
     }
 };
-// ------------------------------------
 
 const countyMap = {
     "Alba": "AB", "Arad": "AR", "Argeș": "AG", "Bacău": "BC", "Bihor": "BH", "Bistrița-Năsăud": "BN",
@@ -291,6 +295,36 @@ function bindReceiverPopup(lat, lng) {
     });
 }
 
+function attachReceiverEvents() {
+    receiverMarker.on("drag", updateLine);
+    receiverMarker.on("dragend", () => { 
+        let lat = receiverMarker.getLatLng().lat;
+        let lng = receiverMarker.getLatLng().lng;
+        bindReceiverPopup(lat, lng); 
+        saveReceiverPos(lat, lng);
+        tune(); 
+    });
+    receiverMarker.on("contextmenu", (ev) => {
+        L.DomEvent.stopPropagation(ev);
+        map.removeLayer(receiverMarker); receiverMarker = null;
+        if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
+        clearReceiverPos();
+        tune(); 
+    });
+}
+
+// Incarcare pozitie salvata la refresh cu protectie la erori
+try {
+    let savedPosStr = localStorage.getItem('savedReceiverPos');
+    if(savedPosStr) {
+        let pos = JSON.parse(savedPosStr);
+        let latlng = L.latLng(pos.lat, pos.lng);
+        receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
+        bindReceiverPopup(pos.lat, pos.lng);
+        attachReceiverEvents();
+    }
+} catch (e) { console.error("Eroare la incarcarea pozitiei receptorului:", e); }
+
 function locateUser() {
     let btn = document.getElementById("geoBtn");
     if (!navigator.geolocation) { alert("Geolocation is not supported by your browser."); return; }
@@ -305,14 +339,8 @@ function locateUser() {
         
         receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
         bindReceiverPopup(latitude, longitude);
-        
-        receiverMarker.on("drag", updateLine);
-        receiverMarker.on("dragend", () => { bindReceiverPopup(receiverMarker.getLatLng().lat, receiverMarker.getLatLng().lng); });
-        receiverMarker.on("contextmenu", (ev) => {
-            L.DomEvent.stopPropagation(ev);
-            map.removeLayer(receiverMarker); receiverMarker = null;
-            if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
-        });
+        attachReceiverEvents();
+        saveReceiverPos(latitude, longitude);
         
         map.setView(latlng, 10);
         btn.innerHTML = "📍 Geolocation";
@@ -516,12 +544,9 @@ function tune(){
             return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05;
         });
         
-        // --- Curățare descriere pentru Jurnal DX ---
-        // Scoatem brackeții de RDS [NUME] și orice tag HTML <b>, <span> etc.
         newF.properties._cleanDescLines = matched.map(s => {
             return s.replace(/\[.*?\]/g, '').replace(/<[^>]*>?/gm, '').trim();
         });
-        // -------------------------------------------
 
         let hasError = false;
         let formatted = matched.map(s => {
@@ -603,13 +628,20 @@ function tune(){
                     dHtml = `<div class="dist-info-popup">Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span></div>`;
                 }
 
-                // Generăm linia text pentru Logbook
                 let cleanLine = (feature.properties._cleanDescLines && feature.properties._cleanDescLines[0]) ? feature.properties._cleanDescLines[0] : `${freqValue} MHz`;
                 let distStr = distKm > 0 ? Math.round(distKm) + "km" : "";
                 
-                // Format: "90.0 h Digi FM 30kW - Focsani / Magura Odobesti 121km"
-                let logLine = `${cleanLine} - ${feature.properties.name} ${distStr}`.replace(/\s+/g, ' ').trim();
+                // --- Extragere puterea curată + eliminare cratime parazite ---
+                let powerRegex = /\s*(?:-?\s*)?([\d\.,]+\s*(?:W|kW))/i;
+                let powerMatch = cleanLine.match(powerRegex);
+                let pwrStr = powerMatch ? powerMatch[1] : "";
+                
+                let nameOnly = cleanLine.replace(powerRegex, '').trim();
+                nameOnly = nameOnly.replace(/\s*-\s*$/, '').trim(); // Șterge cratima rămasă la coadă, dacă există
+                
+                let logLine = `${nameOnly} - ${feature.properties.name} ${distStr} ${pwrStr}`.replace(/\s+/g, ' ').trim();
                 let safeLogLine = encodeURIComponent(logLine);
+                // -------------------------------------------------------------
 
                 return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br>
                         <button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>
@@ -626,15 +658,9 @@ map.on("contextmenu", (e) => {
     
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
     bindReceiverPopup(e.latlng.lat, e.latlng.lng);
-    
-    receiverMarker.on("drag", updateLine);
-    receiverMarker.on("dragend", () => { bindReceiverPopup(receiverMarker.getLatLng().lat, receiverMarker.getLatLng().lng); });
-
-    receiverMarker.on("contextmenu", (ev) => {
-        L.DomEvent.stopPropagation(ev);
-        map.removeLayer(receiverMarker); receiverMarker = null;
-        if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
-    });
+    attachReceiverEvents();
+    saveReceiverPos(e.latlng.lat, e.latlng.lng);
+    tune(); 
 });
 
 setInterval(() => {
