@@ -14,14 +14,8 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
 #map { height:100vh; width:100vw; }
 
 .error-badge { color: #ff4444 !important; font-weight: bold; }
-@keyframes blink-warning {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-.warning-emoji {
-    animation: blink-warning 1.5s infinite;
-}
-
+@keyframes blink-warning { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.warning-emoji { animation: blink-warning 1.5s infinite; }
 .error-icon-style { filter: hue-rotate(140deg) brightness(0.9) saturate(4); }
 
 #radioPanel {
@@ -90,13 +84,10 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 }
 
 .dist-val { color: #ffffff !important; font-weight: bold; }
-
 .cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
-
 .log-btn { background: #28a745; color: #fff; border: 1px solid #28a745; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 8px; transition: 0.2s; }
 .log-btn:active { background: #1e7e34; }
-.disabled-log { background: #444 !important; color: #888 !important; border-color: #444 !important; cursor: not-allowed !important; }
 
 #logModal {
     display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -114,10 +105,8 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .btn-clear { background: #ff4444; color: #fff; }
 
 .dist-info-popup { font-size: 12px; color: #aaa; margin-bottom: 8px; display: block; border-bottom: 1px solid #444; padding-bottom: 5px; }
-
 .receiver-popup .leaflet-popup-content { min-width: 10px !important; margin: 8px 12px; white-space: nowrap; text-align: center; font-size: 14px; }
 .receiver-popup .leaflet-popup-close-button { display: none; }
-
 .dark-osm { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
 
 #ro-clock {
@@ -133,7 +122,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 </head>
 
 <body>
-
 <div id="radioPanel">
     <div style="margin-bottom: 12px; font-size: 16px; text-align: center;"><b>📻 Control Panel</b></div>
     <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px;">
@@ -144,19 +132,16 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
         </div>
         <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
     </div>
-    
     <div style="margin-bottom: 15px;">
         <input id="searchInput" type="text" placeholder="Caută rețea, locație sau cod PI..." oninput="document.getElementById('freqInput').value=''; tune();">
     </div>
-
     <div style="display: flex; justify-content: center; gap: 8px;">
         <button id="btn-ro" class="countryBtn active" onclick="setCountry('ro')">Romania</button>
         <button id="btn-md" class="countryBtn" onclick="setCountry('md')">Moldova</button>
     </div>
-    
     <div class="action-row">
         <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
-        <button id="serialBtn" class="action-btn" onclick="connectTEF()" title="Conectează TEF6686 via USB">🔌 TEF USB</button>
+        <button id="serialBtn" class="action-btn" onclick="connectTEF()">🔌 TEF USB</button>
         <button class="action-btn" onclick="toggleLogModal()">📓 Jurnal DX</button>
         <a href="https://www.youtube.com/@dragosdxing" target="_blank" class="action-btn" style="width: 100%;">▶️ My Youtube</a>
     </div>
@@ -166,13 +151,13 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 <div id="logModal">
     <div class="log-header">
-        <span>📓 Jurnal DX Recepții</span>
-        <span class="close-modal" onclick="document.getElementById('logModal').style.display='none'">✖ Închide</span>
+        <span>📓 DX Reception Log</span>
+        <span class="close-modal" onclick="document.getElementById('logModal').style.display='none'">✖ Close</span>
     </div>
     <div id="logContent" class="log-list"></div>
     <div class="log-actions">
         <button class="btn-export" onclick="exportLog()">💾 Export TXT</button>
-        <button class="btn-clear" onclick="clearLog()">🗑️ Șterge Jurnalul</button>
+        <button class="btn-clear" onclick="clearLog()">🗑️ Clear Log</button>
     </div>
 </div>
 
@@ -180,600 +165,169 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 <script>
 var map = L.map('map', { tap: false }).setView([46.1, 26.5], 7);
-
-var esriSat = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
-var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
-var esriLayer = L.layerGroup([esriSat, esriLabels]);
-
-var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-    maxZoom: 19, 
-    attribution: '&copy; OpenStreetMap contributors',
-    className: 'dark-osm'
-});
-
-var topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { 
-    maxZoom: 17, 
-    attribution: 'Map data: &copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap (CC-BY-SA)' 
-});
-
+var esriLayer = L.layerGroup([L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'), L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}')]);
+var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { className: 'dark-osm' });
+var topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png');
 esriLayer.addTo(map);
+L.control.layers({"Satelit": esriLayer, "Dark": osmLayer, "Relief": topoLayer}, null, { position: 'bottomleft' }).addTo(map);
 
-var baseMaps = {
-    "Satelit (Esri)": esriLayer,
-    "Harta Clasică Dark (OSM)": osmLayer,
-    "Relief (OpenTopoMap)": topoLayer
-};
-L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
-
-var txIcon = L.icon({
-    iconUrl: 'tx.png', 
-    iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36], tooltipAnchor: [0, -36]
-});
-
-var receiverIcon = L.icon({
-    iconUrl: 'rx.png', 
-    iconSize: [36, 36],      
-    iconAnchor: [18, 18],    
-    popupAnchor: [0, -18]
-});
+var txIcon = L.icon({ iconUrl: 'tx.png', iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36] });
+var receiverIcon = L.icon({ iconUrl: 'rx.png', iconSize: [36, 36], iconAnchor: [18, 18], popupAnchor: [0, -18] });
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
+window.dxLog = JSON.parse(localStorage.getItem('dxLog') || '[]');
 
-let tefPort;
-let tefReader;
+let tefPort, tefReader;
 async function connectTEF() {
-    if (!('serial' in navigator)) {
-        alert("Browserul tău nu suportă Web Serial API. Folosește Chrome, Edge sau Opera pe PC.");
-        return;
-    }
+    if (!('serial' in navigator)) return alert("Browser mismatch.");
     try {
         tefPort = await navigator.serial.requestPort();
         await tefPort.open({ baudRate: 115200 });
-        let btn = document.getElementById('serialBtn');
-        btn.innerText = "🔌 TEF Activat!";
-        btn.style.background = "#28a745";
-        
+        document.getElementById('serialBtn').innerText = "🔌 TEF Active";
         const textDecoder = new TextDecoderStream();
         tefPort.readable.pipeTo(textDecoder.writable);
         tefReader = textDecoder.readable.getReader();
-        
         let buffer = "";
         while (true) {
             const { value, done } = await tefReader.read();
             if (done) break;
             buffer += value;
             let lines = buffer.split('\n');
-            buffer = lines.pop(); 
-            
+            buffer = lines.pop();
             for (let line of lines) {
                 let match = line.match(/\b(8[7-9]|9\d|10[0-8])[\.,]?\d{1,2}\b/);
                 if (match) {
                     let f = parseFloat(match[0].replace(',', '.'));
-                    if(f >= 875) f = f / 100; 
-                    let valRounded = f.toFixed(1);
-                    
-                    if (document.getElementById("freqInput").value !== valRounded) {
-                        document.getElementById("freqInput").value = valRounded;
-                        document.getElementById("searchInput").value = ""; 
-                        tune();
-                    }
+                    if(f >= 875) f /= 100;
+                    document.getElementById("freqInput").value = f.toFixed(1);
+                    tune();
                 }
             }
         }
-    } catch (e) {
-        console.error("Eroare la TEF USB:", e);
-        let btn = document.getElementById('serialBtn');
-        btn.innerText = "🔌 TEF USB";
-        btn.style.background = "transparent";
-    }
+    } catch (e) { console.error(e); }
 }
 
-function saveReceiverPos(lat, lng) {
-    localStorage.setItem('savedReceiverPos', JSON.stringify({lat: lat, lng: lng}));
-}
-function clearReceiverPos() {
-    localStorage.removeItem('savedReceiverPos');
-}
-
-window.dxLog = JSON.parse(localStorage.getItem('dxLog') || '[]');
-
+function saveReceiverPos(lat, lng) { localStorage.setItem('savedReceiverPos', JSON.stringify({lat, lng})); }
 window.addLogEntry = function(encodedLine, btnElem) {
     let line = decodeURIComponent(encodedLine);
-    if(!dxLog.includes(line)) {
-        dxLog.push(line);
-        localStorage.setItem('dxLog', JSON.stringify(dxLog));
-    }
-    
-    if(btnElem) {
-        let oldText = btnElem.innerText;
-        btnElem.innerText = "✔ Salvat!";
-        btnElem.style.background = "#1e7e34";
-        setTimeout(() => {
-            btnElem.innerText = oldText;
-            btnElem.style.background = "#28a745";
-        }, 1500);
-    }
+    if(!dxLog.includes(line)) { dxLog.push(line); localStorage.setItem('dxLog', JSON.stringify(dxLog)); }
+    if(btnElem) { btnElem.innerText = "✔ Saved!"; setTimeout(() => btnElem.innerText = "✅ Log Station", 1500); }
 };
 
 window.toggleLogModal = function() {
     let modal = document.getElementById('logModal');
     let content = document.getElementById('logContent');
-    content.innerText = dxLog.length > 0 ? dxLog.join('\n') : 'Nicio recepție salvată încă.\nDă click pe "✅ Log Station" din popup-ul unui emițător de pe hartă.';
+    // MESAJUL CERUT IN ENGLEZA:
+    content.innerText = dxLog.length > 0 ? dxLog.join('\n') : 'DX Log / Log Reception only works in Frequency Mode.\nSelect a frequency or search for a station to log your reception.';
     modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
 };
 
 window.exportLog = function() {
-    if(dxLog.length === 0) return alert("Jurnalul este gol!");
-    let text = dxLog.join('\n');
-    let blob = new Blob([text], { type: "text/plain" });
-    let a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    let dateStr = new Date().toISOString().slice(0,10);
-    a.download = "DX_Log_" + dateStr + ".txt";
-    a.click();
+    let blob = new Blob([dxLog.join('\n')], { type: "text/plain" });
+    let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = "DX_Log.txt"; a.click();
 };
 
-window.clearLog = function() {
-    if(confirm("Ești sigur că vrei să ștergi tot jurnalul? Acțiunea e ireversibilă!")) {
-        dxLog = [];
-        localStorage.removeItem('dxLog');
-        document.getElementById('logContent').innerText = 'Jurnalul a fost șters.';
-    }
-};
-
-const countyMap = {
-    "Alba": "AB", "Arad": "AR", "Argeș": "AG", "Bacău": "BC", "Bihor": "BH", "Bistrița-Năsăud": "BN",
-    "Botoșani": "BT", "Brașov": "BV", "Brăila": "BR", "Buzău": "BZ", "Caraș-Severin": "CS",
-    "Călărași": "CL", "Cluj": "CJ", "Constanța": "CT", "Covasna": "CV", "Dâmbovița": "DB",
-    "Dolj": "DJ", "Galați": "GL", "Giurgiu": "GR", "Gorj": "GJ", "Harghita": "HR",
-    "Hunedoara": "HD", "Ialomița": "IL", "Iași": "IS", "Ilfov": "IF", "Maramureș": "MM",
-    "Mehedinți": "MH", "Mureș": "MS", "Neamț": "NT", "Olt": "OT", "Prahova": "PH",
-    "Satu Mare": "SM", "Sălaj": "SJ", "Sibiu": "SB", "Suceava": "SV", "Teleorman": "TR",
-    "Timiș": "TM", "Tulcea": "TL", "Vaslui": "VS", "Vâlcea": "VL", "Vrancea": "VN",
-    "București": "B", "Municipiul București": "B"
-};
+window.clearLog = function() { if(confirm("Clear log?")) { dxLog = []; localStorage.removeItem('dxLog'); toggleLogModal(); toggleLogModal(); } };
 
 function getDynamicRDS(text) {
-    let now = new Date();
-    let hh = String(now.getHours()).padStart(2, '0');
-    let mm = String(now.getMinutes()).padStart(2, '0');
-    let ss = String(now.getSeconds()).padStart(2, '0');
-    let dd = String(now.getDate()).padStart(2, '0');
-    let mo = String(now.getMonth() + 1).padStart(2, '0');
-    let yy = String(now.getFullYear()).slice(-2);
-    
-    return text
-        .replace(/_h:mm:ss/gi, `${hh}:${mm}:${ss}`)
-        .replace(/hh:mm:ss/gi, `${hh}:${mm}:${ss}`)
-        .replace(/h:mm:ss/gi, `${hh}:${mm}:${ss}`)
-        .replace(/HH:MM/gi, `${hh}:${mm}`)
-        .replace(/DD\.MM\.YY/gi, `${dd}.${mo}.${yy}`);
+    let now = new Date(), hh = String(now.getHours()).padStart(2, '0'), mm = String(now.getMinutes()).padStart(2, '0'), ss = String(now.getSeconds()).padStart(2, '0');
+    return text.replace(/hh:mm:ss/gi, `${hh}:${mm}:${ss}`).replace(/HH:MM/gi, `${hh}:${mm}`);
 }
-
-function formatDistance(km){ return km < 1 ? Math.round(km * 1000) + " m" : Math.round(km) + " km"; }
-
-function updateLine() {
-    if (receiverMarker && currentTxCoords && distanceLine) {
-        distanceLine.setLatLngs([receiverMarker.getLatLng(), currentTxCoords]);
-    }
-}
-
-async function getLocationName(lat, lon){
-    try {
-        let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
-        let r = await fetch(url, { headers: { "Accept": "application/json" } });
-        let data = await r.json();
-        if(!data.address) return "Unknown location";
-        
-        let locName = data.address.city || data.address.town || data.address.village || data.address.municipality || "Unknown";
-        let county = data.address.county || "";
-        county = county.replace("Județul ", "").replace(" County", "").trim();
-        
-        let abr = countyMap[county];
-        return abr ? `${locName}, ${abr}` : locName;
-    } catch { return "Unknown location"; }
-}
-
-function bindReceiverPopup(lat, lng) {
-    receiverMarker.bindPopup("<b>⏳ Searching...</b>", { className: 'receiver-popup', autoClose: false, closeOnClick: false }).openPopup();
-    getLocationName(lat, lng).then(name => {
-        if (receiverMarker) receiverMarker.setPopupContent(`<b>📍 ${name}</b>`);
-    });
-}
-
-function attachReceiverEvents() {
-    receiverMarker.on("drag", updateLine);
-    receiverMarker.on("dragend", () => { 
-        let lat = receiverMarker.getLatLng().lat;
-        let lng = receiverMarker.getLatLng().lng;
-        bindReceiverPopup(lat, lng); 
-        saveReceiverPos(lat, lng);
-        tune(); 
-    });
-    receiverMarker.on("contextmenu", (ev) => {
-        L.DomEvent.stopPropagation(ev);
-        map.removeLayer(receiverMarker); receiverMarker = null;
-        if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
-        clearReceiverPos();
-        tune(); 
-    });
-}
-
-try {
-    let savedPosStr = localStorage.getItem('savedReceiverPos');
-    if(savedPosStr) {
-        let pos = JSON.parse(savedPosStr);
-        let latlng = L.latLng(pos.lat, pos.lng);
-        receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-        bindReceiverPopup(pos.lat, pos.lng);
-        attachReceiverEvents();
-    }
-} catch (e) { console.error("Eroare la incarcarea pozitiei receptorului:", e); }
-
-function locateUser() {
-    let btn = document.getElementById("geoBtn");
-    if (!navigator.geolocation) { alert("Geolocation is not supported by your browser."); return; }
-    
-    btn.innerHTML = "⏳ Locating...";
-    navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        const latlng = L.latLng(latitude, longitude);
-        
-        if (receiverMarker) map.removeLayer(receiverMarker);
-        if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
-        
-        receiverMarker = L.marker(latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-        bindReceiverPopup(latitude, longitude);
-        attachReceiverEvents();
-        saveReceiverPos(latitude, longitude);
-        
-        map.setView(latlng, 10);
-        btn.innerHTML = "📍 Geolocation";
-        tune(); 
-    }, () => {
-        alert("Unable to retrieve your location.");
-        btn.innerHTML = "📍 Geolocation";
-    });
-}
-
-document.getElementById('freqInput').addEventListener('input', function(e) {
-    document.getElementById('searchInput').value = ''; 
-    let val = e.target.value.replace(/[^0-9.]/g, '');
-    if (val.length >= 3 && !val.includes('.')) {
-        if (val.length === 3 || val.length === 4) val = (parseFloat(val) / 10).toFixed(1);
-        else if (val.length === 5) val = (parseFloat(val) / 100).toFixed(1);
-    }
-    if (val > 108) val = 108;
-    e.target.value = val; 
-    tune(); 
-});
-
-function generateIrregularPolygon(lat, lng, radiusMeters, color, opacity, seedOffset) {
-    let points = [];
-    let numPoints = 80;
-    let deg2rad = Math.PI / 180;
-    
-    for (let i = 0; i < numPoints; i++) {
-        let angle = (i * 360 / numPoints);
-        let radAngle = angle * deg2rad;
-        let noise = Math.sin(radAngle * 1 + lat + seedOffset) * 0.20 + 
-                    Math.cos(radAngle * 2 + lng - seedOffset) * 0.15 + 
-                    Math.sin(radAngle * 3 + lat * lng) * 0.05;
-        let r = radiusMeters * (1 + noise);
-        let dLat = (r * Math.cos(radAngle)) / 111320;
-        let dLng = (r * Math.sin(radAngle)) / (111320 * Math.cos(lat * deg2rad));
-        points.push([lat + dLat, lng + dLng]);
-    }
-    return L.polygon(points, { color: color, weight: 0, fillColor: color, fillOpacity: opacity, interactive: false });
-}
-
-window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr) {
-    let id = lat + "_" + lng;
-    let btn = document.getElementById(btnId);
-    
-    if (activeCoverages[id]) {
-        map.removeLayer(activeCoverages[id]);
-        delete activeCoverages[id];
-        if(btn) { btn.innerText = "📶 Show Coverage"; btn.classList.remove('active-cov'); }
-        return;
-    }
-    
-    let content = "";
-    if (btn && btn.closest('.leaflet-popup-content')) {
-        content = btn.closest('.leaflet-popup-content').innerText.toLowerCase();
-    }
-    
-    let isCostila = (lat > 45.40 && lat < 45.45 && lng > 25.43 && lng < 25.49);
-    let isPietrarie = (lat > 47.05 && lat < 47.15 && lng > 27.58 && lng < 27.68);
-    let isOdobesti = (lat > 45.75 && lat < 45.90 && lng > 26.85 && lng < 27.10); 
-    let isCahul = (lat > 45.80 && lat < 46.10 && lng > 28.00 && lng < 28.40);
-    let isBucuresti = (lat > 44.35 && lat < 44.55 && lng > 25.95 && lng < 26.25);
-    let isSoveja = (lat > 45.95 && lat < 46.10 && lng > 26.50 && lng < 26.80);
-    let isBuzau = (lat > 45.05 && lat < 45.25 && lng > 26.65 && lng < 26.95);
-    
-    let customImg = null;
-    let customBounds = null;
-
-    if (isCostila) {
-        customImg = 'NAUTELA1AE32340D0_0.png';
-        customBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
-    } else if (isPietrarie) {
-        if (content.includes("pietrărie") || content.includes("pietrarie")) {
-            customImg = 'pietrarie100.png';
-            customBounds = [[44.3881, 23.68446], [49.78402, 31.60917]];
-        }
-    } else if (isOdobesti) {
-        customImg = 'mgod500.png'; 
-        customBounds = [[44.95775, 25.65839], [46.7564, 28.24097]]; 
-        if (content.includes("90.0") || content.includes("digi")) {
-            customImg = 'mgod30k.png';
-            customBounds = [[43.15911, 23.0758], [48.55504, 30.82356]];
-        } else if (content.includes("101.0") || content.includes("102.5") || content.includes("cultural") || content.includes("actualit")) {
-            customImg = 'mgod50k.png';
-            customBounds = [[43.15911, 23.0758], [48.55504, 30.82356]];
-        } else if (content.includes("97.0") || content.includes("focus")) {
-            customImg = 'mgod10k.png';
-            customBounds = [[44.50809, 25.01274], [47.20606, 28.88662]];
-        }
-    } else if (isCahul) {
-        customImg = 'cahul_893.png'; 
-        customBounds = [[45.03565, 26.98287], [46.83429, 29.56908]]; 
-        if (content.includes("105.2")) {
-            customImg = 'cahul_1052.png';
-            customBounds = [[43.23701, 24.39666], [48.63293, 32.15529]];
-        } else if (content.includes("100.7")) {
-            customImg = 'cahul_1007.png';
-            customBounds = [[43.23701, 24.39666], [48.63293, 32.15529]];
-        } else if (content.includes("107.7")) {
-            customImg = 'cahul_1077.png';
-            customBounds = [[43.23701, 24.39666], [48.63293, 32.15529]];
-        } else if (content.includes("98.9")) {
-            customImg = 'cahul_989.png';
-            customBounds = [[44.13633, 25.68977], [47.73362, 30.86219]];
-        } else if (content.includes("93.3") || content.includes("98.2")) {
-            customImg = 'cahul_933.png';
-            customBounds = [[43.68667, 25.04321], [48.18327, 31.50874]];
-        } else if (content.includes("91.5") || content.includes("92.6")) {
-            customImg = 'cahul_915.png';
-            customBounds = [[44.58599, 26.33632], [47.28395, 30.21563]];
-        } else if (content.includes("90.4")) {
-            customImg = 'cahul_904.png';
-            customBounds = [[44.13633, 25.68977], [47.73362, 30.86219]];
-        }
-    } else if (isBucuresti) {
-        if (content.includes("98.3") || content.includes("101.3") || content.includes("105.3")) {
-            customImg = 'srr_buc.png';
-            customBounds = [[41.77889, 22.26954], [47.17482, 29.83181]];
-        } else if (content.includes("104.8")) {
-            customImg = 'muzical_buc.png';
-            customBounds = [[42.67821, 23.52992], [46.2755, 28.57143]];
-        } else if (content.includes("97.9")) {
-            customImg = 'digi_buc.png';
-            customBounds = [[42.67821, 23.52992], [46.2755, 28.57143]];
-        }
-    } else if (isSoveja) {
-        if (content.includes("88.2")) {
-            customImg = 'soveja.png';
-            customBounds = [[45.54622, 26.01305], [46.44555, 27.30758]];
-        }
-    } else if (isBuzau) {
-        if (content.includes("93.8")) {
-            customImg = 'focusbz.png';
-            customBounds = [[44.25151, 25.53797], [46.05016, 28.08836]];
-        } else if (content.includes("94.7") || content.includes("106.2")) {
-            customImg = 'probz.png';
-            customBounds = [[44.25333, 25.54284], [46.05197, 28.09331]];
-        } else if (content.includes("100.3")) {
-            customImg = 'efm_bz.png';
-            customBounds = [[43.79417, 24.89551], [46.49214, 28.72058]];
-        } else if (content.includes("102.7")) {
-            customImg = 'vibe_bz.png';
-            customBounds = [[44.69349, 26.17053], [45.59282, 27.44555]];
-        } else if (content.includes("98.0")) {
-            customImg = 'campus_bz.png';
-            customBounds = [[44.71001, 26.18438], [45.60933, 27.45977]];
-        } else if (content.includes("105.6")) {
-            customImg = 'magicbz.png';
-            customBounds = [[43.807, 24.90314], [46.50497, 28.72907]];
-        }
-    }
-    
-    if (customImg && customBounds) {
-        activeCoverages[id] = L.imageOverlay(customImg, customBounds, { opacity: 0.65, interactive: false }).addTo(map);
-    } else if (imgPath && boundsStr) {
-        let bounds = JSON.parse(boundsStr);
-        activeCoverages[id] = L.imageOverlay(imgPath, bounds, { opacity: 0.65, interactive: false }).addTo(map);
-    } else {
-        let rStrong = (Math.pow(powerWatts, 0.32) * 3.2) * 1000;
-        let rWeak = (Math.pow(powerWatts, 0.32) * 4.8) * 1000;
-        activeCoverages[id] = L.layerGroup([
-            generateIrregularPolygon(lat, lng, Math.min(rWeak, 200000), '#ffff00', 0.15, 1),
-            generateIrregularPolygon(lat, lng, Math.min(rStrong, 140000), '#00ff00', 0.25, 2)
-        ]).addTo(map);
-    }
-    
-    if(btn) { btn.innerText = "❌ Hide Coverage"; btn.classList.add('active-cov'); }
-};
 
 function tune(){
-    let freqValue = document.getElementById("freqInput").value;
-    let freq = parseFloat(freqValue);
+    let freqValue = document.getElementById("freqInput").value, freq = parseFloat(freqValue);
     let searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
     let isDefaultView = isNaN(freq) && !searchTerm;
-    
-    if (!isDefaultView) {
-        if (searchTerm) window.history.replaceState(null, '', '?q=' + encodeURIComponent(searchTerm));
-        else if (!isNaN(freq)) window.history.replaceState(null, '', '?freq=' + freqValue);
-    } else {
-        window.history.replaceState(null, '', window.location.pathname);
-    }
     
     if(geoLayer) map.removeLayer(geoLayer);
     for (let k in activeCoverages) map.removeLayer(activeCoverages[k]);
     activeCoverages = {};
-    if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
 
     let regexFM = /\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/;
-    const errorKeywords = ["(**NO AUDIO**)", "(*BLANK CARRIER*)", "(**OFF**)", "(*NO AUDIO*)"];
-
     let filtered = allStations.filter(f => {
-        let desc = f.properties.description || "";
-        let name = f.properties.name || "";
         if (isDefaultView) return true;
-        if (searchTerm) return name.toLowerCase().includes(searchTerm) || desc.toLowerCase().includes(searchTerm);
-        else {
-            let matches = desc.match(new RegExp(regexFM, "g"));
-            return matches && matches.some(m => Math.abs(parseFloat(m.replace(",", ".")) - freq) <= 0.05);
-        }
+        let d = f.properties.description || "", n = f.properties.name || "";
+        if (searchTerm) return n.toLowerCase().includes(searchTerm) || d.toLowerCase().includes(searchTerm);
+        let matches = d.match(new RegExp(regexFM, "g"));
+        return matches && matches.some(m => Math.abs(parseFloat(m.replace(",", ".")) - freq) <= 0.05);
     }).map(f => {
         let newF = JSON.parse(JSON.stringify(f));
         let stations = newF.properties.description.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi).filter(s => s.trim() !== "");
-        let matched;
-        if (isDefaultView) matched = stations;
-        else if (searchTerm) matched = newF.properties.name.toLowerCase().includes(searchTerm) ? stations : stations.filter(s => s.toLowerCase().includes(searchTerm));
-        else matched = stations.filter(s => { let m = s.match(regexFM); return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05; });
+        let matched = isDefaultView ? stations : (searchTerm ? stations.filter(s => s.toLowerCase().includes(searchTerm) || newF.properties.name.toLowerCase().includes(searchTerm)) : stations.filter(s => { let m = s.match(regexFM); return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05; }));
         
-        newF.properties._cleanDescLines = matched.map(s => s.replace(/\[.*?\]/g, '').replace(/<[^>]*>?/gm, '').trim());
-        let hasError = false;
-        let formatted = matched.map(s => {
-            let res = s;
-            errorKeywords.forEach(k => { if (res.includes(k)) { hasError = true; res = res.replace(k, `<span class="warning-emoji">⚠️</span> <span class="error-badge">${k}</span> <span class="warning-emoji">⚠️</span>`); } });
-            res = res.replace(new RegExp(regexFM, "g"), "<b>$&</b>");
-            res = res.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)/, function(match, p, rds) {
-                let rdsMatch = rds.match(/\[([^\]]+)\]/g);
-                if(!rdsMatch) return match;
-                let frames = rdsMatch.map(x => x.slice(1,-1));
-                return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${getDynamicRDS(frames[0])}]</span>`;
+        newF.properties._cleanLine = matched[0] ? matched[0].replace(/\[.*?\]/g, '').replace(/<[^>]*>?/gm, '').trim() : "";
+        newF.properties._processedDesc = matched.map(s => {
+            let res = s.replace(new RegExp(regexFM, "g"), "<b>$&</b>");
+            return res.replace(/(W|kW)\s*((?:\[[^\]]+\]\s*)+)/i, (m, p, rds) => {
+                let frames = (rds.match(/\[([^\]]+)\]/g) || []).map(x => x.slice(1,-1));
+                return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${getDynamicRDS(frames[0]||"")}]</span>`;
             });
-            return res;
-        });
-        newF.properties._processedDesc = formatted.join("<br><hr>");
-        newF.properties._hasError = hasError;
+        }).join("<br><hr>");
         return newF;
     });
 
     geoLayer = L.geoJSON({ type: "FeatureCollection", features: filtered }, {
-        pointToLayer: (feature, latlng) => {
-            let m = L.marker(latlng, {icon: txIcon});
-            if(feature.properties._hasError) m.on('add', function(){ this._icon.classList.add('error-icon-style'); });
-            return m;
-        },
+        pointToLayer: (f, ll) => L.marker(ll, {icon: txIcon}),
         onEachFeature: (feature, layer) => {
             let latlng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
-            let powerWatts = 100;
-            let pMatch = (feature.properties._processedDesc || "").match(/([\d\.,]+)\s*(W|kW)/i);
-            if(pMatch) { let val = parseFloat(pMatch[1].replace(",", ".")); powerWatts = pMatch[2].toLowerCase() === "kw" ? val * 1000 : val; }
-
-            layer.bindTooltip("", { direction: 'top', sticky: true });
-            let updateTooltipContent = () => {
-                let content = `<b>${feature.properties.name}</b>`;
-                if(receiverMarker) {
-                    let d = map.distance(receiverMarker.getLatLng(), latlng)/1000;
-                    let b = bearing(receiverMarker.getLatLng(), latlng).toFixed(0);
-                    content += `<br>Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span>`;
-                }
-                layer.setTooltipContent(content);
-            };
-            layer.on('mouseover click', updateTooltipContent);
-            layer.on("contextmenu", (e) => {
-                L.DomEvent.stopPropagation(e);
-                if(!receiverMarker) return;
-                currentTxCoords = latlng;
-                if(distanceLine) map.removeLayer(distanceLine);
-                distanceLine = L.polyline([receiverMarker.getLatLng(), latlng], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
-                layer.openPopup();
-                map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
-            });
-
-            let btnId = "cov_" + (latlng.lat + latlng.lng).toString().replace(".","");
             layer.bindPopup(() => {
                 let dHtml = "", distKm = 0;
                 if (receiverMarker) {
                     let d = map.distance(receiverMarker.getLatLng(), latlng)/1000; distKm = d;
-                    let b = bearing(receiverMarker.getLatLng(), latlng).toFixed(0);
-                    dHtml = `<div class="dist-info-popup">Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span></div>`;
+                    dHtml = `<div class="dist-info-popup">Dist: <span class="dist-val">${d < 1 ? Math.round(d*1000)+"m" : Math.round(d)+"km"}</span></div>`;
                 }
-                let cleanLine = (feature.properties._cleanDescLines && feature.properties._cleanDescLines[0]) ? feature.properties._cleanDescLines[0] : `Post FM`;
-                let distStr = distKm > 0 ? Math.round(distKm) + "km" : "";
-                let powerRegex = /\s*(?:-?\s*)?([\d\.,]+\s*(?:W|kW))/i;
-                let powerMatch = cleanLine.match(powerRegex);
-                let pwrStr = powerMatch ? powerMatch[1] : "";
-                let nameOnly = cleanLine.replace(powerRegex, '').trim().replace(/\s*-\s*$/, '').trim(); 
-                let logLine = `${nameOnly} - ${feature.properties.name} ${distStr} ${pwrStr}`.replace(/\s+/g, ' ').trim();
-                let logBtnHtml = receiverMarker ? `<button class="log-btn" onclick="addLogEntry('${encodeURIComponent(logLine)}', this)">✅ Log Station</button>` : `<button class="log-btn disabled-log" disabled>📍 Așează receptorul pt. Log</button>`;
+                
+                // LOGICA DE ASCUNDERE BUTOANE
+                let coverageBtn = isDefaultView ? "" : `<button class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, 100, 'c${latlng.lat}')">📶 Show Coverage</button>`;
+                let logLine = encodeURIComponent(`${feature.properties._cleanLine} - ${feature.properties.name} ${distKm>0?Math.round(distKm)+'km':''}`);
+                let logBtn = (isDefaultView || !receiverMarker) ? "" : `<button class="log-btn" onclick="addLogEntry('${logLine}', this)">✅ Log Station</button>`;
 
-                // LOGICA NOUA: Afisam butonul de Coverage doar daca NU suntem in modul "Toate posturile"
-                let coverageBtnHtml = isDefaultView ? "" : `<button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>`;
-
-                return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br>
-                        ${coverageBtnHtml}
-                        ${logBtnHtml}`;
+                return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br>${coverageBtn}${logBtn}`;
             });
         }
     }).addTo(map);
 }
 
-map.on("contextmenu", (e) => {
-    if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
-    if(receiverMarker) map.removeLayer(receiverMarker);
-    if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
-    receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
-    bindReceiverPopup(e.latlng.lat, e.latlng.lng);
-    attachReceiverEvents();
-    saveReceiverPos(e.latlng.lat, e.latlng.lng);
-    tune(); 
-});
-
-setInterval(() => {
-    document.querySelectorAll('.rds-box').forEach(box => {
-        let frames = JSON.parse(decodeURIComponent(box.dataset.frames));
-        let idx = parseInt(box.dataset.idx);
-        if (frames.length > 1) { idx = (idx + 1) % frames.length; box.dataset.idx = idx; }
-        box.innerText = `[${getDynamicRDS(frames[idx])}]`;
-    });
-}, 2500);
-
 function stepFreq(delta) {
-    document.getElementById("searchInput").value = ""; 
-    let i = document.getElementById("freqInput");
-    let v = parseFloat(i.value);
-    if (isNaN(v)) v = delta > 0 ? 87.5 - delta : 108 - delta;
-    v += delta;
-    i.value = (v < 87.5 ? 108 : (v > 108 ? 87.5 : v)).toFixed(1);
+    let i = document.getElementById("freqInput"), v = parseFloat(i.value) || 87.5;
+    v += delta; i.value = (v < 87.5 ? 108 : (v > 108 ? 87.5 : v)).toFixed(1);
     tune();
 }
 
 function setCountry(c){
-    document.getElementById("btn-ro").className = (c=='ro'?'countryBtn active':'countryBtn');
-    document.getElementById("btn-md").className = (c=='md'?'countryBtn active':'countryBtn');
-    fetch(c=='ro'?'fm.json':'fm_md.json')
-        .then(r => { if(!r.ok) throw new Error("File not found"); return r.json(); })
-        .then(d => { allStations=d.features; tune(); })
-        .catch(err => { alert("⚠️ Eroare: Nu s-a putut încărca fișierul JSON."); console.error(err); });
+    fetch(c=='ro'?'fm.json':'fm_md.json').then(r => r.json()).then(d => { allStations=d.features; tune(); });
+    document.getElementById("btn-ro").className = c=='ro'?'countryBtn active':'countryBtn';
+    document.getElementById("btn-md").className = c=='md'?'countryBtn active':'countryBtn';
 }
 
-function bearing(a, b){
-    let l1=a.lat*Math.PI/180, l2=b.lat*Math.PI/180, dl=(b.lng-a.lng)*Math.PI/180;
-    return (Math.atan2(Math.sin(dl)*Math.cos(l2), Math.cos(l1)*Math.sin(l2)-Math.sin(l1)*Math.cos(l2)*Math.cos(dl))*180/Math.PI+360)%360;
+function locateUser() {
+    navigator.geolocation.getCurrentPosition(p => {
+        let ll = L.latLng(p.coords.latitude, p.coords.longitude);
+        if(receiverMarker) map.removeLayer(receiverMarker);
+        receiverMarker = L.marker(ll, {icon: receiverIcon, draggable: true}).addTo(map);
+        saveReceiverPos(ll.lat, ll.lng); tune();
+    });
 }
 
-function updateClock() {
-    let d = new Date();
-    let formatter = new Intl.DateTimeFormat('ro-RO', { timeZone: 'Europe/Bucharest', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-    let offsetFormatter = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', timeZoneName: 'shortOffset' });
-    let tzName = offsetFormatter.format(d).includes('+3') ? 'EEST' : 'EET';
-    document.getElementById('ro-clock').innerHTML = `${formatter.format(d)} <span class="tz-label">${tzName}</span>`;
-}
-setInterval(updateClock, 1000);
-updateClock();
+setInterval(() => {
+    document.querySelectorAll('.rds-box').forEach(box => {
+        let frames = JSON.parse(decodeURIComponent(box.dataset.frames));
+        if(frames.length < 2) return;
+        let idx = (parseInt(box.dataset.idx) + 1) % frames.length;
+        box.dataset.idx = idx; box.innerText = `[${getDynamicRDS(frames[idx])}]`;
+    });
+}, 2500);
 
 window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if(urlParams.has('freq')) document.getElementById('freqInput').value = urlParams.get('freq');
-    else if(urlParams.has('q')) { document.getElementById('searchInput').value = urlParams.get('q'); document.getElementById('freqInput').value = ''; }
-    else document.getElementById('freqInput').value = '';
+    let saved = localStorage.getItem('savedReceiverPos');
+    if(saved) { let p = JSON.parse(saved); receiverMarker = L.marker([p.lat, p.lng], {icon: receiverIcon, draggable: true}).addTo(map); }
     setCountry('ro');
 });
+
+setInterval(() => {
+    let d = new Date();
+    document.getElementById('ro-clock').innerHTML = d.toLocaleTimeString('ro-RO') + ' <span class="tz-label">EET</span>';
+}, 1000);
 </script>
 </body>
 </html>
