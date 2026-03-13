@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <title>FM Map Romania & Moldova</title>
@@ -146,7 +146,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     </div>
     
     <div style="margin-bottom: 15px;">
-        <input id="searchInput" type="text" placeholder="Caută rețea, locație sau cod PI..." oninput="document.getElementById('freqInput').value=''; tune();">
+        <input id="searchInput" type="text" placeholder="Search network, location or PI code..." oninput="document.getElementById('freqInput').value=''; tune();">
     </div>
 
     <div style="display: flex; justify-content: center; gap: 8px;">
@@ -156,7 +156,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     
     <div class="action-row">
         <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
-        <button class="action-btn" onclick="toggleLogModal()">📓 Jurnal DX</button>
+        <button class="action-btn" onclick="toggleLogModal()">📓 DX Log</button>
         <a href="https://www.youtube.com/@dragosdxing" target="_blank" class="action-btn">▶️ My Youtube</a>
     </div>
 </div>
@@ -165,13 +165,13 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 <div id="logModal">
     <div class="log-header">
-        <span>📓 Jurnal DX Recepții</span>
-        <span class="close-modal" onclick="document.getElementById('logModal').style.display='none'">✖ Închide</span>
+        <span>📓 DX Reception Log</span>
+        <span class="close-modal" onclick="document.getElementById('logModal').style.display='none'">✖ Close</span>
     </div>
     <div id="logContent" class="log-list"></div>
     <div class="log-actions">
         <button class="btn-export" onclick="exportLog()">💾 Export TXT</button>
-        <button class="btn-clear" onclick="clearLog()">🗑️ Șterge Jurnalul</button>
+        <button class="btn-clear" onclick="clearLog()">🗑️ Clear Log</button>
     </div>
 </div>
 
@@ -198,9 +198,9 @@ var topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', 
 esriLayer.addTo(map);
 
 var baseMaps = {
-    "Satelit (Esri)": esriLayer,
-    "Harta Clasică Dark (OSM)": osmLayer,
-    "Relief (OpenTopoMap)": topoLayer
+    "Satellite (Esri)": esriLayer,
+    "Classic Dark Map (OSM)": osmLayer,
+    "Terrain (OpenTopoMap)": topoLayer
 };
 L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
 
@@ -236,7 +236,7 @@ window.addLogEntry = function(encodedLine, btnElem) {
     
     if(btnElem) {
         let oldText = btnElem.innerText;
-        btnElem.innerText = "✔ Salvat!";
+        btnElem.innerText = "✔ Saved!";
         btnElem.style.background = "#1e7e34";
         setTimeout(() => {
             btnElem.innerText = oldText;
@@ -253,7 +253,7 @@ window.toggleLogModal = function() {
 };
 
 window.exportLog = function() {
-    if(dxLog.length === 0) return alert("Jurnalul este gol!");
+    if(dxLog.length === 0) return alert("The log is empty!");
     let text = dxLog.join('\n');
     let blob = new Blob([text], { type: "text/plain" });
     let a = document.createElement('a');
@@ -264,10 +264,10 @@ window.exportLog = function() {
 };
 
 window.clearLog = function() {
-    if(confirm("Ești sigur că vrei să ștergi tot jurnalul? Acțiunea e ireversibilă!")) {
+    if(confirm("Are you sure you want to clear the entire log? This action is irreversible!")) {
         dxLog = [];
         localStorage.removeItem('dxLog');
-        document.getElementById('logContent').innerText = 'Jurnalul a fost șters.';
+        document.getElementById('logContent').innerText = 'The log has been cleared.';
     }
 };
 
@@ -358,7 +358,7 @@ try {
         bindReceiverPopup(pos.lat, pos.lng);
         attachReceiverEvents();
     }
-} catch (e) { console.error("Eroare la incarcarea pozitiei receptorului:", e); }
+} catch (e) { console.error("Error loading receiver position:", e); }
 
 function locateUser() {
     let btn = document.getElementById("geoBtn");
@@ -684,7 +684,7 @@ function tune(){
                     dHtml = `<div class="dist-info-popup">Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span></div>`;
                 }
 
-                let cleanLine = (feature.properties._cleanDescLines && feature.properties._cleanDescLines[0]) ? feature.properties._cleanDescLines[0] : `Post FM`;
+                let cleanLine = (feature.properties._cleanDescLines && feature.properties._cleanDescLines[0]) ? feature.properties._cleanDescLines[0] : `FM Station`;
                 let distStr = distKm > 0 ? Math.round(distKm) + "km" : "";
                 
                 let powerRegex = /\s*(?:-?\s*)?([\d\.,]+\s*(?:W|kW))/i;
@@ -704,7 +704,7 @@ function tune(){
                     if (receiverMarker) {
                         logBtnHtml = `<button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
                     } else {
-                        logBtnHtml = `<button class="log-btn disabled-log" disabled>📍 Așează receptorul pt. Log</button>`;
+                        logBtnHtml = `<button class="log-btn disabled-log" disabled>📍 Place receiver to log</button>`;
                     }
                 }
 
@@ -770,7 +770,7 @@ function setCountry(c){
         })
         .then(d => { allStations=d.features; tune(); })
         .catch(err => {
-            alert("⚠️ Eroare: Nu s-a putut încărca fișierul JSON.");
+            alert("⚠️ Error: Could not load the JSON file.");
             console.error(err);
         });
 }
