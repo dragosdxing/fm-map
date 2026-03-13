@@ -129,6 +129,13 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     text-align: center; letter-spacing: 1px;
 }
 .tz-label { font-size: 14px; font-family: Arial, sans-serif; color: #aaa; margin-left: 5px; }
+
+/* Styles for the Only Marked checkbox */
+.checkbox-container {
+    margin-top: 8px; text-align: center; font-size: 13px; color: #ccc;
+}
+.checkbox-container label { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.checkbox-container input { cursor: pointer; }
 </style>
 </head>
 
@@ -147,6 +154,11 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     
     <div style="margin-bottom: 15px;">
         <input id="searchInput" type="text" placeholder="Search network, location or PI code..." oninput="document.getElementById('freqInput').value=''; tune();">
+        <div class="checkbox-container">
+            <label>
+                <input type="checkbox" id="onlyMarkedChk" onchange="applyOnlyMarked()"> Only Marked
+            </label>
+        </div>
     </div>
 
     <div style="display: flex; justify-content: center; gap: 8px;">
@@ -217,6 +229,29 @@ var receiverIcon = L.icon({
 });
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
+
+// Function to handle showing ONLY the marked transmitter
+function applyOnlyMarked() {
+    let isChecked = document.getElementById('onlyMarkedChk').checked;
+    if (!geoLayer) return;
+    
+    geoLayer.eachLayer(layer => {
+        if (layer.getLatLng) {
+            let latlng = layer.getLatLng();
+            let isTarget = (currentTxCoords && latlng.lat === currentTxCoords.lat && latlng.lng === currentTxCoords.lng);
+            
+            if (isChecked) {
+                if (isTarget) {
+                    if (!map.hasLayer(layer)) map.addLayer(layer);
+                } else {
+                    if (map.hasLayer(layer)) map.removeLayer(layer);
+                }
+            } else {
+                if (!map.hasLayer(layer)) map.addLayer(layer);
+            }
+        }
+    });
+}
 
 function saveReceiverPos(lat, lng) {
     localStorage.setItem('savedReceiverPos', JSON.stringify({lat: lat, lng: lng}));
@@ -671,6 +706,9 @@ function tune(){
                 distanceLine = L.polyline([receiverMarker.getLatLng(), latlng], {color: "red", weight: 3, dashArray: "5, 5"}).addTo(map);
                 layer.openPopup();
                 map.flyToBounds(distanceLine.getBounds(), { paddingTopLeft: [50, 220], paddingBottomRight: [50, 50], maxZoom: 14 });
+                
+                // Immediately filter if the box is already checked
+                applyOnlyMarked();
             });
 
             let btnId = "cov_" + (latlng.lat + latlng.lng).toString().replace(".","");
@@ -714,6 +752,9 @@ function tune(){
             });
         }
     }).addTo(map);
+    
+    // Call it at the end of tune() so the map doesn't get flooded if the box is checked
+    applyOnlyMarked();
 }
 
 map.on("contextmenu", (e) => {
