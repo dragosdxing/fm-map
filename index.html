@@ -84,6 +84,26 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 .cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
+
+/* CSS Nou pentru Jurnal DX */
+.log-btn { background: #28a745; color: #fff; border: 1px solid #28a745; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 8px; transition: 0.2s; }
+.log-btn:active { background: #1e7e34; }
+
+#logModal {
+    display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: #2b2d31; color: #eee; padding: 20px; border-radius: 8px;
+    border: 1px solid #444; box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+    z-index: 3000; width: 90%; max-width: 550px; max-height: 80vh; overflow-y: auto;
+    font-family: Arial, sans-serif;
+}
+.log-header { font-size: 18px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #444; padding-bottom: 10px; display:flex; justify-content:space-between; align-items: center;}
+.log-list { font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap; margin-bottom: 15px; background: #111; padding: 12px; border-radius: 4px; min-height: 150px; max-height: 40vh; overflow-y: auto; border: 1px solid #000;}
+.close-modal { cursor: pointer; color: #ff4444; font-size: 14px; background: rgba(255,68,68,0.1); padding: 4px 8px; border-radius: 4px; }
+.log-actions { display: flex; gap: 10px; }
+.log-actions button { flex: 1; padding: 10px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+.btn-export { background: #00ff00; color: #111; }
+.btn-clear { background: #ff4444; color: #fff; }
+
 .dist-info-popup { font-size: 12px; color: #aaa; margin-bottom: 8px; display: block; border-bottom: 1px solid #444; padding-bottom: 5px; }
 
 .receiver-popup .leaflet-popup-content { min-width: 10px !important; margin: 8px 12px; white-space: nowrap; text-align: center; font-size: 14px; }
@@ -109,8 +129,20 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     </div>
     <div class="action-row">
         <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
+        <button class="action-btn" onclick="toggleLogModal()">📓 Jurnal DX</button>
         <a href="https://servers.fmdx.org/" target="_blank" class="action-btn">📻 TEF Servers</a>
-        <a href="https://www.youtube.com/@DragosDXing" target="_blank" class="action-btn">▶️ My Youtube</a>
+    </div>
+</div>
+
+<div id="logModal">
+    <div class="log-header">
+        <span>📓 Jurnal DX Recepții</span>
+        <span class="close-modal" onclick="document.getElementById('logModal').style.display='none'">✖ Închide</span>
+    </div>
+    <div id="logContent" class="log-list"></div>
+    <div class="log-actions">
+        <button class="btn-export" onclick="exportLog()">💾 Export TXT</button>
+        <button class="btn-clear" onclick="clearLog()">🗑️ Șterge Jurnalul</button>
     </div>
 </div>
 
@@ -136,7 +168,6 @@ var baseMaps = {
 };
 L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
 
-// --- Aici s-au modificat linkurile către fișierele locale ---
 var txIcon = L.icon({
     iconUrl: 'tx.png', 
     iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36], tooltipAnchor: [0, -36]
@@ -148,9 +179,57 @@ var receiverIcon = L.icon({
     iconAnchor: [18, 18],    
     popupAnchor: [0, -18]
 });
-// -------------------------------------------------------------
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
+
+// --- SISTEM JURNAL DX (LOGBOOK) ---
+window.dxLog = JSON.parse(localStorage.getItem('dxLog') || '[]');
+
+window.addLogEntry = function(encodedLine, btnElem) {
+    let line = decodeURIComponent(encodedLine);
+    if(!dxLog.includes(line)) {
+        dxLog.push(line);
+        localStorage.setItem('dxLog', JSON.stringify(dxLog));
+    }
+    
+    // Feedback vizual pe buton
+    if(btnElem) {
+        let oldText = btnElem.innerText;
+        btnElem.innerText = "✔ Salvat!";
+        btnElem.style.background = "#1e7e34";
+        setTimeout(() => {
+            btnElem.innerText = oldText;
+            btnElem.style.background = "#28a745";
+        }, 1500);
+    }
+};
+
+window.toggleLogModal = function() {
+    let modal = document.getElementById('logModal');
+    let content = document.getElementById('logContent');
+    content.innerText = dxLog.length > 0 ? dxLog.join('\n') : 'Nicio recepție salvată încă.\nDă click pe "✅ Log Station" din popup-ul unui emițător de pe hartă.';
+    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+};
+
+window.exportLog = function() {
+    if(dxLog.length === 0) return alert("Jurnalul este gol!");
+    let text = dxLog.join('\n');
+    let blob = new Blob([text], { type: "text/plain" });
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    let dateStr = new Date().toISOString().slice(0,10);
+    a.download = "DX_Log_" + dateStr + ".txt";
+    a.click();
+};
+
+window.clearLog = function() {
+    if(confirm("Ești sigur că vrei să ștergi tot jurnalul? Acțiunea e ireversibilă!")) {
+        dxLog = [];
+        localStorage.removeItem('dxLog');
+        document.getElementById('logContent').innerText = 'Jurnalul a fost șters.';
+    }
+};
+// ------------------------------------
 
 const countyMap = {
     "Alba": "AB", "Arad": "AR", "Argeș": "AG", "Bacău": "BC", "Bihor": "BH", "Bistrița-Năsăud": "BN",
@@ -437,6 +516,13 @@ function tune(){
             return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05;
         });
         
+        // --- Curățare descriere pentru Jurnal DX ---
+        // Scoatem brackeții de RDS [NUME] și orice tag HTML <b>, <span> etc.
+        newF.properties._cleanDescLines = matched.map(s => {
+            return s.replace(/\[.*?\]/g, '').replace(/<[^>]*>?/gm, '').trim();
+        });
+        // -------------------------------------------
+
         let hasError = false;
         let formatted = matched.map(s => {
             let res = s;
@@ -509,12 +595,25 @@ function tune(){
             let btnId = "cov_" + (latlng.lat + latlng.lng).toString().replace(".","");
             layer.bindPopup(() => {
                 let dHtml = "";
+                let distKm = 0;
                 if (receiverMarker) {
                     let d = map.distance(receiverMarker.getLatLng(), latlng)/1000;
+                    distKm = d;
                     let b = bearing(receiverMarker.getLatLng(), latlng).toFixed(0);
                     dHtml = `<div class="dist-info-popup">Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span></div>`;
                 }
-                return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br><button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>`;
+
+                // Generăm linia text pentru Logbook
+                let cleanLine = (feature.properties._cleanDescLines && feature.properties._cleanDescLines[0]) ? feature.properties._cleanDescLines[0] : `${freqValue} MHz`;
+                let distStr = distKm > 0 ? Math.round(distKm) + "km" : "";
+                
+                // Format: "90.0 h Digi FM 30kW - Focsani / Magura Odobesti 121km"
+                let logLine = `${cleanLine} - ${feature.properties.name} ${distStr}`.replace(/\s+/g, ' ').trim();
+                let safeLogLine = encodeURIComponent(logLine);
+
+                return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br>
+                        <button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>
+                        <button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
             });
         }
     }).addTo(map);
