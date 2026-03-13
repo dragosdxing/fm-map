@@ -91,10 +91,9 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 .dist-val { color: #ffffff !important; font-weight: bold; }
 
-.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
+.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
 
-/* CSS Jurnal DX */
 .log-btn { background: #28a745; color: #fff; border: 1px solid #28a745; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 8px; transition: 0.2s; }
 .log-btn:active { background: #1e7e34; }
 .disabled-log { background: #444 !important; color: #888 !important; border-color: #444 !important; cursor: not-allowed !important; }
@@ -119,10 +118,8 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .receiver-popup .leaflet-popup-content { min-width: 10px !important; margin: 8px 12px; white-space: nowrap; text-align: center; font-size: 14px; }
 .receiver-popup .leaflet-popup-close-button { display: none; }
 
-/* CSS Dark Mode OSM */
 .dark-osm { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
 
-/* CSS Ceas */
 #ro-clock {
     position: absolute; top: 10px; right: 10px; 
     background: #2b2d31; color: #00ff00; padding: 8px 12px;
@@ -149,7 +146,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     </div>
     
     <div style="margin-bottom: 15px;">
-        <input id="searchInput" type="text" placeholder="Caută rețea, locație sau cod PI (ex: E214)..." oninput="document.getElementById('freqInput').value=''; tune();">
+        <input id="searchInput" type="text" placeholder="Caută rețea, locație sau cod PI..." oninput="document.getElementById('freqInput').value=''; tune();">
     </div>
 
     <div style="display: flex; justify-content: center; gap: 8px;">
@@ -158,7 +155,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     </div>
     
     <div class="action-row">
-        <button class="action-btn" onclick="showAllStations()">🌐 Toate Posturile</button>
         <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
         <button id="serialBtn" class="action-btn" onclick="connectTEF()" title="Conectează TEF6686 via USB">🔌 TEF USB</button>
         <button class="action-btn" onclick="toggleLogModal()">📓 Jurnal DX</button>
@@ -223,14 +219,6 @@ var receiverIcon = L.icon({
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
 
-// Functie globala pentru afisarea tuturor statiilor
-window.showAllStations = function() {
-    document.getElementById("freqInput").value = "";
-    document.getElementById("searchInput").value = "";
-    tune();
-};
-
-// --- TEF USB SERIAL API ---
 let tefPort;
 let tefReader;
 async function connectTEF() {
@@ -456,7 +444,6 @@ document.getElementById('freqInput').addEventListener('input', function(e) {
         else if (val.length === 5) val = (parseFloat(val) / 100).toFixed(1);
     }
     if (val > 108) val = 108;
-    // Nu punem conditia strict pt 87.5 aici, daca sterge sa ramana gol si sa arate tot
     e.target.value = val; 
     tune(); 
 });
@@ -469,19 +456,14 @@ function generateIrregularPolygon(lat, lng, radiusMeters, color, opacity, seedOf
     for (let i = 0; i < numPoints; i++) {
         let angle = (i * 360 / numPoints);
         let radAngle = angle * deg2rad;
-        
         let noise = Math.sin(radAngle * 1 + lat + seedOffset) * 0.20 + 
                     Math.cos(radAngle * 2 + lng - seedOffset) * 0.15 + 
                     Math.sin(radAngle * 3 + lat * lng) * 0.05;
-        
         let r = radiusMeters * (1 + noise);
-        
         let dLat = (r * Math.cos(radAngle)) / 111320;
         let dLng = (r * Math.sin(radAngle)) / (111320 * Math.cos(lat * deg2rad));
-        
         points.push([lat + dLat, lng + dLng]);
     }
-    
     return L.polygon(points, { color: color, weight: 0, fillColor: color, fillOpacity: opacity, interactive: false });
 }
 
@@ -515,13 +497,11 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
     if (isCostila) {
         customImg = 'NAUTELA1AE32340D0_0.png';
         customBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
-        
     } else if (isPietrarie) {
         if (content.includes("pietrărie") || content.includes("pietrarie")) {
             customImg = 'pietrarie100.png';
             customBounds = [[44.3881, 23.68446], [49.78402, 31.60917]];
         }
-        
     } else if (isOdobesti) {
         customImg = 'mgod500.png'; 
         customBounds = [[44.95775, 25.65839], [46.7564, 28.24097]]; 
@@ -535,7 +515,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
             customImg = 'mgod10k.png';
             customBounds = [[44.50809, 25.01274], [47.20606, 28.88662]];
         }
-        
     } else if (isCahul) {
         customImg = 'cahul_893.png'; 
         customBounds = [[45.03565, 26.98287], [46.83429, 29.56908]]; 
@@ -561,7 +540,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
             customImg = 'cahul_904.png';
             customBounds = [[44.13633, 25.68977], [47.73362, 30.86219]];
         }
-    
     } else if (isBucuresti) {
         if (content.includes("98.3") || content.includes("101.3") || content.includes("105.3")) {
             customImg = 'srr_buc.png';
@@ -573,13 +551,11 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
             customImg = 'digi_buc.png';
             customBounds = [[42.67821, 23.52992], [46.2755, 28.57143]];
         }
-    
     } else if (isSoveja) {
         if (content.includes("88.2")) {
             customImg = 'soveja.png';
             customBounds = [[45.54622, 26.01305], [46.44555, 27.30758]];
         }
-        
     } else if (isBuzau) {
         if (content.includes("93.8")) {
             customImg = 'focusbz.png';
@@ -623,16 +599,11 @@ function tune(){
     let freqValue = document.getElementById("freqInput").value;
     let freq = parseFloat(freqValue);
     let searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+    let isDefaultView = isNaN(freq) && !searchTerm;
     
-    // Conditie cheie: Aratam tot daca input-urile sunt goale
-    let showAll = isNaN(freq) && !searchTerm;
-    
-    if (!showAll) {
-        if (searchTerm) {
-            window.history.replaceState(null, '', '?q=' + encodeURIComponent(searchTerm));
-        } else if (!isNaN(freq)) {
-            window.history.replaceState(null, '', '?freq=' + freqValue);
-        }
+    if (!isDefaultView) {
+        if (searchTerm) window.history.replaceState(null, '', '?q=' + encodeURIComponent(searchTerm));
+        else if (!isNaN(freq)) window.history.replaceState(null, '', '?freq=' + freqValue);
     } else {
         window.history.replaceState(null, '', window.location.pathname);
     }
@@ -648,12 +619,9 @@ function tune(){
     let filtered = allStations.filter(f => {
         let desc = f.properties.description || "";
         let name = f.properties.name || "";
-        
-        if (showAll) return true; // Daca nu s-a cautat nimic, lasam tot
-        
-        if (searchTerm) {
-            return name.toLowerCase().includes(searchTerm) || desc.toLowerCase().includes(searchTerm);
-        } else {
+        if (isDefaultView) return true;
+        if (searchTerm) return name.toLowerCase().includes(searchTerm) || desc.toLowerCase().includes(searchTerm);
+        else {
             let matches = desc.match(new RegExp(regexFM, "g"));
             return matches && matches.some(m => Math.abs(parseFloat(m.replace(",", ".")) - freq) <= 0.05);
         }
@@ -661,50 +629,24 @@ function tune(){
         let newF = JSON.parse(JSON.stringify(f));
         let stations = newF.properties.description.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi).filter(s => s.trim() !== "");
         let matched;
+        if (isDefaultView) matched = stations;
+        else if (searchTerm) matched = newF.properties.name.toLowerCase().includes(searchTerm) ? stations : stations.filter(s => s.toLowerCase().includes(searchTerm));
+        else matched = stations.filter(s => { let m = s.match(regexFM); return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05; });
         
-        if (showAll) {
-            matched = stations;
-        } else if (searchTerm) {
-            if(newF.properties.name.toLowerCase().includes(searchTerm)) {
-                matched = stations;
-            } else {
-                matched = stations.filter(s => s.toLowerCase().includes(searchTerm));
-            }
-        } else {
-            matched = stations.filter(s => {
-                let m = s.match(regexFM);
-                return m && Math.abs(parseFloat(m[0].replace(",", ".")) - freq) <= 0.05;
-            });
-        }
-        
-        newF.properties._cleanDescLines = matched.map(s => {
-            return s.replace(/\[.*?\]/g, '').replace(/<[^>]*>?/gm, '').trim();
-        });
-
+        newF.properties._cleanDescLines = matched.map(s => s.replace(/\[.*?\]/g, '').replace(/<[^>]*>?/gm, '').trim());
         let hasError = false;
         let formatted = matched.map(s => {
             let res = s;
-            
-            errorKeywords.forEach(k => {
-                if (res.includes(k)) {
-                    hasError = true;
-                    res = res.replace(k, `<span class="warning-emoji">⚠️</span> <span class="error-badge">${k}</span> <span class="warning-emoji">⚠️</span>`);
-                }
-            });
-            
+            errorKeywords.forEach(k => { if (res.includes(k)) { hasError = true; res = res.replace(k, `<span class="warning-emoji">⚠️</span> <span class="error-badge">${k}</span> <span class="warning-emoji">⚠️</span>`); } });
             res = res.replace(new RegExp(regexFM, "g"), "<b>$&</b>");
             res = res.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)/, function(match, p, rds) {
                 let rdsMatch = rds.match(/\[([^\]]+)\]/g);
                 if(!rdsMatch) return match;
                 let frames = rdsMatch.map(x => x.slice(1,-1));
-                
-                let displayFrame = getDynamicRDS(frames[0]);
-                
-                return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${displayFrame}]</span>`;
+                return p + ` <span class="rds-box" data-frames="${encodeURIComponent(JSON.stringify(frames))}" data-idx="0">[${getDynamicRDS(frames[0])}]</span>`;
             });
             return res;
         });
-        
         newF.properties._processedDesc = formatted.join("<br><hr>");
         newF.properties._hasError = hasError;
         return newF;
@@ -719,15 +661,10 @@ function tune(){
         onEachFeature: (feature, layer) => {
             let latlng = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
             let powerWatts = 100;
-            
             let pMatch = (feature.properties._processedDesc || "").match(/([\d\.,]+)\s*(W|kW)/i);
-            if(pMatch) {
-                let val = parseFloat(pMatch[1].replace(",", "."));
-                powerWatts = pMatch[2].toLowerCase() === "kw" ? val * 1000 : val;
-            }
+            if(pMatch) { let val = parseFloat(pMatch[1].replace(",", ".")); powerWatts = pMatch[2].toLowerCase() === "kw" ? val * 1000 : val; }
 
             layer.bindTooltip("", { direction: 'top', sticky: true });
-            
             let updateTooltipContent = () => {
                 let content = `<b>${feature.properties.name}</b>`;
                 if(receiverMarker) {
@@ -737,9 +674,7 @@ function tune(){
                 }
                 layer.setTooltipContent(content);
             };
-
             layer.on('mouseover click', updateTooltipContent);
-
             layer.on("contextmenu", (e) => {
                 L.DomEvent.stopPropagation(e);
                 if(!receiverMarker) return;
@@ -752,37 +687,26 @@ function tune(){
 
             let btnId = "cov_" + (latlng.lat + latlng.lng).toString().replace(".","");
             layer.bindPopup(() => {
-                let dHtml = "";
-                let distKm = 0;
+                let dHtml = "", distKm = 0;
                 if (receiverMarker) {
-                    let d = map.distance(receiverMarker.getLatLng(), latlng)/1000;
-                    distKm = d;
+                    let d = map.distance(receiverMarker.getLatLng(), latlng)/1000; distKm = d;
                     let b = bearing(receiverMarker.getLatLng(), latlng).toFixed(0);
                     dHtml = `<div class="dist-info-popup">Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span></div>`;
                 }
-
                 let cleanLine = (feature.properties._cleanDescLines && feature.properties._cleanDescLines[0]) ? feature.properties._cleanDescLines[0] : `Post FM`;
                 let distStr = distKm > 0 ? Math.round(distKm) + "km" : "";
-                
                 let powerRegex = /\s*(?:-?\s*)?([\d\.,]+\s*(?:W|kW))/i;
                 let powerMatch = cleanLine.match(powerRegex);
                 let pwrStr = powerMatch ? powerMatch[1] : "";
-                
-                let nameOnly = cleanLine.replace(powerRegex, '').trim();
-                nameOnly = nameOnly.replace(/\s*-\s*$/, '').trim(); 
-                
+                let nameOnly = cleanLine.replace(powerRegex, '').trim().replace(/\s*-\s*$/, '').trim(); 
                 let logLine = `${nameOnly} - ${feature.properties.name} ${distStr} ${pwrStr}`.replace(/\s+/g, ' ').trim();
-                let safeLogLine = encodeURIComponent(logLine);
+                let logBtnHtml = receiverMarker ? `<button class="log-btn" onclick="addLogEntry('${encodeURIComponent(logLine)}', this)">✅ Log Station</button>` : `<button class="log-btn disabled-log" disabled>📍 Așează receptorul pt. Log</button>`;
 
-                let logBtnHtml = "";
-                if (receiverMarker) {
-                    logBtnHtml = `<button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
-                } else {
-                    logBtnHtml = `<button class="log-btn disabled-log" disabled>📍 Așează receptorul pt. Log</button>`;
-                }
+                // LOGICA NOUA: Afisam butonul de Coverage doar daca NU suntem in modul "Toate posturile"
+                let coverageBtnHtml = isDefaultView ? "" : `<button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>`;
 
                 return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br>
-                        <button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>
+                        ${coverageBtnHtml}
                         ${logBtnHtml}`;
             });
         }
@@ -793,7 +717,6 @@ map.on("contextmenu", (e) => {
     if(e.originalEvent.target.closest(".leaflet-marker-icon")) return;
     if(receiverMarker) map.removeLayer(receiverMarker);
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; currentTxCoords = null; }
-    
     receiverMarker = L.marker(e.latlng, { icon: receiverIcon, draggable: true }).addTo(map);
     bindReceiverPopup(e.latlng.lat, e.latlng.lng);
     attachReceiverEvents();
@@ -805,12 +728,7 @@ setInterval(() => {
     document.querySelectorAll('.rds-box').forEach(box => {
         let frames = JSON.parse(decodeURIComponent(box.dataset.frames));
         let idx = parseInt(box.dataset.idx);
-        
-        if (frames.length > 1) {
-            idx = (idx + 1) % frames.length;
-            box.dataset.idx = idx;
-        }
-        
+        if (frames.length > 1) { idx = (idx + 1) % frames.length; box.dataset.idx = idx; }
         box.innerText = `[${getDynamicRDS(frames[idx])}]`;
     });
 }, 2500);
@@ -819,10 +737,7 @@ function stepFreq(delta) {
     document.getElementById("searchInput").value = ""; 
     let i = document.getElementById("freqInput");
     let v = parseFloat(i.value);
-    
-    // Daca e gol si dai +, porneste de la 87.5 MHz. Daca dai -, de la 108.
     if (isNaN(v)) v = delta > 0 ? 87.5 - delta : 108 - delta;
-    
     v += delta;
     i.value = (v < 87.5 ? 108 : (v > 108 ? 87.5 : v)).toFixed(1);
     tune();
@@ -831,17 +746,10 @@ function stepFreq(delta) {
 function setCountry(c){
     document.getElementById("btn-ro").className = (c=='ro'?'countryBtn active':'countryBtn');
     document.getElementById("btn-md").className = (c=='md'?'countryBtn active':'countryBtn');
-    
     fetch(c=='ro'?'fm.json':'fm_md.json')
-        .then(r => {
-            if(!r.ok) throw new Error("File not found");
-            return r.json();
-        })
+        .then(r => { if(!r.ok) throw new Error("File not found"); return r.json(); })
         .then(d => { allStations=d.features; tune(); })
-        .catch(err => {
-            alert("⚠️ Eroare: Nu s-a putut încărca fișierul JSON.");
-            console.error(err);
-        });
+        .catch(err => { alert("⚠️ Eroare: Nu s-a putut încărca fișierul JSON."); console.error(err); });
 }
 
 function bearing(a, b){
@@ -851,31 +759,19 @@ function bearing(a, b){
 
 function updateClock() {
     let d = new Date();
-    let formatter = new Intl.DateTimeFormat('ro-RO', { 
-        timeZone: 'Europe/Bucharest', 
-        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
-    });
-    let timeStr = formatter.format(d);
-    
+    let formatter = new Intl.DateTimeFormat('ro-RO', { timeZone: 'Europe/Bucharest', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     let offsetFormatter = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', timeZoneName: 'shortOffset' });
-    let offsetStr = offsetFormatter.format(d);
-    let tzName = offsetStr.includes('+03') || offsetStr.includes('+3') ? 'EEST' : 'EET';
-    
-    document.getElementById('ro-clock').innerHTML = `${timeStr} <span class="tz-label">${tzName}</span>`;
+    let tzName = offsetFormatter.format(d).includes('+3') ? 'EEST' : 'EET';
+    document.getElementById('ro-clock').innerHTML = `${formatter.format(d)} <span class="tz-label">${tzName}</span>`;
 }
 setInterval(updateClock, 1000);
 updateClock();
 
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    if(urlParams.has('freq')) {
-        document.getElementById('freqInput').value = urlParams.get('freq');
-    } else if(urlParams.has('q')) {
-        document.getElementById('searchInput').value = urlParams.get('q');
-        document.getElementById('freqInput').value = ''; 
-    } else {
-        document.getElementById('freqInput').value = ''; // Porneste gol
-    }
+    if(urlParams.has('freq')) document.getElementById('freqInput').value = urlParams.get('freq');
+    else if(urlParams.has('q')) { document.getElementById('searchInput').value = urlParams.get('q'); document.getElementById('freqInput').value = ''; }
+    else document.getElementById('freqInput').value = '';
     setCountry('ro');
 });
 </script>
