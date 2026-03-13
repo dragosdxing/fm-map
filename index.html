@@ -45,7 +45,6 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
     font-family: 'DS-Digital', sans-serif; font-size: 30px;
     text-align: center; width: 100%; outline: none;
 }
-#freqInput::placeholder { color: #1a5c1a; }
 
 #searchInput { 
     width: 100%; padding: 8px; border: 1px solid #555; background: #111; color: #00ff00; 
@@ -91,7 +90,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 .dist-val { color: #ffffff !important; font-weight: bold; }
 
-.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
+.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px;}
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
 
 /* CSS Jurnal DX */
@@ -188,6 +187,7 @@ var esriSat = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/service
 var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
 var esriLayer = L.layerGroup([esriSat, esriLabels]);
 
+// Aici am adaugat clasa dark-osm pentru a activa filtrul de negru
 var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { 
     maxZoom: 19, 
     attribution: '&copy; OpenStreetMap contributors',
@@ -247,19 +247,31 @@ async function connectTEF() {
             if (done) break;
             buffer += value;
             let lines = buffer.split('\n');
-            buffer = lines.pop(); 
+            buffer = lines.pop(); // pastram ultima linie incompleta
             
             for (let line of lines) {
-                let match = line.match(/\b(8[7-9]|9\d|10[0-8])[\.,]?\d{1,2}\b/);
+                // Cautam orice numar care seamana cu o frecventa (ex: 9790, 10030, 97.9, 100.3)
+                // Ignoram semnalul (dBµV) si alte date
+                let match = line.match(/\b(10[0-8]\d{2}|[89]\d{3}|10[0-8]\.\d{1,2}|[89]\d\.\d{1,2})\b/);
+                
                 if (match) {
                     let f = parseFloat(match[0].replace(',', '.'));
-                    if(f >= 875) f = f / 100; 
-                    let valRounded = f.toFixed(1);
                     
-                    if (document.getElementById("freqInput").value !== valRounded) {
-                        document.getElementById("freqInput").value = valRounded;
-                        document.getElementById("searchInput").value = ""; 
-                        tune();
+                    // Convertim din kHz in MHz daca citim ex. 9790 sau 10030
+                    if (f >= 8750 && f <= 10800) {
+                        f = f / 100;
+                    }
+                    
+                    // Validam inca o data ca e in banda FM
+                    if (f >= 87.5 && f <= 108.0) {
+                        let valRounded = f.toFixed(1);
+                        
+                        // Updatam doar daca e diferit, ca sa nu dam refresh in loop la infinit
+                        if (document.getElementById("freqInput").value !== valRounded) {
+                            document.getElementById("freqInput").value = valRounded;
+                            document.getElementById("searchInput").value = ""; 
+                            tune();
+                        }
                     }
                 }
             }
@@ -449,7 +461,7 @@ document.getElementById('freqInput').addEventListener('input', function(e) {
     }
     if (val > 108) val = 108;
     
-    // Aici era greseala in inainte. Daca inputul e gol, trebuie lasat asa si updatat harta
+    // Reparat: actualizam mereu valoarea si apelam tune() inclusiv cand se goleste
     e.target.value = val; 
     tune(); 
 });
@@ -617,7 +629,7 @@ function tune(){
     let freq = parseFloat(freqValue);
     let searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
     
-    // VERIFICAM DACA E MODUL "ARATA TOT" (Fara frecventa si fara cautare)
+    // VERIFICARE "DEFAULT VIEW": Apare tot daca ambele inputuri sunt goale
     let isDefaultView = isNaN(freq) && !searchTerm;
     
     if (!isDefaultView) {
@@ -642,7 +654,7 @@ function tune(){
         let desc = f.properties.description || "";
         let name = f.properties.name || "";
         
-        // Daca nu am cautat nimic, le luam pe toate
+        // Daca e default view, filtram sa arate TOT
         if (isDefaultView) return true;
         
         if (searchTerm) {
@@ -656,7 +668,7 @@ function tune(){
         let stations = newF.properties.description.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi);
         let matched;
         
-        // Daca nu am cautat nimic, raman toate datele postului netaiate
+        // Daca e default view, pastram toate emisiile pentru popup
         if (isDefaultView) {
             matched = stations;
         } else if (searchTerm) {
@@ -769,7 +781,7 @@ function tune(){
                 let logLine = `${nameOnly} - ${feature.properties.name} ${distStr} ${pwrStr}`.replace(/\s+/g, ' ').trim();
                 let safeLogLine = encodeURIComponent(logLine);
 
-                // BUTOANELE APAR DOAR DACA NU SUNTEM IN DEFAULT VIEW (cand ai frecventa aleasa)
+                // Ascundere butoane in modul vizualizare tuturor posturilor
                 let coverageBtnHtml = isDefaultView ? "" : `<button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>`;
                 
                 let logBtnHtml = "";
@@ -820,7 +832,6 @@ function stepFreq(delta) {
     let i = document.getElementById("freqInput");
     let v = parseFloat(i.value);
     
-    // Daca e gol si dai +, porneste de la 87.5. Daca dai -, de la 108.
     if (isNaN(v)) v = delta > 0 ? 87.5 - delta : 108 - delta;
     
     v += delta;
@@ -867,6 +878,7 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// Asigurare la incarcare
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     if(urlParams.has('freq')) {
@@ -875,8 +887,11 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('searchInput').value = urlParams.get('q');
         document.getElementById('freqInput').value = ''; 
     } else {
+        // Fortam campurile goale la pornire ca sa arate tot!
         document.getElementById('freqInput').value = ''; 
+        document.getElementById('searchInput').value = ''; 
     }
+    // SetCountry apeleaza automat tune() dupa ce descarca JSON-ul
     setCountry('ro');
 });
 </script>
