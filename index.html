@@ -96,6 +96,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 /* CSS Jurnal DX */
 .log-btn { background: #28a745; color: #fff; border: 1px solid #28a745; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 8px; transition: 0.2s; }
 .log-btn:active { background: #1e7e34; }
+.disabled-log { background: #444 !important; color: #888 !important; border-color: #444 !important; cursor: not-allowed !important; }
 
 #logModal {
     display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -116,6 +117,20 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 .receiver-popup .leaflet-popup-content { min-width: 10px !important; margin: 8px 12px; white-space: nowrap; text-align: center; font-size: 14px; }
 .receiver-popup .leaflet-popup-close-button { display: none; }
+
+/* CSS Dark Mode OSM */
+.dark-osm { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
+
+/* CSS Ceas */
+#ro-clock {
+    position: absolute; top: 10px; right: 10px; 
+    background: #2b2d31; color: #00ff00; padding: 8px 12px;
+    border-radius: 8px; border: 1px solid #1e1f22;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8); z-index: 1000;
+    font-family: 'DS-Digital', sans-serif; font-size: 24px;
+    text-align: center; letter-spacing: 1px;
+}
+.tz-label { font-size: 14px; font-family: Arial, sans-serif; color: #aaa; margin-left: 5px; }
 </style>
 </head>
 
@@ -133,7 +148,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     </div>
     
     <div style="margin-bottom: 15px;">
-        <input id="searchInput" type="text" placeholder="Caută rețea (ex: ZU, Digi)..." oninput="document.getElementById('freqInput').value=''; tune();">
+        <input id="searchInput" type="text" placeholder="Caută rețea, locație sau cod PI (ex: E214)..." oninput="document.getElementById('freqInput').value=''; tune();">
     </div>
 
     <div style="display: flex; justify-content: center; gap: 8px;">
@@ -148,6 +163,8 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
         <a href="https://www.youtube.com/@dragosdxing" target="_blank" class="action-btn">▶️ My Youtube</a>
     </div>
 </div>
+
+<div id="ro-clock">00:00:00 <span class="tz-label">EET</span></div>
 
 <div id="logModal">
     <div class="log-header">
@@ -170,9 +187,11 @@ var esriSat = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/service
 var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
 var esriLayer = L.layerGroup([esriSat, esriLabels]);
 
+// Aici am adaugat clasa dark-osm pentru a activa filtrul de negru
 var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { 
     maxZoom: 19, 
-    attribution: '&copy; OpenStreetMap contributors' 
+    attribution: '&copy; OpenStreetMap contributors',
+    className: 'dark-osm'
 });
 
 var topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { 
@@ -184,7 +203,7 @@ esriLayer.addTo(map);
 
 var baseMaps = {
     "Satelit (Esri)": esriLayer,
-    "Harta Clasică (OSM)": osmLayer,
+    "Harta Clasică Dark (OSM)": osmLayer,
     "Relief (OpenTopoMap)": topoLayer
 };
 L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
@@ -228,19 +247,18 @@ async function connectTEF() {
             if (done) break;
             buffer += value;
             let lines = buffer.split('\n');
-            buffer = lines.pop(); // Păstrăm bucata neterminată în buffer
+            buffer = lines.pop(); 
             
             for (let line of lines) {
-                // Extragem frecventa de pe seriala a TEF-ului
                 let match = line.match(/\b(8[7-9]|9\d|10[0-8])[\.,]?\d{1,2}\b/);
                 if (match) {
                     let f = parseFloat(match[0].replace(',', '.'));
-                    if(f >= 875) f = f / 100; // Pentru softurile care trimit ex: 9790 in loc de 97.90
+                    if(f >= 875) f = f / 100; 
                     let valRounded = f.toFixed(1);
                     
                     if (document.getElementById("freqInput").value !== valRounded) {
                         document.getElementById("freqInput").value = valRounded;
-                        document.getElementById("searchInput").value = ""; // Anulam search-ul global
+                        document.getElementById("searchInput").value = ""; 
                         tune();
                     }
                 }
@@ -423,7 +441,7 @@ function locateUser() {
 }
 
 document.getElementById('freqInput').addEventListener('input', function(e) {
-    document.getElementById('searchInput').value = ''; // Reseteaza cautarea globala
+    document.getElementById('searchInput').value = ''; 
     let val = e.target.value.replace(/[^0-9.]/g, '');
     if (val.length >= 3 && !val.includes('.')) {
         if (val.length === 3 || val.length === 4) val = (parseFloat(val) / 10).toFixed(1);
@@ -598,7 +616,6 @@ function tune(){
     
     if (isNaN(freq) && !searchTerm) return;
     
-    // --- Deep Linking ---
     if (searchTerm) {
         window.history.replaceState(null, '', '?q=' + encodeURIComponent(searchTerm));
     } else if (!isNaN(freq)) {
@@ -724,7 +741,6 @@ function tune(){
                     dHtml = `<div class="dist-info-popup">Dist: <span class="dist-val">${formatDistance(d)}</span> | Azi: <span class="dist-val">${b}°</span></div>`;
                 }
 
-                // Luam prima linie din statie pentru log
                 let cleanLine = (feature.properties._cleanDescLines && feature.properties._cleanDescLines[0]) ? feature.properties._cleanDescLines[0] : `Post FM`;
                 let distStr = distKm > 0 ? Math.round(distKm) + "km" : "";
                 
@@ -738,9 +754,17 @@ function tune(){
                 let logLine = `${nameOnly} - ${feature.properties.name} ${distStr} ${pwrStr}`.replace(/\s+/g, ' ').trim();
                 let safeLogLine = encodeURIComponent(logLine);
 
+                // Verificare buton LOG
+                let logBtnHtml = "";
+                if (receiverMarker) {
+                    logBtnHtml = `<button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
+                } else {
+                    logBtnHtml = `<button class="log-btn disabled-log" disabled>📍 Așează receptorul pt. Log</button>`;
+                }
+
                 return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br>
                         <button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>
-                        <button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
+                        ${logBtnHtml}`;
             });
         }
     }).addTo(map);
@@ -773,7 +797,7 @@ setInterval(() => {
 }, 2500);
 
 function stepFreq(delta) {
-    document.getElementById("searchInput").value = ""; // Anulam cautarea daca butonezi
+    document.getElementById("searchInput").value = ""; 
     let i = document.getElementById("freqInput");
     let v = parseFloat(i.value) + delta;
     i.value = (v < 87.5 ? 108 : (v > 108 ? 87.5 : v)).toFixed(1);
@@ -801,7 +825,24 @@ function bearing(a, b){
     return (Math.atan2(Math.sin(dl)*Math.cos(l2), Math.cos(l1)*Math.sin(l2)-Math.sin(l1)*Math.cos(l2)*Math.cos(dl))*180/Math.PI+360)%360;
 }
 
-// Incarcare initiala deep-link url
+// Functie pt Ceasul Romaniei
+function updateClock() {
+    let d = new Date();
+    let formatter = new Intl.DateTimeFormat('ro-RO', { 
+        timeZone: 'Europe/Bucharest', 
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
+    });
+    let timeStr = formatter.format(d);
+    
+    let offsetFormatter = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', timeZoneName: 'shortOffset' });
+    let offsetStr = offsetFormatter.format(d);
+    let tzName = offsetStr.includes('+03') || offsetStr.includes('+3') ? 'EEST' : 'EET';
+    
+    document.getElementById('ro-clock').innerHTML = `${timeStr} <span class="tz-label">${tzName}</span>`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     if(urlParams.has('freq')) document.getElementById('freqInput').value = urlParams.get('freq');
