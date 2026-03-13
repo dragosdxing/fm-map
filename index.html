@@ -136,17 +136,19 @@ var baseMaps = {
 };
 L.control.layers(baseMaps, null, { position: 'bottomleft' }).addTo(map);
 
+// --- Aici s-au modificat linkurile către fișierele locale ---
 var txIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/nMzymZsq/tower.png', 
+    iconUrl: 'tx.png', 
     iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36], tooltipAnchor: [0, -36]
 });
 
 var receiverIcon = L.icon({
-    iconUrl: 'https://i.ibb.co/0p15GKrx/image.png', 
+    iconUrl: 'rx.png', 
     iconSize: [36, 36],      
     iconAnchor: [18, 18],    
     popupAnchor: [0, -18]
 });
+// -------------------------------------------------------------
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
 
@@ -308,7 +310,6 @@ window.toggleCoverage = function(lat, lng, powerWatts, btnId, imgPath, boundsStr
         customBounds = [[43.17867, 22.28144], [47.67527, 28.68852]];
         
     } else if (isPietrarie) {
-        // AM ADĂUGAT FILTRAREA AICI CA SĂ FIE DOAR PENTRU PIETRĂRIE, NU ȘI DEALUL PĂUN
         if (content.includes("pietrărie") || content.includes("pietrarie")) {
             customImg = 'pietrarie100.png';
             customBounds = [[44.3881, 23.68446], [49.78402, 31.60917]];
