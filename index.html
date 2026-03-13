@@ -156,7 +156,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     
     <div class="action-row">
         <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
-        <button id="serialBtn" class="action-btn" onclick="connectTEF()" title="Conectează TEF6686 via USB">🔌 TEF USB</button>
         <button class="action-btn" onclick="toggleLogModal()">📓 Jurnal DX</button>
         <a href="https://www.youtube.com/@dragosdxing" target="_blank" class="action-btn">▶️ My Youtube</a>
     </div>
@@ -218,92 +217,6 @@ var receiverIcon = L.icon({
 });
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
-
-// ==========================================
-// --- TEF USB SERIAL API (PE5PVB/XDR-GTK) --
-// ==========================================
-let tefPort;
-let tefReader;
-
-async function connectTEF() {
-    if (!('serial' in navigator)) {
-        alert("Browserul tău nu suportă Web Serial API. Folosește Chrome, Edge sau Opera pe PC.");
-        return;
-    }
-    try {
-        tefPort = await navigator.serial.requestPort();
-        await tefPort.open({ baudRate: 115200 }); // PE5PVB rulează pe 115200 baud
-        
-        let btn = document.getElementById('serialBtn');
-        btn.innerText = "🔌 TEF Activat!";
-        btn.style.background = "#28a745";
-        
-        const textDecoder = new TextDecoderStream();
-        tefPort.readable.pipeTo(textDecoder.writable);
-        tefReader = textDecoder.readable.getReader();
-        
-        let buffer = "";
-        while (true) {
-            const { value, done } = await tefReader.read();
-            if (done) break;
-            
-            // Inlocuim \r cu \n in caz ca firmware-ul foloseste Carriage Return
-            buffer += value.replace(/\r/g, '\n');
-            let lines = buffer.split('\n');
-            buffer = lines.pop(); // Păstrăm ultima linie incompletă
-            
-            for (let line of lines) {
-                line = line.trim();
-                if (!line) continue;
-                
-                // === DEBUG LOG PENTRU TINE ===
-                // Dacă apeși F12 (Developer Tools) pe tastatură și mergi la tab-ul "Console", 
-                // vei vedea EXACT textul pe care îl scuipă radioul când învârți de buton.
-                console.log("TEF RX:", line);
-                
-                let freqKHz = null;
-                
-                // 1. Căutăm format XDR-GTK: <f:9800> sau <t:9800>
-                let mXDR = line.match(/<[ft]:\s*(\d+)>/i);
-                
-                // 2. Căutăm format text PE5PVB brut: Freq: 98.00 sau Tuned to 9800
-                let mTxt = line.match(/(?:freq|tuned|ch)[^\d]*(\d+(?:[\.,]\d+)?)/i);
-                
-                // 3. Fallback brut: Căutăm orice număr de 4 sau 5 cifre izolat (ex: 9800 sau 10450)
-                let mRaw = line.match(/\b([89]\d{3}|10[0-8]\d{2})\b/);
-
-                if (mXDR) {
-                    freqKHz = parseInt(mXDR[1]);
-                } else if (mTxt) {
-                    let val = parseFloat(mTxt[1].replace(',', '.'));
-                    if (val >= 87.5 && val <= 108.0) freqKHz = val * 100;
-                    else if (val >= 8750 && val <= 10800) freqKHz = val;
-                } else if (mRaw) {
-                    freqKHz = parseInt(mRaw[1]);
-                }
-                
-                // Dacă am extras o frecvență validă în banda FM (8750 kHz - 10800 kHz)
-                if (freqKHz && freqKHz >= 8750 && freqKHz <= 10800) {
-                    let freqMHz = (freqKHz / 100).toFixed(1); // 9800 -> "98.0"
-                    let freqInput = document.getElementById("freqInput");
-                    
-                    // Schimbăm frecvența în căsuță și chemăm funcția de Tune DOAR dacă e diferită (pentru a nu bloca harta)
-                    if (freqInput.value !== freqMHz) {
-                        freqInput.value = freqMHz;
-                        document.getElementById("searchInput").value = ""; 
-                        tune();
-                    }
-                }
-            }
-        }
-    } catch (e) {
-        console.error("Eroare la TEF USB:", e);
-        let btn = document.getElementById('serialBtn');
-        btn.innerText = "🔌 TEF USB";
-        btn.style.background = "transparent";
-    }
-}
-// ==========================================
 
 function saveReceiverPos(lat, lng) {
     localStorage.setItem('savedReceiverPos', JSON.stringify({lat: lat, lng: lng}));
@@ -635,7 +548,6 @@ function tune(){
     let freq = parseFloat(freqValue.replace(',', '.'));
     let searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
     
-    // Verificam exact starea de "DEFAULT VIEW" cand ambele inputuri sunt absolut goale
     let isDefaultView = (freqValue.trim() === "" && searchTerm === "");
     
     if (!isDefaultView) {
