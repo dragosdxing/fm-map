@@ -5213,12 +5213,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          27.350609,
-          44.562152
+          27.35223612056009,
+          44.562958424271876
         ]
       },
       "properties": {
-        "name": "Slobozia / Autogara",
+        "name": "Slobozia / Bloc U20",
         "description": "90.9 v Radio ZU [E2AA] - 400W [Radio_ZU][_90.9_FM]\n100.9 v Europa FM [E299] - 2kW [EUROPAFM][_100.9__]"
       },
       "id": "k1NTE"
@@ -5252,7 +5252,7 @@
       },
       "properties": {
         "name": "Slobozia / Combinat",
-        "description": "88.9 v Național FM [9250] - 200W [National]\n105.6 v Fresh FM [E032] - 500W [FRESH_FM][105.6MHz]",
+        "description": "87.7 v Radio Campus [E010] - 200W [CAMPUS__][RADIO___][Slobozia][87.7_FM_]\n88.9 v Național FM [9250] - 200W [National]\n105.6 v Fresh FM [E032] - 500W [FRESH_FM][105.6MHz]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -5266,27 +5266,12 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          27.35048,
-          44.565539
+          27.36431065268796, 
+          44.562467034536326
         ]
       },
       "properties": {
-        "name": "Slobozia / Domnița Bălașa",
-        "description": "87.7 v Radio Campus [E010] - 200W [CAMPUS__][RADIO___][Slobozia][87.7_FM_]"
-      },
-      "id": "YzMjY"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          27.365077,
-          44.562259
-        ]
-      },
-      "properties": {
-        "name": "Slobozia / Matei Basarab 23",
+        "name": "Slobozia / Hotel Central",
         "description": "92.9 v Focus FM [noPI] - 200W [no RDS]"
       },
       "id": "I2MDY"
