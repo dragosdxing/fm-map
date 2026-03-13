@@ -45,6 +45,7 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
     font-family: 'DS-Digital', sans-serif; font-size: 30px;
     text-align: center; width: 100%; outline: none;
 }
+#freqInput::placeholder { color: #1a5c1a; }
 
 #searchInput { 
     width: 100%; padding: 8px; border: 1px solid #555; background: #111; color: #00ff00; 
@@ -141,7 +142,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px;">
         <button class="tune-btn" onclick="stepFreq(-0.1)">-</button>
         <div class="lcd-screen">
-            <input id="freqInput" type="text" value="97.9" inputmode="decimal">
+            <input id="freqInput" type="text" value="" placeholder="---" inputmode="decimal">
             <div class="mhz-label">MHz</div>
         </div>
         <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
@@ -157,10 +158,11 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     </div>
     
     <div class="action-row">
+        <button class="action-btn" onclick="showAllStations()">🌐 Toate Posturile</button>
         <button id="geoBtn" class="action-btn" onclick="locateUser()">📍 Geolocation</button>
         <button id="serialBtn" class="action-btn" onclick="connectTEF()" title="Conectează TEF6686 via USB">🔌 TEF USB</button>
         <button class="action-btn" onclick="toggleLogModal()">📓 Jurnal DX</button>
-        <a href="https://www.youtube.com/@dragosdxing" target="_blank" class="action-btn">▶️ My Youtube</a>
+        <a href="https://www.youtube.com/@dragosdxing" target="_blank" class="action-btn" style="width: 100%;">▶️ My Youtube</a>
     </div>
 </div>
 
@@ -187,7 +189,6 @@ var esriSat = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/service
 var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
 var esriLayer = L.layerGroup([esriSat, esriLabels]);
 
-// Aici am adaugat clasa dark-osm pentru a activa filtrul de negru
 var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { 
     maxZoom: 19, 
     attribution: '&copy; OpenStreetMap contributors',
@@ -221,6 +222,13 @@ var receiverIcon = L.icon({
 });
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
+
+// Functie globala pentru afisarea tuturor statiilor
+window.showAllStations = function() {
+    document.getElementById("freqInput").value = "";
+    document.getElementById("searchInput").value = "";
+    tune();
+};
 
 // --- TEF USB SERIAL API ---
 let tefPort;
@@ -448,7 +456,9 @@ document.getElementById('freqInput').addEventListener('input', function(e) {
         else if (val.length === 5) val = (parseFloat(val) / 100).toFixed(1);
     }
     if (val > 108) val = 108;
-    if (parseFloat(val) >= 87.5) { e.target.value = val; tune(); }
+    // Nu punem conditia strict pt 87.5 aici, daca sterge sa ramana gol si sa arate tot
+    e.target.value = val; 
+    tune(); 
 });
 
 function generateIrregularPolygon(lat, lng, radiusMeters, color, opacity, seedOffset) {
@@ -614,12 +624,17 @@ function tune(){
     let freq = parseFloat(freqValue);
     let searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
     
-    if (isNaN(freq) && !searchTerm) return;
+    // Conditie cheie: Aratam tot daca input-urile sunt goale
+    let showAll = isNaN(freq) && !searchTerm;
     
-    if (searchTerm) {
-        window.history.replaceState(null, '', '?q=' + encodeURIComponent(searchTerm));
-    } else if (!isNaN(freq)) {
-        window.history.replaceState(null, '', '?freq=' + freqValue);
+    if (!showAll) {
+        if (searchTerm) {
+            window.history.replaceState(null, '', '?q=' + encodeURIComponent(searchTerm));
+        } else if (!isNaN(freq)) {
+            window.history.replaceState(null, '', '?freq=' + freqValue);
+        }
+    } else {
+        window.history.replaceState(null, '', window.location.pathname);
     }
     
     if(geoLayer) map.removeLayer(geoLayer);
@@ -633,6 +648,9 @@ function tune(){
     let filtered = allStations.filter(f => {
         let desc = f.properties.description || "";
         let name = f.properties.name || "";
+        
+        if (showAll) return true; // Daca nu s-a cautat nimic, lasam tot
+        
         if (searchTerm) {
             return name.toLowerCase().includes(searchTerm) || desc.toLowerCase().includes(searchTerm);
         } else {
@@ -641,10 +659,12 @@ function tune(){
         }
     }).map(f => {
         let newF = JSON.parse(JSON.stringify(f));
-        let stations = newF.properties.description.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi);
+        let stations = newF.properties.description.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi).filter(s => s.trim() !== "");
         let matched;
         
-        if (searchTerm) {
+        if (showAll) {
+            matched = stations;
+        } else if (searchTerm) {
             if(newF.properties.name.toLowerCase().includes(searchTerm)) {
                 matched = stations;
             } else {
@@ -672,7 +692,7 @@ function tune(){
                 }
             });
             
-            res = res.replace(regexFM, "<b>$&</b>");
+            res = res.replace(new RegExp(regexFM, "g"), "<b>$&</b>");
             res = res.replace(/(W|kW|w|kw)\s*((?:\[[^\]]+\]\s*)+)/, function(match, p, rds) {
                 let rdsMatch = rds.match(/\[([^\]]+)\]/g);
                 if(!rdsMatch) return match;
@@ -754,7 +774,6 @@ function tune(){
                 let logLine = `${nameOnly} - ${feature.properties.name} ${distStr} ${pwrStr}`.replace(/\s+/g, ' ').trim();
                 let safeLogLine = encodeURIComponent(logLine);
 
-                // Verificare buton LOG
                 let logBtnHtml = "";
                 if (receiverMarker) {
                     logBtnHtml = `<button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
@@ -799,7 +818,12 @@ setInterval(() => {
 function stepFreq(delta) {
     document.getElementById("searchInput").value = ""; 
     let i = document.getElementById("freqInput");
-    let v = parseFloat(i.value) + delta;
+    let v = parseFloat(i.value);
+    
+    // Daca e gol si dai +, porneste de la 87.5 MHz. Daca dai -, de la 108.
+    if (isNaN(v)) v = delta > 0 ? 87.5 - delta : 108 - delta;
+    
+    v += delta;
     i.value = (v < 87.5 ? 108 : (v > 108 ? 87.5 : v)).toFixed(1);
     tune();
 }
@@ -825,7 +849,6 @@ function bearing(a, b){
     return (Math.atan2(Math.sin(dl)*Math.cos(l2), Math.cos(l1)*Math.sin(l2)-Math.sin(l1)*Math.cos(l2)*Math.cos(dl))*180/Math.PI+360)%360;
 }
 
-// Functie pt Ceasul Romaniei
 function updateClock() {
     let d = new Date();
     let formatter = new Intl.DateTimeFormat('ro-RO', { 
@@ -845,10 +868,13 @@ updateClock();
 
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    if(urlParams.has('freq')) document.getElementById('freqInput').value = urlParams.get('freq');
-    if(urlParams.has('q')) {
+    if(urlParams.has('freq')) {
+        document.getElementById('freqInput').value = urlParams.get('freq');
+    } else if(urlParams.has('q')) {
         document.getElementById('searchInput').value = urlParams.get('q');
         document.getElementById('freqInput').value = ''; 
+    } else {
+        document.getElementById('freqInput').value = ''; // Porneste gol
     }
     setCountry('ro');
 });
