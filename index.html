@@ -45,6 +45,7 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
     font-family: 'DS-Digital', sans-serif; font-size: 30px;
     text-align: center; width: 100%; outline: none;
 }
+#freqInput::placeholder { color: #1a5c1a; }
 
 #searchInput { 
     width: 100%; padding: 8px; border: 1px solid #555; background: #111; color: #00ff00; 
@@ -141,7 +142,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px;">
         <button class="tune-btn" onclick="stepFreq(-0.1)">-</button>
         <div class="lcd-screen">
-            <input id="freqInput" type="text" value="97.9" inputmode="decimal">
+            <input id="freqInput" type="text" value="" placeholder="---" inputmode="decimal">
             <div class="mhz-label">MHz</div>
         </div>
         <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
@@ -187,7 +188,6 @@ var esriSat = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/service
 var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
 var esriLayer = L.layerGroup([esriSat, esriLabels]);
 
-// Aici am adaugat clasa dark-osm pentru a activa filtrul de negru
 var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { 
     maxZoom: 19, 
     attribution: '&copy; OpenStreetMap contributors',
@@ -302,7 +302,7 @@ window.addLogEntry = function(encodedLine, btnElem) {
 window.toggleLogModal = function() {
     let modal = document.getElementById('logModal');
     let content = document.getElementById('logContent');
-    content.innerText = dxLog.length > 0 ? dxLog.join('\n') : 'Nicio recepție salvată încă.\nDă click pe "✅ Log Station" din popup-ul unui emițător de pe hartă.';
+    content.innerText = dxLog.length > 0 ? dxLog.join('\n') : 'DX Log / Log Reception only works in Frequency Mode.\nSelect a frequency or search for a station to log your reception.';
     modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
 };
 
@@ -448,7 +448,10 @@ document.getElementById('freqInput').addEventListener('input', function(e) {
         else if (val.length === 5) val = (parseFloat(val) / 100).toFixed(1);
     }
     if (val > 108) val = 108;
-    if (parseFloat(val) >= 87.5) { e.target.value = val; tune(); }
+    
+    // Aici era greseala in inainte. Daca inputul e gol, trebuie lasat asa si updatat harta
+    e.target.value = val; 
+    tune(); 
 });
 
 function generateIrregularPolygon(lat, lng, radiusMeters, color, opacity, seedOffset) {
@@ -614,12 +617,17 @@ function tune(){
     let freq = parseFloat(freqValue);
     let searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
     
-    if (isNaN(freq) && !searchTerm) return;
+    // VERIFICAM DACA E MODUL "ARATA TOT" (Fara frecventa si fara cautare)
+    let isDefaultView = isNaN(freq) && !searchTerm;
     
-    if (searchTerm) {
-        window.history.replaceState(null, '', '?q=' + encodeURIComponent(searchTerm));
-    } else if (!isNaN(freq)) {
-        window.history.replaceState(null, '', '?freq=' + freqValue);
+    if (!isDefaultView) {
+        if (searchTerm) {
+            window.history.replaceState(null, '', '?q=' + encodeURIComponent(searchTerm));
+        } else if (!isNaN(freq)) {
+            window.history.replaceState(null, '', '?freq=' + freqValue);
+        }
+    } else {
+        window.history.replaceState(null, '', window.location.pathname);
     }
     
     if(geoLayer) map.removeLayer(geoLayer);
@@ -633,6 +641,10 @@ function tune(){
     let filtered = allStations.filter(f => {
         let desc = f.properties.description || "";
         let name = f.properties.name || "";
+        
+        // Daca nu am cautat nimic, le luam pe toate
+        if (isDefaultView) return true;
+        
         if (searchTerm) {
             return name.toLowerCase().includes(searchTerm) || desc.toLowerCase().includes(searchTerm);
         } else {
@@ -644,7 +656,10 @@ function tune(){
         let stations = newF.properties.description.split(/(?=\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b)/gi);
         let matched;
         
-        if (searchTerm) {
+        // Daca nu am cautat nimic, raman toate datele postului netaiate
+        if (isDefaultView) {
+            matched = stations;
+        } else if (searchTerm) {
             if(newF.properties.name.toLowerCase().includes(searchTerm)) {
                 matched = stations;
             } else {
@@ -754,16 +769,20 @@ function tune(){
                 let logLine = `${nameOnly} - ${feature.properties.name} ${distStr} ${pwrStr}`.replace(/\s+/g, ' ').trim();
                 let safeLogLine = encodeURIComponent(logLine);
 
-                // Verificare buton LOG
+                // BUTOANELE APAR DOAR DACA NU SUNTEM IN DEFAULT VIEW (cand ai frecventa aleasa)
+                let coverageBtnHtml = isDefaultView ? "" : `<button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>`;
+                
                 let logBtnHtml = "";
-                if (receiverMarker) {
-                    logBtnHtml = `<button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
-                } else {
-                    logBtnHtml = `<button class="log-btn disabled-log" disabled>📍 Așează receptorul pt. Log</button>`;
+                if (!isDefaultView) {
+                    if (receiverMarker) {
+                        logBtnHtml = `<button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
+                    } else {
+                        logBtnHtml = `<button class="log-btn disabled-log" disabled>📍 Așează receptorul pt. Log</button>`;
+                    }
                 }
 
                 return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br>
-                        <button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>
+                        ${coverageBtnHtml}
                         ${logBtnHtml}`;
             });
         }
@@ -799,7 +818,12 @@ setInterval(() => {
 function stepFreq(delta) {
     document.getElementById("searchInput").value = ""; 
     let i = document.getElementById("freqInput");
-    let v = parseFloat(i.value) + delta;
+    let v = parseFloat(i.value);
+    
+    // Daca e gol si dai +, porneste de la 87.5. Daca dai -, de la 108.
+    if (isNaN(v)) v = delta > 0 ? 87.5 - delta : 108 - delta;
+    
+    v += delta;
     i.value = (v < 87.5 ? 108 : (v > 108 ? 87.5 : v)).toFixed(1);
     tune();
 }
@@ -845,9 +869,12 @@ updateClock();
 
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    if(urlParams.has('freq')) document.getElementById('freqInput').value = urlParams.get('freq');
-    if(urlParams.has('q')) {
+    if(urlParams.has('freq')) {
+        document.getElementById('freqInput').value = urlParams.get('freq');
+    } else if(urlParams.has('q')) {
         document.getElementById('searchInput').value = urlParams.get('q');
+        document.getElementById('freqInput').value = ''; 
+    } else {
         document.getElementById('freqInput').value = ''; 
     }
     setCountry('ro');
