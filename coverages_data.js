@@ -65,4 +65,28 @@ const COVERAGE_DB = [
             { keywords: ["105.6"], img: "coverages/magicbz.png", bounds: [[43.807, 24.90314], [46.50497, 28.72907]] }
         ]
     }
+    ,{
+        name: "Barlad - Popeni",
+        latMin: 46.18, latMax: 46.30, lngMin: 27.68, lngMax: 27.85,
+        maps: [
+            { 
+                // Grupul 2kW (Trinitas)
+                keywords: ["93.7"], 
+                img: "coverages/937barlad.png", 
+                bounds: [[44.89251, 25.90073], [47.59048, 29.80167]] 
+            },
+            { 
+                // Grupul 10kW (Pro FM / Kiss FM)
+                keywords: ["95.7", "97.3"], 
+                img: "coverages/957si973barlad.png", 
+                bounds: [[43.99319, 24.60042], [48.4898, 31.10198]] 
+            },
+            { 
+                // Grupul 30kW (Radio Romania) + fallback "any"
+                keywords: ["102.8", "103.9", "any"], 
+                img: "coverages/1028si1039barlad.png", 
+                bounds: [[43.54353, 23.95027], [48.93946, 31.75213]] 
+            }
+        ]
+    }
 ];
