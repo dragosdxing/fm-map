@@ -95,7 +95,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     border: 1px solid #444; padding: 6px 10px; font-size: 13px; text-align: center;
 }
 
-/* Ascundem complet Tooltip-ul pe dispozitive touch (telefoane/tablete) pt a evita suprapunerea */
+/* Ascundem complet Tooltip-ul pe dispozitive touch pt a evita suprapunerea */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
     .leaflet-tooltip {
         display: none !important;
@@ -111,7 +111,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .log-btn:active { background: #1e7e34; }
 .disabled-log { background: #444 !important; color: #888 !important; border-color: #444 !important; cursor: not-allowed !important; }
 
-/* Modal Styles pt Log si Feedback */
+/* Modal Styles */
 .modal-overlay {
     display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
     background: #2b2d31; color: #eee; padding: 20px; border-radius: 8px;
@@ -347,7 +347,7 @@ window.clearLog = function() {
     }
 };
 
-// Logica FormSubmit Feedback API
+// Logica Feedback Modal & Anti-Spam
 window.toggleFeedbackModal = function() {
     document.getElementById('logModal').style.display = 'none';
     let modal = document.getElementById('feedbackModal');
@@ -358,11 +358,34 @@ window.sendFeedback = function() {
     let text = document.getElementById('feedbackText').value.trim();
     if (!text) return alert("Please type a message first.");
     
+    // --- ANTI-SPAM LOGIC ---
+    let now = Date.now();
+    let spamLog = JSON.parse(localStorage.getItem('feedbackSpamLog') || '[]');
+    // Curatam log-ul: pastram doar mesajele trimise in ultimele 5 minute (300.000 ms)
+    spamLog = spamLog.filter(time => now - time < 300000);
+    
+    if (spamLog.length >= 5) {
+        let btn = document.getElementById('sendFeedbackBtn');
+        btn.innerText = "❌ Spam detected. Wait 5 min.";
+        btn.style.background = "#ff4444";
+        btn.style.color = "#fff";
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.innerText = "✉️ Send";
+            btn.style.background = "#00ff00";
+            btn.style.color = "#111";
+            btn.disabled = false;
+        }, 4000);
+        
+        localStorage.setItem('feedbackSpamLog', JSON.stringify(spamLog)); // actualizam in caz ca am sters cele vechi
+        return; // Oprim functia aici
+    }
+    // --- END ANTI-SPAM LOGIC ---
+
     let btn = document.getElementById('sendFeedbackBtn');
     btn.innerText = "⏳ Sending...";
     btn.disabled = true;
 
-    // Se foloseste FormSubmit pt a trimite mail automat fara backend
     fetch("https://formsubmit.co/ajax/constantindragos.1042@gmail.com", {
         method: "POST",
         headers: { 
@@ -376,6 +399,10 @@ window.sendFeedback = function() {
     })
     .then(response => response.json())
     .then(data => {
+        // Înregistrăm succesul în logul anti-spam
+        spamLog.push(Date.now());
+        localStorage.setItem('feedbackSpamLog', JSON.stringify(spamLog));
+
         btn.innerText = "✔ Sent!";
         btn.style.background = "#1e7e34";
         setTimeout(() => {
@@ -797,7 +824,6 @@ function tune(){
 
             layer.on('mouseover click', updateTooltipContent);
             
-            // Ascundem Tooltip-ul automat ori de cate ori Pop-up-ul este deschis (valabil pe orice device)
             layer.on('popupopen', function() {
                 layer.closeTooltip();
             });
