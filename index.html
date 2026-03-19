@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 @import url('https://fonts.cdnfonts.com/css/ds-digital');
@@ -104,7 +105,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 .dist-val { color: #ffffff !important; font-weight: bold; }
 
-.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
+.cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; transition: 0.2s;}
 .cov-btn.active-cov { background: #ff4444; color: #fff; border-color: #ff4444; }
 
 .log-btn { background: #28a745; color: #fff; border: 1px solid #28a745; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 8px; transition: 0.2s; }
@@ -120,6 +121,8 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     font-family: Arial, sans-serif;
 }
 .modal-small { max-width: 400px; }
+.modal-large { max-width: 800px; width: 95%; } /* Pentru grafic */
+
 .log-header { font-size: 18px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #444; padding-bottom: 10px; display:flex; justify-content:space-between; align-items: center;}
 .log-list { font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap; margin-bottom: 15px; background: #111; padding: 12px; border-radius: 4px; min-height: 150px; max-height: 40vh; overflow-y: auto; border: 1px solid #000;}
 .close-modal { cursor: pointer; color: #ff4444; font-size: 14px; background: rgba(255,68,68,0.1); padding: 4px 8px; border-radius: 4px; }
@@ -152,6 +155,9 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .checkbox-container { margin-top: 8px; text-align: center; font-size: 13px; color: #ccc; }
 .checkbox-container label { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 .checkbox-container input { cursor: pointer; }
+
+/* Grafic LOS */
+.chart-container { position: relative; height: 350px; width: 100%; background: #111; border-radius: 4px; border: 1px solid #000; padding: 10px; box-sizing: border-box;}
 </style>
 </head>
 
@@ -203,7 +209,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 <div id="logModal" class="modal-overlay">
     <div class="log-header">
         <span>📓 DX Reception Log</span>
-        <span class="close-modal" onclick="document.getElementById('logModal').style.display='none'">✖ Close</span>
+        <span class="close-modal" onclick="closeAllModals()">✖ Close</span>
     </div>
     <div id="logContent" class="log-list"></div>
     <div class="log-actions">
@@ -215,13 +221,26 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 <div id="feedbackModal" class="modal-overlay modal-small">
     <div class="log-header">
         <span>✉️ Send Feedback</span>
-        <span class="close-modal" onclick="document.getElementById('feedbackModal').style.display='none'">✖ Close</span>
+        <span class="close-modal" onclick="closeAllModals()">✖ Close</span>
     </div>
     <div style="font-size: 13px; color: #ccc; margin-bottom: 10px; line-height: 1.4;">
         If you found an information error or want to help with an info, write below:
     </div>
     <textarea id="feedbackText" rows="5" placeholder="Type your message here..."></textarea>
     <button id="sendFeedbackBtn" class="log-btn" style="margin-top: 0; background: #00ff00; color: #111; border-color: #00ff00;" onclick="sendFeedback()">✉️ Send</button>
+</div>
+
+<div id="losModal" class="modal-overlay modal-large">
+    <div class="log-header">
+        <span>⛰️ Elevation Profile (Line of Sight)</span>
+        <span class="close-modal" onclick="closeAllModals()">✖ Close</span>
+    </div>
+    <div style="font-size: 13px; color: #aaa; margin-bottom: 10px; text-align: center;" id="losSubtitle">
+        Loading elevation data...
+    </div>
+    <div class="chart-container">
+        <canvas id="losChart"></canvas>
+    </div>
 </div>
 
 <div id="map"></div>
@@ -266,6 +285,13 @@ var receiverIcon = L.icon({
 });
 
 let geoLayer = null, allStations = [], receiverMarker = null, distanceLine = null, activeCoverages = {}, currentTxCoords = null;
+let losChartInstance = null; // Stocam instanta graficului ca sa o putem reseta
+
+window.closeAllModals = function() {
+    document.getElementById('logModal').style.display = 'none';
+    document.getElementById('feedbackModal').style.display = 'none';
+    document.getElementById('losModal').style.display = 'none';
+};
 
 window.togglePanel = function() {
     document.getElementById('radioPanel').classList.toggle('collapsed-panel');
@@ -321,11 +347,11 @@ window.addLogEntry = function(encodedLine, btnElem) {
 };
 
 window.toggleLogModal = function() {
-    document.getElementById('feedbackModal').style.display = 'none';
+    closeAllModals();
     let modal = document.getElementById('logModal');
     let content = document.getElementById('logContent');
     content.innerText = dxLog.length > 0 ? dxLog.join('\n') : 'DX Log / Log Reception only works in Frequency Mode.\nSelect a frequency or search for a station to log your reception.';
-    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    modal.style.display = 'block';
 };
 
 window.exportLog = function() {
@@ -349,9 +375,8 @@ window.clearLog = function() {
 
 // Logica Feedback Modal & Anti-Spam
 window.toggleFeedbackModal = function() {
-    document.getElementById('logModal').style.display = 'none';
-    let modal = document.getElementById('feedbackModal');
-    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    closeAllModals();
+    document.getElementById('feedbackModal').style.display = 'block';
 };
 
 window.sendFeedback = function() {
@@ -361,8 +386,7 @@ window.sendFeedback = function() {
     // --- ANTI-SPAM LOGIC ---
     let now = Date.now();
     let spamLog = JSON.parse(localStorage.getItem('feedbackSpamLog') || '[]');
-    // Curatam log-ul: pastram doar mesajele trimise in ultimele 5 minute (300.000 ms)
-    spamLog = spamLog.filter(time => now - time < 300000);
+    spamLog = spamLog.filter(time => now - time < 300000); // 5 min
     
     if (spamLog.length >= 5) {
         let btn = document.getElementById('sendFeedbackBtn');
@@ -377,10 +401,9 @@ window.sendFeedback = function() {
             btn.disabled = false;
         }, 4000);
         
-        localStorage.setItem('feedbackSpamLog', JSON.stringify(spamLog)); // actualizam in caz ca am sters cele vechi
-        return; // Oprim functia aici
+        localStorage.setItem('feedbackSpamLog', JSON.stringify(spamLog));
+        return; 
     }
-    // --- END ANTI-SPAM LOGIC ---
 
     let btn = document.getElementById('sendFeedbackBtn');
     btn.innerText = "⏳ Sending...";
@@ -388,25 +411,18 @@ window.sendFeedback = function() {
 
     fetch("https://formsubmit.co/ajax/constantindragos.1042@gmail.com", {
         method: "POST",
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            _subject: "📻 New FM Map Feedback / Correction",
-            message: text
-        })
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ _subject: "📻 New FM Map Feedback", message: text })
     })
     .then(response => response.json())
     .then(data => {
-        // Înregistrăm succesul în logul anti-spam
         spamLog.push(Date.now());
         localStorage.setItem('feedbackSpamLog', JSON.stringify(spamLog));
 
         btn.innerText = "✔ Sent!";
         btn.style.background = "#1e7e34";
         setTimeout(() => {
-            document.getElementById('feedbackModal').style.display = 'none';
+            closeAllModals();
             btn.innerText = "✉️ Send";
             btn.style.background = "#00ff00";
             btn.disabled = false;
@@ -425,6 +441,111 @@ window.sendFeedback = function() {
         }, 3000);
     });
 };
+
+// ======= LOGICA LINE OF SIGHT (LOS) =======
+window.showLOS = async function(txLat, txLng, txName, btnId) {
+    if (!receiverMarker) return alert("You must place the receiver first to calculate LOS!");
+    
+    let btn = document.getElementById(btnId);
+    if(btn) btn.innerText = "⏳ Loading...";
+
+    let rxLat = receiverMarker.getLatLng().lat;
+    let rxLng = receiverMarker.getLatLng().lng;
+    
+    closeAllModals();
+    document.getElementById('losModal').style.display = 'block';
+    document.getElementById('losSubtitle').innerText = "Fetching elevation data from Open-Meteo...";
+    
+    // Calculam distanta totala
+    let totalDistKm = map.distance([rxLat, rxLng], [txLat, txLng]) / 1000;
+    
+    // Generam 50 de coordonate intermediare de la RX spre TX
+    let numPoints = 50;
+    let lats = [];
+    let lons = [];
+    let distances = [];
+    
+    for (let i = 0; i < numPoints; i++) {
+        let fraction = i / (numPoints - 1);
+        lats.push((rxLat + (txLat - rxLat) * fraction).toFixed(5));
+        lons.push((rxLng + (txLng - rxLng) * fraction).toFixed(5));
+        distances.push((totalDistKm * fraction).toFixed(1));
+    }
+
+    try {
+        // Apelam Open-Meteo Elevation API (rapid, suporta multiple puncte si e gratis)
+        let url = `https://api.open-meteo.com/v1/elevation?latitude=${lats.join(',')}&longitude=${lons.join(',')}`;
+        let response = await fetch(url);
+        let data = await response.json();
+        
+        if (!data.elevation) throw new Error("No elevation data returned");
+
+        let elevations = data.elevation;
+        
+        // Setup Chart.js
+        if (losChartInstance) {
+            losChartInstance.destroy(); // Distrugem graficul vechi daca exista
+        }
+        
+        document.getElementById('losSubtitle').innerHTML = `Receiver ➡️ <b>${txName}</b> (${totalDistKm.toFixed(1)} km)`;
+
+        let ctx = document.getElementById('losChart').getContext('2d');
+        losChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: distances,
+                datasets: [
+                    {
+                        label: 'Signal Line of Sight',
+                        data: [elevations[0], ...Array(numPoints-2).fill(null), elevations[numPoints-1]], // Linie dreapta de la cap la coada
+                        borderColor: '#ff4444',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        pointRadius: 0,
+                        spanGaps: true // Permite liniei sa uneasca primul punct de ultimul
+                    },
+                    {
+                        label: 'Ground Elevation (m)',
+                        data: elevations,
+                        backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                        borderColor: '#00ff00',
+                        borderWidth: 1,
+                        fill: true,
+                        pointRadius: 0,
+                        tension: 0.2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { intersect: false, mode: 'index' },
+                plugins: {
+                    legend: { labels: { color: '#eee' } }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Distance (km)', color: '#aaa' },
+                        ticks: { color: '#888', maxTicksLimit: 10 },
+                        grid: { color: '#333' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Elevation (m)', color: '#aaa' },
+                        ticks: { color: '#888' },
+                        grid: { color: '#333' }
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        document.getElementById('losSubtitle').innerText = "❌ Error fetching elevation data. Please try again later.";
+    }
+    
+    if(btn) btn.innerText = "⛰️ Line of Sight";
+};
+// ==========================================
 
 const countyMap = {
     "Alba": "AB", "Arad": "AR", "Argeș": "AG", "Bacău": "BC", "Bihor": "BH", "Bistrița-Năsăud": "BN",
@@ -840,7 +961,10 @@ function tune(){
                 applyOnlyMarked();
             });
 
-            let btnId = "cov_" + (latlng.lat + latlng.lng).toString().replace(".","");
+            let btnIdCov = "cov_" + (latlng.lat + latlng.lng).toString().replace(".","");
+            let btnIdLos = "los_" + (latlng.lat + latlng.lng).toString().replace(".","");
+            let safeName = feature.properties.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+
             layer.bindPopup(() => {
                 let dHtml = "";
                 let distKm = 0;
@@ -864,19 +988,23 @@ function tune(){
                 let logLine = `${nameOnly} - ${feature.properties.name} ${distStr} ${pwrStr}`.replace(/\s+/g, ' ').trim();
                 let safeLogLine = encodeURIComponent(logLine);
 
-                let coverageBtnHtml = isDefaultView ? "" : `<button id="${btnId}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnId}')">📶 Show Coverage</button>`;
+                let coverageBtnHtml = isDefaultView ? "" : `<button id="${btnIdCov}" class="cov-btn" onclick="toggleCoverage(${latlng.lat}, ${latlng.lng}, ${powerWatts}, '${btnIdCov}')">📶 Show Coverage</button>`;
                 
+                let losBtnHtml = "";
                 let logBtnHtml = "";
+                
                 if (!isDefaultView) {
                     if (receiverMarker) {
+                        losBtnHtml = `<button id="${btnIdLos}" class="log-btn" style="background: #17a2b8; border-color: #17a2b8; margin-top: 5px;" onclick="showLOS(${latlng.lat}, ${latlng.lng}, '${safeName}', '${btnIdLos}')">⛰️ Line of Sight</button>`;
                         logBtnHtml = `<button class="log-btn" onclick="addLogEntry('${safeLogLine}', this)">✅ Log Station</button>`;
                     } else {
-                        logBtnHtml = `<button class="log-btn disabled-log" disabled>📍 Place receiver to log</button>`;
+                        logBtnHtml = `<button class="log-btn disabled-log" disabled>📍 Place receiver for LOS/Log</button>`;
                     }
                 }
 
                 return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br>
                         ${coverageBtnHtml}
+                        ${losBtnHtml}
                         ${logBtnHtml}`;
             });
         }
