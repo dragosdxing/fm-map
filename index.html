@@ -95,6 +95,13 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     border: 1px solid #444; padding: 6px 10px; font-size: 13px; text-align: center;
 }
 
+/* Ascundem complet Tooltip-ul pe dispozitive touch (telefoane/tablete) pt a evita suprapunerea */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    .leaflet-tooltip {
+        display: none !important;
+    }
+}
+
 .dist-val { color: #ffffff !important; font-weight: bold; }
 
 .cov-btn { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
@@ -789,6 +796,11 @@ function tune(){
             };
 
             layer.on('mouseover click', updateTooltipContent);
+            
+            // Ascundem Tooltip-ul automat ori de cate ori Pop-up-ul este deschis (valabil pe orice device)
+            layer.on('popupopen', function() {
+                layer.closeTooltip();
+            });
 
             layer.on("contextmenu", (e) => {
                 L.DomEvent.stopPropagation(e);
