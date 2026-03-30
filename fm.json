@@ -4235,7 +4235,7 @@
       },
       "properties": {
         "name": "Ploiești / Consproiect",
-        "description": "88.3 v Radio Impuls [E06D] - 500W [IMPULS__][88.3_FM_]\n96.5 v Pro FM [E029] - 1kW [PRO_FM__] [96,5_FM_]"
+        "description": "96.5 v Pro FM [E029] - 1kW [PRO_FM__] [96,5_FM_]"
       },
       "id": "A2MjI"
     },
@@ -4265,7 +4265,7 @@
       },
       "properties": {
         "name": "Ploiești / Siloz Vest",
-        "description": "92.8 v Kiss FM [515A] - 500W [KISS_FM_] [__92.8__]\n93.3 v Itsy Bitsy [E3C8] - 500W [ITSY____][BITSY___]\n93.9 v Magic FM [E210] - 1kW [MAGIC_FM] [__93.9__]\n95.9 v Focus FM [E828] - 750W [FOCUS_FM][PLOIESTI]\n105.7 v Radio ZU [E2AA] - 500W [RADIO_ZU][105.7_FM]"
+        "description": "92.8 v Kiss FM [515A] - 500W [KISS_FM_] [__92.8__]\n93.3 v Itsy Bitsy [E3C8] - 500W [ITSY____][BITSY___]\n93.9 v Magic FM [E210] - 1kW [MAGIC_FM] [__93.9__]\n95.9 v Focus FM [E828] - 750W [FOCUS_FM][PLOIESTI]\n105.7 v Radio ZU [E2AA] - 500W [RADIO_ZU][105.7_FM]\n88.3 v Radio Impuls [E06D] - 500W [IMPULS__][88.3_FM_]"
       },
       "id": "EzODA"
     },
