@@ -36,8 +36,17 @@
             box-sizing: border-box;
             font-family: inherit;
         }
+        
+        /* Efectul de blocat pentru câmpul readonly */
+        input[readonly] {
+            background: rgba(255, 255, 255, 0.02);
+            color: #666;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
         textarea { height: 160px; resize: vertical; white-space: pre-wrap; color: #ccc; cursor: not-allowed; }
-        input:focus, select:focus { border-color: #ff9900; outline: none; }
+        input:focus:not([readonly]), select:focus { border-color: #ff9900; outline: none; }
         
         button {
             margin-top: 15px;
@@ -112,8 +121,8 @@
         <h2>🗺️ FM Map - Control Status Posturi</h2>
 
         <div class="settings-group">
-            <label>Nume Repository:</label>
-            <input type="text" id="repoName" value="fm-map"> 
+            <label>Nume Repository (Blocat):</label>
+            <input type="text" id="repoName" value="fm-map" readonly> 
             
             <label>GitHub Token:</label>
             <input type="password" id="githubToken" placeholder="Introdu token-ul aici...">
