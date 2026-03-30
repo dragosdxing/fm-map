@@ -754,7 +754,7 @@ function tune(){
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
 
     let regexFM = /\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/;
-    const errorKeywords = ["(**NO AUDIO**)", "(*BLANK CARRIER*)", "(**OFF**)", "(*NO AUDIO*)"];
+    const errorKeywords = ["(**NO AUDIO**)", "(**BLANK**)", "(**VERY LOW AUDIO**)", "(**OFF AIR**)"];
 
     let filtered = allStations.filter(f => {
         let desc = f.properties.description || ""; let name = f.properties.name || "";
