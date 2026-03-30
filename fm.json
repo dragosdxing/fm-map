@@ -651,7 +651,7 @@
       },
       "properties": {
         "name": "Bârlad / Trestiana",
-        "description": "100.0 v Europa FM [E299] - 5kW [EUROPAFM][_100,0__]\n103.3 v Radio Vocea Evangheliei [EFFF] - 700W [__RVE___][song_ID]\n104.9 v Radio Impuls [E0D6] - 300W [IMPULS__][104.9_FM]",
+        "description": "100.0 v Europa FM [E299] - 5kW [EUROPAFM][_100,0__]\n103.3 v Radio Vocea Evangheliei [EFFF] - 500W [__RVE___][song_ID]\n104.9 v Radio Impuls [E0D6] - 300W [IMPULS__][104.9_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
