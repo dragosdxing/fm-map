@@ -1425,22 +1425,7 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.818067191685728, 
-          45.15228148388025
-        ]
-      },
-      "properties": {
-        "name": "Buzău / Bloc PTTR",
-        "description": "94.7 v Digi FM [E059] - 200W [Digi_FM_][94,7_FM_]\n106.2 v Pro FM [E029] - 200W [PROFM___]"
-      },
-      "id": "IzNDk"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          26.808081411691717, 
+          26.808081411691717,
           45.143193697838505
         ]
       },
@@ -1471,24 +1456,9 @@
     {
       "type": "Feature",
       "geometry": {
-        "coordinates": [
-          26.543032554144283, 
-          45.11914373541505
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "name": "Buzău / Dealul Istrița",
-        "description": "87.9 v Buzz FM [5380] - 200W [BUZZ_FM_][87.9_MHz][softROCK]\n89.7 v Radio Vocea Speranței [E2F8] - 500W [__RVS___]\n91.3 h Kiss FM [515A] - 30kW [KISS_FM_] [91.3_FM_]\n92.5 v Radio ZU [E2AA] - 5kW [RADIO_ZU][_92.5_FM]\n96.7 v Radio Impuls [E0D8] - 1kW [_IMPULS_]\n98.7 v Virgin Radio [E05F] - 6kW [VIRGIN__][98.7_FM_]\n103.7 h RR.Cultural [EE01] - 30kW [CULTURAL]\n107.0 h RR.Actualități [EE00] - 30kW [RRACTUAL]"
-      },
-      "id": "M0NDI"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
         "type": "Point",
         "coordinates": [
-          26.813226921499503, 
+          26.813226921499503,
           45.15077874304387
         ]
       },
@@ -1506,7 +1476,22 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.82205776699204, 
+          26.818067191685728,
+          45.15228148388025
+        ]
+      },
+      "properties": {
+        "name": "Buzău / Bloc PTTR",
+        "description": "94.7 v Digi FM [E059] - 200W [Digi_FM_][94,7_FM_]\n106.2 v Pro FM [E029] - 200W [PROFM___]"
+      },
+      "id": "IzNDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.82205776699204,
           45.15965414816261
         ]
       },
@@ -1519,10 +1504,25 @@
     {
       "type": "Feature",
       "geometry": {
+        "coordinates": [
+          26.543032554144283,
+          45.11914373541505
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Buzău / Dealul Istrița",
+        "description": "87.9 v Buzz FM [5380] - 200W [BUZZ_FM_][87.9_MHz][softROCK]\n89.7 v Radio Vocea Speranței [E2F8] - 500W [__RVS___]\n91.3 h Kiss FM [515A] - 30kW [KISS_FM_] [91.3_FM_]\n92.5 v Radio ZU [E2AA] - 5kW [RADIO_ZU][_92.5_FM]\n96.7 v Radio Impuls [E0D8] - 1kW [_IMPULS_]\n98.7 v Virgin Radio [E05F] - 6kW [VIRGIN__][98.7_FM_]\n103.7 h RR.Cultural [EE01] - 30kW [CULTURAL]\n107.0 h RR.Actualități [EE00] - 30kW [RRACTUAL]"
+      },
+      "id": "M0NDI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "type": "Point",
         "coordinates": [
-          23.190000, 
-          44.230000
+          23.19,
+          44.23
         ]
       },
       "properties": {
@@ -3005,12 +3005,12 @@
       },
       "id": "YwNjE"
     },
-     {
+    {
       "type": "Feature",
       "geometry": {
         "coordinates": [
-          26.420000, 
-          45.480000
+          26.42,
+          45.48
         ],
         "type": "Point"
       },
@@ -3392,7 +3392,7 @@
       },
       "properties": {
         "name": "Măgura Odobești",
-        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz]\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___] (**NO AUDIO**)\n101.0 h RR.Cultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RR.Actualități [EE00] - 45kW [RRACTUAL]",
+        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz]\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___] (**VERY LOW AUDIO**)\n101.0 h RR.Cultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RR.Actualități [EE00] - 45kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -4409,6 +4409,21 @@
     {
       "type": "Feature",
       "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.374625,
+          45.096585
+        ]
+      },
+      "properties": {
+        "name": "Râmnicu Vâlcea / Casa Tineretului",
+        "description": "101.6 v Magic FM [E210] - 300W [MAGIC_FM][101,6_FM]"
+      },
+      "id": "c0OTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "coordinates": [
           24.339531,
           45.317986
@@ -4439,35 +4454,23 @@
       },
       "id": "QzNzA"
     },
-{
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [ 24.405026 , 45.104416 ]
-  },
-  "properties": {
-    "name": "Râmnicu Vâlcea / Fețeni",
-    "description": "89.0 v Radio Metronom - 500W [Metronom]\n95.7 v Radio ZU {E2AA} - 400W [RADIO_ZU][95.7_FM_]",
-    "_umap_options": {
-      "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
-    }
-  },
-  "id": "metronom_zu_nou"
-},
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
         "coordinates": [
-          24.374625,
-          45.096585
+          24.405026,
+          45.104416
         ]
       },
       "properties": {
-        "name": "Râmnicu Vâlcea / Casa Tineretului",
-        "description": "101.6 v Magic FM [E210] - 300W [MAGIC_FM][101,6_FM]"
+        "name": "Râmnicu Vâlcea / Fețeni",
+        "description": "89.0 v Radio Metronom - 500W [Metronom]\n95.7 v Radio ZU {E2AA} - 400W [RADIO_ZU][95.7_FM_]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
       },
-      "id": "c0OTA"
+      "id": "metronom_zu_nou"
     },
     {
       "type": "Feature",
@@ -5266,7 +5269,7 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          27.36431065268796, 
+          27.36431065268796,
           44.562467034536326
         ]
       },
@@ -5347,7 +5350,7 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          22.595009756566785, 
+          22.595009756566785,
           46.69114157247154
         ]
       },
@@ -5433,27 +5436,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.248167,
-          47.647736
-        ]
-      },
-      "properties": {
-        "name": "Suceava / Grigore Ureche 4",
-        "description": "93.7 v Viva FM [E558] - 400W [VIVA_FM_][93,7_FM_]\n100.4 v Impact FM Suceava - 300W [IMPACTFM][100,4_FM][SUCEAVA_]",
-        "_umap_options": {
-          "color": "Black",
-          "iconClass": "Drop",
-          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
-          "showLabel": null
-        }
-      },
-      "id": "kzOTk"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           26.248913,
           47.649308
         ]
@@ -5469,6 +5451,27 @@
         }
       },
       "id": "AwMDA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.248167,
+          47.647736
+        ]
+      },
+      "properties": {
+        "name": "Suceava / Grigore Ureche 4",
+        "description": "93.7 v Viva FM [E558] - 400W [VIVA_FM_][93,7_FM_]\n100.4 v Impact FM Suceava - 300W [IMPACTFM][100,4_FM][SUCEAVA_]",
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        }
+      },
+      "id": "kzOTk"
     },
     {
       "type": "Feature",
