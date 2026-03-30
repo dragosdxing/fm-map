@@ -23,7 +23,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 30px;
-            max-width: 800px; /* Puțin mai lat ca să încapă harta frumos */
+            max-width: 800px; 
             width: 100%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
@@ -63,20 +63,13 @@
         .btn-load { background: #0066cc; color: white; margin-top: 10px; }
         .btn-load:hover { background: #0088ff; }
 
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-top: 5px;
-        }
+        .radio-group { display: flex; flex-direction: column; gap: 10px; background: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); margin-top: 5px; }
         .radio-group label { margin: 0; color: #fff; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .radio-group input[type="radio"] { width: auto; margin: 0; accent-color: #ff9900; cursor: pointer; }
 
         .settings-group { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px dashed rgba(255,255,255,0.1); }
+        .danger-group { border-color: #ff4d4d; background: rgba(255, 0, 0, 0.05); }
+        
         #status { margin-top: 20px; text-align: center; font-weight: bold; }
         .success { color: #00ff00; }
         .error { color: #ff4d4d; }
@@ -84,22 +77,10 @@
         .editor-section { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         .post-control { display: none; }
         
-        /* Setări pentru Mini-Hartă */
-        #miniMap {
-            height: 300px;
-            width: 100%;
-            margin-top: 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 1; /* Previne bug-urile cu meniurile derulante */
-        }
+        #miniMap { height: 300px; width: 100%; margin-top: 10px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.2); z-index: 1; }
         .map-hint { font-size: 12px; color: #ff9900; margin-top: 5px; text-align: right; }
         
-        .grid-2-cols {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+        .grid-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         @media (max-width: 768px) { .grid-2-cols { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -161,10 +142,26 @@
                     <label><input type="radio" name="postStatus" value="(**IN PLAN**)" onchange="applyStatus()"> ⚪ (**IN PLAN**) (Urmează să emită)</label>
                 </div>
 
+                <div class="settings-group danger-group" style="margin-top: 20px;">
+                    <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 16px; color: #ffcccc;">⚙️ Acțiuni Avansate:</h3>
+                    
+                    <label>🚀 Mută postul curent la o altă locație existentă:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <select id="moveTargetSelect">
+                            <option value="">-- Alege destinația --</option>
+                        </select>
+                        <button type="button" onclick="moveStation()" style="margin-top: 0; background: #0066cc; color: white; width: auto; padding: 10px 15px;">Mută Postul</button>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid rgba(255,0,0,0.3); margin: 15px 0;">
+
+                    <label style="color: #ff4d4d;">⚠️ Șterge locația (Atenție: Șterge emițătorul cu tot cu posturile rămase pe el):</label>
+                    <button type="button" onclick="deleteLocation()" style="background: #cc0000; color: white; margin-top: 5px;">🗑️ Șterge Locația Definitiv</button>
+                </div>
                 <label>Previzualizare Date (Read-Only):</label>
                 <textarea id="locDescription" readonly placeholder="Aici vezi cum se modifică textul..."></textarea>
 
-                <button type="button" onclick="saveMapData()" id="saveBtn">💾 Salvează Modificările pe Hartă</button>
+                <button type="button" onclick="saveMapData()" id="saveBtn">💾 Salvează Toate Modificările pe Hartă</button>
             </div>
         </div>
     </div>
@@ -175,7 +172,6 @@
         let currentLines = []; 
         let selectedLineIndex = -1;
         
-        // Variabile pentru Leaflet Map
         let mapInstance = null;
         let mapMarker = null;
 
@@ -190,7 +186,7 @@
         async function loadMapData() {
             const token = document.getElementById('githubToken').value.trim();
             const repo = document.getElementById('repoName').value.trim();
-            const targetFile = document.getElementById('targetFile').value; // fm.json sau fm_md.json
+            const targetFile = document.getElementById('targetFile').value; 
             const statusEl = document.getElementById('status');
             const loadBtn = document.getElementById('loadBtn');
 
@@ -209,7 +205,7 @@
 
             try {
                 const getRes = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` } });
-                if (!getRes.ok) throw new Error(`Nu am putut accesa ${targetFile}. Verifică repo-ul sau token-ul.`);
+                if (!getRes.ok) throw new Error(`Nu am putut accesa ${targetFile}. Verifică datele.`);
                 
                 const fileData = await getRes.json();
                 fileSha = fileData.sha;
@@ -218,15 +214,7 @@
                 mapData = JSON.parse(jsonString);
                 mapData.features.sort((a, b) => a.properties.name.localeCompare(b.properties.name));
 
-                const selectEl = document.getElementById('stationSelect');
-                selectEl.innerHTML = '<option value="">-- Alege o locație --</option>'; 
-                
-                mapData.features.forEach(feature => {
-                    const option = document.createElement('option');
-                    option.value = feature.id;
-                    option.textContent = feature.properties.name;
-                    selectEl.appendChild(option);
-                });
+                populateDropdowns();
 
                 statusEl.innerHTML = `<span class="success">✅ ${targetFile} a fost încărcat! (${mapData.features.length} locații)</span>`;
                 document.getElementById('editorSection').style.display = 'block';
@@ -238,6 +226,27 @@
                 loadBtn.disabled = false;
                 loadBtn.innerText = "📥 Reîncarcă Lista";
             }
+        }
+
+        // Populează atât dropdown-ul principal cât și pe cel de destinație pentru mutare
+        function populateDropdowns() {
+            const selectEl = document.getElementById('stationSelect');
+            const moveSelectEl = document.getElementById('moveTargetSelect');
+            
+            selectEl.innerHTML = '<option value="">-- Alege o locație --</option>'; 
+            moveSelectEl.innerHTML = '<option value="">-- Alege destinația --</option>'; 
+            
+            mapData.features.forEach(feature => {
+                const option1 = document.createElement('option');
+                option1.value = feature.id;
+                option1.textContent = feature.properties.name;
+                selectEl.appendChild(option1);
+
+                const option2 = document.createElement('option');
+                option2.value = feature.id;
+                option2.textContent = feature.properties.name;
+                moveSelectEl.appendChild(option2);
+            });
         }
 
         function onStationSelect() {
@@ -254,65 +263,47 @@
 
             const feature = mapData.features.find(f => f.id === selectedId);
             if (feature) {
-                // Setăm numele pentru editare
                 nameEdit.value = feature.properties.name;
-                
-                // Inițializare hartă Leaflet
                 initMapAndMarker(feature);
 
-                currentLines = feature.properties.description.split('\n');
+                currentLines = feature.properties.description.split('\n').filter(line => line.trim() !== '');
                 
                 subSelect.innerHTML = ''; 
                 currentLines.forEach((line, index) => {
-                    if(line.trim() !== '') {
-                        const option = document.createElement('option');
-                        option.value = index;
-                        option.textContent = line; 
-                        subSelect.appendChild(option);
-                    }
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = line; 
+                    subSelect.appendChild(option);
                 });
 
-                textarea.value = feature.properties.description;
+                textarea.value = currentLines.join('\n');
                 postControl.style.display = 'block';
                 
-                // Rezolvă un bug vizual din Leaflet când se afișează dintr-un div ascuns
                 setTimeout(() => { if (mapInstance) mapInstance.invalidateSize(); }, 100);
                 
                 if(subSelect.options.length > 0) {
                     subSelect.selectedIndex = 0;
                     onSubStationSelect();
+                } else {
+                    // Dacă locația e complet goală (am mutat toate posturile)
+                    textarea.value = "(Niciun post în această locație)";
                 }
             }
         }
 
-        // =====================================
-        // LOGICA PENTRU MINI-HARTĂ
-        // =====================================
         function initMapAndMarker(feature) {
-            // GeoJSON are formatul [Longitudine, Latitudine]
             const lng = feature.geometry.coordinates[0];
             const lat = feature.geometry.coordinates[1];
 
-            // Dacă harta nu există, o creăm
             if (!mapInstance) {
                 mapInstance = L.map('miniMap').setView([lat, lng], 13);
-                
-                // Folosim satelitul/străzile (poți schimba layerul dacă preferi altceva)
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© OpenStreetMap'
-                }).addTo(mapInstance);
-
-                // Creăm markerul care poate fi tras (draggable)
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OSMap' }).addTo(mapInstance);
                 mapMarker = L.marker([lat, lng], { draggable: true }).addTo(mapInstance);
-
-                // Când tragi markerul, salvăm noile coordonate
                 mapMarker.on('dragend', function(e) {
                     const position = mapMarker.getLatLng();
                     updateCoordinates(position.lat, position.lng);
                 });
             } else {
-                // Dacă harta există deja, doar o mutăm și mutăm markerul
                 mapInstance.setView([lat, lng], 13);
                 mapMarker.setLatLng([lat, lng]);
             }
@@ -321,13 +312,9 @@
         function updateCoordinates(lat, lng) {
             const selectedId = document.getElementById('stationSelect').value;
             const feature = mapData.features.find(f => f.id === selectedId);
-            // Salvăm înapoi în format GeoJSON [Longitudine, Latitudine] !!
             feature.geometry.coordinates = [lng, lat];
         }
 
-        // =====================================
-        // LOGICA PENTRU EDITARE NUME
-        // =====================================
         function updateLocName() {
             const selectedId = document.getElementById('stationSelect').value;
             const newName = document.getElementById('locNameEdit').value;
@@ -335,22 +322,25 @@
             const feature = mapData.features.find(f => f.id === selectedId);
             feature.properties.name = newName;
             
-            // Actualizăm și numele în meniul derulant ca să se vadă schimbarea în timp real
             const selectEl = document.getElementById('stationSelect');
             selectEl.options[selectEl.selectedIndex].text = newName;
+
+            const moveSelectEl = document.getElementById('moveTargetSelect');
+            for(let i=0; i < moveSelectEl.options.length; i++) {
+                if(moveSelectEl.options[i].value === selectedId) {
+                    moveSelectEl.options[i].text = newName;
+                    break;
+                }
+            }
         }
 
-
-        // =====================================
-        // LOGICA PENTRU POSTURI (Neschimbată)
-        // =====================================
         function onSubStationSelect() {
             const subSelect = document.getElementById('subStationSelect');
             selectedLineIndex = parseInt(subSelect.value);
             const currentLine = currentLines[selectedLineIndex];
+            if(!currentLine) return;
 
             let foundStatus = false;
-
             if (currentLine.includes('(**BLANK**)') || currentLine.includes('[BLANK]')) { checkRadio('postStatus', '(**BLANK**)'); foundStatus = true; }
             if (currentLine.includes('(**NO AUDIO**)') || currentLine.includes('[NO AUDIO]')) { checkRadio('postStatus', '(**NO AUDIO**)'); foundStatus = true; }
             if (currentLine.includes('(**OFF AIR**)') || currentLine.includes('(OFF AIR)')) { checkRadio('postStatus', '(**OFF AIR**)'); foundStatus = true; }
@@ -368,7 +358,7 @@
         }
 
         function applyStatus() {
-            if (selectedLineIndex === -1) return;
+            if (selectedLineIndex === -1 || currentLines.length === 0) return;
 
             let newStatus = "";
             const radios = document.getElementsByName('postStatus');
@@ -377,20 +367,13 @@
             }
 
             let line = currentLines[selectedLineIndex];
-
-            line = line.replace(/\s*\[BLANK\]/g, '')
-                       .replace(/\s*\(\*\*BLANK\*\*\)/g, '')
-                       .replace(/\s*\[NO AUDIO\]/g, '')
-                       .replace(/\s*\(\*\*NO AUDIO\*\*\)/g, '')
-                       .replace(/\s*\(OFF AIR\)/g, '')
-                       .replace(/\s*\(\*\*OFF AIR\*\*\)/g, '')
-                       .replace(/\s*\[VERY LOW AUDIO\]/g, '')
-                       .replace(/\s*\(\*\*VERY LOW AUDIO\*\*\)/g, '')
+            line = line.replace(/\s*\[BLANK\]/g, '').replace(/\s*\(\*\*BLANK\*\*\)/g, '')
+                       .replace(/\s*\[NO AUDIO\]/g, '').replace(/\s*\(\*\*NO AUDIO\*\*\)/g, '')
+                       .replace(/\s*\(OFF AIR\)/g, '').replace(/\s*\(\*\*OFF AIR\*\*\)/g, '')
+                       .replace(/\s*\[VERY LOW AUDIO\]/g, '').replace(/\s*\(\*\*VERY LOW AUDIO\*\*\)/g, '')
                        .replace(/\s*\(\*\*IN PLAN\*\*\)/g, '');
 
-            if (newStatus !== 'OK') {
-                line = line + ' ' + newStatus;
-            }
+            if (newStatus !== 'OK') { line = line + ' ' + newStatus; }
 
             currentLines[selectedLineIndex] = line;
             
@@ -405,16 +388,72 @@
             mapData.features[featureIndex].properties.description = fullDescription;
         }
 
+        // =====================================
+        // LOGICA PENTRU MUTARE POST
+        // =====================================
+        function moveStation() {
+            const sourceId = document.getElementById('stationSelect').value;
+            const targetId = document.getElementById('moveTargetSelect').value;
+            
+            if (!targetId || sourceId === targetId) { alert("⚠️ Alege o locație destinație diferită din meniul derulant!"); return; }
+            if (selectedLineIndex === -1 || currentLines.length === 0) { alert("⚠️ Niciun post selectat de mutat!"); return; }
+
+            const lineToMove = currentLines[selectedLineIndex];
+            
+            // 1. Ștergem din locația curentă
+            currentLines.splice(selectedLineIndex, 1);
+            const sourceFeature = mapData.features.find(f => f.id === sourceId);
+            sourceFeature.properties.description = currentLines.join('\n');
+            
+            // 2. Adăugăm la locația destinație
+            const targetFeature = mapData.features.find(f => f.id === targetId);
+            if (targetFeature.properties.description.trim() === '') {
+                targetFeature.properties.description = lineToMove;
+            } else {
+                targetFeature.properties.description += '\n' + lineToMove;
+            }
+
+            alert(`✅ Postul a fost mutat cu succes la "${targetFeature.properties.name}"!\n\nAtenție: Nu uita să apeși "Salvează Toate Modificările" la final.`);
+            
+            // Reîncărcăm UI-ul pentru locația curentă (ca să dispară postul mutat)
+            onStationSelect();
+        }
+
+        // =====================================
+        // LOGICA PENTRU ȘTERGERE LOCAȚIE
+        // =====================================
+        function deleteLocation() {
+            const selectedId = document.getElementById('stationSelect').value;
+            if (!selectedId) return;
+            
+            const feature = mapData.features.find(f => f.id === selectedId);
+            
+            const confirmare = confirm(`⚠️ EȘTI SIGUR?\n\nVrei să ștergi DEFINITIV locația "${feature.properties.name}" de pe hartă?\nToate posturile rămase pe această locație vor fi șterse!`);
+            
+            if (confirmare) {
+                // Găsim și ștergem obiectul din memorie
+                const featureIndex = mapData.features.findIndex(f => f.id === selectedId);
+                mapData.features.splice(featureIndex, 1);
+
+                // Repopulăm dropdown-urile ca să dispară de acolo
+                populateDropdowns();
+                
+                // Ascundem panoul de editare
+                document.getElementById('postControlArea').style.display = 'none';
+                
+                alert("🗑️ Locația a fost ștearsă.\n\nApasă butonul 'Salvează Toate Modificările' ca să aplici ștergerea și pe GitHub!");
+            }
+        }
+
+        // =====================================
+        // SALVARE PE GITHUB
+        // =====================================
         async function saveMapData() {
             const targetFile = document.getElementById('targetFile').value;
-            const selectedId = document.getElementById('stationSelect').value;
             const statusEl = document.getElementById('status');
             const saveBtn = document.getElementById('saveBtn');
 
-            if (!selectedId || !mapData) {
-                alert("Nicio modificare de salvat!");
-                return;
-            }
+            if (!mapData) { alert("Nicio modificare de salvat!"); return; }
 
             saveBtn.disabled = true;
             saveBtn.innerText = "Se salvează pe GitHub...";
@@ -433,7 +472,7 @@
                     method: 'PUT',
                     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        message: `Actualizare hartă (${targetFile}): Locație și Status (Panou Admin)`,
+                        message: `Actualizare hartă (${targetFile}) prin Panou Admin`,
                         content: encodedContent,
                         sha: fileSha 
                     })
@@ -451,7 +490,7 @@
                 statusEl.innerHTML = `<span class="error">❌ Eroare: ${error.message}</span>`;
             } finally {
                 saveBtn.disabled = false;
-                saveBtn.innerText = "💾 Salvează Modificările pe Hartă";
+                saveBtn.innerText = "💾 Salvează Toate Modificările pe Hartă";
             }
         }
     </script>
