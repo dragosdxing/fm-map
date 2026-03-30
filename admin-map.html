@@ -102,7 +102,7 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
         .post-control {
-            display: none; /* Ascuns până se selectează un post */
+            display: none; 
         }
     </style>
 </head>
@@ -133,12 +133,13 @@
                 <label>2. Selectează Postul de Radio:</label>
                 <select id="subStationSelect" onchange="onSubStationSelect()"></select>
 
-                <label>3. Status Post (se salvează automat la modificare):</label>
+                <label>3. Status Post (declanșează warning-uri pe hartă):</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="postStatus" value="OK" onchange="applyStatus()"> 🟢 [OK] (Activ - șterge etichetele)</label>
-                    <label><input type="radio" name="postStatus" value="[BLANK]" onchange="applyStatus()"> 🟡 [BLANK] (Fără sunet)</label>
-                    <label><input type="radio" name="postStatus" value="(OFF AIR)" onchange="applyStatus()"> 🔴 (OFF AIR) (Oprit)</label>
-                    <label><input type="radio" name="postStatus" value="[VERY LOW AUDIO]" onchange="applyStatus()"> 🟠 [VERY LOW AUDIO] (Sunet slab)</label>
+                    <label><input type="radio" name="postStatus" value="OK" onchange="applyStatus()"> 🟢 [OK] (Activ - curăță etichetele)</label>
+                    <label><input type="radio" name="postStatus" value="(**BLANK**)" onchange="applyStatus()"> 🟡 (**BLANK**) (Purtătoare)</label>
+                    <label><input type="radio" name="postStatus" value="(**NO AUDIO**)" onchange="applyStatus()"> 🔕 (**NO AUDIO**) (Fără sunet)</label>
+                    <label><input type="radio" name="postStatus" value="(**VERY LOW AUDIO**)" onchange="applyStatus()"> 🟠 (**VERY LOW AUDIO**) (Sunet slab)</label>
+                    <label><input type="radio" name="postStatus" value="(**OFF AIR**)" onchange="applyStatus()"> 🔴 (**OFF AIR**) (Oprit)</label>
                     <label><input type="radio" name="postStatus" value="(**IN PLAN**)" onchange="applyStatus()"> ⚪ (**IN PLAN**) (Urmează să emită)</label>
                 </div>
 
@@ -153,10 +154,9 @@
     <script>
         let mapData = null; 
         let fileSha = ""; 
-        let currentLines = []; // Aici ținem posturile din locația selectată
+        let currentLines = []; 
         let selectedLineIndex = -1;
 
-        // Baza64 cu suport diacritice
         function b64EncodeUnicode(str) {
             return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) { return String.fromCharCode('0x' + p1); }));
         }
@@ -165,9 +165,6 @@
             return decodeURIComponent(atob(str).split('').map(function(c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join(''));
         }
 
-        // =====================================
-        // 1. ÎNCĂRCARE DATE GITHUB
-        // =====================================
         async function loadMapData() {
             const token = document.getElementById('githubToken').value.trim();
             const repo = document.getElementById('repoName').value.trim();
@@ -221,9 +218,6 @@
             }
         }
 
-        // =====================================
-        // 2. SELECTARE LOCAȚIE -> EXTRAGERE POSTURI
-        // =====================================
         function onStationSelect() {
             const selectedId = document.getElementById('stationSelect').value;
             const postControl = document.getElementById('postControlArea');
@@ -237,15 +231,13 @@
 
             const feature = mapData.features.find(f => f.id === selectedId);
             if (feature) {
-                // Spargem textul pe rânduri (fiecare rând = un post)
                 currentLines = feature.properties.description.split('\n');
                 
-                subSelect.innerHTML = ''; // Golim lista de posturi veche
+                subSelect.innerHTML = ''; 
                 currentLines.forEach((line, index) => {
                     if(line.trim() !== '') {
                         const option = document.createElement('option');
                         option.value = index;
-                        // Afișăm în meniu o variantă scurtată dacă rândul e prea lung, dar de obicei frecvența + numele e suficient
                         option.textContent = line; 
                         subSelect.appendChild(option);
                     }
@@ -254,7 +246,6 @@
                 textarea.value = feature.properties.description;
                 postControl.style.display = 'block';
                 
-                // Selectăm automat primul post din listă
                 if(subSelect.options.length > 0) {
                     subSelect.selectedIndex = 0;
                     onSubStationSelect();
@@ -262,30 +253,25 @@
             }
         }
 
-        // =====================================
-        // 3. SELECTARE POST INDIVIDUAL
-        // =====================================
         function onSubStationSelect() {
             const subSelect = document.getElementById('subStationSelect');
             selectedLineIndex = parseInt(subSelect.value);
             const currentLine = currentLines[selectedLineIndex];
 
-            // Verificăm ce status are postul în acest moment pentru a bifa butonul radio corect
-            const radios = document.getElementsByName('postStatus');
             let foundStatus = false;
 
-            if (currentLine.includes('[BLANK]')) { checkRadio('postStatus', '[BLANK]'); foundStatus = true; }
-            if (currentLine.includes('(OFF AIR)')) { checkRadio('postStatus', '(OFF AIR)'); foundStatus = true; }
-            if (currentLine.includes('[VERY LOW AUDIO]')) { checkRadio('postStatus', '[VERY LOW AUDIO]'); foundStatus = true; }
+            // Verificăm atât formatele noi cât și cele vechi
+            if (currentLine.includes('(**BLANK**)') || currentLine.includes('[BLANK]')) { checkRadio('postStatus', '(**BLANK**)'); foundStatus = true; }
+            if (currentLine.includes('(**NO AUDIO**)') || currentLine.includes('[NO AUDIO]')) { checkRadio('postStatus', '(**NO AUDIO**)'); foundStatus = true; }
+            if (currentLine.includes('(**OFF AIR**)') || currentLine.includes('(OFF AIR)')) { checkRadio('postStatus', '(**OFF AIR**)'); foundStatus = true; }
+            if (currentLine.includes('(**VERY LOW AUDIO**)') || currentLine.includes('[VERY LOW AUDIO]')) { checkRadio('postStatus', '(**VERY LOW AUDIO**)'); foundStatus = true; }
             if (currentLine.includes('(**IN PLAN**)')) { checkRadio('postStatus', '(**IN PLAN**)'); foundStatus = true; }
             
-            // Dacă nu are nicio etichetă din cele de mai sus, înseamnă că e OK
             if (!foundStatus) {
                 checkRadio('postStatus', 'OK');
             }
         }
 
-        // Funcție mică ajutătoare pentru a bifa un radio
         function checkRadio(name, value) {
             const radios = document.getElementsByName(name);
             for (let i = 0; i < radios.length; i++) {
@@ -293,13 +279,9 @@
             }
         }
 
-        // =====================================
-        // 4. APLICARE STATUS (Când dai click pe un radio button)
-        // =====================================
         function applyStatus() {
             if (selectedLineIndex === -1) return;
 
-            // Aflăm ce a bifat utilizatorul
             let newStatus = "";
             const radios = document.getElementsByName('postStatus');
             for (let i = 0; i < radios.length; i++) {
@@ -311,37 +293,34 @@
 
             let line = currentLines[selectedLineIndex];
 
-            // Pasul A: Curățăm complet postul de orice status vechi
+            // Curățăm ambele variante (și cele cu paranteze drepte vechi, și cele cu steluțe) ca să păstrăm fișierul curat
             line = line.replace(/\s*\[BLANK\]/g, '')
+                       .replace(/\s*\(\*\*BLANK\*\*\)/g, '')
+                       .replace(/\s*\[NO AUDIO\]/g, '')
+                       .replace(/\s*\(\*\*NO AUDIO\*\*\)/g, '')
                        .replace(/\s*\(OFF AIR\)/g, '')
+                       .replace(/\s*\(\*\*OFF AIR\*\*\)/g, '')
                        .replace(/\s*\[VERY LOW AUDIO\]/g, '')
+                       .replace(/\s*\(\*\*VERY LOW AUDIO\*\*\)/g, '')
                        .replace(/\s*\(\*\*IN PLAN\*\*\)/g, '');
 
-            // Pasul B: Adăugăm noul status (dacă nu a ales OK)
             if (newStatus !== 'OK') {
                 line = line + ' ' + newStatus;
             }
 
-            // Actualizăm matricea și interfața
             currentLines[selectedLineIndex] = line;
             
-            // Actualizăm vizual meniul dropdown ca să arate noul nume al postului (cu tot cu etichetă)
             const subSelect = document.getElementById('subStationSelect');
             subSelect.options[subSelect.selectedIndex].textContent = line;
 
-            // Rescriem blocul mare de text din fundal
             const fullDescription = currentLines.join('\n');
             document.getElementById('locDescription').value = fullDescription;
 
-            // Actualizăm obiectul mapData ca să fie gata de salvare pe GitHub
             const selectedId = document.getElementById('stationSelect').value;
             const featureIndex = mapData.features.findIndex(f => f.id === selectedId);
             mapData.features[featureIndex].properties.description = fullDescription;
         }
 
-        // =====================================
-        // 5. SALVARE PE GITHUB
-        // =====================================
         async function saveMapData() {
             const selectedId = document.getElementById('stationSelect').value;
             const statusEl = document.getElementById('status');
