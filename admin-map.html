@@ -25,7 +25,7 @@
         }
         h2 { text-align: center; color: #ff9900; margin-top: 0; }
         label { display: block; margin-top: 15px; color: #aaaaaa; font-size: 14px; }
-        input, select, textarea {
+        input[type="text"], input[type="password"], select, textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -36,8 +36,8 @@
             box-sizing: border-box;
             font-family: inherit;
         }
-        textarea { height: 180px; resize: vertical; white-space: pre-wrap; }
-        input:focus, select:focus, textarea:focus { border-color: #ff9900; outline: none; }
+        textarea { height: 160px; resize: vertical; white-space: pre-wrap; color: #ccc; cursor: not-allowed; }
+        input:focus, select:focus { border-color: #ff9900; outline: none; }
         
         button {
             margin-top: 15px;
@@ -53,31 +53,36 @@
             transition: background 0.3s;
         }
         button:hover { background: #ffaa33; }
-        button:disabled { background: #555; cursor: not-allowed; }
+        button:disabled { background: #555; cursor: not-allowed; color: #999; }
         
         .btn-load { background: #0066cc; color: white; margin-top: 10px; }
         .btn-load:hover { background: #0088ff; }
 
-        .toolbar {
+        .radio-group {
             display: flex;
+            flex-direction: column;
             gap: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
             margin-top: 5px;
-            margin-bottom: 5px;
-            flex-wrap: wrap;
         }
-        .tool-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .radio-group label {
+            margin: 0;
             color: #fff;
-            padding: 6px 12px;
-            border-radius: 4px;
+            font-size: 15px;
             cursor: pointer;
-            font-size: 13px;
-            transition: background 0.2s;
-            width: auto;
-            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .tool-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: #ff9900; color: #fff; }
+        .radio-group input[type="radio"] {
+            width: auto;
+            margin: 0;
+            accent-color: #ff9900;
+            cursor: pointer;
+        }
 
         .settings-group {
             background: rgba(0,0,0,0.3);
@@ -91,21 +96,26 @@
         .error { color: #ff4d4d; }
         
         .editor-section {
-            display: none; /* Ascuns până se încarcă datele */
+            display: none; 
             margin-top: 20px;
             padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .post-control {
+            display: none; /* Ascuns până se selectează un post */
         }
     </style>
 </head>
 <body>
 
     <div class="admin-panel">
-        <h2>🗺️ FM Map - Editare Posturi</h2>
+        <h2>🗺️ FM Map - Control Status Posturi</h2>
 
         <div class="settings-group">
             <label>Nume Repository:</label>
-            <input type="text" id="repoName" value="fm-map"> <label>GitHub Token:</label>
+            <input type="text" id="repoName" value="fm-map"> 
+            
+            <label>GitHub Token:</label>
             <input type="password" id="githubToken" placeholder="Introdu token-ul aici...">
             
             <button type="button" class="btn-load" id="loadBtn" onclick="loadMapData()">📥 Încarcă Lista de pe Hartă</button>
@@ -114,31 +124,39 @@
         <div id="status"></div>
 
         <div class="editor-section" id="editorSection">
-            <label>Selectează Locația (Emițătorul):</label>
+            <label>1. Selectează Locația (Emițătorul):</label>
             <select id="stationSelect" onchange="onStationSelect()">
                 <option value="">-- Alege o locație --</option>
             </select>
 
-            <label>Nume Locație:</label>
-            <input type="text" id="locName">
+            <div class="post-control" id="postControlArea">
+                <label>2. Selectează Postul de Radio:</label>
+                <select id="subStationSelect" onchange="onSubStationSelect()"></select>
 
-            <label>Datele posturilor (Frecvență, Nume, RDS):</label>
-            <div class="toolbar">
-                <button type="button" class="tool-btn" onclick="insertTag(' [BLANK]')">🟡 Adaugă [BLANK]</button>
-                <button type="button" class="tool-btn" onclick="insertTag(' (OFF AIR)')">🔴 Adaugă (OFF AIR)</button>
-                <button type="button" class="tool-btn" onclick="insertTag(' (**IN PLAN**)')">⚪ Adaugă (**IN PLAN**)</button>
+                <label>3. Status Post (se salvează automat la modificare):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="postStatus" value="OK" onchange="applyStatus()"> 🟢 [OK] (Activ - șterge etichetele)</label>
+                    <label><input type="radio" name="postStatus" value="[BLANK]" onchange="applyStatus()"> 🟡 [BLANK] (Fără sunet)</label>
+                    <label><input type="radio" name="postStatus" value="(OFF AIR)" onchange="applyStatus()"> 🔴 (OFF AIR) (Oprit)</label>
+                    <label><input type="radio" name="postStatus" value="[VERY LOW AUDIO]" onchange="applyStatus()"> 🟠 [VERY LOW AUDIO] (Sunet slab)</label>
+                    <label><input type="radio" name="postStatus" value="(**IN PLAN**)" onchange="applyStatus()"> ⚪ (**IN PLAN**) (Urmează să emită)</label>
+                </div>
+
+                <label>Previzualizare Date (Read-Only):</label>
+                <textarea id="locDescription" readonly placeholder="Aici vezi cum se modifică textul..."></textarea>
+
+                <button type="button" onclick="saveMapData()" id="saveBtn">💾 Salvează Modificările pe Hartă</button>
             </div>
-            <textarea id="locDescription" placeholder="Informațiile despre posturile de radio..."></textarea>
-
-            <button type="button" onclick="saveMapData()" id="saveBtn">💾 Salvează Modificările pe Hartă</button>
         </div>
     </div>
 
     <script>
-        let mapData = null; // Aici vom ține tot JSON-ul uriaș
-        let fileSha = ""; // Ne trebuie ca să suprascriem fișierul
+        let mapData = null; 
+        let fileSha = ""; 
+        let currentLines = []; // Aici ținem posturile din locația selectată
+        let selectedLineIndex = -1;
 
-        // Funcții pentru Base64 (suportă diacritice)
+        // Baza64 cu suport diacritice
         function b64EncodeUnicode(str) {
             return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) { return String.fromCharCode('0x' + p1); }));
         }
@@ -147,7 +165,9 @@
             return decodeURIComponent(atob(str).split('').map(function(c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join(''));
         }
 
-        // 1. DESCĂRCAREA DATELOR DE PE GITHUB
+        // =====================================
+        // 1. ÎNCĂRCARE DATE GITHUB
+        // =====================================
         async function loadMapData() {
             const token = document.getElementById('githubToken').value.trim();
             const repo = document.getElementById('repoName').value.trim();
@@ -162,31 +182,25 @@
             loadBtn.disabled = true;
             loadBtn.innerText = "Se încarcă datele...";
             statusEl.innerHTML = 'Se descarcă fm.json...';
+            document.getElementById('postControlArea').style.display = 'none';
 
             const owner = 'dragosdxing'; 
             const path = 'fm.json'; 
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
             try {
-                const getRes = await fetch(apiUrl, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-
-                if (!getRes.ok) throw new Error("Nu am putut accesa fm.json. Verifică Token-ul și Numele Repo-ului.");
+                const getRes = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` } });
+                if (!getRes.ok) throw new Error("Nu am putut accesa fm.json. Verifică datele.");
                 
                 const fileData = await getRes.json();
                 fileSha = fileData.sha;
                 const jsonString = b64DecodeUnicode(fileData.content);
                 
-                // Parsăm GeoJSON-ul
                 mapData = JSON.parse(jsonString);
-
-                // Sortăm locațiile alfabetic ca să le găsești mai ușor în meniu
                 mapData.features.sort((a, b) => a.properties.name.localeCompare(b.properties.name));
 
-                // Umplem meniul derulant (Select)
                 const selectEl = document.getElementById('stationSelect');
-                selectEl.innerHTML = '<option value="">-- Alege o locație --</option>'; // Reset
+                selectEl.innerHTML = '<option value="">-- Alege o locație --</option>'; 
                 
                 mapData.features.forEach(feature => {
                     const option = document.createElement('option');
@@ -195,7 +209,7 @@
                     selectEl.appendChild(option);
                 });
 
-                statusEl.innerHTML = `<span class="success">✅ Datele au fost încărcate! (${mapData.features.length} locații găsite)</span>`;
+                statusEl.innerHTML = `<span class="success">✅ Datele au fost încărcate! (${mapData.features.length} locații)</span>`;
                 document.getElementById('editorSection').style.display = 'block';
 
             } catch (error) {
@@ -207,50 +221,140 @@
             }
         }
 
-        // 2. AFIȘAREA DATELOR CÂND SELECTEZI O LOCAȚIE
+        // =====================================
+        // 2. SELECTARE LOCAȚIE -> EXTRAGERE POSTURI
+        // =====================================
         function onStationSelect() {
             const selectedId = document.getElementById('stationSelect').value;
-            if (!selectedId) return;
+            const postControl = document.getElementById('postControlArea');
+            const subSelect = document.getElementById('subStationSelect');
+            const textarea = document.getElementById('locDescription');
 
-            // Căutăm locația selectată în baza noastră de date din memorie
+            if (!selectedId) {
+                postControl.style.display = 'none';
+                return;
+            }
+
             const feature = mapData.features.find(f => f.id === selectedId);
             if (feature) {
-                document.getElementById('locName').value = feature.properties.name;
-                document.getElementById('locDescription').value = feature.properties.description;
+                // Spargem textul pe rânduri (fiecare rând = un post)
+                currentLines = feature.properties.description.split('\n');
+                
+                subSelect.innerHTML = ''; // Golim lista de posturi veche
+                currentLines.forEach((line, index) => {
+                    if(line.trim() !== '') {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        // Afișăm în meniu o variantă scurtată dacă rândul e prea lung, dar de obicei frecvența + numele e suficient
+                        option.textContent = line; 
+                        subSelect.appendChild(option);
+                    }
+                });
+
+                textarea.value = feature.properties.description;
+                postControl.style.display = 'block';
+                
+                // Selectăm automat primul post din listă
+                if(subSelect.options.length > 0) {
+                    subSelect.selectedIndex = 0;
+                    onSubStationSelect();
+                }
             }
         }
 
-        // 3. BUTOANE RAPIDE PENTRU STATUS
-        function insertTag(tag) {
-            const textarea = document.getElementById('locDescription');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const text = textarea.value;
+        // =====================================
+        // 3. SELECTARE POST INDIVIDUAL
+        // =====================================
+        function onSubStationSelect() {
+            const subSelect = document.getElementById('subStationSelect');
+            selectedLineIndex = parseInt(subSelect.value);
+            const currentLine = currentLines[selectedLineIndex];
+
+            // Verificăm ce status are postul în acest moment pentru a bifa butonul radio corect
+            const radios = document.getElementsByName('postStatus');
+            let foundStatus = false;
+
+            if (currentLine.includes('[BLANK]')) { checkRadio('postStatus', '[BLANK]'); foundStatus = true; }
+            if (currentLine.includes('(OFF AIR)')) { checkRadio('postStatus', '(OFF AIR)'); foundStatus = true; }
+            if (currentLine.includes('[VERY LOW AUDIO]')) { checkRadio('postStatus', '[VERY LOW AUDIO]'); foundStatus = true; }
+            if (currentLine.includes('(**IN PLAN**)')) { checkRadio('postStatus', '(**IN PLAN**)'); foundStatus = true; }
             
-            textarea.value = text.substring(0, start) + tag + text.substring(end);
-            textarea.focus();
-            textarea.selectionEnd = start + tag.length; // Mută cursorul după tag
+            // Dacă nu are nicio etichetă din cele de mai sus, înseamnă că e OK
+            if (!foundStatus) {
+                checkRadio('postStatus', 'OK');
+            }
         }
 
-        // 4. SALVAREA DATELOR ÎNAPOI PE GITHUB
+        // Funcție mică ajutătoare pentru a bifa un radio
+        function checkRadio(name, value) {
+            const radios = document.getElementsByName(name);
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].value === value) radios[i].checked = true;
+            }
+        }
+
+        // =====================================
+        // 4. APLICARE STATUS (Când dai click pe un radio button)
+        // =====================================
+        function applyStatus() {
+            if (selectedLineIndex === -1) return;
+
+            // Aflăm ce a bifat utilizatorul
+            let newStatus = "";
+            const radios = document.getElementsByName('postStatus');
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    newStatus = radios[i].value;
+                    break;
+                }
+            }
+
+            let line = currentLines[selectedLineIndex];
+
+            // Pasul A: Curățăm complet postul de orice status vechi
+            line = line.replace(/\s*\[BLANK\]/g, '')
+                       .replace(/\s*\(OFF AIR\)/g, '')
+                       .replace(/\s*\[VERY LOW AUDIO\]/g, '')
+                       .replace(/\s*\(\*\*IN PLAN\*\*\)/g, '');
+
+            // Pasul B: Adăugăm noul status (dacă nu a ales OK)
+            if (newStatus !== 'OK') {
+                line = line + ' ' + newStatus;
+            }
+
+            // Actualizăm matricea și interfața
+            currentLines[selectedLineIndex] = line;
+            
+            // Actualizăm vizual meniul dropdown ca să arate noul nume al postului (cu tot cu etichetă)
+            const subSelect = document.getElementById('subStationSelect');
+            subSelect.options[subSelect.selectedIndex].textContent = line;
+
+            // Rescriem blocul mare de text din fundal
+            const fullDescription = currentLines.join('\n');
+            document.getElementById('locDescription').value = fullDescription;
+
+            // Actualizăm obiectul mapData ca să fie gata de salvare pe GitHub
+            const selectedId = document.getElementById('stationSelect').value;
+            const featureIndex = mapData.features.findIndex(f => f.id === selectedId);
+            mapData.features[featureIndex].properties.description = fullDescription;
+        }
+
+        // =====================================
+        // 5. SALVARE PE GITHUB
+        // =====================================
         async function saveMapData() {
             const selectedId = document.getElementById('stationSelect').value;
             const statusEl = document.getElementById('status');
             const saveBtn = document.getElementById('saveBtn');
 
             if (!selectedId || !mapData) {
-                alert("Te rog selectează o locație înainte de a salva!");
+                alert("Nicio modificare de salvat!");
                 return;
             }
 
-            // Actualizăm obiectul din memorie cu noile date din căsuțe
-            const featureIndex = mapData.features.findIndex(f => f.id === selectedId);
-            mapData.features[featureIndex].properties.name = document.getElementById('locName').value.trim();
-            mapData.features[featureIndex].properties.description = document.getElementById('locDescription').value.trim();
-
             saveBtn.disabled = true;
-            saveBtn.innerText = "Se salvează...";
-            statusEl.innerHTML = 'Se procesează actualizarea...';
+            saveBtn.innerText = "Se salvează pe GitHub...";
+            statusEl.innerHTML = 'Se trimit datele...';
 
             const token = document.getElementById('githubToken').value.trim();
             const repo = document.getElementById('repoName').value.trim();
@@ -259,30 +363,25 @@
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
             try {
-                // Transformăm înapoi în text JSON, formatat frumos
                 const newJsonString = JSON.stringify(mapData, null, 2);
                 const encodedContent = b64EncodeUnicode(newJsonString);
 
                 const putRes = await fetch(apiUrl, {
                     method: 'PUT',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        message: `Actualizare hartă: ${mapData.features[featureIndex].properties.name}`,
+                        message: `Actualizat status post (Panou Admin)`,
                         content: encodedContent,
-                        sha: fileSha // Oferim SHA-ul vechi ca GitHub să știe că vrem să suprascriem
+                        sha: fileSha 
                     })
                 });
 
-                if (!putRes.ok) throw new Error("Eroare la salvarea fișierului pe server.");
+                if (!putRes.ok) throw new Error("Eroare la salvarea pe server.");
 
-                // Actualizăm noul SHA primit după salvare, în caz că vrem să mai facem modificări fără refresh
                 const putData = await putRes.json();
                 fileSha = putData.content.sha;
 
-                statusEl.innerHTML = '<span class="success">✅ Harta a fost actualizată cu succes! (Durează 1-2 minute să se aplice)</span>';
+                statusEl.innerHTML = '<span class="success">✅ Harta a fost actualizată! Modificările apar în 1-2 minute.</span>';
 
             } catch (error) {
                 console.error(error);
