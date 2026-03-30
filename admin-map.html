@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - FM Map</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
         body {
             background-color: #050508;
@@ -19,7 +23,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 30px;
-            max-width: 700px;
+            max-width: 800px; /* Puțin mai lat ca să încapă harta frumos */
             width: 100%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
@@ -36,15 +40,7 @@
             box-sizing: border-box;
             font-family: inherit;
         }
-        
-        /* Efectul de blocat pentru câmpul readonly */
-        input[readonly] {
-            background: rgba(255, 255, 255, 0.02);
-            color: #666;
-            cursor: not-allowed;
-            border-color: rgba(255, 255, 255, 0.05);
-        }
-
+        input[readonly] { background: rgba(255, 255, 255, 0.02); color: #666; cursor: not-allowed; border-color: rgba(255, 255, 255, 0.05); }
         textarea { height: 160px; resize: vertical; white-space: pre-wrap; color: #ccc; cursor: not-allowed; }
         input:focus:not([readonly]), select:focus { border-color: #ff9900; outline: none; }
         
@@ -77,55 +73,58 @@
             border: 1px solid rgba(255,255,255,0.1);
             margin-top: 5px;
         }
-        .radio-group label {
-            margin: 0;
-            color: #fff;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .radio-group input[type="radio"] {
-            width: auto;
-            margin: 0;
-            accent-color: #ff9900;
-            cursor: pointer;
-        }
+        .radio-group label { margin: 0; color: #fff; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .radio-group input[type="radio"] { width: auto; margin: 0; accent-color: #ff9900; cursor: pointer; }
 
-        .settings-group {
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border: 1px dashed rgba(255,255,255,0.1);
-        }
+        .settings-group { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px dashed rgba(255,255,255,0.1); }
         #status { margin-top: 20px; text-align: center; font-weight: bold; }
         .success { color: #00ff00; }
         .error { color: #ff4d4d; }
         
-        .editor-section {
-            display: none; 
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .editor-section { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .post-control { display: none; }
+        
+        /* Setări pentru Mini-Hartă */
+        #miniMap {
+            height: 300px;
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1; /* Previne bug-urile cu meniurile derulante */
         }
-        .post-control {
-            display: none; 
+        .map-hint { font-size: 12px; color: #ff9900; margin-top: 5px; text-align: right; }
+        
+        .grid-2-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
+        @media (max-width: 768px) { .grid-2-cols { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <div class="admin-panel">
-        <h2>🗺️ FM Map - Control Status Posturi</h2>
+        <h2>🗺️ FM Map - Control Total Emițătoare</h2>
 
         <div class="settings-group">
-            <label>Nume Repository (Blocat):</label>
-            <input type="text" id="repoName" value="fm-map" readonly> 
-            
-            <label>GitHub Token:</label>
-            <input type="password" id="githubToken" placeholder="Introdu token-ul aici...">
+            <label>Fișier Țintă (România sau Moldova):</label>
+            <select id="targetFile">
+                <option value="fm.json">🇷🇴 România (fm.json)</option>
+                <option value="fm_md.json">🇲🇩 Moldova (fm_md.json)</option>
+            </select>
+
+            <div class="grid-2-cols">
+                <div>
+                    <label>Nume Repository (Blocat):</label>
+                    <input type="text" id="repoName" value="fm-map" readonly> 
+                </div>
+                <div>
+                    <label>GitHub Token:</label>
+                    <input type="password" id="githubToken" placeholder="Introdu token-ul aici...">
+                </div>
+            </div>
             
             <button type="button" class="btn-load" id="loadBtn" onclick="loadMapData()">📥 Încarcă Lista de pe Hartă</button>
         </div>
@@ -139,6 +138,16 @@
             </select>
 
             <div class="post-control" id="postControlArea">
+                
+                <div class="settings-group" style="margin-top: 15px;">
+                    <label>✏️ Nume Locație (Modificabil):</label>
+                    <input type="text" id="locNameEdit" onkeyup="updateLocName()">
+                    
+                    <label>📍 Ajustează Coordonatele (Trage markerul pe hartă):</label>
+                    <div id="miniMap"></div>
+                    <div class="map-hint">Trage pin-ul albastru pentru a salva automat noile coordonate.</div>
+                </div>
+
                 <label>2. Selectează Postul de Radio:</label>
                 <select id="subStationSelect" onchange="onSubStationSelect()"></select>
 
@@ -165,6 +174,10 @@
         let fileSha = ""; 
         let currentLines = []; 
         let selectedLineIndex = -1;
+        
+        // Variabile pentru Leaflet Map
+        let mapInstance = null;
+        let mapMarker = null;
 
         function b64EncodeUnicode(str) {
             return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) { return String.fromCharCode('0x' + p1); }));
@@ -177,26 +190,26 @@
         async function loadMapData() {
             const token = document.getElementById('githubToken').value.trim();
             const repo = document.getElementById('repoName').value.trim();
+            const targetFile = document.getElementById('targetFile').value; // fm.json sau fm_md.json
             const statusEl = document.getElementById('status');
             const loadBtn = document.getElementById('loadBtn');
 
             if (!token || !repo) {
-                statusEl.innerHTML = '<span class="error">Te rog introdu Token-ul și Numele Repo-ului!</span>';
+                statusEl.innerHTML = '<span class="error">Te rog introdu Token-ul!</span>';
                 return;
             }
 
             loadBtn.disabled = true;
             loadBtn.innerText = "Se încarcă datele...";
-            statusEl.innerHTML = 'Se descarcă fm.json...';
+            statusEl.innerHTML = `Se descarcă ${targetFile}...`;
             document.getElementById('postControlArea').style.display = 'none';
 
             const owner = 'dragosdxing'; 
-            const path = 'fm.json'; 
-            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${targetFile}`;
 
             try {
                 const getRes = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${token}` } });
-                if (!getRes.ok) throw new Error("Nu am putut accesa fm.json. Verifică datele.");
+                if (!getRes.ok) throw new Error(`Nu am putut accesa ${targetFile}. Verifică repo-ul sau token-ul.`);
                 
                 const fileData = await getRes.json();
                 fileSha = fileData.sha;
@@ -215,7 +228,7 @@
                     selectEl.appendChild(option);
                 });
 
-                statusEl.innerHTML = `<span class="success">✅ Datele au fost încărcate! (${mapData.features.length} locații)</span>`;
+                statusEl.innerHTML = `<span class="success">✅ ${targetFile} a fost încărcat! (${mapData.features.length} locații)</span>`;
                 document.getElementById('editorSection').style.display = 'block';
 
             } catch (error) {
@@ -232,6 +245,7 @@
             const postControl = document.getElementById('postControlArea');
             const subSelect = document.getElementById('subStationSelect');
             const textarea = document.getElementById('locDescription');
+            const nameEdit = document.getElementById('locNameEdit');
 
             if (!selectedId) {
                 postControl.style.display = 'none';
@@ -240,6 +254,12 @@
 
             const feature = mapData.features.find(f => f.id === selectedId);
             if (feature) {
+                // Setăm numele pentru editare
+                nameEdit.value = feature.properties.name;
+                
+                // Inițializare hartă Leaflet
+                initMapAndMarker(feature);
+
                 currentLines = feature.properties.description.split('\n');
                 
                 subSelect.innerHTML = ''; 
@@ -255,6 +275,9 @@
                 textarea.value = feature.properties.description;
                 postControl.style.display = 'block';
                 
+                // Rezolvă un bug vizual din Leaflet când se afișează dintr-un div ascuns
+                setTimeout(() => { if (mapInstance) mapInstance.invalidateSize(); }, 100);
+                
                 if(subSelect.options.length > 0) {
                     subSelect.selectedIndex = 0;
                     onSubStationSelect();
@@ -262,6 +285,65 @@
             }
         }
 
+        // =====================================
+        // LOGICA PENTRU MINI-HARTĂ
+        // =====================================
+        function initMapAndMarker(feature) {
+            // GeoJSON are formatul [Longitudine, Latitudine]
+            const lng = feature.geometry.coordinates[0];
+            const lat = feature.geometry.coordinates[1];
+
+            // Dacă harta nu există, o creăm
+            if (!mapInstance) {
+                mapInstance = L.map('miniMap').setView([lat, lng], 13);
+                
+                // Folosim satelitul/străzile (poți schimba layerul dacă preferi altceva)
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap'
+                }).addTo(mapInstance);
+
+                // Creăm markerul care poate fi tras (draggable)
+                mapMarker = L.marker([lat, lng], { draggable: true }).addTo(mapInstance);
+
+                // Când tragi markerul, salvăm noile coordonate
+                mapMarker.on('dragend', function(e) {
+                    const position = mapMarker.getLatLng();
+                    updateCoordinates(position.lat, position.lng);
+                });
+            } else {
+                // Dacă harta există deja, doar o mutăm și mutăm markerul
+                mapInstance.setView([lat, lng], 13);
+                mapMarker.setLatLng([lat, lng]);
+            }
+        }
+
+        function updateCoordinates(lat, lng) {
+            const selectedId = document.getElementById('stationSelect').value;
+            const feature = mapData.features.find(f => f.id === selectedId);
+            // Salvăm înapoi în format GeoJSON [Longitudine, Latitudine] !!
+            feature.geometry.coordinates = [lng, lat];
+        }
+
+        // =====================================
+        // LOGICA PENTRU EDITARE NUME
+        // =====================================
+        function updateLocName() {
+            const selectedId = document.getElementById('stationSelect').value;
+            const newName = document.getElementById('locNameEdit').value;
+            
+            const feature = mapData.features.find(f => f.id === selectedId);
+            feature.properties.name = newName;
+            
+            // Actualizăm și numele în meniul derulant ca să se vadă schimbarea în timp real
+            const selectEl = document.getElementById('stationSelect');
+            selectEl.options[selectEl.selectedIndex].text = newName;
+        }
+
+
+        // =====================================
+        // LOGICA PENTRU POSTURI (Neschimbată)
+        // =====================================
         function onSubStationSelect() {
             const subSelect = document.getElementById('subStationSelect');
             selectedLineIndex = parseInt(subSelect.value);
@@ -269,16 +351,13 @@
 
             let foundStatus = false;
 
-            // Verificăm atât formatele noi cât și cele vechi
             if (currentLine.includes('(**BLANK**)') || currentLine.includes('[BLANK]')) { checkRadio('postStatus', '(**BLANK**)'); foundStatus = true; }
             if (currentLine.includes('(**NO AUDIO**)') || currentLine.includes('[NO AUDIO]')) { checkRadio('postStatus', '(**NO AUDIO**)'); foundStatus = true; }
             if (currentLine.includes('(**OFF AIR**)') || currentLine.includes('(OFF AIR)')) { checkRadio('postStatus', '(**OFF AIR**)'); foundStatus = true; }
             if (currentLine.includes('(**VERY LOW AUDIO**)') || currentLine.includes('[VERY LOW AUDIO]')) { checkRadio('postStatus', '(**VERY LOW AUDIO**)'); foundStatus = true; }
             if (currentLine.includes('(**IN PLAN**)')) { checkRadio('postStatus', '(**IN PLAN**)'); foundStatus = true; }
             
-            if (!foundStatus) {
-                checkRadio('postStatus', 'OK');
-            }
+            if (!foundStatus) { checkRadio('postStatus', 'OK'); }
         }
 
         function checkRadio(name, value) {
@@ -294,15 +373,11 @@
             let newStatus = "";
             const radios = document.getElementsByName('postStatus');
             for (let i = 0; i < radios.length; i++) {
-                if (radios[i].checked) {
-                    newStatus = radios[i].value;
-                    break;
-                }
+                if (radios[i].checked) { newStatus = radios[i].value; break; }
             }
 
             let line = currentLines[selectedLineIndex];
 
-            // Curățăm ambele variante (și cele cu paranteze drepte vechi, și cele cu steluțe) ca să păstrăm fișierul curat
             line = line.replace(/\s*\[BLANK\]/g, '')
                        .replace(/\s*\(\*\*BLANK\*\*\)/g, '')
                        .replace(/\s*\[NO AUDIO\]/g, '')
@@ -331,6 +406,7 @@
         }
 
         async function saveMapData() {
+            const targetFile = document.getElementById('targetFile').value;
             const selectedId = document.getElementById('stationSelect').value;
             const statusEl = document.getElementById('status');
             const saveBtn = document.getElementById('saveBtn');
@@ -342,13 +418,12 @@
 
             saveBtn.disabled = true;
             saveBtn.innerText = "Se salvează pe GitHub...";
-            statusEl.innerHTML = 'Se trimit datele...';
+            statusEl.innerHTML = `Se trimit datele pentru ${targetFile}...`;
 
             const token = document.getElementById('githubToken').value.trim();
             const repo = document.getElementById('repoName').value.trim();
             const owner = 'dragosdxing'; 
-            const path = 'fm.json'; 
-            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${targetFile}`;
 
             try {
                 const newJsonString = JSON.stringify(mapData, null, 2);
@@ -358,7 +433,7 @@
                     method: 'PUT',
                     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        message: `Actualizat status post (Panou Admin)`,
+                        message: `Actualizare hartă (${targetFile}): Locație și Status (Panou Admin)`,
                         content: encodedContent,
                         sha: fileSha 
                     })
@@ -369,7 +444,7 @@
                 const putData = await putRes.json();
                 fileSha = putData.content.sha;
 
-                statusEl.innerHTML = '<span class="success">✅ Harta a fost actualizată! Modificările apar în 1-2 minute.</span>';
+                statusEl.innerHTML = `<span class="success">✅ ${targetFile} a fost actualizat! Modificările apar în 1-2 minute.</span>`;
 
             } catch (error) {
                 console.error(error);
