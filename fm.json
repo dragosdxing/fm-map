@@ -4250,7 +4250,7 @@
       },
       "properties": {
         "name": "Ploiești / Prahova Plaza",
-        "description": "99.2 v Radio Prahova [E04B] - 4kW [PRAHOVA_]\n105.7 v Radio ZU [E2AA] - 500W [RADIO_ZU][105.7_FM]"
+        "description": "99.2 v Radio Prahova [E04B] - 4kW [PRAHOVA_]"
       },
       "id": "E2Njc"
     },
@@ -4265,7 +4265,7 @@
       },
       "properties": {
         "name": "Ploiești / Siloz Vest",
-        "description": "92.8 v Kiss FM [515A] - 500W [KISS_FM_] [__92.8__]\n93.3 v Itsy Bitsy [E3C8] - 500W [ITSY____][BITSY___]\n93.9 v Magic FM [E210] - 1kW [MAGIC_FM] [__93.9__]\n95.9 v Focus FM [E828] - 750W [FOCUS_FM][PLOIESTI]"
+        "description": "92.8 v Kiss FM [515A] - 500W [KISS_FM_] [__92.8__]\n93.3 v Itsy Bitsy [E3C8] - 500W [ITSY____][BITSY___]\n93.9 v Magic FM [E210] - 1kW [MAGIC_FM] [__93.9__]\n95.9 v Focus FM [E828] - 750W [FOCUS_FM][PLOIESTI]\n105.7 v Radio ZU [E2AA] - 500W [RADIO_ZU][105.7_FM]"
       },
       "id": "EzODA"
     },
