@@ -42,7 +42,6 @@
         }
         input[readonly] { background: rgba(255, 255, 255, 0.02); color: #666; cursor: not-allowed; border-color: rgba(255, 255, 255, 0.05); }
         
-        /* Textarea este acum deblocată și vizibilă clar */
         textarea { height: 160px; resize: vertical; white-space: pre-wrap; color: #fff; font-family: 'Courier New', Courier, monospace; }
         
         input:focus:not([readonly]), select:focus, textarea:focus { border-color: #ff9900; outline: none; }
@@ -174,7 +173,13 @@
                 </div>
 
                 <button type="button" onclick="saveMapData()" id="saveBtn">💾 Salvează Toate Modificările pe Hartă</button>
-            </div>
+
+                <hr style="border: 0; border-top: 1px dashed rgba(255,255,255,0.2); margin: 30px 0 15px 0;">
+                <div style="text-align: center;">
+                    <label style="color: #00ff00; margin-top: 0;">⬇️ Backup / Export Local:</label>
+                    <button type="button" onclick="downloadIndexHtml()" style="background: #28a745; color: white; margin-top: 5px;">📥 Descarcă fișierul index.html</button>
+                </div>
+                </div>
         </div>
     </div>
 
@@ -526,6 +531,56 @@
                 console.error(error); statusEl.innerHTML = `<span class="error">❌ Eroare: ${error.message}</span>`;
             } finally {
                 saveBtn.disabled = false; saveBtn.innerText = "💾 Salvează Toate Modificările pe Hartă";
+            }
+        }
+
+        // =====================================
+        // DESCĂRCARE INDEX.HTML
+        // =====================================
+        async function downloadIndexHtml() {
+            const token = document.getElementById('githubToken').value.trim();
+            const repo = document.getElementById('repoName').value.trim();
+            const statusEl = document.getElementById('status');
+
+            if (!repo) {
+                alert("Numele repository-ului lipsește din câmpul de sus!");
+                return;
+            }
+
+            statusEl.innerHTML = `Se descarcă index.html din ${repo}...`;
+
+            const apiUrl = `https://api.github.com/repos/dragosdxing/${repo}/contents/index.html`;
+
+            try {
+                // Adăugăm token-ul pentru a nu fi blocați de limitele GitHub API
+                const headers = {};
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                const response = await fetch(apiUrl, { headers });
+                if (!response.ok) throw new Error("Nu am putut găsi index.html în repository-ul indicat.");
+
+                const fileData = await response.json();
+                const htmlContent = b64DecodeUnicode(fileData.content);
+
+                // Creăm fișierul descărcabil din memorie
+                const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = "index.html";
+                document.body.appendChild(a);
+                a.click();
+                
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                statusEl.innerHTML = `<span class="success">✅ index.html a fost descărcat cu succes!</span>`;
+                setTimeout(() => { statusEl.innerHTML = ""; }, 3000);
+
+            } catch (error) {
+                console.error(error);
+                statusEl.innerHTML = `<span class="error">❌ Eroare la descărcare: ${error.message}</span>`;
             }
         }
     </script>
