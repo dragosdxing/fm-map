@@ -176,8 +176,8 @@
 
                 <hr style="border: 0; border-top: 1px dashed rgba(255,255,255,0.2); margin: 30px 0 15px 0;">
                 <div style="text-align: center;">
-                    <label style="color: #00ff00; margin-top: 0;">⬇️ Backup / Export Local:</label>
-                    <button type="button" onclick="downloadIndexHtml()" style="background: #28a745; color: white; margin-top: 5px;">📥 Descarcă fișierul index.html</button>
+                    <label style="color: #00ff00; margin-top: 0;">⬇️ Backup / Export Local JSON:</label>
+                    <button type="button" onclick="exportJsonData()" style="background: #28a745; color: white; margin-top: 5px;">📥 Descarcă datele actuale (.json)</button>
                 </div>
                 </div>
         </div>
@@ -289,14 +289,11 @@
             if (!selectedId) return;
             
             const val = document.getElementById('locDescription').value;
-            // Actualizăm matricea din memorie
             currentLines = val.split('\n');
             
-            // Salvăm direct în obiectul mapData
             const featureIndex = mapData.features.findIndex(f => f.id === selectedId);
             mapData.features[featureIndex].properties.description = val;
             
-            // Reconstruim meniul dropdown fără a fura focusul
             const subSelect = document.getElementById('subStationSelect');
             const oldIndex = subSelect.value;
             
@@ -317,7 +314,6 @@
                 selectedLineIndex = -1;
             }
 
-            // Actualizăm bulinele radio tăcut, în funcție de ce a tastat utilizatorul
             updateRadioSilently();
         }
 
@@ -535,52 +531,43 @@
         }
 
         // =====================================
-        // DESCĂRCARE INDEX.HTML
+        // EXPORT LOCAL JSON (DESCĂRCARE DIRECTĂ)
         // =====================================
-        async function downloadIndexHtml() {
-            const token = document.getElementById('githubToken').value.trim();
-            const repo = document.getElementById('repoName').value.trim();
+        function exportJsonData() {
             const statusEl = document.getElementById('status');
-
-            if (!repo) {
-                alert("Numele repository-ului lipsește din câmpul de sus!");
+            
+            if (!mapData) {
+                alert("⚠️ Nu ai încărcat nicio hartă! Încarcă întâi lista de posturi de pe GitHub.");
                 return;
             }
 
-            statusEl.innerHTML = `Se descarcă index.html din ${repo}...`;
-
-            const apiUrl = `https://api.github.com/repos/dragosdxing/${repo}/contents/index.html`;
+            const targetFile = document.getElementById('targetFile').value; // ia "fm.json" sau "fm_md.json"
 
             try {
-                // Adăugăm token-ul pentru a nu fi blocați de limitele GitHub API
-                const headers = {};
-                if (token) headers['Authorization'] = `Bearer ${token}`;
+                // Convertim obiectul curent (cu tot cu modificările nesalvate) în text
+                const jsonString = JSON.stringify(mapData, null, 2);
 
-                const response = await fetch(apiUrl, { headers });
-                if (!response.ok) throw new Error("Nu am putut găsi index.html în repository-ul indicat.");
-
-                const fileData = await response.json();
-                const htmlContent = b64DecodeUnicode(fileData.content);
-
-                // Creăm fișierul descărcabil din memorie
-                const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+                // Creăm un fișier virtual
+                const blob = new Blob([jsonString], { type: "application/json" });
                 const url = URL.createObjectURL(blob);
                 
+                // Creăm un link invizibil și declanșăm descărcarea
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = "index.html";
+                a.download = targetFile;
                 document.body.appendChild(a);
                 a.click();
                 
+                // Curățăm documentul
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
 
-                statusEl.innerHTML = `<span class="success">✅ index.html a fost descărcat cu succes!</span>`;
-                setTimeout(() => { statusEl.innerHTML = ""; }, 3000);
+                statusEl.innerHTML = `<span class="success">✅ Fișierul ${targetFile} a fost descărcat cu succes în calculator!</span>`;
+                setTimeout(() => { statusEl.innerHTML = ""; }, 4000);
 
             } catch (error) {
                 console.error(error);
-                statusEl.innerHTML = `<span class="error">❌ Eroare la descărcare: ${error.message}</span>`;
+                statusEl.innerHTML = `<span class="error">❌ Eroare la export: ${error.message}</span>`;
             }
         }
     </script>
