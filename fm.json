@@ -3490,7 +3490,7 @@
       },
       "properties": {
         "name": "Medgidia",
-        "description": "89.9 h Pro FM [E029] - 2kW [PRO_FM__][89,9_FM_]\n93.5 v Nostalgia Radio - 500W (**IN PLAN**)\n95.1 v Radio ZU [E2AA] - 2kW [RADIO_ZU][95.1_FM_]\n97.5 v Radio Terra [4242] - 2kW [_TERRA__]\n101.4 h RR.Actualități [EE00] - 2kW [RRACTUAL]",
+        "description": "89.9 h Pro FM [E029] - 2kW [PRO_FM__][89,9_FM_]\n93.5 v Nostalgia Radio [E332] - 500W [NOSTALGI][OSTALGIA][________]\n95.1 v Radio ZU [E2AA] - 2kW [RADIO_ZU][95.1_FM_]\n97.5 v Radio Terra [4242] - 2kW [_TERRA__]\n101.4 h RR.Actualități [EE00] - 2kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -4229,21 +4229,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.02739989757538,
-          44.94244540138094
-        ]
-      },
-      "properties": {
-        "name": "Ploiești / Str. Stefan Greceanu",
-        "description": "96.5 v Pro FM [E029] - 1kW [PRO_FM__] [96,5_FM_]"
-      },
-      "id": "A2MjI"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           26.02791,
           44.941446
         ]
@@ -4283,6 +4268,21 @@
         "description": "100.8 v Național FM [9250] - 800W [National]"
       },
       "id": "QxODk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.02739989757538,
+          44.94244540138094
+        ]
+      },
+      "properties": {
+        "name": "Ploiești / Str. Stefan Greceanu",
+        "description": "96.5 v Pro FM [E029] - 1kW [PRO_FM__] [96,5_FM_]"
+      },
+      "id": "A2MjI"
     },
     {
       "type": "Feature",
