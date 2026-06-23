@@ -1230,12 +1230,30 @@
       },
       "properties": {
         "name": "București / BRD Tower",
-        "description": "90.2 v Nostalgia Radio [E132] - 6kW [NOSTALGI]\n92.1 v Vibe FM [E222] - 2kW [_VIBE_FM][_92.1_FM]\n100.2 v Virgin Radio [E05F] - 3kW [_VIRGIN_][100.2_FM]\n106.7 v Europa FM [E299] - 5kW [EUROPAFM][_106.7__]\n107.3 v Euronews Radio - 2kW (**IN PLAN**)",
+        "description": "90.2 v Nostalgia Radio [E132] - 6kW [NOSTALGI]\n92.1 v Vibe FM [E222] - 2kW [_VIBE_FM][_92.1_FM]\n100.2 v Virgin Radio [E05F] - 3kW [_VIRGIN_][100.2_FM]\n106.7 v Europa FM [E299] - 5kW [EUROPAFM][_106.7__]\n107.3 v Euronews Radio [FF12] - 3kW [EURONEWS]",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
         }
       },
       "id": "IwMDk"
+    },
+     {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.08714671871529, 
+          44.45142346059523
+        ]
+      },
+      "properties": {
+        "name": "București / Calea Victoriei",
+        "description": "90.2 v Nostalgia Radio [E132] - 6kW [NOSTALGI]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
+        }
+      },
+      "id": "nostalgiabuc"
     },
     {
       "type": "Feature",
@@ -2052,7 +2070,7 @@
       },
       "properties": {
         "name": "Constanța / Bloc Rotund",
-        "description": "91.6 v Play Radio [E190] - 750W [__PLAY__]\n92.9 v Radio CFM [E091] - 500W [CFM_92.9]\n99.7 v Radio Dobrogea [E099] - 1kW [+DOAMNE+][+AJUTA+_][DOBROGEA]\n107.5 v Radio ZU [E2AA] - 2kW [RADIO_ZU][107.5_FM]",
+        "description": "91.6 v Play Radio [E190] - 750W [__PLAY__]\n92.9 v Radio CFM [E091] - 500W [CFM_92.9]\n99.7 v Radio Dobrogea [E099] - 2kW [+DOAMNE+][+AJUTA+_][DOBROGEA]\n107.5 v Radio ZU [E2AA] - 2kW [RADIO_ZU][107.5_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -2720,7 +2738,7 @@
       },
       "properties": {
         "name": "Fetești",
-        "description": "91.7 v Orion FM [F00F] - 300W [_ORION__][_91,70FM]",
+        "description": "91.7 v Orion FM [5000] - 300W [ORION_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -3392,7 +3410,7 @@
       },
       "properties": {
         "name": "Măgura Odobești",
-        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz]\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___] (**VERY LOW AUDIO**)\n101.0 h RR.Cultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RR.Actualități [EE00] - 45kW [RRACTUAL]",
+        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz]\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___]\n101.0 h RR.Cultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RR.Actualități [EE00] - 45kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
