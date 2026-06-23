@@ -2049,7 +2049,7 @@
       },
       "properties": {
         "name": "Constanța / Bloc Capitol",
-        "description": "94.7 v Doina FM [E003] - 2kW [DOINA_FM][94.7FM__]\n96.9 v Radio Impuls [E06D] - 1kW [_IMPULS_][96,9_FM_]\n101.1 v Sky FM [E320] - 1kW [SKY_FM__][101.1___]\n104.4 v Radio Vocea Speranței [E2F8] - 2kW [__RVS___][RVS104.4][104.4_FM]\n104.4 v Radio Vocea Evanghliei [noPI] - 2kW [no RDS]\n104.4 v Radio T [FF0F] - 2kW [RADIO_T_][_RADIO_T][104,4_FM]",
+        "description": "94.7 v Doina FM [E003] - 2kW [DOINA_FM][94.7FM__]\n96.9 v Radio Impuls [E06D] - 1kW [_IMPULS_][96,9_FM_]\n101.1 v Sky FM [E320] - 1kW [SKY_FM__][101.1___]\n104.4 v Radio T [FF0F] - 2kW [RADIO_T_][_RADIO_T][104,4_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -2152,7 +2152,7 @@
       },
       "properties": {
         "name": "Constanța / Inst Proiectări",
-        "description": "89.4 v Magic FM [E210] - 500W [MAGIC_FM][__89.4__]\n91.1 v Kiss FM [515A] - 1kW [KISS_FM_][__91.1__]\n103.9 v Rock FM [E057] - 500W [ROCK_FM_]",
+        "description": "89.4 v Magic FM [E210] - 500W [MAGIC_FM][__89.4__]\n91.1 v Kiss FM [515A] - 1kW [KISS_FM_][__91.1__]\n103.9 v Rock FM [E057] - 500W [ROCK_FM_]\n104.4 v Radio Vocea Speranței [E2F8] - 2kW [__RVS___][RVS104.4][104.4_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -2183,6 +2183,27 @@
       },
       "id": "AyNjA"
     },
+     {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          28.630000, 
+          44.160000
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Constanța / Abator",
+        "description": "104.4 v Radio Vocea Evanghliei [EEFF] - 2kW [RVE_CT__]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "iconClass": "Drop",
+          "color": "Black",
+          "showLabel": null
+        }
+      },
+      "id": "rvect"
+    },  
     {
       "type": "Feature",
       "geometry": {
