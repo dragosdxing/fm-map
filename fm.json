@@ -1131,7 +1131,7 @@
       },
       "properties": {
         "name": "Brașov / Flashnet Tower",
-        "description": "88.4 v City FM [E106] - 100W [CITY_FM_]\n91.9 v Radio Impuls [E0D6] - 200W [_IMPULS_]\n94.6 v Radio Vocea Evangheliei [FFFF] - 500W [RVE_94.6]\n94.6 v Radio Vocea Speranței [E2F8] - 500W [___RVS__][RVS_94.6][94.6_MHz]\n96.4 v Sport Total FM [3D44] - 300W [SPTFM___][BRASOV__][96.4MHz_]\n97.2 v Radio ZU [E2AA] - 2kW [RADIO_ZU][97.2_FM_]\n105.5 v Radio Guerrilla [E0D8] - 200W [GUERILLA]"
+        "description": "88.4 v City FM [E106] - 100W [CITY_FM_]\n91.9 v Radio Impuls [E0D6] - 200W [_IMPULS_]\n94.6 v Radio Vocea Evangheliei [FFFF] - 500W [RVE_94.6]\n94.6 v Radio Vocea Speranței [E2F8] - 500W [___RVS__][RVS_94.6][94.6_MHz]\n96.4 v Sport Total FM [3D44] - 300W [SPTFM___][BRASOV__][96.4MHz_] (**NO AUDIO**)\n97.2 v Radio ZU [E2AA] - 2kW [RADIO_ZU][97.2_FM_]\n105.5 v Radio Guerrilla [E0D8] - 200W [GUERILLA]"
       },
       "id": "E4NzI"
     },
@@ -1237,12 +1237,12 @@
       },
       "id": "IwMDk"
     },
-     {
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.08714671871529, 
+          26.08714671871529,
           44.45142346059523
         ]
       },
@@ -2041,6 +2041,27 @@
     {
       "type": "Feature",
       "geometry": {
+        "coordinates": [
+          28.63,
+          44.16
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Constanța / Abator",
+        "description": "104.4 v Radio Vocea Evanghliei [EEFF] - 2kW [RVE_CT__]",
+        "_umap_options": {
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "iconClass": "Drop",
+          "color": "Black",
+          "showLabel": null
+        }
+      },
+      "id": "rvect"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "type": "Point",
         "coordinates": [
           28.645595,
@@ -2183,27 +2204,6 @@
       },
       "id": "AyNjA"
     },
-     {
-      "type": "Feature",
-      "geometry": {
-        "coordinates": [
-          28.630000, 
-          44.160000
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "name": "Constanța / Abator",
-        "description": "104.4 v Radio Vocea Evanghliei [EEFF] - 2kW [RVE_CT__]",
-        "_umap_options": {
-          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
-          "iconClass": "Drop",
-          "color": "Black",
-          "showLabel": null
-        }
-      },
-      "id": "rvect"
-    },  
     {
       "type": "Feature",
       "geometry": {
