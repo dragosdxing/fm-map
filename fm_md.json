@@ -526,21 +526,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          28.84980529546738,
-          46.059917199493285
-        ]
-      },
-      "properties": {
-        "name": "Ceadîr Lunga",
-        "description": "107.5 v Radio Moldova Comrat [1428] - 200W [Radio___][Moldova_][Comrat__][107.5MHz]"
-      },
-      "id": "U640P"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           28.825335,
           46.057472
         ]
@@ -572,7 +557,7 @@
           "iconClass": "Drop",
           "showLabel": null
         },
-        "description": "94.6 v Hit FM Moldova [130C] - 300W [_HIT_FM_]\n103.2 v Radio Micul Samaritean [noPI] - 1kW [no RDS]",
+        "description": "94.6 v Hit FM Moldova [130C] - 300W [_HIT_FM_]\n103.2 v Radio Micul Samaritean [noPI] - 1kW [no RDS]\n107.5 v Radio Moldova Comrat [1428] - 200W [Radio___][Moldova_][Comrat__][107.5MHz]",
         "name": "Ceadîr Lunga / SRR Ceadîr"
       },
       "id": "gxODk"
