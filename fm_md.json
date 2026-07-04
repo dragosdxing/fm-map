@@ -526,6 +526,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          28.84217977523804,
+          46.08048114693926
+        ]
+      },
+      "properties": {
+        "name": "Ceadîr Lunga",
+        "description": "107.5 v Radio Moldova Comrat [1428] - 200W [Radio___][Moldova_][Comrat__][107.5MHz]"
+      },
+      "id": "U640P"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           28.825335,
           46.057472
         ]
