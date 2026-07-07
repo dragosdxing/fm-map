@@ -3201,7 +3201,7 @@
       },
       "properties": {
         "name": "Hunedoara / Radiocom",
-        "description": "88.9 v Big FM [EF58] - 100W [_BIG_FM_][__88,9__]\n92.1 v Kiss FM - 300W (**IN PLAN**)\n95.1 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS_95.1][95.1_FM_]"
+        "description": "88.9 v Big FM [EF58] - 100W [_BIG_FM_][__88,9__]\n92.1 v Kiss FM [515A] - 300W [KISS_FM_][92.1____]\n95.1 v Radio Vocea Speranței [E2F8] - 300W [__RVS___][RVS_95.1][95.1_FM_]"
       },
       "id": "A5NDM"
     },
