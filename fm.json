@@ -2567,7 +2567,7 @@
       },
       "properties": {
         "name": "Deva / Turn Telekom Dealul Nucet",
-        "description": "89.3 v Radio ZU [E2AA] - 200W [RADIO_ZU][89,3_FM_]\n93.5 v M1 FM - 200W (**IN PLAN**)\n95.5 v Radio Galaxy [E068] - 50W [GALAXYFM]\n96.3 v Radio Vocea Speranței [E2F8] - 200W [RVS_96.3][__RVS___][96.3_FM_]\n96.9 v Alt FM - 50W [ALT_FM__]\n98.8 v Sport Total FM - 200W (**IN PLAN**)\n102.6 v Virgin Radio [E05F] - 200W [_VIRGIN_][102.6FM_][__VIRGIN][_102.6FM]\n107.7 v Europa FM [E299] - 5kW [EUROPAFM][__107.7_]"
+        "description": "89.3 v Radio ZU [E2AA] - 200W [RADIO_ZU][89,3_FM_]\n93.5 v M1 FM - 200W (**IN PLAN**)\n95.5 v Radio Galaxy [E068] - 50W [GALAXYFM]\n96.3 v Radio Vocea Speranței [E2F8] - 200W [RVS_96.3][__RVS___][96.3_FM_]\n96.9 v Alt FM - 50W [ALT_FM__]\n98.8 v Sport Total FM [FFFF] - 200W [SPT_98.8] \n102.6 v Virgin Radio [E05F] - 200W [_VIRGIN_][102.6FM_][__VIRGIN][_102.6FM]\n107.7 v Europa FM [E299] - 5kW [EUROPAFM][__107.7_]"
       },
       "id": "k4MjI"
     },
