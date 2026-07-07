@@ -3231,7 +3231,7 @@
       },
       "properties": {
         "name": "Huși / Dealul Dobrina",
-        "description": "94.5 v Radio Iași [EE03] - 2kW [RADIO__][__IASI__][94.5_FM_]\n97.6 v Smile FM - 50W (**IN PLAN**)\n101.7 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n103.7 h RR.Cultural [EE01] - 2kW [CULTURAL]",
+        "description": "94.5 v Radio Iași [EE03] - 2kW [RADIO__][__IASI__][94.5_FM_]\n97.6 v Smile FM [0100] - 50W [SMILE_FM][97.6_MHZ][HUSI____]\n101.7 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n103.7 h RR.Cultural [EE01] - 2kW [CULTURAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
