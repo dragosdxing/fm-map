@@ -434,7 +434,7 @@
       },
       "properties": {
         "name": "Bacău / Turn",
-        "description": "90.6 v Vibe FM [E222] - 1kW [TMRWLAND]\n91.8 h Digi FM [E059] - 10kW [Digi_FM_][91,8_FM_]\n94.0 v Jurnal FM [F255] - 1kW [JurnalFM]\n98.8 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n101.8 h RR.Cultural [EE01] - 10kW [CULTURAL]\n104.2 v Europa FM [E299] - 5kW [EUROPAFM][_104.2__]\n105.4 v Virgin Radio [E05F] - 500W [_VIRGIN_][105.4_FM]\n107.0 v Ercis FM [E111] - 500W [ERCIS_FM][107_Mhz_]\n107.8 v Pro FM [E029] - 5kW [PRO_FM__][107.8_FM]",
+        "description": "90.6 v Vibe FM [E222] - 1kW [TMRWLAND]\n91.8 h Digi FM [E059] - 10kW [Digi_FM_][91,8_FM_]\n94.0 v Jurnal FM [EFFF] - 1kW [__RVE___]\n98.8 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n101.8 h RR.Cultural [EE01] - 10kW [CULTURAL]\n104.2 v Europa FM [E299] - 5kW [EUROPAFM][_104.2__]\n105.4 v Virgin Radio [E05F] - 500W [_VIRGIN_][105.4_FM]\n107.0 v Ercis FM [E111] - 500W [ERCIS_FM][107_Mhz_]\n107.8 v Pro FM [E029] - 5kW [PRO_FM__][107.8_FM]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
