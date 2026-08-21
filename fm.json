@@ -1530,7 +1530,7 @@
       },
       "properties": {
         "name": "Buzău / Dealul Istrița",
-        "description": "87.9 v Buzz FM [5380] - 200W [BUZZ_FM_][87.9_MHz][softROCK]\n89.7 v Radio Vocea Speranței [E2F8] - 500W [__RVS___]\n91.3 h Kiss FM [515A] - 30kW [KISS_FM_] [91.3_FM_]\n92.5 v Radio ZU [E2AA] - 5kW [RADIO_ZU][_92.5_FM]\n96.7 v Radio Impuls [E0D8] - 1kW [_IMPULS_]\n98.7 v Virgin Radio [E05F] - 6kW [VIRGIN__][98.7_FM_]\n103.7 h RR.Cultural [EE01] - 30kW [CULTURAL]\n107.0 h RR.Actualități [EE00] - 30kW [RRACTUAL]"
+        "description": "87.9 v Buzz FM [5380] - 200W [BUZZ_FM_][87.9_MHz][softROCK]\n89.7 v Radio Vocea Speranței [E2F8] - 500W [__RVS___]\n91.3 h Kiss FM [515A] - 30kW [KISS_FM_] [91.3_FM_]\n92.5 v Radio ZU [E2AA] - 5kW [RADIO_ZU][_92.5_FM]\n96.7 v Radio Impuls [E0D8] - 1kW [_IMPULS_]\n98.7 v Virgin Radio [E05F] - 2kW [VIRGIN__][98.7_FM_]\n103.7 h RR.Cultural [EE01] - 30kW [CULTURAL]\n107.0 h RR.Actualități [EE00] - 30kW [RRACTUAL]"
       },
       "id": "M0NDI"
     },
