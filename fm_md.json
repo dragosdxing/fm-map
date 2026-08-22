@@ -51,6 +51,62 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          28.933333,
+          46.366667
+        ]
+      },
+      "properties": {
+        "description": "90.1 v Radio Moldova Tineret - 400W (**IN PLAN**)",
+        "name": "Basarabeasca / Abaclia"
+      },
+      "id": "A5NDk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.961419,
+          46.331565
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/C374c5g7/warning.png",
+          "showLabel": null
+        },
+        "name": "Basarabeasca / Str Karl Marx",
+        "description": "105.0 v Basarabeasca FM - 200W [BAS_FM__] (**OFF AIR**)"
+      },
+      "id": "g3OTE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.69385,
+          46.08731
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/C374c5g7/warning.png"
+        },
+        "description": "95.9 h TRM Radio Moldova - 200W (**IN PLAN**)\n104.6 v GRT FM [noPI] - 1kW [no RDS] (**NO AUDIO**)",
+        "name": "Baurci"
+      },
+      "id": "g4Njk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           28.037732,
           47.721268
         ]
@@ -106,62 +162,6 @@
         "name": "Bălți / Str Ivan Ciarupin"
       },
       "id": "AzMzI"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.933333,
-          46.366667
-        ]
-      },
-      "properties": {
-        "description": "90.1 v Radio Moldova Tineret - 400W (**IN PLAN**)",
-        "name": "Basarabeasca / Abaclia"
-      },
-      "id": "A5NDk"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.961419,
-          46.331565
-        ]
-      },
-      "properties": {
-        "_umap_options": {
-          "color": "Black",
-          "iconClass": "Drop",
-          "iconUrl": "https://i.ibb.co/C374c5g7/warning.png",
-          "showLabel": null
-        },
-        "name": "Basarabeasca / Str Karl Marx",
-        "description": "105.0 v Basarabeasca FM - 200W [BAS_FM__] (**OFF AIR**)"
-      },
-      "id": "g3OTE"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.69385,
-          46.08731
-        ]
-      },
-      "properties": {
-        "_umap_options": {
-          "color": "Black",
-          "iconClass": "Drop",
-          "iconUrl": "https://i.ibb.co/C374c5g7/warning.png"
-        },
-        "description": "95.9 h TRM Radio Moldova - 200W (**IN PLAN**)\n104.6 v GRT FM [noPI] - 1kW [no RDS]",
-        "name": "Baurci"
-      },
-      "id": "g4Njk"
     },
     {
       "type": "Feature",
@@ -329,48 +329,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          28.310695,
-          47.251388
-        ]
-      },
-      "properties": {
-        "_umap_options": {
-          "color": "Black",
-          "iconClass": "Drop",
-          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
-          "showLabel": null
-        },
-        "name": "Călărași",
-        "description": "87.8 h Radio Cultura Divină [1429] - 200W [CULTURA_][DIVINA__]"
-      },
-      "id": "c2Nzk"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.319643,
-          47.259544
-        ]
-      },
-      "properties": {
-        "_umap_options": {
-          "color": "Black",
-          "iconClass": "Drop",
-          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
-          "showLabel": null
-        },
-        "description": "103.4 v Radio Noroc [1325] - 2kW [NOROC___]",
-        "name": "Călărași / Str Ștefan cel Mare"
-      },
-      "id": "gzNDQ"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           28.716685,
           48.018535
         ]
@@ -434,27 +392,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          28.340607,
-          46.767117
-        ]
-      },
-      "properties": {
-        "_umap_options": {
-          "color": "Black",
-          "iconClass": "Drop",
-          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
-          "showLabel": null
-        },
-        "name": "Cărpineni",
-        "description": "96.0 v TRM Radio Moldova [1201] - 300W [Radio___][Moldova_][96,0_MHz]\n104.1 v Radio Vocea Speranței [130F] - 200W [RADIO___][VOCEA___][SPERANTE]"
-      },
-      "id": "I1MDg"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           28.857747,
           47.930848
         ]
@@ -470,6 +407,69 @@
         "name": "Caterinovca"
       },
       "id": "g5MDM"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.310695,
+          47.251388
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        },
+        "name": "Călărași",
+        "description": "87.8 h Radio Cultura Divină [1429] - 200W [CULTURA_][DIVINA__]"
+      },
+      "id": "c2Nzk"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.319643,
+          47.259544
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        },
+        "description": "103.4 v Radio Noroc [1325] - 2kW [NOROC___]",
+        "name": "Călărași / Str Ștefan cel Mare"
+      },
+      "id": "gzNDQ"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.340607,
+          46.767117
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png",
+          "showLabel": null
+        },
+        "name": "Cărpineni",
+        "description": "96.0 v TRM Radio Moldova [1201] - 300W [Radio___][Moldova_][96,0_MHz]\n104.1 v Radio Vocea Speranței [130F] - 200W [RADIO___][VOCEA___][SPERANTE]"
+      },
+      "id": "I1MDg"
     },
     {
       "type": "Feature",
@@ -2106,26 +2106,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          28.795681,
-          47.811079
-        ]
-      },
-      "properties": {
-        "_umap_options": {
-          "color": "Black",
-          "iconClass": "Drop",
-          "showLabel": null
-        },
-        "description": "98.1 v Radio Moldova Tineret [1332] - 1kW [Radio___][Moldova_][Tineret_][98,1_MHz]\n99.1 v Jurnal FM [noPI] - 300W [no RDS]",
-        "name": "Șoldănești"
-      },
-      "id": "I1OTg"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           28.275665,
           48.152294
         ]
@@ -2183,6 +2163,48 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          28.565297,
+          47.122075
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null,
+          "popupTemplate": "Default",
+          "popupShape": "Default"
+        },
+        "description": "100.5 h Radio Moldova [1201] - 10kW [__Radio_][_Moldova]\n102.3 h Radio Vocea Basarabiei [1316] - 20kW [RADIO___][VOCEA___][BASARABI][SARABIEI]\n107.3 h RFI Moldova [1040] - 10kW [_RFI_MD_]",
+        "name": "Strășeni"
+      },
+      "id": "c1MTA"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.795681,
+          47.811079
+        ]
+      },
+      "properties": {
+        "_umap_options": {
+          "color": "Black",
+          "iconClass": "Drop",
+          "showLabel": null
+        },
+        "description": "98.1 v Radio Moldova Tineret [1332] - 1kW [Radio___][Moldova_][Tineret_][98,1_MHz]\n99.1 v Jurnal FM [noPI] - 300W [no RDS]",
+        "name": "Șoldănești"
+      },
+      "id": "I1OTg"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           29.666272,
           46.518193
         ]
@@ -2215,28 +2237,6 @@
         }
       },
       "id": "k3MTU"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.565297,
-          47.122075
-        ]
-      },
-      "properties": {
-        "_umap_options": {
-          "color": "Black",
-          "iconClass": "Drop",
-          "showLabel": null,
-          "popupTemplate": "Default",
-          "popupShape": "Default"
-        },
-        "description": "100.5 h Radio Moldova [1201] - 10kW [__Radio_][_Moldova]\n102.3 h Radio Vocea Basarabiei [1316] - 20kW [RADIO___][VOCEA___][BASARABI][SARABIEI]\n107.3 h RFI Moldova [1040] - 10kW [_RFI_MD_]",
-        "name": "Strășeni"
-      },
-      "id": "c1MTA"
     },
     {
       "type": "Feature",
@@ -2299,21 +2299,6 @@
         "name": "Taraclia / Str Păcii 12"
       },
       "id": "k5NTg"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "coordinates": [
-          28.883094,
-          47.754329
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "name": "Țareuca",
-        "description": "90.3 h Radio Plai [noPI] - 2kW [no RDS]"
-      },
-      "id": "A0NzU"
     },
     {
       "type": "Feature",
@@ -5203,6 +5188,21 @@
       "type": "Feature",
       "geometry": {
         "coordinates": [
+          28.883094,
+          47.754329
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Țareuca",
+        "description": "90.3 h Radio Plai [noPI] - 2kW [no RDS]"
+      },
+      "id": "A0NzU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
           27.886401,
           47.202186
         ],
@@ -5284,21 +5284,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          28.224444,
-          47.986475
-        ]
-      },
-      "properties": {
-        "name": "Vădeni",
-        "description": "95.5 v Radio Moldova Tineret [1332] - 500W [Radio___][Moldova_][Tineret_][95,5_MHz]"
-      },
-      "id": "IwMDc"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           29.070569,
           47.088357
         ]
@@ -5314,21 +5299,6 @@
         "name": "Vadul lui Vodă"
       },
       "id": "MzMDE"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.178902,
-          45.653168
-        ]
-      },
-      "properties": {
-        "name": "Văleni",
-        "description": "104.2 v Radio Moldova [1201] - 1kW [Radio___][Moldova_][100.7MHz]"
-      },
-      "id": "g1MjY"
     },
     {
       "type": "Feature",
@@ -5359,6 +5329,36 @@
         "description": "100.5 v Radio Moldova - 100W [no RDS]"
       },
       "id": "Y2NDU"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.224444,
+          47.986475
+        ]
+      },
+      "properties": {
+        "name": "Vădeni",
+        "description": "95.5 v Radio Moldova Tineret [1332] - 500W [Radio___][Moldova_][Tineret_][95,5_MHz]"
+      },
+      "id": "IwMDc"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.178902,
+          45.653168
+        ]
+      },
+      "properties": {
+        "name": "Văleni",
+        "description": "104.2 v Radio Moldova [1201] - 1kW [Radio___][Moldova_][100.7MHz]"
+      },
+      "id": "g1MjY"
     },
     {
       "type": "Feature",
