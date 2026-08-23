@@ -6312,7 +6312,7 @@
       },
       "properties": {
         "name": "Văratec",
-        "description": "88.4 h Digi FM [E059] - 10kW [Digi_FM_][88,4_FM_]\n91.2 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n98.1 h Maramureș FM - 10kW (**IN PLAN**)\n100.8 h RR.Cultural [EE01] - 10kW [CULTURAL]\n107.1 v Europa FM [E299] - 5kW [EUROPAFM][_107.1__]"
+        "description": "88.4 h Digi FM [E059] - 10kW [Digi_FM_][88,4_FM_]\n91.2 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n98.1 h Maramureș FM [FFFF] - 10kW [RadioEMM]\n100.8 h RR.Cultural [EE01] - 10kW [CULTURAL]\n107.1 v Europa FM [E299] - 5kW [EUROPAFM][_107.1__]"
       },
       "id": "E3ODI"
     },
