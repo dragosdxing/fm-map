@@ -1068,7 +1068,7 @@
       },
       "properties": {
         "name": "Brașov / Flashnet Tower",
-        "description": "88.4 v City FM [E106] - 100W [CITY_FM_]\n91.9 v Radio Impuls [E0D6] - 200W [_IMPULS_]\n94.6 v Radio Vocea Evangheliei [FFFF] - 500W [RVE_94.6]\n94.6 v Radio Vocea Speranței [E2F8] - 500W [___RVS__][RVS_94.6][94.6_MHz]\n96.4 v Sport Total FM [3D44] - 300W [SPTFM___][BRASOV__][96.4MHz_] (**NO AUDIO**)\n97.2 v Radio ZU [E2AA] - 2kW [RADIO_ZU][97.2_FM_]\n105.5 v Radio Guerrilla [E0D8] - 200W [GUERILLA]"
+        "description": "88.4 v City Radio [E106] - 100W [CITY_FM_]\n91.9 v Radio Impuls [E0D6] - 200W [_IMPULS_]\n94.6 v Radio Vocea Evangheliei [FFFF] - 500W [RVE_94.6]\n94.6 v Radio Vocea Speranței [E2F8] - 500W [___RVS__][RVS_94.6][94.6_MHz]\n96.4 v Sport Total FM [3D44] - 300W [SPTFM___][BRASOV__][96.4MHz_] (**NO AUDIO**)\n97.2 v Radio ZU [E2AA] - 2kW [RADIO_ZU][97.2_FM_]\n105.5 v Radio Guerrilla [E0D8] - 200W [GUERILLA]"
       },
       "id": "E4NzI"
     },
@@ -2944,7 +2944,7 @@
       },
       "properties": {
         "name": "Gheorgheni / Hotel Mureș",
-        "description": "91.2 v Radio Gaga [E344] - 50W [__Gaga__][91.2_FM_][Slagerek][_es_uj__][zenek___]\n90.6 v Fun FM [1289] - 100W [_FUN_FM_][90,6MHz_]"
+        "description": "91.2 v Radio Gaga [E344] - 50W [__Gaga__][91.2_FM_][Slagerek][_es_uj__][zenek___]\n90.6 v City Radio [E106] - 100W [CITY_FM_]"
       },
       "id": "MyNjg"
     },
