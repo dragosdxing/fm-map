@@ -1230,7 +1230,7 @@
       },
       "properties": {
         "name": "București / BRD Tower",
-        "description": "90.2 v Nostalgia Radio [E132] - 6kW [NOSTALGI]\n92.1 v Vibe FM [E222] - 2kW [_VIBE_FM][_92.1_FM]\n100.2 v Virgin Radio [E05F] - 3kW [_VIRGIN_][100.2_FM]\n106.7 v Europa FM [E299] - 5kW [EUROPAFM][_106.7__]\n107.3 v Euronews Radio [FF12] - 3kW [EURONEWS]",
+        "description": "90.2 v Nostalgia Radio [E132] - 6kW [NOSTALGI]\n92.1 v Vibe FM [E222] - 2kW [_VIBE_FM][_92.1_FM] (**NO AUDIO**)\n100.2 v Virgin Radio [E05F] - 3kW [_VIRGIN_][100.2_FM]\n106.7 v Europa FM [E299] - 5kW [EUROPAFM][_106.7__]\n107.3 v Euronews Radio [FF12] - 3kW [EURONEWS]",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
         }
