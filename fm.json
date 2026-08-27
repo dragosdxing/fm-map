@@ -1175,7 +1175,7 @@
         "type": "Point"
       },
       "properties": {
-        "description": "87.8 v Radio Brașov [E401] - 100W [_RADIO__][_BRASOV_][_87,8MHz]\n89.2 v Europa FM [E299] - 1kW [EUROPAFM][__89.2__]\n89.9 v Pro FM [E029] - 200W [PRO_FM__][89.9FM__]\n92.5 v Virgin Radio [E05F] - 500W [VIRGIN__][92.5_FM_]\n93.3 v RRBrașov [EE21] - 200W [BV93,3FM]\n93.8 v Super FM [E050] - 500W [SUPER_FM][93,8MHz_]\n98.2 v Jurnal FM [F255] - 800W [JurnalFM]\n100.7 h Digi FM [E059] - 1kW [Digi_FM_][100,7_FM]\n102.5 h RR.Actualități [EE00] - 2kW [RRACTUAL]\n105.0 h RR.Cultural [EE01] - 2kW [CULTURAL]",
+        "description": "87.8 v Radio Brașov [E401] - 100W [_RADIO__][_BRASOV_][_87,8MHz]\n89.2 v Europa FM [E299] - 1kW [EUROPAFM][__89.2__]\n89.9 v Pro FM [E029] - 200W [PRO_FM__][89.9FM__]\n92.5 v Virgin Radio [E05F] - 500W [VIRGIN__][92.5_FM_]\n93.3 v RRBrașov [EE21] - 200W [BV93,3FM]\n93.8 v Super FM [E050] - 500W [SUPER_FM][93,8MHz_]\n98.2 v Jurnal FM [F255] - 800W [JurnalFM]\n100.7 h Digi FM [E059] - 1kW [Digi_FM_][100,7_FM]\n102.5 h RR.Actualități [EE00] - 2kW [RRACTUAL] (**OFF AIR**)\n105.0 h RR.Cultural [EE01] - 2kW [CULTURAL] (**OFF AIR**)",
         "name": "Brașov / Tâmpa-Restaurant Panoramic",
         "_umap_options": {
           "iconUrl": "https://i.ibb.co/TtThCNR/antenna.png"
