@@ -2351,7 +2351,7 @@
       },
       "properties": {
         "name": "Craiova / Str Doljului",
-        "description": "97.4 v Radio Sud [7777] - 200W [RadioSUD][97,4_FM_] (**OFF AIR**)"
+        "description": "97.4 v Radio Sud [7777] - 200W [RadioSUD][97,4_FM_] (**WITHDRAWN in Aug 2026**)"
       },
       "id": "U1NzU"
     },
@@ -2381,7 +2381,7 @@
       },
       "properties": {
         "name": "Craivoa / Str Arieș",
-        "description": "87.6 v Radio Vocea Speranței [E2F8] - 200W [Radio_Vocea_Sperantei_RVS_87.6](SCROLLING PS)\n92.7 v Radio Guerrilla [E0D8] - 200W [GUERILLA]\n95.9 v Radio ZU [E2AA] - 100W [RADIO_ZU][95.9_FM_]"
+        "description": "87.6 v Radio Vocea Speranței [E2F8] - 400W [_RVS____][Radio___][Vocea___][Sperante][tei_RVS_][RVS_87.6]\n92.7 v Radio Guerrilla [E0D8] - 200W [GUERILLA]\n95.9 v Radio ZU [E2AA] - 100W [RADIO_ZU][95.9_FM_]"
       },
       "id": "g3NzI"
     },
