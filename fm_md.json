@@ -630,7 +630,7 @@
       },
       "properties": {
         "name": "Chișinău / CET-1",
-        "description": "89.6 v Radio Chișinău [132A] - 600W [RADIO___][ROMANIA_][CHISNAU_][89,6_MHz]\n90.7 v Aquarelle FM [1014] - 3kW [AQUARELL]\n99.0 v Radio Studentus [1037] - 300W [RADIO___][STUDENTU][TUDENTUS]\n99.7 v Radio Noroc [1325] - 1kW [NOROC___]"
+        "description": "89.6 v Radio Chișinău [132A] - 600W [RADIO___][ROMANIA_][CHISNAU_][89,6_MHz]\n90.7 v Aquarelle FM [1014] - 3kW [AQUARELL][QUARELLE]\n99.0 v Radio Studentus [1037] - 300W [RADIO___][STUDENTU][TUDENTUS]\n99.7 v Radio Noroc [1325] - 1kW [NOROC___]"
       },
       "id": "k5OTU"
     },
