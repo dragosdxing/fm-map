@@ -4688,6 +4688,21 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          25,
+          46
+        ]
+      },
+      "properties": {
+        "name": "Rovinari",
+        "description": "102.7 v Radio Vocea Speranței [E020] - 500W [__RVS___][Radio___][Vocea___][Sperante][perantei][_102.7__]"
+      },
+      "id": "LMI3C"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           25.212593,
           46.035795
         ]
