@@ -4414,7 +4414,7 @@
       },
       "properties": {
         "name": "Rădăuți / Hipodrom Vodafone",
-        "description": "90.1 v Viva FM [E558] - 200W [VIVA_FM_][90,1_FM_]\n97.8 h Radio Trinitas [E24D] - 100W [TRINITAS][97,80MHz]\n99.2 v Jurnal FM [F255] - 100W [JurnalFM]",
+        "description": "90.1 v Viva FM [E558] - 200W [VIVA_FM_][90,1_FM_]\n97.8 h Radio Trinitas [E24D] - 100W [TRINITAS][97,80MHz]\n99.2 v Radio Vocea Evangheliei [EFFF] - 100W [RVE_SV__][song_ID]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
