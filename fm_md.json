@@ -2377,7 +2377,7 @@
       },
       "properties": {
         "name": "Tiraspol / Blijnyi Hutor",
-        "description": "91.2 v Russkoe Radio (Pridnestrovie) [noPI] - 300W [no RDS]\n92.5 v Radio Tochka (Pridnestrovie) [noPI] - 200W [no RDS]\n102.5 v Nik FM - 500W [NIK-FM__]"
+        "description": "91.2 v Russkoe Radio (Pridnestrovie) [noPI] - 300W [no RDS]\n92.5 v Radio Tochka (Pridnestrovie) [noPI] - 200W [no RDS]\n102.5 v Nik FM [D201] - 500W [NIK_FM__]"
       },
       "id": "g4MTM"
     },
