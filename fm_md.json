@@ -1518,13 +1518,13 @@
       "type": "Feature",
       "geometry": {
         "coordinates": [
-          28.698038,
-          47.969892
+          27.4309515953064,
+          47.83105429265281
         ],
         "type": "Point"
       },
       "properties": {
-        "name": "Japca",
+        "name": "Camenca (r.Glodeni)",
         "description": "94.7 v Radio Moldova [1201] - 100W [Radio___][Moldova_][94,7_MHz]"
       },
       "id": "AyNzQ"
