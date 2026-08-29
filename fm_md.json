@@ -1727,7 +1727,7 @@
           "iconClass": "Drop",
           "showLabel": null
         },
-        "description": "88.8 v Jurnal FM [1311] - 400W [JurnalFM][88,8_Mhz][Nisporen][SMS_9955]\n90.2 h Radio Noroc [1325] - 1kW [NOROC___]\n97.0 v Radio Dar - 400W (**IN PLAN**)\n105.7 h Radio Vocea Basarabiei [1316] - 5kW [RADIO___][VOCEA___][BASARABI][SARABIEI]",
+        "description": "88.8 v Jurnal FM [1311] - 400W [JurnalFM][88,8_Mhz][Nisporen][SMS_9955]\n90.2 h Radio Noroc [1325] - 1kW [NOROC___]\n97.0 v Radio Dar [A1B8] - 400W [RadioDAR]\n105.7 h Radio Vocea Basarabiei [1316] - 5kW [RADIO___][VOCEA___][BASARABI][SARABIEI]",
         "name": "Nisporeni"
       },
       "id": "MzNTY"
