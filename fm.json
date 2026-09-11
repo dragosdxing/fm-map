@@ -3452,7 +3452,7 @@
       },
       "properties": {
         "name": "Mahmudia",
-        "description": "88.9 v Radio ZU [E2AA] - 2kW [RADIO_ZU][88.9_FM_]\n90.9 v Europa FM - 1kW (**IN PLAN**)\n96.8 v Kiss FM [515A] - 3kW [KISS_FM_][__96,8__]\n100.5 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n102.0 h RR.Cultural [EE01] - 10kW [CULTURAL]",
+        "description": "88.9 v Radio ZU [E2AA] - 2kW [RADIO_ZU][88.9_FM_]\n90.9 v Europa FM [E299] - 1kW [EUROPAFM][__90.9__]\n96.8 v Kiss FM [515A] - 3kW [KISS_FM_][__96,8__]\n100.5 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n102.0 h RR.Cultural [EE01] - 10kW [CULTURAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
