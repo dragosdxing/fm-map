@@ -4688,21 +4688,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          23.108711242675785,
-          44.899781861850556
-        ]
-      },
-      "properties": {
-        "name": "Rovinari",
-        "description": "102.7 v Radio Vocea Speranței [E020] - 500W [__RVS___][Radio___][Vocea___][Sperante][perantei][_102.7__]"
-      },
-      "id": "LMI3C"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           25.212593,
           46.035795
         ]
@@ -5751,6 +5736,21 @@
         "description": "95.4 v Digi FM [E059] - 50W [DIGI_FM_][95.4_FM_]"
       },
       "id": "QxNjE"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.250063657760624,
+          45.04933068925123
+        ]
+      },
+      "properties": {
+        "name": "Târgu Jiu / Dealul Târgului 2",
+        "description": "102.7 v Radio Vocea Speranței [E2F8] - 500W [__RVS___][Radio___][Vocea___][Sperante][perantei][_102.7__]"
+      },
+      "id": "3KDWC"
     },
     {
       "type": "Feature",
