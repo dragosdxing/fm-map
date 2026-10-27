@@ -1154,13 +1154,13 @@
       "type": "Feature",
       "geometry": {
         "coordinates": [
-          25.567036,
-          45.568142
+          25.56686192750931,
+          45.56812742453539
         ],
         "type": "Point"
       },
       "properties": {
-        "name": "Brașov / Postăvarul",
+        "name": "Vârful Postăvarul",
         "description": "94.2 v Hit FM Brașov [5158] - 200W [HIT_FM__]\n104.5 v Radio Impuls [E0D6] - 50W [IMPULS__][104.5_FM]\n106.4 v EBS Radio [826E] - 300W [EBSRadio]"
       },
       "id": "A1ODI"
