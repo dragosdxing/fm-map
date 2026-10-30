@@ -1154,21 +1154,6 @@
       "type": "Feature",
       "geometry": {
         "coordinates": [
-          25.56686192750931,
-          45.56812742453539
-        ],
-        "type": "Point"
-      },
-      "properties": {
-        "name": "Vârful Postăvarul",
-        "description": "94.2 v Hit FM Brașov [5158] - 200W [HIT_FM__]\n104.5 v Radio Impuls [E0D6] - 50W [IMPULS__][104.5_FM]\n106.4 v EBS Radio [826E] - 300W [EBSRadio] (**NO AUDIO**)"
-      },
-      "id": "A1ODI"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "coordinates": [
           25.597115,
           45.635407
         ],
@@ -4394,7 +4379,7 @@
       },
       "properties": {
         "name": "Putna",
-        "description": "101.0 v Radio ZU [E2AA] - 500W [Radio_ZU][_101_FM_]\n105.2 v Impact FM Suceava [E000] - 100W [no RDS]",
+        "description": "101.0 v Radio ZU [E2AA] - 500W [Radio_ZU][_101_FM_]\n105.2 v Bucovina FM [no PI] - 100W [no RDS]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
@@ -6213,6 +6198,21 @@
         "description": "88.4 h Digi FM [E059] - 10kW [Digi_FM_][88,4_FM_]\n91.2 h RR.Actualități [EE00] - 10kW [RRACTUAL]\n98.1 h Maramureș FM [FFFF] - 10kW [RadioEMM]\n100.8 h RR.Cultural [EE01] - 10kW [CULTURAL]\n107.1 v Europa FM [E299] - 5kW [EUROPAFM][_107.1__]"
       },
       "id": "E3ODI"
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          25.56686192750931,
+          45.56812742453539
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "name": "Vârful Postăvarul",
+        "description": "94.2 v Hit FM Brașov [5158] - 200W [HIT_FM__]\n104.5 v Radio Impuls [E0D6] - 50W [IMPULS__][104.5_FM]\n106.4 v EBS Radio [826E] - 300W [EBSRadio] (**NO AUDIO**)"
+      },
+      "id": "A1ODI"
     },
     {
       "type": "Feature",
