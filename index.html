@@ -24,7 +24,23 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
     animation: blink-warning 1.5s infinite;
 }
 
-.error-icon-style { filter: hue-rotate(140deg) brightness(0.9) saturate(4); }
+@keyframes tx-problem-alert {
+    0%, 100% {
+        opacity: 1;
+        filter: hue-rotate(140deg) brightness(1.05) saturate(5)
+                drop-shadow(0 0 3px rgba(255, 0, 45, .85));
+    }
+    50% {
+        opacity: .42;
+        filter: hue-rotate(158deg) brightness(1.65) saturate(7)
+                drop-shadow(0 0 10px rgba(255, 0, 30, 1));
+    }
+}
+.error-icon-style {
+    animation: tx-problem-alert .95s ease-in-out infinite;
+    transform-origin: center bottom;
+    will-change: opacity, filter;
+}
 
 #radioPanel {
     position: absolute; top: 10px; left: 10px; 
@@ -247,12 +263,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 .telegram-action { background: rgba(0,136,204,.12); border-color: #168ac4; color: #7dd3ff; }
 .telegram-action:hover { background: rgba(0,136,204,.25); border-color: #35b7ff; }
-.telegram-modal { width: 95%; max-width: 850px; height: 82vh; max-height: 900px; box-sizing: border-box; }
-.telegram-toolbar { display: flex; justify-content: flex-end; margin: -4px 0 10px; }
-.telegram-toolbar a { color: #7dd3ff; font-size: 13px; text-decoration: none; }
-.telegram-toolbar a:hover { text-decoration: underline; }
-.telegram-frame { display: block; width: 100%; height: calc(82vh - 105px); min-height: 320px; border: 1px solid #444; border-radius: 5px; background: #111; }
-
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
     #radioPanel {
         left: 10px; right: auto; top: 10px; width: min( calc(100vw - 20px), 390px );
@@ -288,8 +298,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     #ro-clock { top: auto; bottom: 10px; right: 10px; font-size: 20px; padding: 7px 10px; }
     .tz-label { font-size: 12px; }
     #weather-widget { top: auto; bottom: 59px; right: 10px; padding: 9px 11px; }
-    .telegram-modal { width: 96%; height: 88vh; padding: 14px; }
-    .telegram-frame { height: calc(88vh - 120px); min-height: 250px; }
     .log-header { font-size: 16px; }
 }
 </style>
@@ -334,8 +342,8 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
         </div>
 
         <div style="display: flex; justify-content: center; gap: 8px;">
-            <button id="btn-ro" class="countryBtn active" onclick="setCountry('ro')">Romania</button>
-            <button id="btn-md" class="countryBtn" onclick="setCountry('md')">Moldova</button>
+            <button id="btn-ro" class="countryBtn active" onclick="setCountry('ro')">Romania 🇷🇴</button>
+            <button id="btn-md" class="countryBtn" onclick="setCountry('md')">Moldova 🇲🇩</button>
         </div>
         
         <div class="action-row">
@@ -345,7 +353,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
         </div>
         <div class="action-row" style="margin-top: 8px;">
             <a href="https://www.youtube.com/@dragosdxing" target="_blank" rel="noopener noreferrer" class="action-btn">▶️ My Youtube Channel</a>
-            <button type="button" class="action-btn telegram-action" onclick="openTelegramModal()">✈️ Telegram</button>
+            <a href="https://t.me/infofmrou" rel="noopener noreferrer" class="action-btn telegram-action">✈️ Telegram - Info FM</a>
         </div>
     </div>
 </div>
@@ -397,21 +405,17 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     </div>
 </div>
 
-<div id="telegramModal" class="modal-overlay modal-large telegram-modal">
-    <div class="log-header">
-        <span>✈️ Info FM România – Telegram</span>
-        <span class="close-modal" onclick="closeAllModals()">✖ Close</span>
-    </div>
-    <div class="telegram-toolbar">
-        <a href="https://t.me/infofmrou" target="_blank" rel="noopener noreferrer">Deschide canalul în Telegram ↗</a>
-    </div>
-    <iframe id="telegramFrame" class="telegram-frame" title="Info FM România Telegram channel" loading="lazy" src="https://t.me/s/infofmrou"></iframe>
-</div>
-
 <div id="map"></div>
 
 <script>
-var map = L.map('map', { tap: false }).setView([46.1, 26.5], 7);
+const regionalMapBounds = L.latLngBounds([42.2, 18.8], [49.7, 31.5]);
+var map = L.map('map', {
+    tap: false,
+    maxBounds: regionalMapBounds,
+    maxBoundsViscosity: 1.0,
+    minZoom: 6,
+    worldCopyJump: false
+}).setView([46.1, 26.5], 7);
 
 var esriSat = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
 var esriLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 19 });
@@ -456,7 +460,6 @@ window.closeAllModals = function() {
     document.getElementById('logModal').style.display = 'none';
     document.getElementById('feedbackModal').style.display = 'none';
     document.getElementById('losModal').style.display = 'none';
-    document.getElementById('telegramModal').style.display = 'none';
 };
 
 window.togglePanel = function() {
@@ -533,14 +536,6 @@ window.clearLog = function() {
 window.toggleFeedbackModal = function() {
     closeAllModals();
     document.getElementById('feedbackModal').style.display = 'block';
-};
-
-window.openTelegramModal = function() {
-    closeAllModals();
-    const modal = document.getElementById('telegramModal');
-    const frame = document.getElementById('telegramFrame');
-    if (!frame.getAttribute('src')) frame.src = 'https://t.me/s/infofmrou';
-    modal.style.display = 'block';
 };
 
 window.sendFeedback = function() {
@@ -1238,11 +1233,46 @@ function stepFreq(delta) {
     syncKnobToFrequency();
 }
 
-function setCountry(c){
+let countryLoadSequence = 0;
+
+function resetStationViewForCountryChange() {
+    document.getElementById("freqInput").value = "";
+    document.getElementById("searchInput").value = "";
+    document.getElementById("onlyMarkedChk").checked = false;
+    currentTxCoords = null;
+
+    if (distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
+    if (geoLayer) { map.removeLayer(geoLayer); geoLayer = null; }
+    for (let key in activeCoverages) map.removeLayer(activeCoverages[key]);
+    activeCoverages = {};
+    allStations = [];
+    map.closePopup();
+    window.history.replaceState(null, '', window.location.pathname);
+    syncKnobToFrequency();
+}
+
+function setCountry(c, preserveInitialFilter = false){
     document.getElementById("btn-ro").className = (c=='ro'?'countryBtn active':'countryBtn');
     document.getElementById("btn-md").className = (c=='md'?'countryBtn active':'countryBtn');
-    fetch(c=='ro'?'fm.json':'fm_md.json').then(r => { if(!r.ok) throw new Error("File not found"); return r.json(); })
-    .then(d => { allStations=d.features; tune(); }).catch(err => { alert("⚠️ Error: Could not load the JSON file."); console.error(err); });
+
+    // Every deliberate country-button click resets frequency/search and restores all emitters.
+    // Initial page loading may preserve a shared ?freq= or ?q= URL.
+    if (!preserveInitialFilter) resetStationViewForCountryChange();
+
+    const requestId = ++countryLoadSequence;
+    const fileName = c == 'ro' ? 'fm.json' : 'fm_md.json';
+    fetch(fileName).then(r => { if(!r.ok) throw new Error("File not found"); return r.json(); })
+    .then(d => {
+        if (requestId !== countryLoadSequence) return;
+        allStations = Array.isArray(d.features) ? d.features : [];
+        tune();
+        syncKnobToFrequency();
+    })
+    .catch(err => {
+        if (requestId !== countryLoadSequence) return;
+        alert("⚠️ Error: Could not load the JSON file.");
+        console.error(err);
+    });
 }
 
 function bearing(a, b){
@@ -1267,7 +1297,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     else if(urlParams.has('q')) { document.getElementById('searchInput').value = urlParams.get('q'); document.getElementById('freqInput').value = ''; }
     else { document.getElementById('freqInput').value = ''; document.getElementById('searchInput').value = ''; }
-    setCountry('ro');
+    setCountry('ro', true);
     syncKnobToFrequency();
 });
 </script>
