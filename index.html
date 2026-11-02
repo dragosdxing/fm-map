@@ -43,33 +43,50 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
 
 .tuning-row {
     display: flex; align-items: center; justify-content: center;
-    gap: 18px; margin: 2px 0 12px;
+    gap: 8px; margin: 2px 0 12px;
 }
 .lcd-screen {
     position: relative; background: #080d08; border: 1px solid #101b10; border-radius: 5px;
-    padding: 8px 12px 6px; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; width: 150px; min-width: 150px;
+    padding: 7px 10px 6px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; width: 144px; min-width: 144px;
     box-shadow: inset 0 0 12px rgba(0,0,0,.95), 0 0 8px rgba(0,255,0,.12);
 }
-.lcd-display { position: relative; width: 100%; height: 43px; display: flex; align-items: center; justify-content: center; }
+.lcd-display { position: relative; width: 100%; height: 43px; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; }
 .lcd-ghost {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    color: #00ff00; opacity: .19; pointer-events: none;
-    font-family: 'DS-Digital', sans-serif; font-size: 39px; line-height: 1;
-    letter-spacing: 1px; text-shadow: 0 0 5px rgba(0,255,0,.8), 0 0 12px rgba(0,255,0,.4);
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-start;
+    box-sizing: border-box; padding-left: 8px;
+    color: #00ff00; opacity: .17; pointer-events: none;
+    font-family: 'DS-Digital', sans-serif; font-size: 38px; line-height: 1;
+    letter-spacing: 1px; white-space: nowrap;
+    text-shadow: 0 0 5px rgba(0,255,0,.8), 0 0 12px rgba(0,255,0,.4);
 }
 #freqInput {
     position: relative; z-index: 1; background: transparent; border: none; color: #4dff4d;
-    font-family: 'DS-Digital', sans-serif; font-size: 39px; line-height: 1;
-    text-align: center; width: 100%; outline: none; padding: 0; margin: 0;
+    font-family: 'DS-Digital', sans-serif; font-size: 38px; line-height: 1;
+    text-align: left; width: 100%; box-sizing: border-box; outline: none;
+    padding: 0 0 0 8px; margin: 0; letter-spacing: 1px;
     text-shadow: 0 0 4px #00ff00, 0 0 10px rgba(0,255,0,.95), 0 0 20px rgba(0,255,0,.75);
     caret-color: #00ff00;
 }
+/* Pentru 87.5–99.9 MHz lăsăm primul digit slot liber, astfel încât punctul să rămână fix. */
+.lcd-screen.is-two-digit #freqInput { text-indent: 1.05ch; }
 #freqInput::placeholder { color: transparent; }
 
 .mhz-label { color: #00ff00; font-size: 11px; margin-top: 1px; text-shadow: 0 0 7px rgba(0,255,0,.8); }
 
+.knob-cluster { display: flex; align-items: center; gap: 7px; }
 .knob-area { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.step-buttons { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.step-btn {
+    width: 28px; height: 28px; padding: 0; margin: 0; border-radius: 5px;
+    border: 1px solid #454b50; color: #e9f5e9; font-size: 19px; line-height: 1;
+    font-weight: bold; cursor: pointer;
+    background: linear-gradient(145deg, #454b51, #24282d 70%);
+    box-shadow: 0 2px 5px rgba(0,0,0,.7), inset 0 1px 1px rgba(255,255,255,.12);
+    transition: transform .08s ease, box-shadow .15s ease, color .15s ease;
+}
+.step-btn:hover { color: #00ff00; box-shadow: 0 0 7px rgba(0,255,0,.28), 0 2px 5px rgba(0,0,0,.7); }
+.step-btn:active { transform: translateY(1px); background: #171b1e; }
 .tuning-knob {
     position: relative; width: 62px; height: 62px; flex: 0 0 62px; border-radius: 50%;
     border: 1px solid #090a0c; cursor: grab; touch-action: none; user-select: none;
@@ -210,6 +227,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     .lcd-display { height: 48px; }
     .lcd-ghost, #freqInput { font-size: 43px; }
     .tuning-knob { width: 70px; height: 70px; flex-basis: 70px; }
+    .step-btn { width: 32px; height: 31px; font-size: 21px; }
     .knob-indicator { top: 8px; height: 15px; }
     .knob-caption { font-size: 10px; }
     .countryBtn { font-size: 15px; min-height: 42px; padding: 8px 18px; }
@@ -249,18 +267,24 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
         <div class="tuning-row">
             <div class="lcd-screen">
                 <div class="lcd-display">
-                    <span class="lcd-ghost" aria-hidden="true">88.8</span>
+                    <span class="lcd-ghost" aria-hidden="true">888.8</span>
                     <input id="freqInput" type="text" value="" placeholder="" inputmode="decimal" aria-label="FM frequency in MHz">
                 </div>
                 <div class="mhz-label">MHz</div>
             </div>
-            <div class="knob-area">
-                <div id="tuningKnob" class="tuning-knob" role="slider" tabindex="0" aria-label="Rotary frequency tuning" aria-valuemin="87.5" aria-valuemax="108.0" aria-valuenow="98.0" title="Drag the knob or use arrow keys to tune"
-                     onpointerdown="startKnobDrag(event)" onpointermove="moveKnobDrag(event)" onpointerup="stopKnobDrag(event)" onpointercancel="stopKnobDrag(event)" onkeydown="handleKnobKey(event)">
-                    <span class="knob-indicator"></span>
-                    <span class="knob-center"></span>
+            <div class="knob-cluster">
+                <div class="knob-area">
+                    <div id="tuningKnob" class="tuning-knob" role="slider" tabindex="0" aria-label="Rotary frequency tuning" aria-valuemin="87.5" aria-valuemax="108.0" aria-valuenow="98.0" title="Drag, scroll the mouse wheel, or use arrow keys to tune"
+                         onpointerdown="startKnobDrag(event)" onpointermove="moveKnobDrag(event)" onpointerup="stopKnobDrag(event)" onpointercancel="stopKnobDrag(event)" onkeydown="handleKnobKey(event)" onwheel="handleKnobWheel(event)">
+                        <span class="knob-indicator"></span>
+                        <span class="knob-center"></span>
+                    </div>
+                    <span class="knob-caption">TUNING</span>
                 </div>
-                <span class="knob-caption">TUNING</span>
+                <div class="step-buttons" aria-label="Frequency step controls">
+                    <button type="button" class="step-btn" onclick="stepFreq(0.1)" title="Increase frequency by 0.1 MHz" aria-label="Increase frequency">+</button>
+                    <button type="button" class="step-btn" onclick="stepFreq(-0.1)" title="Decrease frequency by 0.1 MHz" aria-label="Decrease frequency">−</button>
+                </div>
             </div>
         </div>
 
@@ -1011,18 +1035,42 @@ setInterval(() => {
 }, 2500);
 
 let knobDragState = null;
+let knobWheelRemainder = 0;
 const KNOB_DEGREES_PER_STEP = 270 / 205; // cursă de 270° pentru banda FM 87.5–108.0 MHz
+
+function handleKnobWheel(event) {
+    // Mouse wheel up = +0.1 MHz; wheel down = -0.1 MHz.
+    event.preventDefault();
+    event.stopPropagation(); // nu lăsăm Leaflet să facă zoom în hartă cât timp reglăm frecvența
+    let wheelUnits = event.deltaY;
+    if (event.deltaMode === 1) wheelUnits /= 3;       // Firefox: de regulă 3 linii / rotiță
+    else if (event.deltaMode === 2) wheelUnits *= 1; // pagină
+    else wheelUnits /= 100;                         // Chrome / trackpad: pixeli
+
+    knobWheelRemainder += wheelUnits;
+    const steps = knobWheelRemainder >= 0
+        ? Math.floor(knobWheelRemainder)
+        : Math.ceil(knobWheelRemainder);
+    if (steps !== 0) {
+        knobWheelRemainder -= steps;
+        stepFreq(-steps * 0.1);
+    }
+}
 
 function syncKnobToFrequency() {
     const knob = document.getElementById('tuningKnob');
     const input = document.getElementById('freqInput');
+    const lcd = document.querySelector('.lcd-screen');
     if (!knob || !input) return;
-    let value = parseFloat(input.value.replace(',', '.'));
+    const rawValue = input.value.trim();
+    let value = parseFloat(rawValue.replace(',', '.'));
+    const hasFrequency = rawValue !== '' && !Number.isNaN(value);
     if (Number.isNaN(value)) value = 98.0;
     value = Math.max(87.5, Math.min(108.0, value));
     const angle = -135 + ((value - 87.5) / 20.5) * 270;
     knob.style.transform = `rotate(${angle}deg)`;
     knob.setAttribute('aria-valuenow', value.toFixed(1));
+    if (lcd) lcd.classList.toggle('is-two-digit', hasFrequency && value < 100);
 }
 
 function startKnobDrag(event) {
