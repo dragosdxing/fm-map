@@ -123,7 +123,15 @@
         .post-control { display: none; }
         
         #miniMap { height: 300px; width: 100%; margin-top: 10px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.2); z-index: 1; }
+        .coordinate-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: end; margin-top: 10px; }
+        .coordinate-row input { margin-top: 5px; }
+        .coordinate-row button { width: auto; min-width: 64px; margin: 0; padding: 10px 18px; background: #0066cc; color: #fff; }
+        .coordinate-row button:hover { background: #0088ff; }
+        .coordinate-status { min-height: 16px; margin-top: 5px; font-size: 12px; }
+        .coordinate-status.success { color: #00ff00; }
+        .coordinate-status.error { color: #ff4d4d; }
         .map-hint { font-size: 12px; color: #ff9900; margin-top: 5px; text-align: right; }
+        @media (max-width: 480px) { .coordinate-row { grid-template-columns: 1fr; } .coordinate-row button { width: 100%; } }
         
         .grid-2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .flex-row { display: flex; justify-content: space-between; align-items: center; }
@@ -175,8 +183,16 @@
                     <input type="text" id="locNameEdit" onkeyup="updateLocName()">
                     
                     <label>📍 Ajustează Coordonatele (Trage markerul pe hartă):</label>
+                    <div class="coordinate-row">
+                        <div>
+                            <label for="coordinateInput" style="margin-top:0;">Introdu coordonatele (latitudine, longitudine):</label>
+                            <input type="text" id="coordinateInput" placeholder="45.142367525553716, 26.784190518284728" autocomplete="off" spellcheck="false" onkeydown="if(event.key === 'Enter') applyManualCoordinates()">
+                        </div>
+                        <button type="button" onclick="applyManualCoordinates()">OK</button>
+                    </div>
+                    <div id="coordinateStatus" class="coordinate-status" aria-live="polite"></div>
                     <div id="miniMap"></div>
-                    <div class="map-hint">Trage pin-ul albastru pentru a salva automat noile coordonate.</div>
+                    <div class="map-hint">Trage pin-ul albastru pentru a actualiza automat coordonatele.</div>
                 </div>
 
                 <div class="flex-row">
@@ -425,12 +441,63 @@
                 mapMarker = L.marker([lat, lng], { draggable: true }).addTo(mapInstance);
                 mapMarker.on('dragend', function(e) { const pos = mapMarker.getLatLng(); updateCoordinates(pos.lat, pos.lng); });
             } else { mapInstance.setView([lat, lng], 13); mapMarker.setLatLng([lat, lng]); }
+            document.getElementById('coordinateInput').value = `${lat}, ${lng}`;
+            setCoordinateStatus('');
         }
 
         function updateCoordinates(lat, lng) {
             const selectedId = document.getElementById('stationSelect').value;
             const feature = mapData.features.find(f => f.id === selectedId);
+            if (!feature) return;
             feature.geometry.coordinates = [lng, lat];
+            const coordinateInput = document.getElementById('coordinateInput');
+            if (coordinateInput) coordinateInput.value = `${lat}, ${lng}`;
+            setCoordinateStatus('');
+        }
+
+        function setCoordinateStatus(message, type = '') {
+            const statusEl = document.getElementById('coordinateStatus');
+            if (!statusEl) return;
+            statusEl.textContent = message;
+            statusEl.className = `coordinate-status${type ? ' ' + type : ''}`;
+        }
+
+        function applyManualCoordinates() {
+            const selectedId = document.getElementById('stationSelect').value;
+            if (!selectedId || !mapData) {
+                setCoordinateStatus('Selectează mai întâi o locație.', 'error');
+                return;
+            }
+
+            const rawCoordinates = document.getElementById('coordinateInput').value.trim();
+            const parts = rawCoordinates.split(',').map(part => part.trim());
+            if (parts.length !== 2 || parts.some(part => part === '')) {
+                setCoordinateStatus('Format invalid. Folosește: latitudine, longitudine.', 'error');
+                return;
+            }
+
+            const lat = Number(parts[0]);
+            const lng = Number(parts[1]);
+            if (!Number.isFinite(lat) || !Number.isFinite(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+                setCoordinateStatus('Coordonate invalide. Latitudinea trebuie să fie între -90 și 90, iar longitudinea între -180 și 180.', 'error');
+                return;
+            }
+
+            const feature = mapData.features.find(f => f.id === selectedId);
+            if (!feature) {
+                setCoordinateStatus('Locația selectată nu a fost găsită.', 'error');
+                return;
+            }
+
+            // GeoJSON păstrează coordonatele în ordinea [longitudine, latitudine].
+            feature.geometry.coordinates = [lng, lat];
+            if (mapInstance && mapMarker) {
+                mapMarker.setLatLng([lat, lng]);
+                mapInstance.setView([lat, lng], 13);
+                setTimeout(() => mapInstance.invalidateSize(), 50);
+            }
+            document.getElementById('coordinateInput').value = `${lat}, ${lng}`;
+            setCoordinateStatus('✓ Coordonatele au fost aplicate. Apasă „Salvează Toate Modificările” pentru a le publica pe hartă.', 'success');
         }
 
         function updateLocName() {
