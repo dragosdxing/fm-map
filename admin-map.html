@@ -65,9 +65,52 @@
         .btn-load { background: #0066cc; color: white; margin-top: 10px; }
         .btn-load:hover { background: #0088ff; }
 
-        .radio-group { display: flex; flex-direction: column; gap: 10px; background: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); margin-top: 5px; }
-        .radio-group label { margin: 0; color: #fff; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: normal; }
-        .radio-group input[type="radio"] { width: auto; margin: 0; accent-color: #ff9900; cursor: pointer; }
+        .radio-group { display: flex; flex-direction: column; gap: 8px; background: rgba(0, 0, 0, 0.4); padding: 15px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); margin-top: 5px; }
+        .radio-group label {
+            margin: 0;
+            padding: 10px 12px;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-weight: normal;
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 6px;
+            background: rgba(255,255,255,0.025);
+            transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+        }
+        .radio-group label:hover {
+            background: rgba(255,255,255,0.075);
+            border-color: rgba(255,153,0,0.65);
+            transform: translateX(2px);
+        }
+        .radio-group label:has(input[type="radio"]:checked) {
+            background: rgba(255,153,0,0.13);
+            border-color: #ff9900;
+            box-shadow: inset 0 0 0 1px rgba(255,153,0,0.18), 0 0 10px rgba(255,153,0,0.10);
+        }
+        .radio-group label:focus-within {
+            outline: 2px solid rgba(255,153,0,0.55);
+            outline-offset: 2px;
+        }
+        .radio-group input[type="radio"] { width: auto; margin: 0; accent-color: #ff9900; cursor: pointer; transform: scale(1.12); }
+
+        /* Meniurile derulante rămân întunecate indiferent de tema browserului/sistemului. */
+        select {
+            color-scheme: dark;
+            background-color: #111111 !important;
+            color: #ffffff !important;
+        }
+        select option, select optgroup {
+            background-color: #111111 !important;
+            color: #ffffff !important;
+        }
+        select option:checked {
+            background-color: #333333 !important;
+            color: #ffffff !important;
+        }
 
         .settings-group { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px dashed rgba(255,255,255,0.1); }
         .danger-group { border-color: #ff4d4d; background: rgba(255, 0, 0, 0.05); }
@@ -145,7 +188,7 @@
                 <label>3. Status Post (Apasă pentru a aplica rapid):</label>
                 <div class="radio-group">
                     <label><input type="radio" name="postStatus" value="OK" onchange="applyStatus()"> 🟢 [OK] (Activ - curăță etichetele)</label>
-                    <label><input type="radio" name="postStatus" value="(**BLANK**)" onchange="applyStatus()"> 🟡 (**BLANK**) (Purtătoare)</label>
+                    <label><input type="radio" name="postStatus" value="(**AUDIO PROBLEM**)" onchange="applyStatus()"> 🟡 (**AUDIO PROBLEM**) (Probleme Audio)</label>
                     <label><input type="radio" name="postStatus" value="(**NO AUDIO**)" onchange="applyStatus()"> 🔕 (**NO AUDIO**) (Fără sunet)</label>
                     <label><input type="radio" name="postStatus" value="(**VERY LOW AUDIO**)" onchange="applyStatus()"> 🟠 (**VERY LOW AUDIO**) (Sunet slab)</label>
                     <label><input type="radio" name="postStatus" value="(**OFF AIR**)" onchange="applyStatus()"> 🔴 (**OFF AIR**) (Oprit)</label>
@@ -418,7 +461,7 @@
             const currentLine = currentLines[selectedLineIndex];
             let foundStatus = false;
 
-            if (currentLine.includes('(**BLANK**)') || currentLine.includes('[BLANK]')) { checkRadio('postStatus', '(**BLANK**)'); foundStatus = true; }
+            if (currentLine.includes('(**AUDIO PROBLEM**)') || currentLine.includes('[AUDIO PROBLEM]') || currentLine.includes('(**BLANK**)') || currentLine.includes('[BLANK]')) { checkRadio('postStatus', '(**AUDIO PROBLEM**)'); foundStatus = true; }
             if (currentLine.includes('(**NO AUDIO**)') || currentLine.includes('[NO AUDIO]')) { checkRadio('postStatus', '(**NO AUDIO**)'); foundStatus = true; }
             if (currentLine.includes('(**OFF AIR**)') || currentLine.includes('(OFF AIR)')) { checkRadio('postStatus', '(**OFF AIR**)'); foundStatus = true; }
             if (currentLine.includes('(**VERY LOW AUDIO**)') || currentLine.includes('[VERY LOW AUDIO]')) { checkRadio('postStatus', '(**VERY LOW AUDIO**)'); foundStatus = true; }
@@ -440,7 +483,8 @@
             for (let i = 0; i < radios.length; i++) { if (radios[i].checked) { newStatus = radios[i].value; break; } }
 
             let line = currentLines[selectedLineIndex];
-            line = line.replace(/\s*\[BLANK\]/g, '').replace(/\s*\(\*\*BLANK\*\*\)/g, '')
+            line = line.replace(/\s*\[AUDIO PROBLEM\]/g, '').replace(/\s*\(\*\*AUDIO PROBLEM\*\*\)/g, '')
+                       .replace(/\s*\[BLANK\]/g, '').replace(/\s*\(\*\*BLANK\*\*\)/g, '')
                        .replace(/\s*\[NO AUDIO\]/g, '').replace(/\s*\(\*\*NO AUDIO\*\*\)/g, '')
                        .replace(/\s*\(OFF AIR\)/g, '').replace(/\s*\(\*\*OFF AIR\*\*\)/g, '')
                        .replace(/\s*\[VERY LOW AUDIO\]/g, '').replace(/\s*\(\*\*VERY LOW AUDIO\*\*\)/g, '')
