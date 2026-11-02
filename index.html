@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>FM Map Romania & Moldova</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -13,7 +14,7 @@
 @import url('https://fonts.cdnfonts.com/css/ds-digital');
 
 html, body { margin:0; padding:0; background: #000; overflow: hidden; }
-#map { height:100vh; width:100vw; }
+#map { height:100vh; height:100dvh; width:100vw; }
 
 .error-badge { color: #ff4444 !important; font-weight: bold; }
 @keyframes blink-warning {
@@ -265,7 +266,7 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .telegram-action:hover { background: rgba(0,136,204,.25); border-color: #35b7ff; }
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
     #radioPanel {
-        left: 10px; right: auto; top: 10px; width: min( calc(100vw - 20px), 390px );
+        left: max(10px, env(safe-area-inset-left)); right: auto; top: max(10px, env(safe-area-inset-top)); width: min(calc(100vw - 20px - env(safe-area-inset-left) - env(safe-area-inset-right)), 390px);
         max-height: calc(100vh - 20px); overflow-y: auto; box-sizing: border-box;
         padding: 17px 17px; font-size: 16px;
     }
@@ -295,9 +296,9 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     .dist-info-popup { font-size: 14px; }
     .rds-box { font-size: 14px; padding: 4px 7px; }
     .receiver-popup .leaflet-popup-content { font-size: 16px !important; }
-    #ro-clock { top: auto; bottom: 10px; right: 10px; font-size: 20px; padding: 7px 10px; }
+    #ro-clock { top: auto; bottom: max(10px, env(safe-area-inset-bottom)); right: max(10px, env(safe-area-inset-right)); font-size: 20px; padding: 7px 10px; }
     .tz-label { font-size: 12px; }
-    #weather-widget { top: auto; bottom: 59px; right: 10px; padding: 9px 11px; }
+    #weather-widget { top: auto; bottom: calc(59px + env(safe-area-inset-bottom)); right: max(10px, env(safe-area-inset-right)); padding: 9px 11px; }
     .log-header { font-size: 16px; }
 }
 </style>
