@@ -61,7 +61,7 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
     position: absolute; inset: 0; display: flex; align-items: center;
     justify-content: center; gap: 2px; pointer-events: none;
 }
-.lcd-digit { position: relative; flex: 0 0 20px; width: 20px; height: 38px; }
+.lcd-digit { position: relative; flex: 0 0 24px; width: 24px; height: 38px; }
 /* 14-segment MOSFET-style glyph: all segments share one fixed geometry. */
 .lcd-segment {
     position: absolute; display: block; background: rgba(178, 190, 188, .22);
@@ -75,10 +75,10 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
 /* Outer horizontal and vertical bars */
 .lcd-segment.a { inset: 0 14% auto 14%; height: 12%; clip-path: polygon(17% 0, 83% 0, 100% 100%, 0 100%); }
 .lcd-segment.d { inset: auto 14% 0 14%; height: 12%; clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); }
-.lcd-segment.f { left: 0; top: 8%; width: 12%; height: 40%; clip-path: polygon(0 12%, 100% 0, 100% 88%, 0 100%); }
-.lcd-segment.e { left: 0; bottom: 8%; width: 12%; height: 40%; clip-path: polygon(0 0, 100% 12%, 100% 100%, 0 88%); }
-.lcd-segment.b { right: 0; top: 8%; width: 12%; height: 40%; clip-path: polygon(100% 12%, 0 0, 0 88%, 100% 100%); }
-.lcd-segment.c { right: 0; bottom: 8%; width: 12%; height: 40%; clip-path: polygon(100% 0, 0 12%, 0 100%, 100% 88%); }
+.lcd-segment.f { left: 0; top: 8%; width: 15%; height: 40%; clip-path: polygon(0 12%, 100% 0, 100% 88%, 0 100%); }
+.lcd-segment.e { left: 0; bottom: 8%; width: 15%; height: 40%; clip-path: polygon(0 0, 100% 12%, 100% 100%, 0 88%); }
+.lcd-segment.b { right: 0; top: 8%; width: 15%; height: 40%; clip-path: polygon(100% 12%, 0 0, 0 88%, 100% 100%); }
+.lcd-segment.c { right: 0; bottom: 8%; width: 15%; height: 40%; clip-path: polygon(100% 0, 0 12%, 0 100%, 100% 88%); }
 /* Split middle bar */
 .lcd-segment.g1 { left: 8%; top: 46%; width: 42%; height: 8%; clip-path: polygon(0 0, 84% 0, 100% 50%, 84% 100%, 0 100%, 14% 50%); }
 .lcd-segment.g2 { right: 8%; top: 46%; width: 42%; height: 8%; clip-path: polygon(16% 0, 100% 0, 86% 50%, 100% 100%, 16% 100%, 0 50%); }
@@ -1105,7 +1105,7 @@ function handleKnobWheel(event) {
 }
 
 const LCD_DIGIT_SEGMENTS = {
-    // Standard 14-segment numerals; split centre bars and diagonals are used where useful.
+    // Numeric glyphs follow the supplied 14-segment reference; diagonals are reserved for letters.
     '0': ['a','b','c','d','e','f'],
     '1': ['b','c'],
     '2': ['a','b','g1','g2','e','d'],
@@ -1114,7 +1114,9 @@ const LCD_DIGIT_SEGMENTS = {
     '5': ['a','f','g1','g2','c','d'],
     '6': ['a','f','g1','g2','e','c','d'],
     '7': ['a','b','c'],
-    '8': ['a','b','c','d','e','f','g1','g2','h','i','j','k','l','m'],
+    // 8 follows the classic radio-tuner numeral: outer bars + both centre bars.
+    // Diagonals and centre verticals stay dim, as in the 14-segment reference.
+    '8': ['a','b','c','d','e','f','g1','g2'],
     '9': ['a','b','c','d','f','g1','g2']
 };
 
