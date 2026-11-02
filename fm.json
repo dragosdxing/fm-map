@@ -3409,14 +3409,14 @@
       "type": "Feature",
       "geometry": {
         "coordinates": [
-          26.949677,
-          45.857141
+          26.949647963047028,
+          45.857120108978634
         ],
         "type": "Point"
       },
       "properties": {
         "name": "Măgura Odobești",
-        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz]\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___]\n101.0 h RR.Cultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RR.Actualități [EE00] - 45kW [RRACTUAL]",
+        "description": "90.0 h Digi FM [E059] - 30kW [Digi_FM_][90,0_FM_]\n93.0 v Radio Trinitas [E24D] - 300W [TRINITAS][93,00MHz] (**AUDIO PROBLEM**)\n95.3 v Radio Impuls [E0D6] - 500W [_IMPULS_]\n97.0 v Focus FM [E828] - 10kW [FOCUS_FM][FOCSANI_]\n97.7 v Itsy Bitsy FM [E3C8] - 500W [ITSY____][BITSY___] (**VERY LOW AUDIO**)\n101.0 h RR.Cultural [EE01] - 50kW [CULTURAL]\n102.0 v Sport Total FM [noPI] - 500W [no RDS]\n102.5 h RR.Actualități [EE00] - 45kW [RRACTUAL]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop",
