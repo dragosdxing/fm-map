@@ -61,16 +61,20 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
     position: absolute; inset: 0; display: flex; align-items: center;
     justify-content: center; gap: 2px; pointer-events: none;
 }
-.lcd-digit { position: relative; flex: 0 0 24px; width: 24px; height: 38px; }
-/* 14-segment MOSFET-style glyph: all segments share one fixed geometry. */
+/* Cifre puțin mai compacte, păstrând proporțiile afișajului 14-segment. */
+.lcd-digit { position: relative; flex: 0 0 21px; width: 21px; height: 34px; }
+/* Segmentele stinse rămân verde închis, nu gri. */
 .lcd-segment {
-    position: absolute; display: block; background: rgba(178, 190, 188, .22);
-    filter: drop-shadow(0 0 1px rgba(215, 225, 220, .20));
+    position: absolute; display: block; background: #07320d;
+    filter: drop-shadow(0 0 1px rgba(0, 110, 25, .32));
     transition: background .08s ease, filter .08s ease;
 }
 .lcd-segment.on {
-    background: #48ff35;
-    filter: drop-shadow(0 0 2px rgba(0,255,0,.95)) drop-shadow(0 0 5px rgba(0,255,0,.85)) drop-shadow(0 0 9px rgba(0,255,0,.58));
+    background: #45ff24;
+    filter: drop-shadow(0 0 2px rgba(60,255,35,1))
+            drop-shadow(0 0 5px rgba(0,255,0,1))
+            drop-shadow(0 0 10px rgba(0,255,0,.95))
+            drop-shadow(0 0 16px rgba(0,255,0,.72));
 }
 /* Outer horizontal and vertical bars */
 .lcd-segment.a { inset: 0 14% auto 14%; height: 12%; clip-path: polygon(17% 0, 83% 0, 100% 100%, 0 100%); }
@@ -90,13 +94,13 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
 .lcd-segment.l { left: 45%; top: 14%; width: 10%; height: 34%; clip-path: polygon(0 0, 100% 0, 100% 84%, 50% 100%, 0 84%); }
 .lcd-segment.m { left: 45%; bottom: 14%; width: 10%; height: 34%; clip-path: polygon(50% 0, 100% 16%, 100% 100%, 0 100%, 0 16%); }
 .lcd-dot {
-    flex: 0 0 5px; width: 5px; height: 5px; margin: 0 1px 3px 0;
-    border-radius: 50%; background: rgba(0,255,0,.16);
-    box-shadow: 0 0 2px rgba(0,255,0,.18);
+    flex: 0 0 4px; width: 4px; height: 4px; margin: 0 1px 3px 0;
+    border-radius: 50%; background: #07320d;
+    box-shadow: 0 0 2px rgba(0,110,25,.32);
 }
 .lcd-dot.on {
-    background: #39ff39;
-    box-shadow: 0 0 4px #00ff00, 0 0 9px rgba(0,255,0,.95), 0 0 15px rgba(0,255,0,.7);
+    background: #45ff24;
+    box-shadow: 0 0 4px #39ff14, 0 0 9px rgba(0,255,0,1), 0 0 16px rgba(0,255,0,.9), 0 0 22px rgba(0,255,0,.55);
 }
 #freqInput {
     position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%;
@@ -259,9 +263,9 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     #radioPanel > div:first-child span:first-child { font-size: 19px !important; }
     .tuning-row { gap: 20px; margin-bottom: 14px; }
     .lcd-screen { width: 166px; min-width: 166px; padding: 9px 12px 7px; }
-    .lcd-display { height: 48px; }
-    .lcd-digit { flex-basis: 23px; width: 23px; height: 42px; }
-    .lcd-dot { flex-basis: 6px; width: 6px; height: 6px; }
+    .lcd-display { height: 42px; }
+    .lcd-digit { flex-basis: 20px; width: 20px; height: 33px; }
+    .lcd-dot { flex-basis: 4px; width: 4px; height: 4px; }
     .tuning-knob { width: 70px; height: 70px; flex-basis: 70px; }
     .step-btn { width: 32px; height: 31px; font-size: 21px; }
     .knob-indicator { top: 8px; height: 15px; }
