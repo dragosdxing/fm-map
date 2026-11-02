@@ -62,28 +62,33 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
     justify-content: center; gap: 2px; pointer-events: none;
 }
 .lcd-digit { position: relative; flex: 0 0 20px; width: 20px; height: 38px; }
+/* 14-segment MOSFET-style glyph: all segments share one fixed geometry. */
 .lcd-segment {
-    position: absolute; display: block; border-radius: 2px;
-    background: rgba(0, 255, 0, .075);
-    box-shadow: 0 0 2px rgba(0, 255, 0, .12);
+    position: absolute; display: block; background: rgba(178, 190, 188, .22);
+    filter: drop-shadow(0 0 1px rgba(215, 225, 220, .20));
+    transition: background .08s ease, filter .08s ease;
 }
 .lcd-segment.on {
-    background: #36ff36;
-    box-shadow: 0 0 4px #00ff00, 0 0 8px rgba(0,255,0,.95), 0 0 15px rgba(0,255,0,.7);
+    background: #48ff35;
+    filter: drop-shadow(0 0 2px rgba(0,255,0,.95)) drop-shadow(0 0 5px rgba(0,255,0,.85)) drop-shadow(0 0 9px rgba(0,255,0,.58));
 }
-.lcd-segment.a, .lcd-segment.g, .lcd-segment.d {
-    left: 4px; width: 12px; height: 3px;
-}
-.lcd-segment.a { top: 1px; }
-.lcd-segment.g { top: 17px; }
-.lcd-segment.d { bottom: 1px; }
-.lcd-segment.f, .lcd-segment.e, .lcd-segment.b, .lcd-segment.c {
-    width: 3px; height: 13px;
-}
-.lcd-segment.f { left: 1px; top: 3px; }
-.lcd-segment.e { left: 1px; bottom: 3px; }
-.lcd-segment.b { right: 1px; top: 3px; }
-.lcd-segment.c { right: 1px; bottom: 3px; }
+/* Outer horizontal and vertical bars */
+.lcd-segment.a { inset: 0 14% auto 14%; height: 12%; clip-path: polygon(17% 0, 83% 0, 100% 100%, 0 100%); }
+.lcd-segment.d { inset: auto 14% 0 14%; height: 12%; clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); }
+.lcd-segment.f { left: 0; top: 8%; width: 12%; height: 40%; clip-path: polygon(0 12%, 100% 0, 100% 88%, 0 100%); }
+.lcd-segment.e { left: 0; bottom: 8%; width: 12%; height: 40%; clip-path: polygon(0 0, 100% 12%, 100% 100%, 0 88%); }
+.lcd-segment.b { right: 0; top: 8%; width: 12%; height: 40%; clip-path: polygon(100% 12%, 0 0, 0 88%, 100% 100%); }
+.lcd-segment.c { right: 0; bottom: 8%; width: 12%; height: 40%; clip-path: polygon(100% 0, 0 12%, 0 100%, 100% 88%); }
+/* Split middle bar */
+.lcd-segment.g1 { left: 8%; top: 46%; width: 42%; height: 8%; clip-path: polygon(0 0, 84% 0, 100% 50%, 84% 100%, 0 100%, 14% 50%); }
+.lcd-segment.g2 { right: 8%; top: 46%; width: 42%; height: 8%; clip-path: polygon(16% 0, 100% 0, 86% 50%, 100% 100%, 16% 100%, 0 50%); }
+/* Four diagonal bars and the two centre vertical bars */
+.lcd-segment.h { left: 17%; top: 14%; width: 34%; height: 34%; clip-path: polygon(0 0, 24% 0, 100% 100%, 73% 100%); }
+.lcd-segment.i { right: 17%; top: 14%; width: 34%; height: 34%; clip-path: polygon(76% 0, 100% 0, 27% 100%, 0 100%); }
+.lcd-segment.j { left: 17%; bottom: 14%; width: 34%; height: 34%; clip-path: polygon(73% 0, 100% 0, 24% 100%, 0 100%); }
+.lcd-segment.k { right: 17%; bottom: 14%; width: 34%; height: 34%; clip-path: polygon(0 0, 27% 0, 100% 100%, 76% 100%); }
+.lcd-segment.l { left: 45%; top: 14%; width: 10%; height: 34%; clip-path: polygon(0 0, 100% 0, 100% 84%, 50% 100%, 0 84%); }
+.lcd-segment.m { left: 45%; bottom: 14%; width: 10%; height: 34%; clip-path: polygon(50% 0, 100% 16%, 100% 100%, 0 100%, 0 16%); }
 .lcd-dot {
     flex: 0 0 5px; width: 5px; height: 5px; margin: 0 1px 3px 0;
     border-radius: 50%; background: rgba(0,255,0,.16);
@@ -256,11 +261,6 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     .lcd-screen { width: 166px; min-width: 166px; padding: 9px 12px 7px; }
     .lcd-display { height: 48px; }
     .lcd-digit { flex-basis: 23px; width: 23px; height: 42px; }
-    .lcd-segment.a, .lcd-segment.g, .lcd-segment.d { left: 4px; width: 15px; height: 3px; }
-    .lcd-segment.f, .lcd-segment.e, .lcd-segment.b, .lcd-segment.c { height: 15px; }
-    .lcd-segment.f { top: 3px; }
-    .lcd-segment.b { top: 3px; }
-    .lcd-segment.g { top: 19px; }
     .lcd-dot { flex-basis: 6px; width: 6px; height: 6px; }
     .tuning-knob { width: 70px; height: 70px; flex-basis: 70px; }
     .step-btn { width: 32px; height: 31px; font-size: 21px; }
@@ -1105,16 +1105,17 @@ function handleKnobWheel(event) {
 }
 
 const LCD_DIGIT_SEGMENTS = {
+    // Standard 14-segment numerals; split centre bars and diagonals are used where useful.
     '0': ['a','b','c','d','e','f'],
     '1': ['b','c'],
-    '2': ['a','b','g','e','d'],
-    '3': ['a','b','c','d','g'],
-    '4': ['f','g','b','c'],
-    '5': ['a','f','g','c','d'],
-    '6': ['a','f','g','e','c','d'],
+    '2': ['a','b','g1','g2','e','d'],
+    '3': ['a','b','c','d','g1','g2'],
+    '4': ['f','g1','g2','b','c'],
+    '5': ['a','f','g1','g2','c','d'],
+    '6': ['a','f','g1','g2','e','c','d'],
     '7': ['a','b','c'],
-    '8': ['a','b','c','d','e','f','g'],
-    '9': ['a','b','c','d','f','g']
+    '8': ['a','b','c','d','e','f','g1','g2','h','i','j','k','l','m'],
+    '9': ['a','b','c','d','f','g1','g2']
 };
 
 function renderLcdDisplay(rawValue) {
@@ -1138,7 +1139,7 @@ function renderLcdDisplay(rawValue) {
         const digit = document.createElement('span');
         digit.className = 'lcd-digit';
         const activeSegments = LCD_DIGIT_SEGMENTS[char] || [];
-        ['a','b','c','d','e','f','g'].forEach(segmentName => {
+        ['a','b','c','d','e','f','g1','g2','h','i','j','k','l','m'].forEach(segmentName => {
             const segment = document.createElement('i');
             segment.className = 'lcd-segment ' + segmentName + (activeSegments.includes(segmentName) ? ' on' : '');
             digit.appendChild(segment);
