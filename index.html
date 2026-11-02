@@ -41,34 +41,60 @@ html, body { margin:0; padding:0; background: #000; overflow: hidden; }
 .collapsed-panel #toggleBtn { transform: rotate(-90deg); color: #00ff00 !important; }
 .collapsed-panel { width: auto !important; padding: 10px 15px !important; }
 
+.tuning-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 18px; margin: 2px 0 12px;
+}
 .lcd-screen {
-    background: #111; border: 1px solid #000; border-radius: 4px;
-    padding: 4px 12px; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; min-width: 80px;
+    position: relative; background: #080d08; border: 1px solid #101b10; border-radius: 5px;
+    padding: 8px 12px 6px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; width: 150px; min-width: 150px;
+    box-shadow: inset 0 0 12px rgba(0,0,0,.95), 0 0 8px rgba(0,255,0,.12);
 }
-
-#freqInput { 
-    background: transparent; border: none; color: #00ff00; 
-    font-family: 'DS-Digital', sans-serif; font-size: 30px;
-    text-align: center; width: 100%; outline: none;
+.lcd-display { position: relative; width: 100%; height: 43px; display: flex; align-items: center; justify-content: center; }
+.lcd-ghost {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: #00ff00; opacity: .19; pointer-events: none;
+    font-family: 'DS-Digital', sans-serif; font-size: 39px; line-height: 1;
+    letter-spacing: 1px; text-shadow: 0 0 5px rgba(0,255,0,.8), 0 0 12px rgba(0,255,0,.4);
 }
-#freqInput::placeholder { color: #1a5c1a; }
-
-#searchInput { 
-    width: 100%; padding: 8px; border: 1px solid #555; background: #111; color: #00ff00; 
-    border-radius: 4px; font-family: Arial; font-size: 14px; text-align: center;
-    outline: none; box-sizing: border-box; transition: 0.2s;
+#freqInput {
+    position: relative; z-index: 1; background: transparent; border: none; color: #4dff4d;
+    font-family: 'DS-Digital', sans-serif; font-size: 39px; line-height: 1;
+    text-align: center; width: 100%; outline: none; padding: 0; margin: 0;
+    text-shadow: 0 0 4px #00ff00, 0 0 10px rgba(0,255,0,.95), 0 0 20px rgba(0,255,0,.75);
+    caret-color: #00ff00;
 }
-#searchInput::placeholder { color: #555; }
-#searchInput:focus { border-color: #00ff00; }
+#freqInput::placeholder { color: transparent; }
 
-.mhz-label { color: #00ff00; font-size: 11px; margin-top: -2px; }
+.mhz-label { color: #00ff00; font-size: 11px; margin-top: 1px; text-shadow: 0 0 7px rgba(0,255,0,.8); }
 
-.tune-btn {
-    width: 36px; height: 36px; cursor: pointer;
-    background: #383a40; color: #fff; border: 1px solid #2b2d31;
-    border-radius: 4px; font-size: 18px;
+.knob-area { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.tuning-knob {
+    position: relative; width: 62px; height: 62px; flex: 0 0 62px; border-radius: 50%;
+    border: 1px solid #090a0c; cursor: grab; touch-action: none; user-select: none;
+    background: radial-gradient(circle at 34% 28%, #73777d 0%, #454950 22%, #2b2f35 47%, #171a1f 72%, #08090b 100%);
+    box-shadow: 0 5px 12px rgba(0,0,0,.85), inset 0 2px 4px rgba(255,255,255,.22), inset 0 -5px 9px rgba(0,0,0,.9);
+    transition: box-shadow .15s ease; outline: none;
 }
+.tuning-knob::before {
+    content: ''; position: absolute; inset: 5px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.13); box-shadow: inset 0 1px 3px rgba(255,255,255,.12);
+}
+.tuning-knob:hover, .tuning-knob:focus-visible { box-shadow: 0 0 0 2px rgba(0,255,0,.22), 0 5px 15px rgba(0,0,0,.9), inset 0 2px 4px rgba(255,255,255,.25), inset 0 -5px 9px rgba(0,0,0,.9); }
+.tuning-knob.is-dragging { cursor: grabbing; }
+.knob-indicator {
+    position: absolute; top: 7px; left: 50%; width: 4px; height: 13px; transform: translateX(-50%);
+    border-radius: 3px; background: #00ff00; box-shadow: 0 0 5px #00ff00, 0 0 10px rgba(0,255,0,.9);
+}
+.knob-center {
+    position: absolute; width: 8px; height: 8px; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    border-radius: 50%; background: #171a1e; border: 1px solid rgba(255,255,255,.12);
+}
+.knob-caption { color: #9da49d; font-size: 9px; letter-spacing: 1.3px; font-weight: bold; }
+.only-marked-row { margin: 4px 0 14px; }
+
+#searchInput { display: none !important; }
 
 .countryBtn { cursor: pointer; padding: 6px 16px; border: 1px solid #555; background: #383a40; color: #fff; border-radius: 4px; }
 .countryBtn.active { background: #00ff00; color: #111; }
@@ -162,6 +188,52 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 .checkbox-container input { cursor: pointer; }
 
 .chart-container { position: relative; height: 350px; width: 100%; background: #111; border-radius: 4px; border: 1px solid #000; padding: 10px; box-sizing: border-box;}
+
+.telegram-action { background: rgba(0,136,204,.12); border-color: #168ac4; color: #7dd3ff; }
+.telegram-action:hover { background: rgba(0,136,204,.25); border-color: #35b7ff; }
+.telegram-modal { width: 95%; max-width: 850px; height: 82vh; max-height: 900px; box-sizing: border-box; }
+.telegram-toolbar { display: flex; justify-content: flex-end; margin: -4px 0 10px; }
+.telegram-toolbar a { color: #7dd3ff; font-size: 13px; text-decoration: none; }
+.telegram-toolbar a:hover { text-decoration: underline; }
+.telegram-frame { display: block; width: 100%; height: calc(82vh - 105px); min-height: 320px; border: 1px solid #444; border-radius: 5px; background: #111; }
+
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    #radioPanel {
+        left: 10px; right: auto; top: 10px; width: min( calc(100vw - 20px), 390px );
+        max-height: calc(100vh - 20px); overflow-y: auto; box-sizing: border-box;
+        padding: 17px 17px; font-size: 16px;
+    }
+    #radioPanel > div:first-child { margin-bottom: 15px !important; }
+    #radioPanel > div:first-child span:first-child { font-size: 19px !important; }
+    .tuning-row { gap: 20px; margin-bottom: 14px; }
+    .lcd-screen { width: 166px; min-width: 166px; padding: 9px 12px 7px; }
+    .lcd-display { height: 48px; }
+    .lcd-ghost, #freqInput { font-size: 43px; }
+    .tuning-knob { width: 70px; height: 70px; flex-basis: 70px; }
+    .knob-indicator { top: 8px; height: 15px; }
+    .knob-caption { font-size: 10px; }
+    .countryBtn { font-size: 15px; min-height: 42px; padding: 8px 18px; }
+    .action-btn { font-size: 13px; min-height: 42px; padding: 10px 7px; }
+    .checkbox-container { font-size: 14px; }
+    .checkbox-container input { width: 17px; height: 17px; }
+    .leaflet-popup-content-wrapper { max-width: calc(100vw - 24px) !important; }
+    .leaflet-popup-content {
+        box-sizing: border-box; width: calc(100vw - 82px) !important;
+        min-width: 0 !important; max-width: calc(100vw - 82px) !important;
+        margin: 16px !important; font-size: 16px !important; line-height: 1.65 !important;
+    }
+    .leaflet-popup-content b { font-size: 17px; }
+    .leaflet-popup-content button { font-size: 14px; min-height: 44px; padding: 11px 10px; }
+    .dist-info-popup { font-size: 14px; }
+    .rds-box { font-size: 14px; padding: 4px 7px; }
+    .receiver-popup .leaflet-popup-content { font-size: 16px !important; }
+    #ro-clock { top: auto; bottom: 10px; right: 10px; font-size: 20px; padding: 7px 10px; }
+    .tz-label { font-size: 12px; }
+    #weather-widget { top: auto; bottom: 59px; right: 10px; padding: 9px 11px; }
+    .telegram-modal { width: 96%; height: 88vh; padding: 14px; }
+    .telegram-frame { height: calc(88vh - 120px); min-height: 250px; }
+    .log-header { font-size: 16px; }
+}
 </style>
 </head>
 
@@ -169,25 +241,32 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
 
 <div id="radioPanel">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <span style="font-size: 16px;"><b>📻 Control Panel</b></span>
+        <span style="font-size: 16px;"><b>📻 FM Radio Map</b></span>
         <span id="toggleBtn" onclick="togglePanel()" style="cursor: pointer; color: #aaa; font-size: 16px; transition: transform 0.3s; padding: 0 5px; user-select: none;">▼</span>
     </div>
     
     <div id="panelContent">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px;">
-            <button class="tune-btn" onclick="stepFreq(-0.1)">-</button>
+        <div class="tuning-row">
             <div class="lcd-screen">
-                <input id="freqInput" type="text" value="" placeholder="---" inputmode="decimal">
+                <div class="lcd-display">
+                    <span class="lcd-ghost" aria-hidden="true">88.8</span>
+                    <input id="freqInput" type="text" value="" placeholder="" inputmode="decimal" aria-label="FM frequency in MHz">
+                </div>
                 <div class="mhz-label">MHz</div>
             </div>
-            <button class="tune-btn" onclick="stepFreq(0.1)">+</button>
-        </div>
-        
-        <div style="margin-bottom: 15px;">
-            <input id="searchInput" type="text" placeholder="Search network, location or PI code..." oninput="document.getElementById('freqInput').value=''; tune();">
-            <div class="checkbox-container">
-                <label><input type="checkbox" id="onlyMarkedChk" onchange="applyOnlyMarked()"> Only Marked</label>
+            <div class="knob-area">
+                <div id="tuningKnob" class="tuning-knob" role="slider" tabindex="0" aria-label="Rotary frequency tuning" aria-valuemin="87.5" aria-valuemax="108.0" aria-valuenow="98.0" title="Drag the knob or use arrow keys to tune"
+                     onpointerdown="startKnobDrag(event)" onpointermove="moveKnobDrag(event)" onpointerup="stopKnobDrag(event)" onpointercancel="stopKnobDrag(event)" onkeydown="handleKnobKey(event)">
+                    <span class="knob-indicator"></span>
+                    <span class="knob-center"></span>
+                </div>
+                <span class="knob-caption">TUNING</span>
             </div>
+        </div>
+
+        <input id="searchInput" type="hidden" value="">
+        <div class="checkbox-container only-marked-row">
+            <label><input type="checkbox" id="onlyMarkedChk" onchange="applyOnlyMarked()"> Only Marked</label>
         </div>
 
         <div style="display: flex; justify-content: center; gap: 8px;">
@@ -201,7 +280,8 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
             <button class="action-btn" onclick="toggleFeedbackModal()">✉️ Feedback</button>
         </div>
         <div class="action-row" style="margin-top: 8px;">
-            <a href="https://www.youtube.com/@dragosdxing" target="_blank" class="action-btn">▶️ My Youtube Channel</a>
+            <a href="https://www.youtube.com/@dragosdxing" target="_blank" rel="noopener noreferrer" class="action-btn">▶️ My Youtube Channel</a>
+            <button type="button" class="action-btn telegram-action" onclick="openTelegramModal()">✈️ Telegram</button>
         </div>
     </div>
 </div>
@@ -253,6 +333,17 @@ hr { border: 0; border-top: 1px solid #555; margin: 10px 0; }
     </div>
 </div>
 
+<div id="telegramModal" class="modal-overlay modal-large telegram-modal">
+    <div class="log-header">
+        <span>✈️ Info FM România – Telegram</span>
+        <span class="close-modal" onclick="closeAllModals()">✖ Close</span>
+    </div>
+    <div class="telegram-toolbar">
+        <a href="https://t.me/infofmrou" target="_blank" rel="noopener noreferrer">Deschide canalul în Telegram ↗</a>
+    </div>
+    <iframe id="telegramFrame" class="telegram-frame" title="Info FM România Telegram channel" loading="lazy" src="https://t.me/s/infofmrou"></iframe>
+</div>
+
 <div id="map"></div>
 
 <script>
@@ -301,6 +392,7 @@ window.closeAllModals = function() {
     document.getElementById('logModal').style.display = 'none';
     document.getElementById('feedbackModal').style.display = 'none';
     document.getElementById('losModal').style.display = 'none';
+    document.getElementById('telegramModal').style.display = 'none';
 };
 
 window.togglePanel = function() {
@@ -377,6 +469,14 @@ window.clearLog = function() {
 window.toggleFeedbackModal = function() {
     closeAllModals();
     document.getElementById('feedbackModal').style.display = 'block';
+};
+
+window.openTelegramModal = function() {
+    closeAllModals();
+    const modal = document.getElementById('telegramModal');
+    const frame = document.getElementById('telegramFrame');
+    if (!frame.getAttribute('src')) frame.src = 'https://t.me/s/infofmrou';
+    modal.style.display = 'block';
 };
 
 window.sendFeedback = function() {
@@ -656,7 +756,8 @@ document.getElementById('freqInput').addEventListener('input', function(e) {
     }
     if (parseFloat(val) > 108.0) val = "108.0";
     if (e.target.value !== val) e.target.value = val;
-    tune(); 
+    tune();
+    syncKnobToFrequency();
 });
 
 function generateIrregularPolygon(lat, lng, radiusMeters, color, opacity, seedOffset) {
@@ -754,7 +855,7 @@ function tune(){
     if(distanceLine) { map.removeLayer(distanceLine); distanceLine = null; }
 
     let regexFM = /\b(?:8[7-9]|9\d|10[0-8])[\.,]\d+\b/;
-    const errorKeywords = ["(**NO AUDIO**)", "(**BLANK**)", "(**VERY LOW AUDIO**)", "(**OFF AIR**)"];
+    const errorKeywords = ["(**NO AUDIO**)", "(**AUDIO PROBLEM**)", "(**VERY LOW AUDIO**)", "(**OFF AIR**)"];
 
     let filtered = allStations.filter(f => {
         let desc = f.properties.description || ""; let name = f.properties.name || "";
@@ -780,6 +881,8 @@ function tune(){
             });
         }
         
+        // Acceptăm și eticheta veche din datele existente, dar o afișăm cu noul nume.
+        matched = matched.map(s => s.replace(/\(\*\*BLANK\*\*\)/gi, "(**AUDIO PROBLEM**)"));
         newF.properties._cleanDescLines = matched.map(s => s.replace(/\[.*?\]/g, '').replace(/<[^>]*>?/gm, '').trim());
 
         let hasError = false;
@@ -879,6 +982,10 @@ function tune(){
                 }
 
                 return `<b>${feature.properties.name}</b><br>${dHtml}${feature.properties._processedDesc}<br><br>${coverageBtnHtml}${losBtnHtml}${logBtnHtml}`;
+            }, {
+                maxWidth: window.matchMedia('(max-width: 768px)').matches ? Math.max(250, window.innerWidth - 42) : 300,
+                minWidth: window.matchMedia('(max-width: 768px)').matches ? Math.max(210, window.innerWidth - 92) : 250,
+                autoPanPadding: [16, 16]
             });
         }
     }).addTo(map);
@@ -903,15 +1010,83 @@ setInterval(() => {
     });
 }, 2500);
 
+let knobDragState = null;
+const KNOB_DEGREES_PER_STEP = 270 / 205; // cursă de 270° pentru banda FM 87.5–108.0 MHz
+
+function syncKnobToFrequency() {
+    const knob = document.getElementById('tuningKnob');
+    const input = document.getElementById('freqInput');
+    if (!knob || !input) return;
+    let value = parseFloat(input.value.replace(',', '.'));
+    if (Number.isNaN(value)) value = 98.0;
+    value = Math.max(87.5, Math.min(108.0, value));
+    const angle = -135 + ((value - 87.5) / 20.5) * 270;
+    knob.style.transform = `rotate(${angle}deg)`;
+    knob.setAttribute('aria-valuenow', value.toFixed(1));
+}
+
+function startKnobDrag(event) {
+    if (event.button !== undefined && event.button !== 0) return;
+    event.preventDefault();
+    const knob = event.currentTarget;
+    const rect = knob.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const angle = Math.atan2(event.clientY - cy, event.clientX - cx) * 180 / Math.PI;
+    knobDragState = { pointerId: event.pointerId, lastAngle: angle, accumulated: 0 };
+    knob.classList.add('is-dragging');
+    if (knob.setPointerCapture) knob.setPointerCapture(event.pointerId);
+}
+
+function moveKnobDrag(event) {
+    if (!knobDragState || event.pointerId !== knobDragState.pointerId) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const angle = Math.atan2(event.clientY - cy, event.clientX - cx) * 180 / Math.PI;
+    let delta = angle - knobDragState.lastAngle;
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
+    knobDragState.lastAngle = angle;
+    knobDragState.accumulated += delta;
+
+    const steps = knobDragState.accumulated >= 0
+        ? Math.floor(knobDragState.accumulated / KNOB_DEGREES_PER_STEP)
+        : Math.ceil(knobDragState.accumulated / KNOB_DEGREES_PER_STEP);
+    if (steps !== 0) {
+        knobDragState.accumulated -= steps * KNOB_DEGREES_PER_STEP;
+        stepFreq(steps * 0.1);
+    }
+}
+
+function stopKnobDrag(event) {
+    if (!knobDragState) return;
+    const knob = event.currentTarget;
+    if (event.pointerId === undefined || event.pointerId === knobDragState.pointerId) {
+        knobDragState = null;
+        knob.classList.remove('is-dragging');
+        syncKnobToFrequency();
+    }
+}
+
+function handleKnobKey(event) {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowUp') { event.preventDefault(); stepFreq(0.1); }
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') { event.preventDefault(); stepFreq(-0.1); }
+    else if (event.key === 'Home') { event.preventDefault(); document.getElementById('freqInput').value = '87.5'; tune(); syncKnobToFrequency(); }
+    else if (event.key === 'End') { event.preventDefault(); document.getElementById('freqInput').value = '108.0'; tune(); syncKnobToFrequency(); }
+}
+
 function stepFreq(delta) {
-    document.getElementById("searchInput").value = ""; 
+    document.getElementById("searchInput").value = "";
     let i = document.getElementById("freqInput");
     let v = parseFloat(i.value.replace(',', '.'));
     if (isNaN(v)) v = delta > 0 ? 87.5 - delta : 108.0 - delta;
     v += delta;
     if (v < 87.5) v = 108.0;
     if (v > 108.0) v = 87.5;
-    i.value = v.toFixed(1); tune();
+    i.value = v.toFixed(1);
+    tune();
+    syncKnobToFrequency();
 }
 
 function setCountry(c){
@@ -940,7 +1115,8 @@ window.addEventListener('DOMContentLoaded', () => {
     if(urlParams.has('freq')) document.getElementById('freqInput').value = urlParams.get('freq');
     else if(urlParams.has('q')) { document.getElementById('searchInput').value = urlParams.get('q'); document.getElementById('freqInput').value = ''; }
     else { document.getElementById('freqInput').value = ''; document.getElementById('searchInput').value = ''; }
-    setCountry('ro'); 
+    setCountry('ro');
+    syncKnobToFrequency();
 });
 </script>
 </body>
