@@ -5389,21 +5389,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          22.621622,
-          46.691194
-        ]
-      },
-      "properties": {
-        "name": "Stâna de Vale / Hotel Iadolina",
-        "description": ""
-      },
-      "id": "A0NDA"
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           22.455524,
           46.535067
         ]
