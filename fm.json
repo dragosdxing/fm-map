@@ -395,7 +395,7 @@
       },
       "properties": {
         "name": "Bacău / Hotel Decebal",
-        "description": "88.8 v Radio Impuls [E06D] - 500W [_IMPULS_][88,8_FM_]\n92.5 v Radio ZU [E2AA] - 500W [RADIO_ZU][92,5_FM_]\n95.1 v Kiss FM [515A] - 700W [KISS_FM_][95.1____]\n96.0 v Magic FM [E210] - 1kW [MAGIC_FM][____96__]\n98.0 v Romantic FM [E2AB] - 1kW [ROMANTIC][98.0_FM_]\n100.6 v Itsy Bitsy FM [E3C8] - 500W [_ITSY___][_BITSY__]",
+        "description": "88.8 v Radio Impuls [E06D] - 500W [_IMPULS_][88,8_FM_]\n92.5 v Romantic FM [E2AB] - 500W [ROMANTIC][92,5_FM_]\n95.1 v Kiss FM [515A] - 700W [KISS_FM_][95.1____]\n96.0 v Magic FM [E210] - 1kW [MAGIC_FM][____96__]\n98.0 v Radio ZU [E2AA] - 1kW [RADIO_ZU][98.0_FM_]\n100.6 v Itsy Bitsy FM [E3C8] - 500W [_ITSY___][_BITSY__]",
         "_umap_options": {
           "color": "Black",
           "iconClass": "Drop"
